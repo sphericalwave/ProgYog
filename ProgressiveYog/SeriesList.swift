@@ -36,6 +36,7 @@ struct SeriesCell: View {
     var body: some View {
         NavigationLink(destination: SeriesUI()){
             HStack(alignment: .center) {
+//TODO: Get Color for Graph Working
 //                Rectangle()
 //                    .size(width: 18, height: 18)
 //                    .fill(Color.blue)
