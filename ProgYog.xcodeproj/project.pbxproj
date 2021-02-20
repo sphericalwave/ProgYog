@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AF0B756B25E06FDE00A0FF28 /* ProgressiveYogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756A25E06FDE00A0FF28 /* ProgressiveYogApp.swift */; };
-		AF0B756D25E06FDE00A0FF28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756C25E06FDE00A0FF28 /* ContentView.swift */; };
 		AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B756E25E06FE200A0FF28 /* Assets.xcassets */; };
 		AF0B757225E06FE200A0FF28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */; };
 		AF0B757425E06FE200A0FF28 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757325E06FE200A0FF28 /* Persistence.swift */; };
-		AF0B757725E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757525E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld */; };
+		AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */; };
 		AF0B758225E06FE300A0FF28 /* ProgressiveYogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B758125E06FE300A0FF28 /* ProgressiveYogTests.swift */; };
 		AF0B758D25E06FE300A0FF28 /* ProgressiveYogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B758C25E06FE300A0FF28 /* ProgressiveYogUITests.swift */; };
 		AF0B759E25E0708A00A0FF28 /* SeriesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B759D25E0708A00A0FF28 /* SeriesList.swift */; };
@@ -38,18 +37,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AF0B756725E06FDE00A0FF28 /* ProgressiveYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressiveYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0B756725E06FDE00A0FF28 /* ProgYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B756A25E06FDE00A0FF28 /* ProgressiveYogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveYogApp.swift; sourceTree = "<group>"; };
-		AF0B756C25E06FDE00A0FF28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF0B756E25E06FE200A0FF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF0B757325E06FE200A0FF28 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AF0B757625E06FE200A0FF28 /* ProgressiveYog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProgressiveYog.xcdatamodel; sourceTree = "<group>"; };
 		AF0B757825E06FE200A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF0B757D25E06FE300A0FF28 /* ProgressiveYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressiveYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0B757D25E06FE300A0FF28 /* ProgYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B758125E06FE300A0FF28 /* ProgressiveYogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveYogTests.swift; sourceTree = "<group>"; };
 		AF0B758325E06FE300A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF0B758825E06FE300A0FF28 /* ProgressiveYogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressiveYogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0B758825E06FE300A0FF28 /* ProgYogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B758C25E06FE300A0FF28 /* ProgressiveYogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveYogUITests.swift; sourceTree = "<group>"; };
 		AF0B758E25E06FE300A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF0B759D25E0708A00A0FF28 /* SeriesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesList.swift; sourceTree = "<group>"; };
@@ -95,9 +93,9 @@
 		AF0B756825E06FDE00A0FF28 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AF0B756725E06FDE00A0FF28 /* ProgressiveYog.app */,
-				AF0B757D25E06FE300A0FF28 /* ProgressiveYogTests.xctest */,
-				AF0B758825E06FE300A0FF28 /* ProgressiveYogUITests.xctest */,
+				AF0B756725E06FDE00A0FF28 /* ProgYog.app */,
+				AF0B757D25E06FE300A0FF28 /* ProgYogTests.xctest */,
+				AF0B758825E06FE300A0FF28 /* ProgYogUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,11 +107,10 @@
 				AF0B759D25E0708A00A0FF28 /* SeriesList.swift */,
 				AF0B75A725E08CFD00A0FF28 /* SeriesUI.swift */,
 				AF0B75A225E08CE300A0FF28 /* TrainUI.swift */,
-				AF0B756C25E06FDE00A0FF28 /* ContentView.swift */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
 				AF0B757825E06FE200A0FF28 /* Info.plist */,
-				AF0B757525E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld */,
+				AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */,
 				AF0B757025E06FE200A0FF28 /* Preview Content */,
 			);
 			path = ProgressiveYog;
@@ -148,9 +145,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AF0B756625E06FDE00A0FF28 /* ProgressiveYog */ = {
+		AF0B756625E06FDE00A0FF28 /* ProgYog */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYog" */;
+			buildConfigurationList = AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYog" */;
 			buildPhases = (
 				AF0B756325E06FDE00A0FF28 /* Sources */,
 				AF0B756425E06FDE00A0FF28 /* Frameworks */,
@@ -160,14 +157,14 @@
 			);
 			dependencies = (
 			);
-			name = ProgressiveYog;
+			name = ProgYog;
 			productName = ProgressiveYog;
-			productReference = AF0B756725E06FDE00A0FF28 /* ProgressiveYog.app */;
+			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AF0B757C25E06FE300A0FF28 /* ProgressiveYogTests */ = {
+		AF0B757C25E06FE300A0FF28 /* ProgYogTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0B759425E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYogTests" */;
+			buildConfigurationList = AF0B759425E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYogTests" */;
 			buildPhases = (
 				AF0B757925E06FE300A0FF28 /* Sources */,
 				AF0B757A25E06FE300A0FF28 /* Frameworks */,
@@ -178,14 +175,14 @@
 			dependencies = (
 				AF0B757F25E06FE300A0FF28 /* PBXTargetDependency */,
 			);
-			name = ProgressiveYogTests;
+			name = ProgYogTests;
 			productName = ProgressiveYogTests;
-			productReference = AF0B757D25E06FE300A0FF28 /* ProgressiveYogTests.xctest */;
+			productReference = AF0B757D25E06FE300A0FF28 /* ProgYogTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AF0B758725E06FE300A0FF28 /* ProgressiveYogUITests */ = {
+		AF0B758725E06FE300A0FF28 /* ProgYogUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0B759725E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYogUITests" */;
+			buildConfigurationList = AF0B759725E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYogUITests" */;
 			buildPhases = (
 				AF0B758425E06FE300A0FF28 /* Sources */,
 				AF0B758525E06FE300A0FF28 /* Frameworks */,
@@ -196,9 +193,9 @@
 			dependencies = (
 				AF0B758A25E06FE300A0FF28 /* PBXTargetDependency */,
 			);
-			name = ProgressiveYogUITests;
+			name = ProgYogUITests;
 			productName = ProgressiveYogUITests;
-			productReference = AF0B758825E06FE300A0FF28 /* ProgressiveYogUITests.xctest */;
+			productReference = AF0B758825E06FE300A0FF28 /* ProgYogUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +220,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "ProgressiveYog" */;
+			buildConfigurationList = AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "ProgYog" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -236,9 +233,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AF0B756625E06FDE00A0FF28 /* ProgressiveYog */,
-				AF0B757C25E06FE300A0FF28 /* ProgressiveYogTests */,
-				AF0B758725E06FE300A0FF28 /* ProgressiveYogUITests */,
+				AF0B756625E06FDE00A0FF28 /* ProgYog */,
+				AF0B757C25E06FE300A0FF28 /* ProgYogTests */,
+				AF0B758725E06FE300A0FF28 /* ProgYogUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -276,11 +273,10 @@
 			files = (
 				AF0B75A325E08CE300A0FF28 /* TrainUI.swift in Sources */,
 				AF0B757425E06FE200A0FF28 /* Persistence.swift in Sources */,
-				AF0B756D25E06FDE00A0FF28 /* ContentView.swift in Sources */,
 				AF0B759E25E0708A00A0FF28 /* SeriesList.swift in Sources */,
 				AF0B756B25E06FDE00A0FF28 /* ProgressiveYogApp.swift in Sources */,
 				AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */,
-				AF0B757725E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld in Sources */,
+				AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,12 +301,12 @@
 /* Begin PBXTargetDependency section */
 		AF0B757F25E06FE300A0FF28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AF0B756625E06FDE00A0FF28 /* ProgressiveYog */;
+			target = AF0B756625E06FDE00A0FF28 /* ProgYog */;
 			targetProxy = AF0B757E25E06FE300A0FF28 /* PBXContainerItemProxy */;
 		};
 		AF0B758A25E06FE300A0FF28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AF0B756625E06FDE00A0FF28 /* ProgressiveYog */;
+			target = AF0B756625E06FDE00A0FF28 /* ProgYog */;
 			targetProxy = AF0B758925E06FE300A0FF28 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -494,7 +490,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgressiveYog.app/ProgressiveYog";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgYog.app/ProgYog";
 			};
 			name = Debug;
 		};
@@ -516,7 +512,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgressiveYog.app/ProgressiveYog";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgYog.app/ProgYog";
 			};
 			name = Release;
 		};
@@ -563,7 +559,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "ProgressiveYog" */ = {
+		AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "ProgYog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0B758F25E06FE300A0FF28 /* Debug */,
@@ -572,7 +568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYog" */ = {
+		AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0B759225E06FE300A0FF28 /* Debug */,
@@ -581,7 +577,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0B759425E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYogTests" */ = {
+		AF0B759425E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYogTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0B759525E06FE300A0FF28 /* Debug */,
@@ -590,7 +586,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0B759725E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgressiveYogUITests" */ = {
+		AF0B759725E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "ProgYogUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0B759825E06FE300A0FF28 /* Debug */,
@@ -602,13 +598,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AF0B757525E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld */ = {
+		AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				AF0B757625E06FE200A0FF28 /* ProgressiveYog.xcdatamodel */,
 			);
 			currentVersion = AF0B757625E06FE200A0FF28 /* ProgressiveYog.xcdatamodel */;
-			path = ProgressiveYog.xcdatamodeld;
+			path = ProgYog.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
