@@ -13,7 +13,7 @@ struct ProgYogData {  //TODO: Make a Struct?
     mutating func moc() -> NSManagedObjectContext { return persistentContainer.viewContext }
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "FitWrenchData")
+        let container = NSPersistentContainer(name: "ProgYog")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -40,7 +40,7 @@ struct ProgYogData {  //TODO: Make a Struct?
         let dbSeeded = usrDflt.bool(forKey: key)
         if !dbSeeded  {
             _ = AbsSkillData(moc: moc())  //FIXME: Style?
-            save()
+            //save()  //FIXME: Crashing on Save Because Required Relationship are Not in place
             usrDflt.set(true, forKey: key)
         }
         else { print("DB is Seeded.") }

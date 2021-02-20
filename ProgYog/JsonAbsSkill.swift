@@ -8,11 +8,14 @@
 import Foundation
 
 struct JsonAbsSkill: Codable {
+    let series: String
+    let url: URL?
     let depth: Int
-    let instructions: String
+    let symmetrical: Bool  //TODO: Map to Bool?
+    let skillFamily: String
     let name: String
-    let symetrical: Bool
-    let timeCode: Double?
+    let instructions: String
+    let timeCode: Double   //TODO: Make a Double
 }
 
 struct JsonYogSeries: Codable {
@@ -38,7 +41,7 @@ struct AbsSkillData
     }
     
     private func loadCoreData() {
-        guard let array = loadJson(filename: "JsonAbsSkill") else { fatalError() }
+        guard let array = loadJson(filename: "ProgYogData") else { fatalError() }
         for item in array {
             //_ = AbsFd(absFdJson: item, moc: moc)
             _ = AbsSkill(jsonAbsSkill: item, moc: moc)
@@ -65,7 +68,7 @@ extension AbsSkill {
         self.name = jsonAbsSkill.name
         self.depth = Int16(jsonAbsSkill.depth)
         self.instructions = jsonAbsSkill.instructions
-        self.symetrical = jsonAbsSkill.symetrical
+        self.symetrical = jsonAbsSkill.symmetrical  //TODO
         //self.timeCode = jsonAbsSkill.timeCode
         //TODO: missing skill family
     }
