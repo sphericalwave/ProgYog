@@ -14,8 +14,7 @@ struct ProgressiveYogApp: App {
     var body: some Scene {
         WindowGroup {
             SeriesList()
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            //TrainUI()
         }
     }
 }

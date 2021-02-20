@@ -15,14 +15,14 @@ struct SeriesUI: View {
         VStack{
             ZStack() {
                 Rectangle()
-                    .inset(by: 10)
+                    .inset(by: 9)
                     .fill(Color.blue)
                     .frame(height: 300)
-                Text("Series Graph")
+                Text("Series Graph Families")
             }
             
             List{
-                NavigationLink(destination: Text("FIXME")) {
+                NavigationLink(destination: Text("List of Crt Skills")) {
                     Text("Mon, Feb 17, 2021")
                 }
                 Text("Mon, Feb 17, 2021")

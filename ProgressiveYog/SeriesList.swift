@@ -13,12 +13,12 @@ struct SeriesList: View {
             VStack {
                 ZStack() {
                     Rectangle()
-                        .inset(by: 10)
+                        .inset(by: 9)
                         .fill(Color.blue)
-                        .frame(height: 300)
-                    Text("General Graph")
+                        .frame(height: 297)
+                    Text("Graph of Progress in Each Series")
                 }
-                List {
+                List {  //FIXME: ListStyle looks weird here
                     SeriesCell()
                     Text("Prog Yoga B")
                     Text("Prog Yoga C")
@@ -35,7 +35,15 @@ struct SeriesList: View {
 struct SeriesCell: View {
     var body: some View {
         NavigationLink(destination: SeriesUI()){
-            Text("Prog Yoga A")
+            HStack(alignment: .center) {
+//                Rectangle()
+//                    .size(width: 18, height: 18)
+//                    .fill(Color.blue)
+                Text("Prog Yoga A")
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                Text("86%")
+            }
         }
     }
 }
