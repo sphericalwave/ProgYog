@@ -15,6 +15,9 @@
 		AF0B757725E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757525E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld */; };
 		AF0B758225E06FE300A0FF28 /* ProgressiveYogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B758125E06FE300A0FF28 /* ProgressiveYogTests.swift */; };
 		AF0B758D25E06FE300A0FF28 /* ProgressiveYogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B758C25E06FE300A0FF28 /* ProgressiveYogUITests.swift */; };
+		AF0B759E25E0708A00A0FF28 /* SeriesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B759D25E0708A00A0FF28 /* SeriesList.swift */; };
+		AF0B75A325E08CE300A0FF28 /* TrainUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B75A225E08CE300A0FF28 /* TrainUI.swift */; };
+		AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B75A725E08CFD00A0FF28 /* SeriesUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		AF0B758825E06FE300A0FF28 /* ProgressiveYogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressiveYogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B758C25E06FE300A0FF28 /* ProgressiveYogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveYogUITests.swift; sourceTree = "<group>"; };
 		AF0B758E25E06FE300A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF0B759D25E0708A00A0FF28 /* SeriesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesList.swift; sourceTree = "<group>"; };
+		AF0B75A225E08CE300A0FF28 /* TrainUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainUI.swift; sourceTree = "<group>"; };
+		AF0B75A725E08CFD00A0FF28 /* SeriesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				AF0B756A25E06FDE00A0FF28 /* ProgressiveYogApp.swift */,
+				AF0B759D25E0708A00A0FF28 /* SeriesList.swift */,
+				AF0B75A725E08CFD00A0FF28 /* SeriesUI.swift */,
+				AF0B75A225E08CE300A0FF28 /* TrainUI.swift */,
 				AF0B756C25E06FDE00A0FF28 /* ContentView.swift */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
@@ -265,9 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF0B75A325E08CE300A0FF28 /* TrainUI.swift in Sources */,
 				AF0B757425E06FE200A0FF28 /* Persistence.swift in Sources */,
 				AF0B756D25E06FDE00A0FF28 /* ContentView.swift in Sources */,
+				AF0B759E25E0708A00A0FF28 /* SeriesList.swift in Sources */,
 				AF0B756B25E06FDE00A0FF28 /* ProgressiveYogApp.swift in Sources */,
+				AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */,
 				AF0B757725E06FE200A0FF28 /* ProgressiveYog.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
