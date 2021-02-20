@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-class ProYogDatabase {  //TODO: Make a Struct?
+struct ProgYogData {  //TODO: Make a Struct?
     
-    var moc: NSManagedObjectContext { return persistentContainer.viewContext }
+    mutating func moc() -> NSManagedObjectContext { return persistentContainer.viewContext }
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "FitWrenchData")
@@ -22,7 +22,7 @@ class ProYogDatabase {  //TODO: Make a Struct?
         return container
     }()
     
-    func save() {
+    mutating func save() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -34,12 +34,12 @@ class ProYogDatabase {  //TODO: Make a Struct?
         }
     }
     
-    func seedDB() {
+    mutating func seedDB() {
         let usrDflt = UserDefaults.standard
         let key = "dbSeeded"
         let dbSeeded = usrDflt.bool(forKey: key)
         if !dbSeeded  {
-            _ = AbsSkillData(moc: moc)  //FIXME: Style?
+            _ = AbsSkillData(moc: moc())  //FIXME: Style?
             save()
             usrDflt.set(true, forKey: key)
         }
