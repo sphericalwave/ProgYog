@@ -110,14 +110,12 @@
 			isa = PBXGroup;
 			children = (
 				AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */,
-				AF0B75CA25E1544B00A0FF28 /* ProgYogData.swift */,
 				AF0B759D25E0708A00A0FF28 /* SeriesList.swift */,
 				AF0B75A725E08CFD00A0FF28 /* SeriesUI.swift */,
 				AF0B75A225E08CE300A0FF28 /* TrainUI.swift */,
-				AF0B75C025E1500600A0FF28 /* JsonAbsSkill.swift */,
 				AF0B75EA25E16EFE00A0FF28 /* ProgYogData.json */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
-				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
+				AF0B75EF25E1AB3600A0FF28 /* Data */,
 				AF0B757825E06FE200A0FF28 /* Info.plist */,
 				AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */,
 				AF0B757025E06FE200A0FF28 /* Preview Content */,
@@ -149,6 +147,16 @@
 				AF0B758E25E06FE300A0FF28 /* Info.plist */,
 			);
 			path = ProgYogUITests;
+			sourceTree = "<group>";
+		};
+		AF0B75EF25E1AB3600A0FF28 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AF0B75C025E1500600A0FF28 /* JsonAbsSkill.swift */,
+				AF0B75CA25E1544B00A0FF28 /* ProgYogData.swift */,
+				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
