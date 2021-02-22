@@ -57,15 +57,16 @@ struct PersistenceController {
         }
     }
     
+    //TODO: reinstate function once db is stable
     mutating func seedDB() {
-        let usrDflt = UserDefaults.standard
-        let key = "dbSeeded"
-        let dbSeeded = usrDflt.bool(forKey: key)
-        if !dbSeeded  {
+//        let usrDflt = UserDefaults.standard
+//        let key = "dbSeeded"
+//        let dbSeeded = usrDflt.bool(forKey: key)
+//        if !dbSeeded  {
             _ = AbsSkillData(moc: container.viewContext)  //FIXME: Style?
             //save()  //FIXME: Crashing on Save Because Required Relationship are Not in place
-            usrDflt.set(true, forKey: key)
-        }
-        else { print("DB is Seeded.") }
+            //usrDflt.set(true, forKey: key)
+//        }
+//        else { print("DB is Seeded.") }
     }
 }
