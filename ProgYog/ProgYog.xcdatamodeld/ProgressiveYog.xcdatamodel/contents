@@ -31,7 +31,7 @@
     <elements>
         <element name="AbsSkill" positionX="-105.3784790039062" positionY="55.18130493164062" width="128" height="134"/>
         <element name="CrtSkill" positionX="-106.5586547851562" positionY="237.6694030761719" width="128" height="133"/>
+        <element name="SkillFamily" positionX="-107.2745971679688" positionY="-59.67355346679688" width="128" height="89"/>
         <element name="YogSeries" positionX="-108.1846923828125" positionY="-166.3743133544922" width="128" height="74"/>
-        <element name="SkillFamily" positionX="-107.2745971679688" positionY="-59.67355346679688" width="128" height="103"/>
     </elements>
 </model>

@@ -64,6 +64,11 @@ struct PersistenceController {
 //        let dbSeeded = usrDflt.bool(forKey: key)
 //        if !dbSeeded  {
             _ = AbsSkillData(moc: container.viewContext)  //FIXME: Style?
+        
+        let series = ["A", "B", "C", "D", "E"]
+        for s in series {
+            print("Setup Series \(s)")
+        }
             //save()  //FIXME: Crashing on Save Because Required Relationship are Not in place
             //usrDflt.set(true, forKey: key)
 //        }
