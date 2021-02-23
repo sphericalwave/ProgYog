@@ -9,7 +9,7 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
@@ -30,9 +30,9 @@ struct PersistenceController {
         }
         return result
     }()
-
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "ProgYog")
         if inMemory {
@@ -47,31 +47,51 @@ struct PersistenceController {
     
     func save() {
         let context = container.viewContext
-
         if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print(error)
-            }
+            do { try context.save() }
+            catch { print(error) }
         }
     }
     
     //TODO: reinstate function once db is stable
     mutating func seedDB() {
-//        let usrDflt = UserDefaults.standard
-//        let key = "dbSeeded"
-//        let dbSeeded = usrDflt.bool(forKey: key)
-//        if !dbSeeded  {
-            _ = AbsSkillData(moc: container.viewContext)  //FIXME: Style?
-        
-        let series = ["A", "B", "C", "D", "E"]
-        for s in series {
-            print("Setup Series \(s)")
+        loadAbsSkills()
+        loadSkillFamilies()
+        loadYogSeries()
+    }
+    
+    func loadAbsSkills() {
+        _ = AbsSkillData(moc: container.viewContext)  //FIXME: Style?
+    }
+    
+    func loadSkillFamilies() {
+        let fetchAbsSkills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+        let absSkills = try! container.viewContext.fetch(fetchAbsSkills) //FIXME: Force Unwrap
+        let skillFamilies = absSkills.map {
+            $0.skillFamily
         }
-            //save()  //FIXME: Crashing on Save Because Required Relationship are Not in place
-            //usrDflt.set(true, forKey: key)
+        print(skillFamilies)
+    }
+    
+    func loadYogSeries() {
+//        let series = ["A", "B", "C", "D", "E"]
+//        let url = URL(string: "FIXME")!
+//        for s in series {
+//            let s = YogSeries(name: s, url: url, moc: container.viewContext)
+//            s.addToSkillFamilies(<#T##value: SkillFamily##SkillFamily#>)
+//            print("Setup Series \(s)")
 //        }
-//        else { print("DB is Seeded.") }
+    }
+    
+    mutating func firstLaunch() {
+        let usrDflt = UserDefaults.standard
+        let key = "dbSeeded"
+        let dbSeeded = usrDflt.bool(forKey: key)
+        if !dbSeeded  {
+            seedDB()
+            save()  //FIXME: Crashing on Save Because Required Relationship are Not in place
+            usrDflt.set(true, forKey: key)
+        }
+        else { print("DB is Seeded.") }
     }
 }

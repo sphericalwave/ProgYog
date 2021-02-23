@@ -4,8 +4,29 @@
 //
 //  Created by Aaron Anthony on 2021-02-22.
 //
+//
 
+import Foundation
 import CoreData
+
+@objc(AbsSkill)
+public class AbsSkill: NSManagedObject { }
+
+extension AbsSkill {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<AbsSkill> {
+        return NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+    }
+
+    @NSManaged public var depth: Int16
+    @NSManaged public var instructions: String?
+    @NSManaged public var name: String?
+    @NSManaged public var symetrical: Bool
+    @NSManaged public var timeCode: Double
+    @NSManaged public var crtSkills: NSSet?
+    @NSManaged public var skillFamily: SkillFamily?
+
+}
 
 extension AbsSkill {
     convenience init(jsonAbsSkill: JsonAbsSkill, moc: NSManagedObjectContext) {
@@ -19,22 +40,21 @@ extension AbsSkill {
     }
 }
 
-extension YogSeries {
-    convenience init(name: String, url: URL, moc: NSManagedObjectContext) {
-        self.init(context:moc)
-        self.name = name
-        self.url = url
-    }
+// MARK: Generated accessors for crtSkills
+extension AbsSkill {
+
+    @objc(addCrtSkillsObject:)
+    @NSManaged public func addToCrtSkills(_ value: CrtSkill)
+
+    @objc(removeCrtSkillsObject:)
+    @NSManaged public func removeFromCrtSkills(_ value: CrtSkill)
+
+    @objc(addCrtSkills:)
+    @NSManaged public func addToCrtSkills(_ values: NSSet)
+
+    @objc(removeCrtSkills:)
+    @NSManaged public func removeFromCrtSkills(_ values: NSSet)
+
 }
 
-extension SkillFamily {
-    convenience init(name: String, order: Int, absSkills: [AbsSkill], moc: NSManagedObjectContext) {
-        self.init(context: moc)
-        self.name = name
-        self.order = Int16(order)
-        //TODO: Manual Codegen Required...Incoming
-//        for skill in absSkills {
-//            self.
-//        }
-    }
-}
+extension AbsSkill: Identifiable { }

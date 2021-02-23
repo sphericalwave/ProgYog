@@ -21,7 +21,10 @@
 		AF0B75EB25E16EFE00A0FF28 /* ProgYogData.json in Resources */ = {isa = PBXBuildFile; fileRef = AF0B75EA25E16EFE00A0FF28 /* ProgYogData.json */; };
 		AF2B36C325E3FCA1009E760F /* AbsSkillList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36C225E3FCA1009E760F /* AbsSkillList.swift */; };
 		AF2B36C825E3FCBB009E760F /* TestTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36C725E3FCBB009E760F /* TestTabs.swift */; };
-		AF2B36D025E3FE9A009E760F /* AbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36CF25E3FE9A009E760F /* AbsSkill+.swift */; };
+		AF2B36DD25E4494D009E760F /* CrtSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D525E4494D009E760F /* CrtSkill+.swift */; };
+		AF2B36DF25E4494D009E760F /* YogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* YogSeries+.swift */; };
+		AF2B36E125E4494D009E760F /* AbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* AbsSkill+.swift */; };
+		AF2B36E325E4494D009E760F /* SkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* SkillFamily+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +65,10 @@
 		AF0B75EA25E16EFE00A0FF28 /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
 		AF2B36C225E3FCA1009E760F /* AbsSkillList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillList.swift; sourceTree = "<group>"; };
 		AF2B36C725E3FCBB009E760F /* TestTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTabs.swift; sourceTree = "<group>"; };
-		AF2B36CF25E3FE9A009E760F /* AbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbsSkill+.swift"; sourceTree = "<group>"; };
+		AF2B36D525E4494D009E760F /* CrtSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrtSkill+.swift"; sourceTree = "<group>"; };
+		AF2B36D725E4494D009E760F /* YogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YogSeries+.swift"; sourceTree = "<group>"; };
+		AF2B36D925E4494D009E760F /* AbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbsSkill+.swift"; sourceTree = "<group>"; };
+		AF2B36DB25E4494D009E760F /* SkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkillFamily+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +129,6 @@
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B75EF25E1AB3600A0FF28 /* Data */,
 				AF0B757825E06FE200A0FF28 /* Info.plist */,
-				AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */,
 				AF0B757025E06FE200A0FF28 /* Preview Content */,
 			);
 			path = ProgYog;
@@ -158,8 +163,12 @@
 		AF0B75EF25E1AB3600A0FF28 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AF2B36D525E4494D009E760F /* CrtSkill+.swift */,
+				AF2B36D725E4494D009E760F /* YogSeries+.swift */,
+				AF2B36D925E4494D009E760F /* AbsSkill+.swift */,
+				AF2B36DB25E4494D009E760F /* SkillFamily+.swift */,
+				AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */,
 				AF0B75C025E1500600A0FF28 /* JsonAbsSkill.swift */,
-				AF2B36CF25E3FE9A009E760F /* AbsSkill+.swift */,
 				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
 			);
 			path = Data;
@@ -297,13 +306,16 @@
 			files = (
 				AF0B75A325E08CE300A0FF28 /* TrainUI.swift in Sources */,
 				AF0B757425E06FE200A0FF28 /* Persistence.swift in Sources */,
-				AF2B36D025E3FE9A009E760F /* AbsSkill+.swift in Sources */,
+				AF2B36E125E4494D009E760F /* AbsSkill+.swift in Sources */,
+				AF2B36DF25E4494D009E760F /* YogSeries+.swift in Sources */,
 				AF0B759E25E0708A00A0FF28 /* SeriesList.swift in Sources */,
 				AF2B36C325E3FCA1009E760F /* AbsSkillList.swift in Sources */,
 				AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */,
 				AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */,
 				AF2B36C825E3FCBB009E760F /* TestTabs.swift in Sources */,
+				AF2B36DD25E4494D009E760F /* CrtSkill+.swift in Sources */,
 				AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */,
+				AF2B36E325E4494D009E760F /* SkillFamily+.swift in Sources */,
 				AF0B75C125E1500600A0FF28 /* JsonAbsSkill.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

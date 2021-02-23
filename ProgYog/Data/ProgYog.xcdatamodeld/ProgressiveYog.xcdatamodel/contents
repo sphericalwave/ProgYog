@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AbsSkill" representedClassName="AbsSkill" syncable="YES" codeGenerationType="class">
+    <entity name="AbsSkill" representedClassName="AbsSkill" syncable="YES">
         <attribute name="depth" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="instructions" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
@@ -9,7 +9,7 @@
         <relationship name="crtSkills" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CrtSkill" inverseName="absSkill" inverseEntity="CrtSkill"/>
         <relationship name="skillFamily" maxCount="1" deletionRule="Nullify" destinationEntity="SkillFamily" inverseName="absSkills" inverseEntity="SkillFamily"/>
     </entity>
-    <entity name="CrtSkill" representedClassName="CrtSkill" syncable="YES" codeGenerationType="class">
+    <entity name="CrtSkill" representedClassName="CrtSkill" syncable="YES">
         <attribute name="control" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="discomfort" attributeType="Integer 16" usesScalarValueType="YES"/>
@@ -17,20 +17,20 @@
         <attribute name="rom" attributeType="Integer 16" usesScalarValueType="YES"/>
         <relationship name="absSkill" maxCount="1" deletionRule="Nullify" destinationEntity="AbsSkill" inverseName="crtSkills" inverseEntity="AbsSkill"/>
     </entity>
-    <entity name="SkillFamily" representedClassName="SkillFamily" syncable="YES" codeGenerationType="class">
+    <entity name="SkillFamily" representedClassName="SkillFamily" syncable="YES">
         <attribute name="name" attributeType="String"/>
         <attribute name="order" attributeType="Integer 16" usesScalarValueType="YES"/>
         <relationship name="absSkills" toMany="YES" deletionRule="Nullify" destinationEntity="AbsSkill" inverseName="skillFamily" inverseEntity="AbsSkill"/>
         <relationship name="series" maxCount="1" deletionRule="Nullify" destinationEntity="YogSeries" inverseName="skillFamilies" inverseEntity="YogSeries"/>
     </entity>
-    <entity name="YogSeries" representedClassName="YogSeries" syncable="YES" codeGenerationType="class">
+    <entity name="YogSeries" representedClassName="YogSeries" syncable="YES">
         <attribute name="name" attributeType="String"/>
         <attribute name="url" attributeType="URI"/>
         <relationship name="skillFamilies" toMany="YES" deletionRule="Nullify" destinationEntity="SkillFamily" inverseName="series" inverseEntity="SkillFamily"/>
     </entity>
     <elements>
         <element name="AbsSkill" positionX="-105.3784790039062" positionY="55.18130493164062" width="128" height="134"/>
-        <element name="CrtSkill" positionX="-106.5586547851562" positionY="237.6694030761719" width="128" height="133"/>
+        <element name="CrtSkill" positionX="-106.5586547851562" positionY="237.6694030761719" width="128" height="119"/>
         <element name="SkillFamily" positionX="-107.2745971679688" positionY="-59.67355346679688" width="128" height="89"/>
         <element name="YogSeries" positionX="-108.1846923828125" positionY="-166.3743133544922" width="128" height="74"/>
     </elements>

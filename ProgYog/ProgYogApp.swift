@@ -15,7 +15,7 @@ struct ProgYogApp: App {
 
     init() {
         persistenceController.seedDB()
-        print("WTF")
+        //persistenceController.firstLaunch() //TODO: Reinstate
     }
     
     var body: some Scene {
