@@ -19,10 +19,13 @@ extension AbsSkill {
     }
 
     @NSManaged public var depth: Int16
-    @NSManaged public var instructions: String?
-    @NSManaged public var name: String?
+    @NSManaged public var instructions: String
+    @NSManaged public var name: String
     @NSManaged public var symetrical: Bool
     @NSManaged public var timeCode: Double
+    @NSManaged public var series: String
+    @NSManaged public var family: String
+    @NSManaged public var url: URL
     @NSManaged public var crtSkills: NSSet?
     @NSManaged public var skillFamily: SkillFamily?
 
@@ -35,8 +38,10 @@ extension AbsSkill {
         self.depth = Int16(jsonAbsSkill.depth)
         self.instructions = jsonAbsSkill.instructions
         self.symetrical = jsonAbsSkill.symmetrical  //TODO
-        //self.timeCode = jsonAbsSkill.timeCode
-        //TODO: missing skill family
+        self.timeCode = jsonAbsSkill.timeCode
+        self.family = jsonAbsSkill.skillFamily
+        self.series = jsonAbsSkill.series
+        self.url = jsonAbsSkill.url
     }
 }
 

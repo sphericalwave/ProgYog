@@ -9,7 +9,7 @@ import Foundation
 
 struct JsonAbsSkill: Codable {
     let series: String
-    let url: URL?
+    let url: URL
     let depth: Int
     let symmetrical: Bool  //TODO: Map to Bool?
     let skillFamily: String

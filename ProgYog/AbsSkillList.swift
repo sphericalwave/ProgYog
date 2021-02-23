@@ -21,7 +21,7 @@ struct AbsSkillList: View {
 
     var body: some View {
         List(absSkills, id: \.self) { absSkill in
-            Text(absSkill.name ?? "Unknown")
+            Text(absSkill.name)
         }
     }
 }
