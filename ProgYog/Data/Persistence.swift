@@ -68,16 +68,24 @@ struct PersistenceController {
         let fetchAbsSkills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
         let absSkills = try! container.viewContext.fetch(fetchAbsSkills) //FIXME: Force Unwrap
 
-        let skillFamilies = absSkills
-            .map { $0.family }
-            .reduce(into: [String]()) { if !$0.contains($1) { $0.append($1) } }
-        
-        print(skillFamilies.count)
+//        let skillFamilies = absSkills
+//            .map { $0.family }
+//            .reduce(into: [String]()) { if !$0.contains($1) { $0.append($1) } }
+//
+//        print(skillFamilies.count)
 
         //TODO: Deduplicate with Set Test Speeds
         let deduplicated = Set(absSkills.map(\.family))
         print(deduplicated.count)
         
+//        for fam in deduplicated {
+//            let fetchFamsAbsSkills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+//            //let predicateCourse = NSPredicate(format: "family == %@", fam)
+//            fetchFamsAbsSkills.predicate = NSPredicate(format: "family == %@", fam)
+//            let famSkills = try! container.viewContext.fetch(fetchFamsAbsSkills) //FIXME: Force Unwrap
+//            print(famSkills)
+//            _ = SkillFamily(name: fam, order: 1, absSkills: famSkills, moc: container.viewContext) //FIXME: FIX ORDER
+//        }
     }
     
     func loadYogSeries() {

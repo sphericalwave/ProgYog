@@ -18,22 +18,28 @@ extension SkillFamily {
         return NSFetchRequest<SkillFamily>(entityName: "SkillFamily")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var name: String
     @NSManaged public var order: Int16
-    @NSManaged public var absSkills: NSSet?
-    @NSManaged public var series: YogSeries?
-
+    @NSManaged public var series: String
+    @NSManaged public var absSkills: NSSet
+    @NSManaged public var yogSeries: YogSeries
 }
 
 extension SkillFamily {
-    convenience init(name: String, order: Int, absSkills: [AbsSkill], moc: NSManagedObjectContext) {
+    //FIXME: Depends on AbsSkills being loaded
+    //Not an ideal initializer because it's not completely initialized
+    //because the Series has to be associated
+    //External knowledge of construction order is required.
+    convenience init(row: JsonData, moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.name = name
-        self.order = Int16(order)
-        //TODO: Manual Codegen Required...Incoming
-//        for skill in absSkills {
-//            self.
-//        }
+        self.name = row.skillFamily
+        self.order = Int16(row.famOrder)
+        
+        //Fetch Skills and Associate them
+        let skills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+        skills.predicate = NSPredicate(format: "family == %@", row.skillFamily)
+        guard let famSkills = try? moc.fetch(skills) else { fatalError() }
+        self.addToAbsSkills(NSSet(object: famSkills))
     }
 }
 
@@ -51,9 +57,6 @@ extension SkillFamily {
 
     @objc(removeAbsSkills:)
     @NSManaged public func removeFromAbsSkills(_ values: NSSet)
-
 }
 
-extension SkillFamily : Identifiable {
-
-}
+extension SkillFamily: Identifiable { }

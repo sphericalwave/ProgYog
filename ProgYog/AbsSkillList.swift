@@ -10,18 +10,19 @@ import CoreData
 
 struct AbsSkillList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-
+    
     @FetchRequest(
         entity: AbsSkill.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \AbsSkill.name, ascending: true),
-            NSSortDescriptor(keyPath: \AbsSkill.depth, ascending: false)
+            NSSortDescriptor(keyPath: \AbsSkill.series, ascending: true),
+            NSSortDescriptor(keyPath: \AbsSkill.family, ascending: true),
+            NSSortDescriptor(keyPath: \AbsSkill.depth, ascending: true)
         ]
     ) var absSkills: FetchedResults<AbsSkill>
-
+    
     var body: some View {
         List(absSkills, id: \.self) { absSkill in
-            Text(absSkill.name)
+            Text("Series \(absSkill.series): \(absSkill.family) \(absSkill.depth): \(absSkill.name)")
         }
     }
 }

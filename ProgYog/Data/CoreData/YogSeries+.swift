@@ -25,10 +25,20 @@ extension YogSeries {
 }
 
 extension YogSeries {
-    convenience init(name: String, url: URL, moc: NSManagedObjectContext) {
-        self.init(context:moc)
-        self.name = name
-        self.url = url
+    //FIXME: Depends on SkillFamilys being loaded
+    //Not an ideal initializer because it's not completely initialized
+    //because the Series has to be associated
+    //External knowledge of construction order is required.
+    convenience init(row: JsonData, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.name = row.series
+        self.url = row.url
+        
+        //Fetch SkillFamilys and Associate them
+        let skillFamRequest = NSFetchRequest<SkillFamily>(entityName: "SkillFamily")
+        skillFamRequest.predicate = NSPredicate(format: "series == %@", row.series)
+        guard let skillFams = try? moc.fetch(skillFamRequest) else { fatalError() }
+        self.addToSkillFamilies(NSSet(object: skillFams))
     }
 }
 
