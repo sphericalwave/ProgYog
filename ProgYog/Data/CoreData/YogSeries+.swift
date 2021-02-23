@@ -29,7 +29,7 @@ extension YogSeries {
     //Not an ideal initializer because it's not completely initialized
     //because the Series has to be associated
     //External knowledge of construction order is required.
-    convenience init(row: JsonData, moc: NSManagedObjectContext) {
+    convenience init(row: JsonSkillData, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.name = row.series
         self.url = row.url

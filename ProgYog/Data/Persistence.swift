@@ -61,7 +61,7 @@ struct PersistenceController {
     }
     
     func loadAbsSkills() {
-        _ = AbsSkillData(moc: container.viewContext)  //FIXME: Style?
+        _ = ProgYogData(moc: container.viewContext)  //FIXME: Style?
     }
     
     func loadSkillFamilies() {

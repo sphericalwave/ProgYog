@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TestTabs: View {
     
-    @State private var tab: Int = 0
+    @State private var tab: Int = 2
     @Environment(\.managedObjectContext) var managedObjectContext //TODO: Do i need this if it's not used here?
     
     var body: some View {
@@ -24,6 +24,12 @@ struct TestTabs: View {
                 .tabItem {
                     Image(systemName: "bolt").imageScale(.large)
                     Text("AbsSkills")
+                }
+            
+            SkillFamList()
+                .tabItem {
+                    Image(systemName: "bolt").imageScale(.large)
+                    Text("SkillFam")
                 }
         }
     }
