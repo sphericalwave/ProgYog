@@ -35,16 +35,16 @@ extension AbsSkill {
     //Not an ideal initializer because it's not completely initialized
     //because the Series, SkillFamily has to be associated
     //External knowledge of construction order is required.
-    convenience init(jsonAbsSkill: JsonSkillData, moc: NSManagedObjectContext) {
+    convenience init(json: JsonSkillData, moc: NSManagedObjectContext) {
         self.init(context:moc)
-        self.name = jsonAbsSkill.name
-        self.depth = Int16(jsonAbsSkill.depth)
-        self.instructions = jsonAbsSkill.instructions
-        self.symetrical = jsonAbsSkill.symmetrical  //TODO
-        self.timeCode = jsonAbsSkill.timeCode
-        self.family = jsonAbsSkill.skillFamily
-        self.series = jsonAbsSkill.series
-        self.url = jsonAbsSkill.url
+        self.name = json.name
+        self.depth = Int16(json.depth)
+        self.instructions = json.instructions
+        self.symetrical = json.symmetrical  //TODO
+        self.timeCode = json.timeCode
+        self.family = json.skillFamily
+        self.series = json.series
+        self.url = json.url
     }
 }
 

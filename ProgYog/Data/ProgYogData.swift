@@ -50,7 +50,7 @@ struct ProgYogData
                 let decoder = JSONDecoder()
                 let skillFams = try decoder.decode([JsonSkillFamily].self, from: data)
                 for skillFam in skillFams {
-                    _ = SkillFamily(jsonSkillFam: skillFam, moc: moc)
+                    _ = SkillFamily(json: skillFam, moc: moc)
                 }
             } catch { print("error:\(error)") }
         }
@@ -73,7 +73,7 @@ struct ProgYogData
     
     func loadSkills(jsonData: [JsonSkillData]) {
         for row in jsonData {
-            _ = AbsSkill(jsonAbsSkill: row, moc: moc)
+            _ = AbsSkill(json: row, moc: moc)
         }
     }
 }

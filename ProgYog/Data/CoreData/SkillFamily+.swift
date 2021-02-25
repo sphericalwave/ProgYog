@@ -30,19 +30,19 @@ extension SkillFamily {
     //Not an ideal initializer because it's not completely initialized
     //because the Series has to be associated
     //External knowledge of construction order is required.
-    convenience init(jsonSkillFam: JsonSkillFamily, moc: NSManagedObjectContext) {
+    convenience init(json: JsonSkillFamily, moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.name = jsonSkillFam.name
-        self.order = Int16(jsonSkillFam.order)
+        self.name = json.name
+        self.order = Int16(json.order)
         
         //Fetch Skills and Associate them
-        let skills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
-        skills.predicate = NSPredicate(format: "family == %@", jsonSkillFam.name)
-        guard let famSkills = try? moc.fetch(skills) else { fatalError() }
-        
-        print(famSkills)
-        
-        self.addToAbsSkills(NSSet(object: famSkills))
+//        let skills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+//        skills.predicate = NSPredicate(format: "family == %@", jsonSkillFam.name)
+//        guard let famSkills = try? moc.fetch(skills) else { fatalError() }
+//
+//        print(famSkills)
+//
+//        self.addToAbsSkills(NSSet(array: famSkills))
     }
 }
 

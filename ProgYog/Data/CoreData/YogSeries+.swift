@@ -21,7 +21,6 @@ extension YogSeries {
     @NSManaged public var name: String?
     @NSManaged public var url: URL?
     @NSManaged public var skillFamilies: NSSet?
-
 }
 
 extension YogSeries {
@@ -40,11 +39,17 @@ extension YogSeries {
         guard let skillFams = try? moc.fetch(skillFamRequest) else { fatalError() }
         self.addToSkillFamilies(NSSet(object: skillFams))
     }
+    
+    convenience init(json: JsonYogSeries, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.name = json.name
+        self.url = json.url
+    }
 }
 
 // MARK: Generated accessors for skillFamilies
 extension YogSeries {
-
+    
     @objc(addSkillFamiliesObject:)
     @NSManaged public func addToSkillFamilies(_ value: SkillFamily)
 
@@ -56,7 +61,6 @@ extension YogSeries {
 
     @objc(removeSkillFamilies:)
     @NSManaged public func removeFromSkillFamilies(_ values: NSSet)
-
 }
 
 extension YogSeries: Identifiable { }
