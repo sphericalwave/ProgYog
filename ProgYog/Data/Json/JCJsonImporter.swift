@@ -7,14 +7,15 @@
 
 import CoreData
 
+//TODO: This works but it's not pretty
 struct __JSONImporter {
     let moc: NSManagedObjectContext
     
-    private var series: [JsonYogSeries] = []
+    private var jsonSeries: [JsonYogSeries] = []
     // Families keyed by sereies names
-    private var families: [String : [JsonSkillFamily]] = [:]
+    private var jsonFamilies: [String : [JsonSkillFamily]] = [:]
     // SKills keyed by family name
-    private var skills: [String : [JsonSkillData]] = [:]
+    private var jsonSkills: [String : [JsonSkillData]] = [:]
     
     init(moc: NSManagedObjectContext) {
         self.moc = moc
@@ -24,24 +25,24 @@ struct __JSONImporter {
     mutating func loadCoreData() {
         loadJSONData()
         
-        var mos: [YogSeries] = []
-        for series in self.series {
-            let moSeries = YogSeries(json: series, moc: moc)
-            let families = self.families[series.name]!
-            for family in families {
-                let moFamily = SkillFamily(json: family, moc: moc)
-                let skills = self.skills[family.name]!
-                let moSkills = Set(skills.map { AbsSkill(json: $0, moc: moc) })
-                moFamily.addToAbsSkills(moSkills as NSSet)
+        var mos: [CDYogSeries] = []
+        for jsonSeries in self.jsonSeries {
+            let cdSeries = CDYogSeries(json: jsonSeries, moc: moc)
+            guard let families = self.jsonFamilies[jsonSeries.name] else { fatalError() }
+            for jsonFamily in families {
+                let cdFamily = CDSkillFamily(json: jsonFamily, moc: moc)
+                guard let jsonSkills = self.jsonSkills[jsonFamily.name] else { fatalError() }
+                let cdSkills = Set(jsonSkills.map { CDAbsSkill(json: $0, moc: moc) })
+                cdFamily.addToAbsSkills(cdSkills as NSSet)
                 
-//                for skill in skills {
-//                    let moSkill = AbsSkill(json: skill, moc: moc)
-//                    moSkill.skillFamily = moFamily
-//                }
-//                moFamily.yogSeries = moSeries
+                for skill in jsonSkills {
+                    let cdSkill = CDAbsSkill(json: skill, moc: moc)
+                    cdSkill.skillFamily = cdFamily
+                }
+                cdFamily.yogSeries = cdSeries
             }
-            
-            mos.append(moSeries)
+            mos.append(cdSeries)
+            print("Series \(cdSeries)")
         }
         
         guard moc.hasChanges else { return }
@@ -49,12 +50,14 @@ struct __JSONImporter {
     }
     
     mutating func loadJSONData() {
-        self.series = loadJSON(fromFile: "YogSeries")
-        let families: [JsonSkillFamily] = loadJSON(fromFile: "SkillFam")
-        self.families = .init(grouping: families, by: \.series)
+        let s: [JsonYogSeries] = loadJSON(fromFile: "YogSeries")
+        self.jsonSeries = s //.init(grouping: s, by: \.name) //loadJSON(fromFile: "YogSeries")
         
-        let skills: [JsonSkillData] = loadJSON(fromFile: "ProgYogData")
-        self.skills = .init(grouping: skills, by: \.skillFamily)
+        let families: [JsonSkillFamily] = loadJSON(fromFile: "SkillFam")
+        self.jsonFamilies = .init(grouping: families, by: \.series)
+        
+        let sks: [JsonSkillData] = loadJSON(fromFile: "ProgYogData")
+        self.jsonSkills = .init(grouping: sks, by: \.skillFamily)  //TODO: QUestionable Neccessity
     }
     
     private func loadJSON<T: Decodable>(fromFile file: String) -> [T] {

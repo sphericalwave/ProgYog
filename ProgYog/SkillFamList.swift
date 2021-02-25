@@ -12,12 +12,12 @@ struct SkillFamList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
-        entity: SkillFamily.entity(),
+        entity: CDSkillFamily.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \SkillFamily.name, ascending: true),
-            NSSortDescriptor(keyPath: \SkillFamily.order, ascending: true)
+            NSSortDescriptor(keyPath: \CDSkillFamily.name, ascending: true),
+            NSSortDescriptor(keyPath: \CDSkillFamily.order, ascending: true)
         ]
-    ) var skillFamilys: FetchedResults<SkillFamily>
+    ) var skillFamilys: FetchedResults<CDSkillFamily>
     
     var body: some View {
         List(skillFamilys, id: \.self) { skillFam in

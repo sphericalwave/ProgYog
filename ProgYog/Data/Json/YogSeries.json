@@ -1,22 +1,22 @@
 [
  {
-   "series": "A",
+   "name": "A",
    "url": "https://bit.ly/swswift"
  },
  {
-   "series": "B",
+   "name": "B",
    "url": "https://bit.ly/swswift"
  },
  {
-   "series": "C",
+   "name": "C",
    "url": "https://bit.ly/swswift"
  },
  {
-   "series": "D",
+   "name": "D",
    "url": "https://bit.ly/swswift"
  },
  {
-   "series": "E",
+   "name": "E",
    "url": "https://bit.ly/swswift"
  }
 ]

@@ -23,7 +23,7 @@ extension CrtSkill {
     @NSManaged public var discomfort: Int16
     @NSManaged public var reps: Int16
     @NSManaged public var rom: Int16
-    @NSManaged public var absSkill: AbsSkill?
+    @NSManaged public var absSkill: CDAbsSkill?
 
 }
 

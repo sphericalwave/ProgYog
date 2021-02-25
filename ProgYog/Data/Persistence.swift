@@ -14,7 +14,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for n in 0..<10 {
-            let newAbsSkill = AbsSkill(context: viewContext)
+            let newAbsSkill = CDAbsSkill(context: viewContext)
             newAbsSkill.name = "Skill #\(n)"
             newAbsSkill.depth = Int16(n)
             newAbsSkill.instructions = "instruction \(n)"
@@ -55,47 +55,7 @@ struct PersistenceController {
     
     //TODO: reinstate function once db is stable
     mutating func seedDB() {
-        loadAbsSkills()
-        loadSkillFamilies()
-        loadYogSeries()
-    }
-    
-    func loadAbsSkills() {
-        _ = ProgYogData(moc: container.viewContext)  //FIXME: Style?
-    }
-    
-    func loadSkillFamilies() {
-        let fetchAbsSkills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
-        let absSkills = try! container.viewContext.fetch(fetchAbsSkills) //FIXME: Force Unwrap
-
-//        let skillFamilies = absSkills
-//            .map { $0.family }
-//            .reduce(into: [String]()) { if !$0.contains($1) { $0.append($1) } }
-//
-//        print(skillFamilies.count)
-
-        //TODO: Deduplicate with Set Test Speeds
-        let deduplicated = Set(absSkills.map(\.family))
-        print(deduplicated.count)
-        
-//        for fam in deduplicated {
-//            let fetchFamsAbsSkills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
-//            //let predicateCourse = NSPredicate(format: "family == %@", fam)
-//            fetchFamsAbsSkills.predicate = NSPredicate(format: "family == %@", fam)
-//            let famSkills = try! container.viewContext.fetch(fetchFamsAbsSkills) //FIXME: Force Unwrap
-//            print(famSkills)
-//            _ = SkillFamily(name: fam, order: 1, absSkills: famSkills, moc: container.viewContext) //FIXME: FIX ORDER
-//        }
-    }
-    
-    func loadYogSeries() {
-//        let series = ["A", "B", "C", "D", "E"]
-//        let url = URL(string: "FIXME")!
-//        for s in series {
-//            let s = YogSeries(name: s, url: url, moc: container.viewContext)
-//            s.addToSkillFamilies(<#T##value: SkillFamily##SkillFamily#>)
-//            print("Setup Series \(s)")
-//        }
+        __JSONImporter(moc: container.viewContext)
     }
     
     mutating func firstLaunch() {

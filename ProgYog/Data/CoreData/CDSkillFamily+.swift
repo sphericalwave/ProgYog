@@ -9,31 +9,32 @@
 import Foundation
 import CoreData
 
-@objc(SkillFamily)
-public class SkillFamily: NSManagedObject { }
+@objc(CDSkillFamily)
+public class CDSkillFamily: NSManagedObject { }
 
-extension SkillFamily {
+extension CDSkillFamily {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<SkillFamily> {
-        return NSFetchRequest<SkillFamily>(entityName: "SkillFamily")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDSkillFamily> {
+        return NSFetchRequest<CDSkillFamily>(entityName: "CDSkillFamily")
     }
 
     @NSManaged public var name: String
     @NSManaged public var order: Int16
     @NSManaged public var series: String
     @NSManaged public var absSkills: NSSet
-    @NSManaged public var yogSeries: YogSeries
+    @NSManaged public var yogSeries: CDYogSeries
 }
 
-extension SkillFamily {
+extension CDSkillFamily {
     //FIXME: Depends on AbsSkills being loaded
     //Not an ideal initializer because it's not completely initialized
     //because the Series has to be associated
     //External knowledge of construction order is required.
-    convenience init(json: JsonSkillFamily, moc: NSManagedObjectContext) {
+    convenience init(json: JsonSkillFamily, moc: NSManagedObjectContext) { //FIXME: Naming
         self.init(context: moc)
         self.name = json.name
         self.order = Int16(json.order)
+        self.series = json.series
         
         //Fetch Skills and Associate them
 //        let skills = NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
@@ -47,13 +48,13 @@ extension SkillFamily {
 }
 
 // MARK: Generated accessors for absSkills
-extension SkillFamily {
+extension CDSkillFamily {
 
     @objc(addAbsSkillsObject:)
-    @NSManaged public func addToAbsSkills(_ value: AbsSkill)
+    @NSManaged public func addToAbsSkills(_ value: CDAbsSkill)
 
     @objc(removeAbsSkillsObject:)
-    @NSManaged public func removeFromAbsSkills(_ value: AbsSkill)
+    @NSManaged public func removeFromAbsSkills(_ value: CDAbsSkill)
 
     @objc(addAbsSkills:)
     @NSManaged public func addToAbsSkills(_ values: NSSet)
@@ -62,4 +63,4 @@ extension SkillFamily {
     @NSManaged public func removeFromAbsSkills(_ values: NSSet)
 }
 
-extension SkillFamily: Identifiable { }
+extension CDSkillFamily: Identifiable { }

@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-@objc(YogSeries)
-public class YogSeries: NSManagedObject { }
+@objc(CDYogSeries)
+public class CDYogSeries: NSManagedObject { }
 
-extension YogSeries {
+extension CDYogSeries {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<YogSeries> {
-        return NSFetchRequest<YogSeries>(entityName: "YogSeries")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDYogSeries> {
+        return NSFetchRequest<CDYogSeries>(entityName: "CDYogSeries")
     }
 
     @NSManaged public var name: String?
@@ -23,7 +23,7 @@ extension YogSeries {
     @NSManaged public var skillFamilies: NSSet?
 }
 
-extension YogSeries {
+extension CDYogSeries {
     //FIXME: Depends on SkillFamilys being loaded
     //Not an ideal initializer because it's not completely initialized
     //because the Series has to be associated
@@ -34,7 +34,7 @@ extension YogSeries {
         self.url = row.url
         
         //Fetch SkillFamilys and Associate them
-        let skillFamRequest = NSFetchRequest<SkillFamily>(entityName: "SkillFamily")
+        let skillFamRequest = NSFetchRequest<CDSkillFamily>(entityName: "CDSkillFamily")
         skillFamRequest.predicate = NSPredicate(format: "series == %@", row.series)
         guard let skillFams = try? moc.fetch(skillFamRequest) else { fatalError() }
         self.addToSkillFamilies(NSSet(object: skillFams))
@@ -48,13 +48,13 @@ extension YogSeries {
 }
 
 // MARK: Generated accessors for skillFamilies
-extension YogSeries {
+extension CDYogSeries {
     
     @objc(addSkillFamiliesObject:)
-    @NSManaged public func addToSkillFamilies(_ value: SkillFamily)
+    @NSManaged public func addToSkillFamilies(_ value: CDSkillFamily)
 
     @objc(removeSkillFamiliesObject:)
-    @NSManaged public func removeFromSkillFamilies(_ value: SkillFamily)
+    @NSManaged public func removeFromSkillFamilies(_ value: CDSkillFamily)
 
     @objc(addSkillFamilies:)
     @NSManaged public func addToSkillFamilies(_ values: NSSet)
@@ -63,4 +63,4 @@ extension YogSeries {
     @NSManaged public func removeFromSkillFamilies(_ values: NSSet)
 }
 
-extension YogSeries: Identifiable { }
+extension CDYogSeries: Identifiable { }

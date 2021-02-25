@@ -7,6 +7,7 @@
 
 import CoreData
 
+//TODO: Not Used, Remove
 struct ProgYogData
 {
     let moc: NSManagedObjectContext
@@ -50,7 +51,7 @@ struct ProgYogData
                 let decoder = JSONDecoder()
                 let skillFams = try decoder.decode([JsonSkillFamily].self, from: data)
                 for skillFam in skillFams {
-                    _ = SkillFamily(json: skillFam, moc: moc)
+                    _ = CDSkillFamily(json: skillFam, moc: moc)
                 }
             } catch { print("error:\(error)") }
         }
@@ -73,7 +74,7 @@ struct ProgYogData
     
     func loadSkills(jsonData: [JsonSkillData]) {
         for row in jsonData {
-            _ = AbsSkill(json: row, moc: moc)
+            _ = CDAbsSkill(json: row, moc: moc)
         }
     }
 }

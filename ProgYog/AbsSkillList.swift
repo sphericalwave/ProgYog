@@ -12,13 +12,13 @@ struct AbsSkillList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
-        entity: AbsSkill.entity(),
+        entity: CDAbsSkill.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \AbsSkill.series, ascending: true),
-            NSSortDescriptor(keyPath: \AbsSkill.family, ascending: true),
-            NSSortDescriptor(keyPath: \AbsSkill.depth, ascending: true)
+            NSSortDescriptor(keyPath: \CDAbsSkill.series, ascending: true),
+            NSSortDescriptor(keyPath: \CDAbsSkill.family, ascending: true),
+            NSSortDescriptor(keyPath: \CDAbsSkill.depth, ascending: true)
         ]
-    ) var absSkills: FetchedResults<AbsSkill>
+    ) var absSkills: FetchedResults<CDAbsSkill>
     
     var body: some View {
         List(absSkills, id: \.self) { absSkill in

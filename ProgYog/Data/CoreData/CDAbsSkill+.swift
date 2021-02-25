@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-@objc(AbsSkill)
-public class AbsSkill: NSManagedObject { }
+@objc(CDAbsSkill)
+public class CDAbsSkill: NSManagedObject { }
 
-extension AbsSkill {
+extension CDAbsSkill {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<AbsSkill> {
-        return NSFetchRequest<AbsSkill>(entityName: "AbsSkill")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDAbsSkill> {
+        return NSFetchRequest<CDAbsSkill>(entityName: "CDAbsSkill")
     }
 
     @NSManaged public var depth: Int16
@@ -27,10 +27,10 @@ extension AbsSkill {
     @NSManaged public var family: String
     @NSManaged public var url: URL
     @NSManaged public var crtSkills: NSSet?
-    @NSManaged public var skillFamily: SkillFamily?
+    @NSManaged public var skillFamily: CDSkillFamily?
 }
 
-extension AbsSkill {
+extension CDAbsSkill {
     //FIXME: Depends on SkillFams and YogSeries being loaded
     //Not an ideal initializer because it's not completely initialized
     //because the Series, SkillFamily has to be associated
@@ -49,7 +49,7 @@ extension AbsSkill {
 }
 
 // MARK: Generated accessors for crtSkills
-extension AbsSkill {
+extension CDAbsSkill {
 
     @objc(addCrtSkillsObject:)
     @NSManaged public func addToCrtSkills(_ value: CrtSkill)
@@ -65,4 +65,4 @@ extension AbsSkill {
 
 }
 
-extension AbsSkill: Identifiable { }
+extension CDAbsSkill: Identifiable { }
