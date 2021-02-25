@@ -24,7 +24,7 @@
 		AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* CDYogSeries+.swift */; };
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
-		AF745D2125E80272003B2B1C /* JCJsonImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* JCJsonImporter.swift */; };
+		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF745D2625E802B8003B2B1C /* JCJsonImporter2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2525E802B8003B2B1C /* JCJsonImporter2.swift */; };
 		AF8B517025E56BE700519B9D /* ProgYogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B516F25E56BE700519B9D /* ProgYogData.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
@@ -76,7 +76,7 @@
 		AF2B36D725E4494D009E760F /* CDYogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDYogSeries+.swift"; sourceTree = "<group>"; };
 		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
 		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
-		AF745D2025E80272003B2B1C /* JCJsonImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JCJsonImporter.swift; path = Json/JCJsonImporter.swift; sourceTree = "<group>"; };
+		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
 		AF745D2525E802B8003B2B1C /* JCJsonImporter2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCJsonImporter2.swift; sourceTree = "<group>"; };
 		AF8B516F25E56BE700519B9D /* ProgYogData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogData.swift; sourceTree = "<group>"; };
 		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				AF8B519025E56F6900519B9D /* CoreData */,
 				AF8B517E25E56C3500519B9D /* Json */,
 				AF8B516F25E56BE700519B9D /* ProgYogData.swift */,
-				AF745D2025E80272003B2B1C /* JCJsonImporter.swift */,
+				AF745D2025E80272003B2B1C /* ImportedJSON.swift */,
 				AF745D2525E802B8003B2B1C /* JCJsonImporter2.swift */,
 				AF0B757325E06FE200A0FF28 /* Persistence.swift */,
 			);
@@ -356,7 +356,7 @@
 				AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */,
 				AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */,
 				AF2B36C825E3FCBB009E760F /* TestTabs.swift in Sources */,
-				AF745D2125E80272003B2B1C /* JCJsonImporter.swift in Sources */,
+				AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */,
 				AF2B36DD25E4494D009E760F /* CrtSkill+.swift in Sources */,
 				AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */,
 				AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */,

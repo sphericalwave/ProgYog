@@ -8,7 +8,7 @@
 import CoreData
 
 //TODO: This works but it's not pretty
-struct __JSONImporter {
+struct ImportedJSON {
     let moc: NSManagedObjectContext
     
     private var jsonSeries: [JsonYogSeries] = []

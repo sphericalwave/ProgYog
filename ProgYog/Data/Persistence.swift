@@ -55,7 +55,7 @@ struct PersistenceController {
     
     //TODO: reinstate function once db is stable
     mutating func seedDB() {
-        __JSONImporter(moc: container.viewContext)
+        _ = ImportedJSON(moc: container.viewContext)
     }
     
     mutating func firstLaunch() {

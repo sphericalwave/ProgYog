@@ -14,8 +14,7 @@ struct ProgYogApp: App {
     var persistenceController = PersistenceController.shared
 
     init() {
-        persistenceController.seedDB()
-        //persistenceController.firstLaunch() //TODO: Reinstate
+        persistenceController.firstLaunch()
     }
     
     var body: some Scene {
