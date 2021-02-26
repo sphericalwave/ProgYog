@@ -15,8 +15,8 @@ struct AbsSkillList: View {
         entity: CDAbsSkill.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \CDAbsSkill.series, ascending: true),
-            NSSortDescriptor(keyPath: \CDAbsSkill.family, ascending: true),
-            NSSortDescriptor(keyPath: \CDAbsSkill.depth, ascending: true)
+            NSSortDescriptor(keyPath: \CDAbsSkill.depth, ascending: true),
+            NSSortDescriptor(keyPath: \CDAbsSkill.family, ascending: true) //FIXME: Can i sort by family.order?
         ]
     ) var absSkills: FetchedResults<CDAbsSkill>
     
