@@ -26,7 +26,7 @@ class TabRtr: Rtr
     }
     
     func absProgYogSkills() -> some View {
-        AbsSkillList()
+        AbsSkillListRtr(srvcs: srvcs).rootView()
     }
     
     func progYogSkillFamillies() -> some View {

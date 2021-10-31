@@ -40,6 +40,8 @@
 		AFD2C8CC272EC5A1006B38BB /* CoreDataSrvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8CB272EC5A1006B38BB /* CoreDataSrvc.swift */; };
 		AFD2C8CE272EC810006B38BB /* ProgYogSeriesRtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8CD272EC810006B38BB /* ProgYogSeriesRtr.swift */; };
 		AFD2C8D0272EC818006B38BB /* ProgYogSeriesVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8CF272EC818006B38BB /* ProgYogSeriesVm.swift */; };
+		AFD2C8D4272EC8DF006B38BB /* AbsSkillListVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */; };
+		AFD2C8D6272EC8EB006B38BB /* AbsSkillListRtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */; };
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
 		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 		AFE924CD25E598B9005048B2 /* SkillFamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE924CC25E598B9005048B2 /* SkillFamList.swift */; };
@@ -102,6 +104,8 @@
 		AFD2C8CB272EC5A1006B38BB /* CoreDataSrvc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSrvc.swift; sourceTree = "<group>"; };
 		AFD2C8CD272EC810006B38BB /* ProgYogSeriesRtr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogSeriesRtr.swift; sourceTree = "<group>"; };
 		AFD2C8CF272EC818006B38BB /* ProgYogSeriesVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogSeriesVm.swift; sourceTree = "<group>"; };
+		AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillListVm.swift; sourceTree = "<group>"; };
+		AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillListRtr.swift; sourceTree = "<group>"; };
 		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFE924CC25E598B9005048B2 /* SkillFamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamList.swift; sourceTree = "<group>"; };
@@ -163,7 +167,7 @@
 				AFD2C8BD272E1815006B38BB /* MovementUi.swift */,
 				AFD2C8BB272E169D006B38BB /* WorkoutUi.swift */,
 				AF0B75A225E08CE300A0FF28 /* TrainUI.swift */,
-				AF2B36C225E3FCA1009E760F /* AbsSkillList.swift */,
+				AFD2C8D2272EC8CE006B38BB /* New Group */,
 				AFE924CC25E598B9005048B2 /* SkillFamList.swift */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B75EF25E1AB3600A0FF28 /* Data */,
@@ -240,9 +244,9 @@
 		AFD2C8C3272EC470006B38BB /* TabUi */ = {
 			isa = PBXGroup;
 			children = (
-				AF2B36C725E3FCBB009E760F /* TabUi.swift */,
 				AFD2C8BF272EC464006B38BB /* TabRtr.swift */,
 				AFD2C8C1272EC46B006B38BB /* TabVm.swift */,
+				AF2B36C725E3FCBB009E760F /* TabUi.swift */,
 			);
 			path = TabUi;
 			sourceTree = "<group>";
@@ -261,11 +265,21 @@
 		AFD2C8D1272EC81C006B38BB /* ProgYogSeriesUi */ = {
 			isa = PBXGroup;
 			children = (
-				AF0B759D25E0708A00A0FF28 /* ProgYogSeriesUi.swift */,
 				AFD2C8CD272EC810006B38BB /* ProgYogSeriesRtr.swift */,
 				AFD2C8CF272EC818006B38BB /* ProgYogSeriesVm.swift */,
+				AF0B759D25E0708A00A0FF28 /* ProgYogSeriesUi.swift */,
 			);
 			path = ProgYogSeriesUi;
+			sourceTree = "<group>";
+		};
+		AFD2C8D2272EC8CE006B38BB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */,
+				AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */,
+				AF2B36C225E3FCA1009E760F /* AbsSkillList.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,6 +421,7 @@
 				AFD2C8C5272EC4A2006B38BB /* Rtr.swift in Sources */,
 				AF0B759E25E0708A00A0FF28 /* ProgYogSeriesUi.swift in Sources */,
 				AF2B36C325E3FCA1009E760F /* AbsSkillList.swift in Sources */,
+				AFD2C8D4272EC8DF006B38BB /* AbsSkillListVm.swift in Sources */,
 				AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */,
 				AF0B75A825E08CFD00A0FF28 /* SeriesUI.swift in Sources */,
 				AFD2C8C0272EC464006B38BB /* TabRtr.swift in Sources */,
@@ -416,6 +431,7 @@
 				AFD2C8C2272EC46B006B38BB /* TabVm.swift in Sources */,
 				AFD2C8D0272EC818006B38BB /* ProgYogSeriesVm.swift in Sources */,
 				AFD2C8C7272EC510006B38BB /* W3rkSrvcs.swift in Sources */,
+				AFD2C8D6272EC8EB006B38BB /* AbsSkillListRtr.swift in Sources */,
 				AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */,
 				AF2B36DD25E4494D009E760F /* CrtSkill+.swift in Sources */,
 				AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */,
