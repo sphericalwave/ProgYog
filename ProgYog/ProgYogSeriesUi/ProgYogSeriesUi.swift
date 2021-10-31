@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-struct SeriesList: View {
+struct ProgYogSeriesUi: View
+{
+    @State var rtr: ProgYogSeriesRtr
+    @StateObject var vm: ProgYogSeriesVm
     
     var body: some View {
         NavigationView {

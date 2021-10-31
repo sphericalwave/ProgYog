@@ -22,7 +22,7 @@ class TabRtr: Rtr
     }
     
     func progYogDash() -> some View {
-        SeriesList()
+        ProgYogSeriesRtr(srvcs: srvcs).rootView()
     }
     
     func absProgYogSkills() -> some View {
