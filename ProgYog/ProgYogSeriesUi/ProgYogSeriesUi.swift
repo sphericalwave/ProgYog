@@ -23,11 +23,11 @@ struct ProgYogSeriesUi: View
                         .overlay(Text("Graph of Progress in Each Series"))
                 }
                 List {
-                    SeriesCell(color: .red, text: "Yog A", percent: 45)
-                    SeriesCell(color: .blue, text: "Yog B", percent: 55)
-                    SeriesCell(color: .green, text: "Yog C", percent: 35)
-                    SeriesCell(color: .purple, text: "Yog D", percent: 40)
-                    SeriesCell(color: .orange, text: "Yog E", percent: 33)
+                    rtr.cell(color: .red, text: "Yog A", percent: 45)
+                    rtr.cell(color: .blue, text: "Yog B", percent: 55)
+                    rtr.cell(color: .green, text: "Yog C", percent: 35)
+                    rtr.cell(color: .purple, text: "Yog D", percent: 40)
+                    rtr.cell(color: .orange, text: "Yog E", percent: 33)
                 }.listStyle(PlainListStyle())
             }
             .navigationTitle("Prog Yog") //<- Causes "Unable to simultaneously satisfy constraints."
@@ -36,24 +36,4 @@ struct ProgYogSeriesUi: View
     }
 }
 
-struct SeriesCell: View {
-    
-    let color: Color
-    let text: String
-    let percent: Int
-    
-    var body: some View {
-        NavigationLink(destination: SeriesUI()){
-            HStack(alignment: .center) {
-                Label {
-                    Text(text)
-                } icon: {
-                    Image(systemName: "square.fill")
-                        .foregroundColor(color)
-                }
-                Spacer()
-                Text("\(percent)%")
-            }
-        }
-    }
-}
+

@@ -20,4 +20,8 @@ class ProgYogSeriesRtr: Rtr
     func rootView() -> some View {
         ProgYogSeriesUi(rtr: self, vm: self.vm)
     }
+    
+    func cell(color: Color, text: String, percent: Int) -> some View {
+        SeriesCellRtr(srvcs: srvcs, color: color, text: text, percent: percent).rootView()
+    }
 }

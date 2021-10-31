@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SeriesUI: View {
     
-    @State var showModal = false
+    @State var rtr: SeriesRtr
+    @StateObject var vm: SeriesVm
     
     var body: some View {
         VStack{
@@ -22,7 +23,7 @@ struct SeriesUI: View {
             }
             
             List{
-                NavigationLink(destination: WorkoutUi()) {
+                NavigationLink(destination: rtr.workoutUi()) {
                     HStack(alignment: .center) {
                         Label {
                             VStack(alignment: .leading) {
@@ -37,7 +38,7 @@ struct SeriesUI: View {
                         Spacer()
                     }
                 }
-                NavigationLink(destination: WorkoutUi()) {
+                NavigationLink(destination: rtr.workoutUi()) {
                     HStack(alignment: .center) {
                         Label {
                             VStack(alignment: .leading) {
@@ -53,10 +54,10 @@ struct SeriesUI: View {
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .navigationTitle(Text("Feb 17, 2021"))
-        .navigationBarItems(trailing: TrainBtn(showModal: self.$showModal) )
-        .sheet(isPresented: $showModal) { TrainUI() }
+        .navigationBarItems(trailing: TrainBtn(showModal: $vm.showModal) )
+        .sheet(isPresented: $vm.showModal) { rtr.trainUi() }
         
     }
 }

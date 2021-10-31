@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MovementUi: View
 {
+    @State var rtr: MovementRtr
+    @StateObject var vm: MovementVm
+    
     var body: some View {
         VStack{
             ZStack() {
@@ -20,7 +23,7 @@ struct MovementUi: View
             }
             
             List{
-                NavigationLink(destination: WorkoutUi()) {
+                NavigationLink(destination: rtr.workoutUi()) {
                     Text("5 x BodyWeight")
                 }
                 Text("RPE = 10")
@@ -28,16 +31,16 @@ struct MovementUi: View
                 Text("RD = 5")
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .navigationTitle(Text("Shinbox"))
         //.navigationBarItems(trailing: TrainBtn(showModal: self.$showModal) )
         //.sheet(isPresented: $showModal) { TrainUI() }
         
     }
 }
-
-struct MovementUi_Previews: PreviewProvider {
-    static var previews: some View {
-        MovementUi()
-    }
-}
+//
+//struct MovementUi_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MovementUi()
+//    }
+//}

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct WorkoutUi: View {
     
-    @State var showModal = false
+    @State var rtr: WorkoutRtr
+    @StateObject var vm: WorkoutVm
     
     var body: some View {
         
@@ -23,7 +24,7 @@ struct WorkoutUi: View {
             }
             
             List{
-                NavigationLink(destination: MovementUi()) {
+                NavigationLink(destination: rtr.movementUi()) {
                     Text("Shinbox Switch")
                 }
                 Text("Table Switch")
@@ -32,16 +33,16 @@ struct WorkoutUi: View {
         }
         
 
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .navigationTitle(Text("Yog A"))
-        .navigationBarItems(trailing: TrainBtn(showModal: self.$showModal) )
-        .sheet(isPresented: $showModal) { TrainUI() }
+        .navigationBarItems(trailing: TrainBtn(showModal: $vm.showModal) )
+        .sheet(isPresented: $vm.showModal) { rtr.trainUi() }
         
     }
 }
 
-struct WorkoutUi_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkoutUi()
-    }
-}
+//struct WorkoutUi_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WorkoutUi()
+//    }
+//}
