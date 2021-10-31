@@ -18,7 +18,7 @@ struct AbsSkillList: View
             List(vm.absSkills, id: \.self) { absSkill in
                 Text("Series \(absSkill.series): \(absSkill.family) \(absSkill.depth): \(absSkill.name)")
             }
-            .navigationTitle("ProgYog AbsSkills") //<- Causes "Unable to simultaneously satisfy constraints."
+            .navigationTitle("ProgYog AbsSkills")
             .navigationBarTitleDisplayMode(.large)
         }
     }

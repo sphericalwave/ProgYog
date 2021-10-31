@@ -30,6 +30,6 @@ class TabRtr: Rtr
     }
     
     func progYogSkillFamillies() -> some View {
-        SkillFamList()
+        SkillFamListRtr(srvcs: srvcs).rootView()
     }
 }

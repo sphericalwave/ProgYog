@@ -42,6 +42,8 @@
 		AFD2C8D0272EC818006B38BB /* ProgYogSeriesVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8CF272EC818006B38BB /* ProgYogSeriesVm.swift */; };
 		AFD2C8D4272EC8DF006B38BB /* AbsSkillListVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */; };
 		AFD2C8D6272EC8EB006B38BB /* AbsSkillListRtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */; };
+		AFD2C8D9272ECBA0006B38BB /* SkillFamListRtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8D8272ECBA0006B38BB /* SkillFamListRtr.swift */; };
+		AFD2C8DB272ECBA6006B38BB /* SkillFamListVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DA272ECBA6006B38BB /* SkillFamListVm.swift */; };
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
 		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 		AFE924CD25E598B9005048B2 /* SkillFamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE924CC25E598B9005048B2 /* SkillFamList.swift */; };
@@ -106,6 +108,8 @@
 		AFD2C8CF272EC818006B38BB /* ProgYogSeriesVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogSeriesVm.swift; sourceTree = "<group>"; };
 		AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillListVm.swift; sourceTree = "<group>"; };
 		AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillListRtr.swift; sourceTree = "<group>"; };
+		AFD2C8D8272ECBA0006B38BB /* SkillFamListRtr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamListRtr.swift; sourceTree = "<group>"; };
+		AFD2C8DA272ECBA6006B38BB /* SkillFamListVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamListVm.swift; sourceTree = "<group>"; };
 		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFE924CC25E598B9005048B2 /* SkillFamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamList.swift; sourceTree = "<group>"; };
@@ -167,8 +171,8 @@
 				AFD2C8BD272E1815006B38BB /* MovementUi.swift */,
 				AFD2C8BB272E169D006B38BB /* WorkoutUi.swift */,
 				AF0B75A225E08CE300A0FF28 /* TrainUI.swift */,
-				AFD2C8D2272EC8CE006B38BB /* New Group */,
-				AFE924CC25E598B9005048B2 /* SkillFamList.swift */,
+				AFD2C8D2272EC8CE006B38BB /* AbsSkillList */,
+				AFD2C8D7272ECB96006B38BB /* SkillFamList */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B75EF25E1AB3600A0FF28 /* Data */,
 				AF0B757825E06FE200A0FF28 /* Info.plist */,
@@ -272,14 +276,24 @@
 			path = ProgYogSeriesUi;
 			sourceTree = "<group>";
 		};
-		AFD2C8D2272EC8CE006B38BB /* New Group */ = {
+		AFD2C8D2272EC8CE006B38BB /* AbsSkillList */ = {
 			isa = PBXGroup;
 			children = (
 				AFD2C8D5272EC8EB006B38BB /* AbsSkillListRtr.swift */,
 				AFD2C8D3272EC8DF006B38BB /* AbsSkillListVm.swift */,
 				AF2B36C225E3FCA1009E760F /* AbsSkillList.swift */,
 			);
-			path = "New Group";
+			path = AbsSkillList;
+			sourceTree = "<group>";
+		};
+		AFD2C8D7272ECB96006B38BB /* SkillFamList */ = {
+			isa = PBXGroup;
+			children = (
+				AFD2C8D8272ECBA0006B38BB /* SkillFamListRtr.swift */,
+				AFD2C8DA272ECBA6006B38BB /* SkillFamListVm.swift */,
+				AFE924CC25E598B9005048B2 /* SkillFamList.swift */,
+			);
+			path = SkillFamList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,6 +451,7 @@
 				AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */,
 				AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */,
 				AFD2C8CC272EC5A1006B38BB /* CoreDataSrvc.swift in Sources */,
+				AFD2C8D9272ECBA0006B38BB /* SkillFamListRtr.swift in Sources */,
 				AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */,
 				AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */,
 				AF8B517025E56BE700519B9D /* ProgYogData.swift in Sources */,
@@ -445,6 +460,7 @@
 				AFE924CD25E598B9005048B2 /* SkillFamList.swift in Sources */,
 				AFD2C8BC272E169D006B38BB /* WorkoutUi.swift in Sources */,
 				AFD2C8CE272EC810006B38BB /* ProgYogSeriesRtr.swift in Sources */,
+				AFD2C8DB272ECBA6006B38BB /* SkillFamListVm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
