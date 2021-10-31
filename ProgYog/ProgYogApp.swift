@@ -8,23 +8,24 @@
 import SwiftUI
 
 @main
-struct ProgYogApp: App {
-    
-    @Environment(\.scenePhase) var scenePhase
-    var persistenceController = PersistenceController.shared
-
-    init() {
-        persistenceController.firstLaunch()
-    }
+struct ProgYogApp: App
+{
+//    @Environment(\.scenePhase) var scenePhase
+//    var persistenceController = PersistenceController.shared
+//
+//    init() {
+//        persistenceController.firstLaunch()
+//    }
     
     var body: some Scene {
         WindowGroup {
-            TestTabs()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabRtr(srvcs: W3rkSrvcs()).rootView()
+            //TabUi()
+             //   .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-        .onChange(of: scenePhase) { _ in
-            persistenceController.save()
-        }
+//        .onChange(of: scenePhase) { _ in
+//            persistenceController.save()
+//        }
     }
 }
 

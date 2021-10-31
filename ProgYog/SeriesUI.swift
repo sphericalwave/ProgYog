@@ -16,21 +16,45 @@ struct SeriesUI: View {
             ZStack() {
                 Rectangle()
                     .inset(by: 9)
-                    .fill(Color.blue)
+                    .fill(Color.purple)
                     .frame(height: 300)
                 Text("Series Graph Families")
             }
             
             List{
-                NavigationLink(destination: Text("List of Crt Skills")) {
-                    Text("Mon, Feb 17, 2021")
+                NavigationLink(destination: WorkoutUi()) {
+                    HStack(alignment: .center) {
+                        Label {
+                            VStack(alignment: .leading) {
+                                Text("Yoga A")
+                                Text("feb 17, 2021")
+
+                            }
+                        } icon: {
+                            Image(systemName: "square.fill")
+                                .foregroundColor(.red)
+                        }
+                        Spacer()
+                    }
                 }
-                Text("Mon, Feb 17, 2021")
-                Text("Mon, Feb 17, 2021")
+                NavigationLink(destination: WorkoutUi()) {
+                    HStack(alignment: .center) {
+                        Label {
+                            VStack(alignment: .leading) {
+                                Text("Yoga A")
+                                Text("oct 31, 2021")
+                            }
+                        } icon: {
+                            Image(systemName: "square.fill")
+                                .foregroundColor(.red)
+                        }
+                        Spacer()
+                    }
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Text("Yog A"))
+        .navigationTitle(Text("Feb 17, 2021"))
         .navigationBarItems(trailing: TrainBtn(showModal: self.$showModal) )
         .sheet(isPresented: $showModal) { TrainUI() }
         
