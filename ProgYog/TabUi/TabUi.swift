@@ -11,25 +11,22 @@ struct TabUi: View
 {
     @State var rtr: TabRtr
     @StateObject var vm: TabVm
-    
-    //@State private var tab: Int = 2
-    @Environment(\.managedObjectContext) var managedObjectContext //TODO: Do i need this if it's not used here?
-    
+
     var body: some View {
         TabView(selection: $vm.tab) {
-            SeriesList()
+            rtr.progYogDash()
                 .tabItem {
                     Image(systemName: "bolt").imageScale(.large)
                     Text("Main")
                 }
             
-            AbsSkillList()
+            rtr.absProgYogSkills()
                 .tabItem {
                     Image(systemName: "bolt").imageScale(.large)
                     Text("AbsSkills")
                 }
             
-            SkillFamList()
+            rtr.progYogSkillFamillies()
                 .tabItem {
                     Image(systemName: "bolt").imageScale(.large)
                     Text("SkillFam")

@@ -20,4 +20,16 @@ class TabRtr: Rtr
     func rootView() -> some View {
         TabUi(rtr: self, vm: self.vm)
     }
+    
+    func progYogDash() -> some View {
+        SeriesList()
+    }
+    
+    func absProgYogSkills() -> some View {
+        AbsSkillList()
+    }
+    
+    func progYogSkillFamillies() -> some View {
+        SkillFamList()
+    }
 }
