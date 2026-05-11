@@ -22,6 +22,9 @@ extension SetLog {
     @NSManaged public var rpt: Int16
     @NSManaged public var rpe: Int16
     @NSManaged public var rpd: Int16
+    @NSManaged public var rptNote: String?
+    @NSManaged public var rpeNote: String?
+    @NSManaged public var rpdNote: String?
     @NSManaged public var durationSec: Int16
     @NSManaged public var decision: String
     @NSManaged public var hrAvg: Int16

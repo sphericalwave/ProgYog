@@ -91,7 +91,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         suggestion = computeSuggestion(for: skill)
 
         if isFirstSetOfRound { services.audio.play(.roundStart) }
-        services.audio.speak("\(skill.name), depth \(skill.depth)")
+        services.audio.speak("\(skill.name), level \(skill.depth)")
 
         subscribeHR()
         startTimer()
@@ -105,7 +105,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         phase = .finished
     }
 
-    func recordLog(reps: Int, rpt: Int, rpe: Int, rpd: Int, decision: ProgressionDecision) {
+    func recordLog(_ entry: SetLogSheet.Entry) {
         guard let skill = currentSkill else { return }
 
         let log = SetLog(context: moc)
@@ -114,12 +114,15 @@ final class WorkoutSessionViewModel: ObservableObject {
         log.absSkill = skill
         log.roundIndex = Int16(roundIdx)
         log.orderInRound = Int16(familyIdx)
-        log.reps = Int16(reps)
-        log.rpt = Int16(rpt)
-        log.rpe = Int16(rpe)
-        log.rpd = Int16(rpd)
+        log.reps = Int16(entry.reps)
+        log.rpt = Int16(entry.rpt)
+        log.rpe = Int16(entry.rpe)
+        log.rpd = Int16(entry.rpd)
+        log.rptNote = entry.rptNote.isEmpty ? nil : entry.rptNote
+        log.rpeNote = entry.rpeNote.isEmpty ? nil : entry.rpeNote
+        log.rpdNote = entry.rpdNote.isEmpty ? nil : entry.rpdNote
         log.durationSec = Int16(setDurationSec)
-        log.decision = decision.rawValue
+        log.decision = entry.decision.rawValue
         log.loggedAt = Date()
 
         let bpms = sampleBuffer.map { $0.bpm }
@@ -139,7 +142,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         if let fam = currentFamily {
             let current = familyDepths[fam.objectID] ?? 1
             let next: Int16
-            switch decision {
+            switch entry.decision {
             case .progress: next = min(current + 1, 5)
             case .regress:  next = max(current - 1, 1)
             case .hold:     next = current

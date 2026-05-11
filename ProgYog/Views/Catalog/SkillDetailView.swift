@@ -24,7 +24,7 @@ struct SkillDetailView: View {
             Section {
                 LabeledContent("Family", value: skill.family)
                 LabeledContent("Series", value: skill.series)
-                LabeledContent("Depth", value: "\(skill.depth)")
+                LabeledContent("Level", value: "\(skill.depth)")
                 LabeledContent("Symmetrical", value: skill.symetrical ? "Yes" : "No")
             }
 

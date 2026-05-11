@@ -20,7 +20,7 @@ struct AbsSkillListView: View {
             NavigationLink(value: skill.objectID) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(skill.name).font(.body)
-                    Text("\(skill.series) · \(skill.family) · depth \(skill.depth)")
+                    Text("\(skill.series) · \(skill.family) · level \(skill.depth)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

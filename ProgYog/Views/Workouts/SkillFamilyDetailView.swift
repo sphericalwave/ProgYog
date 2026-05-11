@@ -20,7 +20,7 @@ struct SkillFamilyDetailView: View {
                 SkillDetailView(skill: skill)
             } label: {
                 HStack {
-                    Text("Depth \(skill.depth)")
+                    Text("Level \(skill.depth)")
                         .font(.caption.bold())
                         .foregroundStyle(.secondary)
                     Text(skill.name)

@@ -44,8 +44,11 @@
         <attribute name="reps" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="roundIndex" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="rpd" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rpdNote" optional="YES" attributeType="String"/>
         <attribute name="rpe" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rpeNote" optional="YES" attributeType="String"/>
         <attribute name="rpt" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rptNote" optional="YES" attributeType="String"/>
         <relationship name="absSkill" maxCount="1" deletionRule="Nullify" destinationEntity="CDAbsSkill" inverseName="setLogs" inverseEntity="CDAbsSkill"/>
         <relationship name="hrSamples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HRSample" inverseName="setLog" inverseEntity="HRSample"/>
         <relationship name="session" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="setLogs" inverseEntity="Session"/>

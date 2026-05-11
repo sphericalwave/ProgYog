@@ -58,9 +58,7 @@ struct WorkoutSessionView: View {
                 SetLogSheet(
                     skill: skill,
                     suggestion: vm.suggestion,
-                    onSave: { reps, rpt, rpe, rpd, decision in
-                        vm.recordLog(reps: reps, rpt: rpt, rpe: rpe, rpd: rpd, decision: decision)
-                    }
+                    onSave: { vm.recordLog($0) }
                 )
                 .interactiveDismissDisabled()
             }
@@ -72,7 +70,7 @@ struct WorkoutSessionView: View {
             Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
             if let skill = vm.currentSkill {
                 Text(skill.name).font(.title2).bold()
-                Text("Depth \(skill.depth)").font(.caption).foregroundStyle(.secondary)
+                Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
             }
         }
     }

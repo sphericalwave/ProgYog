@@ -25,6 +25,14 @@ enum AudioCue {
         case .roundEnd:      return 1118   // EndRecording
         }
     }
+
+    var isAlert: Bool {
+        // alert variant plays louder and vibrates on devices with rings off
+        switch self {
+        case .terminal, .roundEnd: return true
+        default: return false
+        }
+    }
 }
 
 final class AudioCueService {
@@ -40,7 +48,11 @@ final class AudioCueService {
     }
 
     func play(_ cue: AudioCue) {
-        AudioServicesPlaySystemSound(cue.systemSoundID)
+        if cue.isAlert {
+            AudioServicesPlayAlertSound(cue.systemSoundID)
+        } else {
+            AudioServicesPlaySystemSound(cue.systemSoundID)
+        }
     }
 
     func speak(_ text: String) {
