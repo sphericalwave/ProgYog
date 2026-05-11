@@ -40,6 +40,13 @@ struct WorkoutSummaryView: View {
                         Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) · \(log.decision)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                        if let notes = log.notes, !notes.isEmpty {
+                            Text(notes)
+                                .font(.caption)
+                                .padding(8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(RoundedRectangle(cornerRadius: 6).fill(Color(.tertiarySystemBackground)))
+                        }
                         if log.hrAvg > 0 {
                             Text("HR avg \(log.hrAvg) (min \(log.hrMin), max \(log.hrMax))")
                                 .font(.caption2)

@@ -179,9 +179,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)
-        log.rptNote = entry.rptNote.isEmpty ? nil : entry.rptNote
-        log.rpeNote = entry.rpeNote.isEmpty ? nil : entry.rpeNote
-        log.rpdNote = entry.rpdNote.isEmpty ? nil : entry.rpdNote
+        log.notes = entry.notes.isEmpty ? nil : entry.notes
         log.durationSec = Int16(setDurationSec)
         log.decision = entry.decision.rawValue
         log.loggedAt = Date()

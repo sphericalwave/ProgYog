@@ -15,6 +15,7 @@ final class AppServices: ObservableObject {
     init() {
         let cd = CoreDataService()
         cd.seedIfNeeded()
+        cd.mergeLegacyNotesIfNeeded()
         self.coreData = cd
         self.heartRate = HeartRateService()
         self.audio = AudioCueService()

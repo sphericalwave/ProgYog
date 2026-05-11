@@ -59,6 +59,27 @@ final class CoreDataService: ObservableObject {
         UserDefaults.standard.set(Self.currentSeedVersion, forKey: Self.seedVersionKey)
     }
 
+    private static let notesMergeFlagKey = "didMergeSetLogNotes"
+
+    func mergeLegacyNotesIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: Self.notesMergeFlagKey) else { return }
+
+        let fr: NSFetchRequest<SetLog> = SetLog.fetchRequest()
+        let logs = (try? moc.fetch(fr)) ?? []
+        for log in logs {
+            guard (log.notes ?? "").isEmpty else { continue }
+            var parts: [String] = []
+            if let n = log.rptNote, !n.isEmpty { parts.append("Technique: \(n)") }
+            if let n = log.rpeNote, !n.isEmpty { parts.append("Exertion: \(n)") }
+            if let n = log.rpdNote, !n.isEmpty { parts.append("Discomfort: \(n)") }
+            if !parts.isEmpty {
+                log.notes = parts.joined(separator: "\n")
+            }
+        }
+        save()
+        UserDefaults.standard.set(true, forKey: Self.notesMergeFlagKey)
+    }
+
     private func wipeCatalog() {
         for entity in ["CDAbsSkill", "CDSkillFamily", "CDYogSeries"] {
             let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entity)

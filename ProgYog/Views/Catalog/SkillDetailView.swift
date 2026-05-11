@@ -46,12 +46,17 @@ struct SkillDetailView: View {
 
                 Section("Recent Sets") {
                     ForEach(logs.suffix(10).reversed(), id: \.id) { log in
-                        VStack(alignment: .leading, spacing: 2) {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text(log.loggedAt.formatted(date: .abbreviated, time: .shortened))
                                 .font(.caption.bold())
                             Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) · \(log.decision)")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
+                            if let notes = log.notes, !notes.isEmpty {
+                                Text(notes)
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
                 }

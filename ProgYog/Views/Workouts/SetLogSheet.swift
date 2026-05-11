@@ -16,9 +16,7 @@ struct SetLogSheet: View {
         let rpt: Int
         let rpe: Int
         let rpd: Int
-        let rptNote: String
-        let rpeNote: String
-        let rpdNote: String
+        let notes: String
         let decision: ProgressionDecision
     }
 
@@ -28,9 +26,7 @@ struct SetLogSheet: View {
     @State private var rpt: Int = 7
     @State private var rpe: Int = 6
     @State private var rpd: Int = 3
-    @State private var rptNote: String = ""
-    @State private var rpeNote: String = ""
-    @State private var rpdNote: String = ""
+    @State private var notes: String = ""
     @State private var decision: ProgressionDecision = .hold
     @Environment(\.dismiss) private var dismiss
 
@@ -59,7 +55,7 @@ struct SetLogSheet: View {
                     }
                 }
 
-                Section {
+                Section("Reps") {
                     Stepper(value: $reps, in: 0...200) {
                         HStack {
                             Text("\(reps)").monospacedDigit().font(.title3.bold())
@@ -68,29 +64,21 @@ struct SetLogSheet: View {
                             }
                         }
                     }
-                } header: { Text("Reps") }
+                }
 
-                metricSection(
-                    title: "Technique (RPT)",
-                    value: $rpt,
-                    note: $rptNote,
-                    placeholder: lastLog?.rptNote,
-                    hint: "10 = perfect form"
-                )
-                metricSection(
-                    title: "Exertion (RPE)",
-                    value: $rpe,
-                    note: $rpeNote,
-                    placeholder: lastLog?.rpeNote,
-                    hint: "10 = max effort"
-                )
-                metricSection(
-                    title: "Discomfort (RPD)",
-                    value: $rpd,
-                    note: $rpdNote,
-                    placeholder: lastLog?.rpdNote,
-                    hint: "10 = worst pain"
-                )
+                metricRow(title: "Technique (RPT)", value: $rpt, hint: "10 = perfect form")
+                metricRow(title: "Exertion (RPE)", value: $rpe, hint: "10 = max effort")
+                metricRow(title: "Discomfort (RPD)", value: $rpd, hint: "10 = worst pain")
+
+                Section("Notes") {
+                    TextField(
+                        "Notes (optional)",
+                        text: $notes,
+                        prompt: Text(notesPlaceholder),
+                        axis: .vertical
+                    )
+                    .lineLimit(2...6)
+                }
 
                 Section {
                     Picker("Decision", selection: $decision) {
@@ -112,10 +100,8 @@ struct SetLogSheet: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         onSave(Entry(
-                            reps: reps,
-                            rpt: rpt, rpe: rpe, rpd: rpd,
-                            rptNote: rptNote, rpeNote: rpeNote, rpdNote: rpdNote,
-                            decision: decision
+                            reps: reps, rpt: rpt, rpe: rpe, rpd: rpd,
+                            notes: notes, decision: decision
                         ))
                         dismiss()
                     }
@@ -134,8 +120,13 @@ struct SetLogSheet: View {
         }
     }
 
+    private var notesPlaceholder: String {
+        let last = lastLog?.notes ?? ""
+        return last.isEmpty ? "Notes (optional)" : last
+    }
+
     @ViewBuilder
-    private func metricSection(title: String, value: Binding<Int>, note: Binding<String>, placeholder: String?, hint: String) -> some View {
+    private func metricRow(title: String, value: Binding<Int>, hint: String) -> some View {
         Section(title) {
             Stepper(value: value, in: 1...10) {
                 HStack {
@@ -146,13 +137,6 @@ struct SetLogSheet: View {
                     Text(hint).font(.caption).foregroundStyle(.secondary)
                 }
             }
-            TextField(
-                "Notes (optional)",
-                text: note,
-                prompt: Text(placeholder?.isEmpty == false ? placeholder! : "Notes (optional)"),
-                axis: .vertical
-            )
-            .lineLimit(1...3)
         }
     }
 }

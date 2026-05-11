@@ -40,6 +40,7 @@
         <attribute name="hrMin" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="loggedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="orderInRound" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="reps" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="roundIndex" attributeType="Integer 16" usesScalarValueType="YES"/>
