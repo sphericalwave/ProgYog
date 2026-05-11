@@ -1,33 +1,18 @@
 //
-//  ProgressiveYogApp.swift
-//  ProgressiveYog
-//
-//  Created by Aaron Anthony on 2021-02-19.
+//  ProgYogApp.swift
+//  ProgYog
 //
 
 import SwiftUI
 
 @main
-struct ProgYogApp: App
-{
-//    @Environment(\.scenePhase) var scenePhase
-//    var persistenceController = PersistenceController.shared
-//
-//    init() {
-//        persistenceController.firstLaunch()
-//    }
-    
+struct ProgYogApp: App {
+    @StateObject private var services = AppServices()
+
     var body: some Scene {
         WindowGroup {
-            TabRtr(srvcs: W3rkSrvcs()).rootView()
-            //TabUi()
-             //   .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            RootView()
+                .environmentObject(services)
         }
-//        .onChange(of: scenePhase) { _ in
-//            persistenceController.save()
-//        }
     }
 }
-
-
-

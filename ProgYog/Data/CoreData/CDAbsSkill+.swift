@@ -1,9 +1,6 @@
 //
-//  AbsSkill+.swift
+//  CDAbsSkill+.swift
 //  ProgYog
-//
-//  Created by Aaron Anthony on 2021-02-22.
-//
 //
 
 import Foundation
@@ -26,21 +23,17 @@ extension CDAbsSkill {
     @NSManaged public var series: String
     @NSManaged public var family: String
     @NSManaged public var url: URL
-    @NSManaged public var crtSkills: NSSet?
+    @NSManaged public var setLogs: NSSet?
     @NSManaged public var skillFamily: CDSkillFamily?
 }
 
 extension CDAbsSkill {
-    //FIXME: Depends on SkillFams and YogSeries being loaded
-    //Not an ideal initializer because it's not completely initialized
-    //because the Series, SkillFamily has to be associated
-    //External knowledge of construction order is required.
     convenience init(json: JsonSkillData, moc: NSManagedObjectContext) {
-        self.init(context:moc)
+        self.init(context: moc)
         self.name = json.name
         self.depth = Int16(json.depth)
         self.instructions = json.instructions
-        self.symetrical = json.symmetrical  //TODO
+        self.symetrical = json.symmetrical
         self.timeCode = json.timeCode
         self.family = json.skillFamily
         self.series = json.series
@@ -48,21 +41,18 @@ extension CDAbsSkill {
     }
 }
 
-// MARK: Generated accessors for crtSkills
 extension CDAbsSkill {
+    @objc(addSetLogsObject:)
+    @NSManaged public func addToSetLogs(_ value: SetLog)
 
-    @objc(addCrtSkillsObject:)
-    @NSManaged public func addToCrtSkills(_ value: CrtSkill)
+    @objc(removeSetLogsObject:)
+    @NSManaged public func removeFromSetLogs(_ value: SetLog)
 
-    @objc(removeCrtSkillsObject:)
-    @NSManaged public func removeFromCrtSkills(_ value: CrtSkill)
+    @objc(addSetLogs:)
+    @NSManaged public func addToSetLogs(_ values: NSSet)
 
-    @objc(addCrtSkills:)
-    @NSManaged public func addToCrtSkills(_ values: NSSet)
-
-    @objc(removeCrtSkills:)
-    @NSManaged public func removeFromCrtSkills(_ values: NSSet)
-
+    @objc(removeSetLogs:)
+    @NSManaged public func removeFromSetLogs(_ values: NSSet)
 }
 
 extension CDAbsSkill: Identifiable { }
