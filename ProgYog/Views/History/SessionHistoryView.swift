@@ -7,6 +7,9 @@ import SwiftUI
 import CoreData
 
 struct SessionHistoryView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @EnvironmentObject private var services: AppServices
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
@@ -21,6 +24,16 @@ struct SessionHistoryView: View {
                 NavigationLink(value: session.objectID) {
                     row(for: session)
                 }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        delete(session)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+            }
+            .onDelete { offsets in
+                offsets.map { sessions[$0] }.forEach(delete)
             }
         }
         .navigationTitle("History")
@@ -29,6 +42,11 @@ struct SessionHistoryView: View {
                 WorkoutSummaryView(session: session)
             }
         }
+    }
+
+    private func delete(_ session: Session) {
+        moc.delete(session)
+        services.coreData.save()
     }
 
     @ViewBuilder

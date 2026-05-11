@@ -20,7 +20,7 @@ struct WorkoutListView: View {
                     }
                 }
             }
-            .navigationTitle("Progressive Yoga")
+            .navigationTitle("Workouts")
             .navigationDestination(for: String.self) { code in
                 WorkoutDetailView(workoutCode: code)
             }

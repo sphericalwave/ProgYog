@@ -33,21 +33,19 @@ struct WorkoutSessionView: View {
 
             Spacer()
 
-            HRPill(bpm: services.heartRate.bpm, state: services.heartRate.state)
+            HRPill(heartRate: services.heartRate)
         }
         .padding()
         .navigationTitle("Workout \(vm.workoutCode)")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
+        .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button("Cancel") {
                     vm.cancel()
                     dismiss()
                 }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("HR") { /* connect sheet hooked in HRPill */ }
-                    .opacity(0)
             }
         }
         .sheet(isPresented: Binding(
@@ -152,9 +150,7 @@ struct WorkoutSessionView: View {
 }
 
 private struct HRPill: View {
-    let bpm: Int?
-    let state: HeartRateService.ConnectionState
-    @EnvironmentObject var services: AppServices
+    @ObservedObject var heartRate: HeartRateService
     @State private var showSheet = false
 
     var body: some View {
@@ -162,43 +158,38 @@ private struct HRPill: View {
             HStack(spacing: 8) {
                 Image(systemName: "heart.fill")
                     .foregroundStyle(.red)
-                if let bpm { Text("\(bpm) bpm").monospacedDigit() }
-                else { Text(label).foregroundStyle(.secondary) }
+                if let bpm = heartRate.bpm { Text("\(bpm) bpm").monospacedDigit() }
+                else { Text(heartRate.state.label).foregroundStyle(.secondary) }
             }
             .padding(.horizontal, 14).padding(.vertical, 8)
             .background(Capsule().fill(Color(.secondarySystemBackground)))
         }
         .sheet(isPresented: $showSheet) {
-            HRConnectSheet().environmentObject(services)
-        }
-    }
-
-    private var label: String {
-        switch state {
-        case .idle: return "Connect HR"
-        case .scanning: return "Scanning..."
-        case .connecting: return "Connecting..."
-        case .connected(let name): return name
-        case .disconnected: return "Reconnect"
+            HRConnectSheet(heartRate: heartRate)
         }
     }
 }
 
 private struct HRConnectSheet: View {
-    @EnvironmentObject var services: AppServices
+    @ObservedObject var heartRate: HeartRateService
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
             List {
+                Section("Status") {
+                    Text(heartRate.state.label)
+                        .foregroundStyle(.secondary)
+                }
                 Section("Discovered") {
-                    if services.heartRate.discovered.isEmpty {
-                        Text("Press Scan to look for nearby HR monitors.")
+                    if heartRate.discovered.isEmpty {
+                        Text("Make sure your HR strap is on and not connected to another app. Then tap Scan.")
+                            .font(.caption)
                             .foregroundStyle(.secondary)
                     }
-                    ForEach(services.heartRate.discovered, id: \.identifier) { p in
+                    ForEach(heartRate.discovered, id: \.identifier) { p in
                         Button {
-                            services.heartRate.connect(p)
+                            heartRate.connect(p)
                             dismiss()
                         } label: {
                             HStack {
@@ -211,9 +202,11 @@ private struct HRConnectSheet: View {
                 }
             }
             .navigationTitle("Heart Rate")
+            .onAppear { heartRate.startScan() }
+            .onDisappear { heartRate.stopScan() }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Scan") { services.heartRate.startScan() }
+                    Button("Scan") { heartRate.startScan() }
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") { dismiss() }

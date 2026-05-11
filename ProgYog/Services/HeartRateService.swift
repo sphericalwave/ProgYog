@@ -3,7 +3,6 @@
 //  ProgYog
 //
 //  Bluetooth LE Heart Rate Profile (0x180D / 0x2A37).
-//  Spec: https://www.bluetooth.com/specifications/specs/heart-rate-service-1-0/
 //
 
 import Foundation
@@ -17,7 +16,25 @@ final class HeartRateService: NSObject, ObservableObject {
     @Published private(set) var discovered: [CBPeripheral] = []
 
     enum ConnectionState: Equatable {
-        case idle, scanning, connecting, connected(name: String), disconnected
+        case idle
+        case bluetoothOff
+        case unauthorized
+        case scanning
+        case connecting
+        case connected(name: String)
+        case disconnected
+
+        var label: String {
+            switch self {
+            case .idle: return "Connect HR"
+            case .bluetoothOff: return "Bluetooth off"
+            case .unauthorized: return "Permission needed"
+            case .scanning: return "Scanning…"
+            case .connecting: return "Connecting…"
+            case .connected(let name): return name
+            case .disconnected: return "Reconnect"
+            }
+        }
     }
 
     struct Sample: Equatable {
@@ -30,6 +47,7 @@ final class HeartRateService: NSObject, ObservableObject {
 
     private var central: CBCentralManager!
     private var peripheral: CBPeripheral?
+    private var wantsScan = false
     private var sampleContinuation: AsyncStream<Sample>.Continuation?
 
     lazy var samples: AsyncStream<Sample> = {
@@ -44,19 +62,30 @@ final class HeartRateService: NSObject, ObservableObject {
     }
 
     func startScan() {
-        guard central.state == .poweredOn else { return }
+        wantsScan = true
         discovered.removeAll()
-        state = .scanning
-        central.scanForPeripherals(withServices: [Self.hrServiceUUID])
+        switch central.state {
+        case .poweredOn:
+            state = .scanning
+            central.scanForPeripherals(withServices: [Self.hrServiceUUID])
+        case .poweredOff:
+            state = .bluetoothOff
+        case .unauthorized:
+            state = .unauthorized
+        default:
+            state = .scanning
+        }
     }
 
     func stopScan() {
+        wantsScan = false
         central.stopScan()
         if case .scanning = state { state = .idle }
     }
 
     func connect(_ peripheral: CBPeripheral) {
-        stopScan()
+        wantsScan = false
+        central.stopScan()
         self.peripheral = peripheral
         peripheral.delegate = self
         state = .connecting
@@ -69,7 +98,28 @@ final class HeartRateService: NSObject, ObservableObject {
 }
 
 extension HeartRateService: CBCentralManagerDelegate {
-    nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {}
+    nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        Task { @MainActor in
+            switch central.state {
+            case .poweredOn:
+                if self.wantsScan {
+                    self.state = .scanning
+                    central.scanForPeripherals(withServices: [Self.hrServiceUUID])
+                }
+            case .poweredOff:
+                self.state = .bluetoothOff
+                self.bpm = nil
+            case .unauthorized:
+                self.state = .unauthorized
+            case .unsupported:
+                self.state = .bluetoothOff
+            case .resetting, .unknown:
+                break
+            @unknown default:
+                break
+            }
+        }
+    }
 
     nonisolated func centralManager(
         _ central: CBCentralManager,
@@ -88,6 +138,16 @@ extension HeartRateService: CBCentralManagerDelegate {
         Task { @MainActor in
             self.state = .connected(name: peripheral.name ?? "HR Monitor")
             peripheral.discoverServices([Self.hrServiceUUID])
+        }
+    }
+
+    nonisolated func centralManager(
+        _ central: CBCentralManager,
+        didFailToConnect peripheral: CBPeripheral,
+        error: Error?
+    ) {
+        Task { @MainActor in
+            self.state = .disconnected
         }
     }
 

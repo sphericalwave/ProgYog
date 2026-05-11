@@ -260,9 +260,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         }
 
         let halfway = setDurationSec / 2
-        if !didPlayHalfwayBell,
-           secondsRemaining == halfway,
-           currentSkill?.symetrical == true {
+        if !didPlayHalfwayBell, secondsRemaining == halfway {
             services.audio.play(.halfwayBell)
             didPlayHalfwayBell = true
         }
