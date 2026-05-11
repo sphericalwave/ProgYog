@@ -39,21 +39,72 @@ final class WorkoutSessionViewModel: ObservableObject {
     private var lastBeepedSecond: Int = -1
     private var didPlayHalfwayBell: Bool = false
 
-    init(workoutCode: String, services: AppServices) {
+    init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         self.workoutCode = workoutCode
         self.services = services
         self.moc = services.coreData.moc
-        self.session = Session(workoutCode: workoutCode, moc: moc)
-        try? moc.save()
+
+        if let existing {
+            self.session = existing
+        } else {
+            self.session = Session(workoutCode: workoutCode, moc: moc)
+            try? moc.save()
+        }
 
         let fr: NSFetchRequest<CDSkillFamily> = CDSkillFamily.fetchRequest()
         fr.predicate = NSPredicate(format: "series == %@", workoutCode)
         fr.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         self.families = (try? moc.fetch(fr)) ?? []
 
-        for fam in families {
-            familyDepths[fam.objectID] = computeStartingDepth(for: fam)
+        if existing != nil {
+            restoreProgress()
+        } else {
+            for fam in families {
+                familyDepths[fam.objectID] = computeStartingDepth(for: fam)
+            }
         }
+    }
+
+    private func restoreProgress() {
+        let logs = session.orderedSetLogs
+        let famCount = max(families.count, 1)
+        let totalSets = logs.count
+        roundIdx = min(totalSets / famCount, totalRounds - 1)
+        familyIdx = totalSets % famCount
+
+        for fam in families {
+            let lastInFam = logs
+                .filter { $0.absSkill?.skillFamily == fam }
+                .last
+            if let last = lastInFam, let baseDepth = last.absSkill?.depth {
+                switch last.decisionValue {
+                case .progress: familyDepths[fam.objectID] = min(baseDepth + 1, 5)
+                case .regress:  familyDepths[fam.objectID] = max(baseDepth - 1, 1)
+                case .hold:     familyDepths[fam.objectID] = baseDepth
+                }
+            } else {
+                familyDepths[fam.objectID] = computeStartingDepth(for: fam)
+            }
+        }
+
+        if totalSets >= totalRounds * famCount {
+            session.endedAt = session.endedAt ?? Date()
+            services.coreData.save()
+            phase = .finished
+        }
+    }
+
+    static func inProgressSession(for workoutCode: String, moc: NSManagedObjectContext) -> Session? {
+        let fr: NSFetchRequest<Session> = Session.fetchRequest()
+        fr.predicate = NSPredicate(format: "workoutCode == %@ AND endedAt == nil", workoutCode)
+        fr.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
+        fr.fetchLimit = 1
+        return (try? moc.fetch(fr))?.first
+    }
+
+    func discardSession() {
+        moc.delete(session)
+        services.coreData.save()
     }
 
     var currentFamily: CDSkillFamily? {

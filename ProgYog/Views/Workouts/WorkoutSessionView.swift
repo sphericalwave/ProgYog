@@ -10,8 +10,8 @@ struct WorkoutSessionView: View {
     @EnvironmentObject private var services: AppServices
     @Environment(\.dismiss) private var dismiss
 
-    init(workoutCode: String, services: AppServices) {
-        _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services))
+    init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
+        _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services, resuming: existing))
     }
 
     var body: some View {
@@ -66,11 +66,24 @@ struct WorkoutSessionView: View {
     }
 
     private var header: some View {
-        VStack(spacing: 4) {
-            Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
-            if let skill = vm.currentSkill {
-                Text(skill.name).font(.title2).bold()
-                Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
+        VStack(spacing: 8) {
+            VStack(spacing: 4) {
+                Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
+                if let skill = vm.currentSkill {
+                    Text(skill.name).font(.title2).bold()
+                    Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            if let skill = vm.currentSkill, !skill.instructions.isEmpty {
+                ScrollView {
+                    Text(skill.instructions)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(maxHeight: 140)
+                .padding(12)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
             }
         }
     }
