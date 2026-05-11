@@ -42,6 +42,8 @@ class CoreDataSrvc
         let key = "notFirstLaunch"
         let notFirstLaunch = usrDflt.bool(forKey: key)
         if !notFirstLaunch  {
+            
+            
 //            let alfred = Alfred(moc: moc)
 //            _ = AbsFdData(moc: moc)
 //            _ = AbsDshsData(moc: moc, alfred: alfred)
@@ -59,6 +61,7 @@ class CoreDataSrvc
             lC += 1
             usrDflt.set(lC, forKey: "launchCount")
             print("launch \(lC)") }
+            _ = ImportedJSON(moc: container.viewContext)
     }
     
 //    func trgt() -> MacroTarget {

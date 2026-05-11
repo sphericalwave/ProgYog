@@ -16,7 +16,7 @@ class W3rkSrvcs
     //let newFdSrvc: NewFdSrvc
     
     init() {
-        let theme = SwTheme()       //fixme: put in services
+        _ = SwTheme()       //fixme: put in services
         let cd = CoreDataSrvc()
         cd.launch()                 //not sure about this
         self.coreDataSrvc = cd

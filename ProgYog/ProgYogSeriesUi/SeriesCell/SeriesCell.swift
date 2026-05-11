@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct SeriesCell: View {
-    
+struct SeriesCell: View
+{
     @State var rtr: SeriesCellRtr
     @State var vm: SeriesCellVm
     
     var body: some View {
         NavigationLink(destination: rtr.seriesUi()){
             HStack(alignment: .center) {
-                Label {
-                    Text(vm.text)
-                } icon: {
-                    Image(systemName: "square.fill")
-                        .foregroundColor(vm.color)
-                }
+                Label { Text(vm.text) } icon: { icon }
                 Spacer()
                 Text("\(vm.percent)%")
             }
         }
+    }
+    
+    var icon: some View {
+        Image(systemName: "square.fill")
+            .foregroundColor(vm.color)
     }
 }
