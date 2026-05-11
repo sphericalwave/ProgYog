@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct SetLogSheet: View {
     let skill: CDAbsSkill
@@ -21,6 +22,8 @@ struct SetLogSheet: View {
         let decision: ProgressionDecision
     }
 
+    @FetchRequest private var logs: FetchedResults<SetLog>
+
     @State private var reps: Int = 1
     @State private var rpt: Int = 7
     @State private var rpe: Int = 6
@@ -31,6 +34,18 @@ struct SetLogSheet: View {
     @State private var decision: ProgressionDecision = .hold
     @Environment(\.dismiss) private var dismiss
 
+    init(skill: CDAbsSkill, suggestion: ProgressionDecision, onSave: @escaping (Entry) -> Void) {
+        self.skill = skill
+        self.suggestion = suggestion
+        self.onSave = onSave
+        _logs = FetchRequest<SetLog>(
+            sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: true)],
+            predicate: NSPredicate(format: "absSkill == %@", skill)
+        )
+    }
+
+    private var lastLog: SetLog? { logs.last }
+
     var body: some View {
         NavigationStack {
             Form {
@@ -38,28 +53,42 @@ struct SetLogSheet: View {
                     Text("Level \(skill.depth)").foregroundStyle(.secondary)
                 }
 
-                Section("Reps") {
-                    Stepper(value: $reps, in: 0...200) {
-                        Text("\(reps)").monospacedDigit()
+                if logs.count >= 2 {
+                    Section("Trend") {
+                        SkillTrendChart(logs: Array(logs))
                     }
                 }
+
+                Section {
+                    Stepper(value: $reps, in: 0...200) {
+                        HStack {
+                            Text("\(reps)").monospacedDigit().font(.title3.bold())
+                            if let last = lastLog {
+                                Text("last \(last.reps)").font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                } header: { Text("Reps") }
 
                 metricSection(
                     title: "Technique (RPT)",
                     value: $rpt,
                     note: $rptNote,
+                    placeholder: lastLog?.rptNote,
                     hint: "10 = perfect form"
                 )
                 metricSection(
                     title: "Exertion (RPE)",
                     value: $rpe,
                     note: $rpeNote,
+                    placeholder: lastLog?.rpeNote,
                     hint: "10 = max effort"
                 )
                 metricSection(
                     title: "Discomfort (RPD)",
                     value: $rpd,
                     note: $rpdNote,
+                    placeholder: lastLog?.rpdNote,
                     hint: "10 = worst pain"
                 )
 
@@ -93,12 +122,20 @@ struct SetLogSheet: View {
                     .bold()
                 }
             }
-            .onAppear { decision = suggestion }
+            .onAppear {
+                if let last = lastLog {
+                    reps = Int(last.reps)
+                    rpt = Int(last.rpt)
+                    rpe = Int(last.rpe)
+                    rpd = Int(last.rpd)
+                }
+                decision = suggestion
+            }
         }
     }
 
     @ViewBuilder
-    private func metricSection(title: String, value: Binding<Int>, note: Binding<String>, hint: String) -> some View {
+    private func metricSection(title: String, value: Binding<Int>, note: Binding<String>, placeholder: String?, hint: String) -> some View {
         Section(title) {
             Stepper(value: value, in: 1...10) {
                 HStack {
@@ -109,8 +146,13 @@ struct SetLogSheet: View {
                     Text(hint).font(.caption).foregroundStyle(.secondary)
                 }
             }
-            TextField("Notes (optional)", text: note, axis: .vertical)
-                .lineLimit(1...3)
+            TextField(
+                "Notes (optional)",
+                text: note,
+                prompt: Text(placeholder?.isEmpty == false ? placeholder! : "Notes (optional)"),
+                axis: .vertical
+            )
+            .lineLimit(1...3)
         }
     }
 }

@@ -156,6 +156,16 @@ final class WorkoutSessionViewModel: ObservableObject {
         phase = .finished
     }
 
+    func skipToLog() {
+        guard phase == .idle || phase == .running else { return }
+        timerTask?.cancel()
+        timerTask = nil
+        hrCancellable?.cancel()
+        services.audio.stopSpeaking()
+        suggestion = currentSkill.map(computeSuggestion(for:)) ?? .hold
+        phase = .logging
+    }
+
     func recordLog(_ entry: SetLogSheet.Entry) {
         guard let skill = currentSkill else { return }
 

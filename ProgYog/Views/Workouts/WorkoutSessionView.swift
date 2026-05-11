@@ -100,6 +100,13 @@ struct WorkoutSessionView: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+
+            Button(action: vm.skipToLog) {
+                Text("Log Without Timer")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
         }
     }
 
@@ -111,6 +118,12 @@ struct WorkoutSessionView: View {
                 .contentTransition(.numericText())
             ProgressView(value: Double(vm.secondsRemaining), total: Double(vm.setDurationSec))
                 .progressViewStyle(.linear)
+            Button(action: vm.skipToLog) {
+                Label("Skip to Log", systemImage: "forward.fill")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
         }
     }
 
