@@ -44,12 +44,28 @@ final class CoreDataService: ObservableObject {
         catch { print("CoreData save error: \(error)") }
     }
 
+    private static let seedVersionKey = "seedVersion"
+    private static let currentSeedVersion = 2
+
     func seedIfNeeded() {
-        let key = "didSeedJSON"
-        guard !UserDefaults.standard.bool(forKey: key) else { return }
+        let stored = UserDefaults.standard.integer(forKey: Self.seedVersionKey)
+        guard stored < Self.currentSeedVersion else { return }
+
+        if stored > 0 {
+            wipeCatalog()
+        }
         _ = ImportedJSON(moc: moc)
         save()
-        UserDefaults.standard.set(true, forKey: key)
+        UserDefaults.standard.set(Self.currentSeedVersion, forKey: Self.seedVersionKey)
+    }
+
+    private func wipeCatalog() {
+        for entity in ["CDAbsSkill", "CDSkillFamily", "CDYogSeries"] {
+            let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+            let delete = NSBatchDeleteRequest(fetchRequest: fr)
+            _ = try? container.persistentStoreCoordinator.execute(delete, with: moc)
+        }
+        moc.reset()
     }
 
     private static func wipeStore(container: NSPersistentContainer) {

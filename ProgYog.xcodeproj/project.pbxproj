@@ -40,6 +40,7 @@
 		AE0000040000000000000011 /* WorkoutSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000012 /* WorkoutSessionView.swift */; };
 		AE0000040000000000000021 /* SetLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000022 /* SetLogSheet.swift */; };
 		AE0000040000000000000031 /* WorkoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000032 /* WorkoutSummaryView.swift */; };
+		AE0000040000000000000041 /* SkillFamilyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000042 /* SkillFamilyDetailView.swift */; };
 		AE0000050000000000000001 /* SkillTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000002 /* SkillTrendChart.swift */; };
 		AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000012 /* WorkoutCompositeChart.swift */; };
 		AE0000050000000000000021 /* HRCurveChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000022 /* HRCurveChart.swift */; };
@@ -83,6 +84,7 @@
 		AE0000040000000000000012 /* WorkoutSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000022 /* SetLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLogSheet.swift; sourceTree = "<group>"; };
 		AE0000040000000000000032 /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummaryView.swift; sourceTree = "<group>"; };
+		AE0000040000000000000042 /* SkillFamilyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamilyDetailView.swift; sourceTree = "<group>"; };
 		AE0000050000000000000002 /* SkillTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTrendChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000012 /* WorkoutCompositeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompositeChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000022 /* HRCurveChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCurveChart.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				AE0000040000000000000002 /* WorkoutSessionViewModel.swift */,
 				AE0000040000000000000022 /* SetLogSheet.swift */,
 				AE0000040000000000000032 /* WorkoutSummaryView.swift */,
+				AE0000040000000000000042 /* SkillFamilyDetailView.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				AE0000040000000000000011 /* WorkoutSessionView.swift in Sources */,
 				AE0000040000000000000021 /* SetLogSheet.swift in Sources */,
 				AE0000040000000000000031 /* WorkoutSummaryView.swift in Sources */,
+				AE0000040000000000000041 /* SkillFamilyDetailView.swift in Sources */,
 				AE0000050000000000000001 /* SkillTrendChart.swift in Sources */,
 				AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */,
 				AE0000050000000000000021 /* HRCurveChart.swift in Sources */,

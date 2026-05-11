@@ -25,24 +25,18 @@ struct ImportedJSON {
     mutating func loadCoreData() {
         loadJSONData()
         
-        var mos: [CDYogSeries] = []
         for jsonSeries in self.jsonSeries {
             let cdSeries = CDYogSeries(json: jsonSeries, moc: moc)
             guard let families = self.jsonFamilies[jsonSeries.name] else { fatalError() }
             for jsonFamily in families {
                 let cdFamily = CDSkillFamily(json: jsonFamily, moc: moc)
+                cdFamily.yogSeries = cdSeries
                 guard let jsonSkills = self.jsonSkills[jsonFamily.name] else { fatalError() }
-                let cdSkills = Set(jsonSkills.map { CDAbsSkill(json: $0, moc: moc) })
-                cdFamily.addToAbsSkills(cdSkills as NSSet)
-                
-                for skill in jsonSkills {
-                    let cdSkill = CDAbsSkill(json: skill, moc: moc)
+                for jsonSkill in jsonSkills {
+                    let cdSkill = CDAbsSkill(json: jsonSkill, moc: moc)
                     cdSkill.skillFamily = cdFamily
                 }
-                cdFamily.yogSeries = cdSeries
             }
-            mos.append(cdSeries)
-            print("Series \(cdSeries)")
         }
         
         guard moc.hasChanges else { return }

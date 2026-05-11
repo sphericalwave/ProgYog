@@ -26,10 +26,14 @@ struct WorkoutDetailView: View {
         List {
             Section("Skill Families") {
                 ForEach(families, id: \.self) { family in
-                    HStack {
-                        Text("\(family.order).")
-                            .foregroundStyle(.secondary)
-                        Text(family.name)
+                    NavigationLink {
+                        SkillFamilyDetailView(family: family)
+                    } label: {
+                        HStack {
+                            Text("\(family.order).")
+                                .foregroundStyle(.secondary)
+                            Text(family.name)
+                        }
                     }
                 }
             }
