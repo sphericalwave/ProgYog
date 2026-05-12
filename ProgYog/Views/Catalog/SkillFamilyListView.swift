@@ -16,12 +16,16 @@ struct SkillFamilyListView: View {
 
     var body: some View {
         List(families, id: \.self) { family in
-            HStack {
-                Text(family.series)
-                    .font(.caption.bold())
-                    .foregroundStyle(.secondary)
-                Text("\(family.order).")
-                Text(family.name)
+            NavigationLink {
+                SkillFamilyDetailView(family: family)
+            } label: {
+                HStack {
+                    Text(family.series)
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                    Text("\(family.order).")
+                    Text(family.name)
+                }
             }
         }
         .navigationTitle("Skill Families")
