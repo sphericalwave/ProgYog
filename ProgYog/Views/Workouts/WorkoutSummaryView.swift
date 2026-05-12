@@ -7,6 +7,8 @@ import SwiftUI
 
 struct WorkoutSummaryView: View {
     let session: Session
+    @EnvironmentObject private var services: AppServices
+    @State private var notesDraft: String = ""
 
     private var setLogs: [SetLog] { session.orderedSetLogs }
 
@@ -19,6 +21,15 @@ struct WorkoutSummaryView: View {
                     LabeledContent("Ended", value: end.formatted(date: .abbreviated, time: .shortened))
                 }
                 LabeledContent("Sets", value: "\(setLogs.count)")
+            }
+
+            Section("Session Notes") {
+                TextField("Notes (optional)", text: $notesDraft, axis: .vertical)
+                    .lineLimit(2...6)
+                    .onChange(of: notesDraft) { _, new in
+                        session.notes = new.isEmpty ? nil : new
+                        services.coreData.save()
+                    }
             }
 
             if !setLogs.isEmpty {
@@ -59,5 +70,6 @@ struct WorkoutSummaryView: View {
             }
         }
         .navigationTitle("Summary")
+        .onAppear { notesDraft = session.notes ?? "" }
     }
 }

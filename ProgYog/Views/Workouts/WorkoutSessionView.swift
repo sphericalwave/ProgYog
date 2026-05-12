@@ -128,9 +128,24 @@ struct WorkoutSessionView: View {
     private var finishedView: some View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 80))
+                .font(.system(size: 60))
                 .foregroundStyle(.green)
             Text("Workout complete").font(.title2.bold())
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Session notes").font(.caption).foregroundStyle(.secondary)
+                TextField(
+                    "How did it feel?",
+                    text: Binding(
+                        get: { vm.session.notes ?? "" },
+                        set: { vm.setSessionNotes($0) }
+                    ),
+                    axis: .vertical
+                )
+                .lineLimit(3...6)
+                .textFieldStyle(.roundedBorder)
+            }
+
             NavigationLink {
                 WorkoutSummaryView(session: vm.session)
             } label: {

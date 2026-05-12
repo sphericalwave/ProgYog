@@ -107,6 +107,12 @@ final class WorkoutSessionViewModel: ObservableObject {
         services.coreData.save()
     }
 
+    func setSessionNotes(_ text: String) {
+        session.notes = text.isEmpty ? nil : text
+        services.coreData.save()
+        objectWillChange.send()
+    }
+
     var currentFamily: CDSkillFamily? {
         guard familyIdx < families.count else { return nil }
         return families[familyIdx]
