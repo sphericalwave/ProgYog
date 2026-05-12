@@ -78,6 +78,15 @@ struct SetLogSheet: View {
                         axis: .vertical
                     )
                     .lineLimit(2...6)
+
+                    if let last = lastLog?.notes, !last.isEmpty {
+                        Button {
+                            notes = last
+                        } label: {
+                            Label("Use last comment", systemImage: "arrow.uturn.left")
+                                .font(.callout)
+                        }
+                    }
                 }
 
                 Section {
