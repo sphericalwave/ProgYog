@@ -82,30 +82,46 @@ struct WorkoutSummaryView: View {
                 }
             }
 
-            Section {
-                ForEach(setLogs, id: \.objectID) { log in
-                    Button {
-                        sheet = .edit(log)
-                    } label: {
-                        setRow(log)
-                    }
-                    .buttonStyle(.plain)
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            services.coreData.moc.delete(log)
-                            services.coreData.save()
+            ForEach(roundGroups, id: \.round) { group in
+                Section {
+                    ForEach(group.logs, id: \.objectID) { log in
+                        Button {
+                            sheet = .edit(log)
                         } label: {
-                            Label("Delete", systemImage: "trash")
+                            setRow(log)
+                        }
+                        .buttonStyle(.plain)
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                services.coreData.moc.delete(log)
+                                services.coreData.save()
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
                     }
+                } header: {
+                    HStack {
+                        Text("Round \(group.round + 1)")
+                        Spacer()
+                        Button {
+                            duplicateRound(group)
+                        } label: {
+                            Label("Duplicate", systemImage: "plus.square.on.square")
+                                .labelStyle(.iconOnly)
+                                .imageScale(.large)
+                        }
+                        .buttonStyle(.borderless)
+                    }
                 }
+            }
+
+            Section {
                 Button {
                     sheet = .picker
                 } label: {
                     Label("Add Set", systemImage: "plus.circle.fill")
                 }
-            } header: {
-                Text("Sets")
             } footer: {
                 Text("Changes save automatically. Tap Save to confirm.")
                     .font(.caption2)
@@ -170,6 +186,34 @@ struct WorkoutSummaryView: View {
                     createLog(for: skill, entry: entry)
                 }
             }
+        }
+    }
+
+    private func duplicateRound(_ group: (round: Int16, logs: [SetLog])) {
+        let nextRound = (roundGroups.map { $0.round }.max() ?? -1) + 1
+        for src in group.logs {
+            let dup = SetLog(context: services.coreData.moc)
+            dup.id = UUID()
+            dup.session = session
+            dup.absSkill = src.absSkill
+            dup.roundIndex = nextRound
+            dup.orderInRound = src.orderInRound
+            dup.reps = src.reps
+            dup.rpt = src.rpt
+            dup.rpe = src.rpe
+            dup.rpd = src.rpd
+            dup.notes = src.notes
+            dup.durationSec = src.durationSec
+            dup.decision = src.decision
+            dup.loggedAt = Date()
+        }
+        services.coreData.save()
+    }
+
+    private var roundGroups: [(round: Int16, logs: [SetLog])] {
+        let dict = Dictionary(grouping: Array(setLogs)) { $0.roundIndex }
+        return dict.keys.sorted().map { round in
+            (round: round, logs: dict[round]!.sorted { $0.orderInRound < $1.orderInRound })
         }
     }
 

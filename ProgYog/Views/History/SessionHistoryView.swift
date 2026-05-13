@@ -22,7 +22,7 @@ struct SessionHistoryView: View {
             }
             ForEach(sessions, id: \.id) { session in
                 NavigationLink(value: session.objectID) {
-                    row(for: session)
+                    SessionRow(session: session)
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     Button(role: .destructive) {
@@ -49,10 +49,24 @@ struct SessionHistoryView: View {
         moc.delete(session)
         services.coreData.save()
     }
+}
 
-    @ViewBuilder
-    private func row(for session: Session) -> some View {
-        let setCount = session.orderedSetLogs.count
+private struct SessionRow: View {
+    @ObservedObject var session: Session
+
+    @FetchRequest private var logs: FetchedResults<SetLog>
+
+    init(session: Session) {
+        self.session = session
+        _logs = FetchRequest<SetLog>(
+            sortDescriptors: [NSSortDescriptor(key: "roundIndex", ascending: true)],
+            predicate: NSPredicate(format: "session == %@", session)
+        )
+    }
+
+    var body: some View {
+        let setCount = logs.count
+        let roundCount = Set(logs.map { $0.roundIndex }).count
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text("Workout \(session.workoutCode)").font(.headline)
@@ -61,7 +75,7 @@ struct SessionHistoryView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            Text("\(setCount) set\(setCount == 1 ? "" : "s")")
+            Text("\(roundCount) round\(roundCount == 1 ? "" : "s") · \(setCount) set\(setCount == 1 ? "" : "s")")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
