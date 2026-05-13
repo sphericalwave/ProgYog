@@ -21,6 +21,13 @@ struct SkillDetailView: View {
 
     var body: some View {
         List {
+            if !skill.posterAssetNames.isEmpty {
+                Section {
+                    SkillPosterGallery(names: skill.posterAssetNames)
+                        .listRowInsets(EdgeInsets())
+                }
+            }
+
             Section {
                 LabeledContent("Family", value: skill.family)
                 LabeledContent("Series", value: skill.series)

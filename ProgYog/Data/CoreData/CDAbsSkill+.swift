@@ -5,6 +5,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 @objc(CDAbsSkill)
 public class CDAbsSkill: NSManagedObject { }
@@ -56,3 +57,27 @@ extension CDAbsSkill {
 }
 
 extension CDAbsSkill: Identifiable { }
+
+extension CDAbsSkill {
+    /// Asset-catalog stem under the "Poses" namespace, e.g. "Poses/A-1-2".
+    /// Images are saved at "<stem>-<idx>.imageset".
+    var posterStem: String {
+        let order = skillFamily?.order ?? 0
+        return "Poses/\(series)-\(order)-\(depth)"
+    }
+
+    /// All bundle-resident pose images for this skill, in extraction order.
+    var posterAssetNames: [String] {
+        var names: [String] = []
+        var idx = 0
+        while UIImage(named: "\(posterStem)-\(idx)") != nil {
+            names.append("\(posterStem)-\(idx)")
+            idx += 1
+        }
+        return names
+    }
+
+    /// The hero image (idx 0) if one exists.
+    var posterAssetName: String? { posterAssetNames.first }
+}
+

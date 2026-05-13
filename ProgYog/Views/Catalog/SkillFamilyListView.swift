@@ -33,7 +33,8 @@ struct SkillFamilyListView: View {
                         NavigationLink {
                             SkillFamilyDetailView(family: family)
                         } label: {
-                            HStack {
+                            HStack(spacing: 12) {
+                                SkillThumbnail(assetName: familyHero(family), size: 48)
                                 Text("\(family.order).")
                                     .foregroundStyle(.secondary)
                                 Text(family.name)
@@ -50,6 +51,12 @@ struct SkillFamilyListView: View {
     }
 
     // MARK: helpers below
+
+    private func familyHero(_ family: CDSkillFamily) -> String? {
+        let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
+        let lowest = skills.min { $0.depth < $1.depth }
+        return lowest?.posterAssetName
+    }
 
     @ViewBuilder
     private func stats(for family: CDSkillFamily) -> some View {

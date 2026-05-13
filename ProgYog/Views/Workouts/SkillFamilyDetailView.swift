@@ -19,11 +19,14 @@ struct SkillFamilyDetailView: View {
             NavigationLink {
                 SkillDetailView(skill: skill)
             } label: {
-                HStack {
-                    Text("Level \(skill.depth)")
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
-                    Text(skill.name)
+                HStack(spacing: 12) {
+                    SkillThumbnail(assetName: skill.posterAssetName, size: 48)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Level \(skill.depth)")
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                        Text(skill.name)
+                    }
                 }
             }
         }

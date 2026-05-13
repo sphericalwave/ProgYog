@@ -22,7 +22,8 @@ struct AbsSkillListView: View {
     var body: some View {
         List(skills, id: \.self) { skill in
             NavigationLink(value: skill.objectID) {
-                HStack {
+                HStack(spacing: 12) {
+                    SkillThumbnail(assetName: skill.posterAssetName, size: 48)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(skill.name).font(.body)
                         Text("\(skill.series) · \(skill.family) · level \(skill.depth)")
