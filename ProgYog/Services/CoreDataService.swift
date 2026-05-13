@@ -107,6 +107,18 @@ final class CoreDataService: ObservableObject {
         UserDefaults.standard.set(Self.currentSeedVersion, forKey: Self.seedVersionKey)
     }
 
+    private static let decisionRenameFlagKey = "didRenameHoldToRepeat"
+
+    func renameHoldToRepeatIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: Self.decisionRenameFlagKey) else { return }
+        let fr: NSFetchRequest<SetLog> = SetLog.fetchRequest()
+        fr.predicate = NSPredicate(format: "decision == %@", "hold")
+        let logs = (try? moc.fetch(fr)) ?? []
+        for log in logs { log.decision = "repeat" }
+        save()
+        UserDefaults.standard.set(true, forKey: Self.decisionRenameFlagKey)
+    }
+
     private static let notesMergeFlagKey = "didMergeSetLogNotes"
 
     func mergeLegacyNotesIfNeeded() {

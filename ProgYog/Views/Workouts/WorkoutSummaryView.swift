@@ -180,7 +180,7 @@ struct WorkoutSummaryView: View {
             case .add(let skill):
                 SetLogSheet(
                     skill: skill,
-                    suggestion: .hold,
+                    suggestion: .`repeat`,
                     currentSession: session
                 ) { entry in
                     createLog(for: skill, entry: entry)
@@ -227,9 +227,14 @@ struct WorkoutSummaryView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) · \(log.decision)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack(spacing: 4) {
+                Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) ·")
+                    .foregroundStyle(.secondary)
+                Text(log.decisionValue.label)
+                    .foregroundStyle(log.decisionValue.color)
+                    .bold()
+            }
+            .font(.caption)
             if let notes = log.notes, !notes.isEmpty {
                 Text(notes)
                     .font(.caption)

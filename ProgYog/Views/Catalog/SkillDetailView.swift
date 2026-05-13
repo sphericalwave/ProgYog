@@ -49,9 +49,14 @@ struct SkillDetailView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(log.loggedAt.formatted(date: .abbreviated, time: .shortened))
                                 .font(.caption.bold())
-                            Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) · \(log.decision)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                            HStack(spacing: 4) {
+                                Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) ·")
+                                    .foregroundStyle(.secondary)
+                                Text(log.decisionValue.label)
+                                    .foregroundStyle(log.decisionValue.color)
+                                    .bold()
+                            }
+                            .font(.caption)
                             if let notes = log.notes, !notes.isEmpty {
                                 Text(notes)
                                     .font(.caption2)

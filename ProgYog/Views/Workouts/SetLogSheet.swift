@@ -29,7 +29,7 @@ struct SetLogSheet: View {
     @State private var rpe: Int = 6
     @State private var rpd: Int = 3
     @State private var notes: String = ""
-    @State private var decision: ProgressionDecision = .hold
+    @State private var decision: ProgressionDecision = .`repeat`
     @Environment(\.dismiss) private var dismiss
     
     init(

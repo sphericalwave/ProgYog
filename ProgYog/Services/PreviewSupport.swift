@@ -123,8 +123,8 @@ enum PreviewSupport {
             (
                 14,
                 [
-                    (5, 7, 5, 6, "hold",     "First go-round, struggled to keep heels down."),
-                    (5, 7, 4, 6, "hold",     nil),
+                    (5, 7, 5, 6, "repeat",     "First go-round, struggled to keep heels down."),
+                    (5, 7, 4, 6, "repeat",     nil),
                     (4, 8, 5, 5, "regress",  "Twisting hurt the low back."),
                     (4, 8, 5, 5, "regress",  nil),
                 ]
@@ -132,10 +132,10 @@ enum PreviewSupport {
             (
                 7,
                 [
-                    (6, 7, 4, 8, "hold",     "Better today, kept the heels closer."),
+                    (6, 7, 4, 8, "repeat",     "Better today, kept the heels closer."),
                     (6, 7, 3, 8, "progress", "Found rhythm on the second rep."),
-                    (5, 8, 4, 6, "hold",     nil),
-                    (5, 7, 4, 6, "hold",     nil),
+                    (5, 8, 4, 6, "repeat",     nil),
+                    (5, 7, 4, 6, "repeat",     nil),
                 ]
             ),
             (
@@ -143,8 +143,8 @@ enum PreviewSupport {
                 [
                     (7, 6, 3, 10, "progress", "Hip is finally opening up."),
                     (7, 7, 3, 10, "progress", nil),
-                    (6, 7, 3, 9,  "hold",     nil),
-                    (6, 7, 3, 9,  "hold",     nil),
+                    (6, 7, 3, 9,  "repeat",     nil),
+                    (6, 7, 3, 9,  "repeat",     nil),
                 ]
             ),
         ]
@@ -184,8 +184,8 @@ enum PreviewSupport {
 
         let todayMetrics: [(rpt: Int16, rpe: Int16, rpd: Int16, reps: Int16, decision: String, notes: String?)] = [
             (8, 7, 2, 12, "progress", "Smooth, locked elbows held the whole minute."),
-            (7, 6, 3, 10, "hold",     nil),
-            (6, 8, 4, 8,  "hold",     "Tight thoracic — switch sides at 30s felt rough."),
+            (7, 6, 3, 10, "repeat",     nil),
+            (6, 8, 4, 8,  "repeat",     "Tight thoracic — switch sides at 30s felt rough."),
             (4, 9, 6, 6,  "regress",  "Knee twinge on the right side."),
         ]
 

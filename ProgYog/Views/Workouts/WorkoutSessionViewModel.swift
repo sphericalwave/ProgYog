@@ -21,7 +21,7 @@ final class WorkoutSessionViewModel: ObservableObject {
     @Published var roundIdx: Int = 0
     @Published var familyIdx: Int = 0
     @Published var secondsRemaining: Int = 60
-    @Published var suggestion: ProgressionDecision = .hold
+    @Published var suggestion: ProgressionDecision = .`repeat`
 
     let totalRounds = 5
     let setDurationSec = 60
@@ -80,7 +80,7 @@ final class WorkoutSessionViewModel: ObservableObject {
                 switch last.decisionValue {
                 case .progress: familyDepths[fam.objectID] = min(baseDepth + 1, 5)
                 case .regress:  familyDepths[fam.objectID] = max(baseDepth - 1, 1)
-                case .hold:     familyDepths[fam.objectID] = baseDepth
+                case .`repeat`:     familyDepths[fam.objectID] = baseDepth
                 }
             } else {
                 familyDepths[fam.objectID] = computeStartingDepth(for: fam)
@@ -168,7 +168,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         timerTask = nil
         hrCancellable?.cancel()
         services.audio.stopSpeaking()
-        suggestion = currentSkill.map(computeSuggestion(for:)) ?? .hold
+        suggestion = currentSkill.map(computeSuggestion(for:)) ?? .`repeat`
         phase = .logging
     }
 
@@ -210,7 +210,7 @@ final class WorkoutSessionViewModel: ObservableObject {
             switch entry.decision {
             case .progress: next = min(current + 1, 5)
             case .regress:  next = max(current - 1, 1)
-            case .hold:     next = current
+            case .`repeat`:     next = current
             }
             familyDepths[fam.objectID] = next
         }
@@ -286,7 +286,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         switch last.decisionValue {
         case .progress: return min(lastDepth + 1, 5)
         case .regress:  return max(lastDepth - 1, 1)
-        case .hold:     return lastDepth
+        case .`repeat`:     return lastDepth
         }
     }
 

@@ -20,6 +20,7 @@ final class AppServices: ObservableObject {
         if !inMemory {
             cd.seedIfNeeded()
             cd.mergeLegacyNotesIfNeeded()
+            cd.renameHoldToRepeatIfNeeded()
         }
         self.coreData = cd
         let hr = HeartRateService()

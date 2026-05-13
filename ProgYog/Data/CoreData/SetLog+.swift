@@ -39,7 +39,7 @@ extension SetLog {
 
 extension SetLog {
     var decisionValue: ProgressionDecision {
-        ProgressionDecision(rawValue: decision) ?? .hold
+        ProgressionDecision(rawValue: decision) ?? .repeat
     }
 
     var ratedSet: RatedSet {
