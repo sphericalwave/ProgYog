@@ -69,6 +69,7 @@ struct WorkoutSummaryView: View {
                 }
             }
         }
+        .listStyle(.grouped)
         .navigationTitle("Summary")
         .onAppear { notesDraft = session.notes ?? "" }
     }

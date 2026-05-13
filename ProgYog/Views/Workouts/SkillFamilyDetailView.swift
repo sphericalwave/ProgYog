@@ -27,6 +27,7 @@ struct SkillFamilyDetailView: View {
                 }
             }
         }
+        .listStyle(.grouped)
         .navigationTitle(family.name)
     }
 }

@@ -62,6 +62,7 @@ struct SkillDetailView: View {
                 }
             }
         }
+        .listStyle(.grouped)
         .navigationTitle(skill.name)
     }
 }

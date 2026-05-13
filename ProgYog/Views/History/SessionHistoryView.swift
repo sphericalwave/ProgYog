@@ -36,6 +36,7 @@ struct SessionHistoryView: View {
                 offsets.map { sessions[$0] }.forEach(delete)
             }
         }
+        .listStyle(.grouped)
         .navigationTitle("History")
         .navigationDestination(for: NSManagedObjectID.self) { id in
             if let session = sessions.first(where: { $0.objectID == id }) {
