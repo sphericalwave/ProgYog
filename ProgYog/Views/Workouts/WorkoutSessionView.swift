@@ -64,7 +64,9 @@ struct WorkoutSessionView: View {
             Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
             if let skill = vm.currentSkill {
                 Text(skill.name).font(.title2).bold()
-                Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
+                Text("\(skill.family) - Level \(skill.depth)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
     }

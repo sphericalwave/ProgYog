@@ -35,9 +35,9 @@
     <entity name="SetLog" representedClassName="SetLog" syncable="YES">
         <attribute name="decision" attributeType="String"/>
         <attribute name="durationSec" attributeType="Integer 16" usesScalarValueType="YES"/>
-        <attribute name="hrAvg" attributeType="Integer 16" usesScalarValueType="YES"/>
-        <attribute name="hrMax" attributeType="Integer 16" usesScalarValueType="YES"/>
-        <attribute name="hrMin" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="hrAvg" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hrMax" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hrMin" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="loggedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="notes" optional="YES" attributeType="String"/>

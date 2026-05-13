@@ -7,11 +7,25 @@ import SwiftUI
 import CoreData
 
 struct WorkoutSummaryView: View {
-    let session: Session
+    @ObservedObject var session: Session
     @EnvironmentObject private var services: AppServices
     @State private var notesDraft: String = ""
     @State private var sheet: Sheet?
     @State private var savedFlash: Bool = false
+
+    @FetchRequest private var setLogs: FetchedResults<SetLog>
+
+    init(session: Session) {
+        self.session = session
+        _setLogs = FetchRequest<SetLog>(
+            sortDescriptors: [
+                NSSortDescriptor(key: "roundIndex", ascending: true),
+                NSSortDescriptor(key: "orderInRound", ascending: true),
+                NSSortDescriptor(key: "loggedAt", ascending: true),
+            ],
+            predicate: NSPredicate(format: "session == %@", session)
+        )
+    }
 
     private enum Sheet: Identifiable {
         case edit(SetLog)
@@ -26,8 +40,6 @@ struct WorkoutSummaryView: View {
             }
         }
     }
-
-    private var setLogs: [SetLog] { session.orderedSetLogs }
 
     var body: some View {
         List {
@@ -66,7 +78,7 @@ struct WorkoutSummaryView: View {
 
             if !setLogs.isEmpty {
                 Section("Composite") {
-                    WorkoutCompositeChart(families: WorkoutCompositeChart.averages(from: setLogs))
+                    WorkoutCompositeChart(families: WorkoutCompositeChart.averages(from: Array(setLogs)))
                 }
             }
 
