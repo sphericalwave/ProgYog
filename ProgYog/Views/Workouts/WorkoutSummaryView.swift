@@ -11,6 +11,7 @@ struct WorkoutSummaryView: View {
     @EnvironmentObject private var services: AppServices
     @State private var notesDraft: String = ""
     @State private var sheet: Sheet?
+    @State private var savedFlash: Bool = false
 
     private enum Sheet: Identifiable {
         case edit(SetLog)
@@ -30,6 +31,21 @@ struct WorkoutSummaryView: View {
 
     var body: some View {
         List {
+            if let err = services.coreData.lastSaveError {
+                Section {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Label("Couldn't save", systemImage: "exclamationmark.octagon.fill")
+                            .foregroundStyle(.red)
+                            .font(.headline)
+                        Text(err).font(.caption)
+                        Button("Retry") { services.coreData.save() }
+                            .buttonStyle(.borderedProminent)
+                    }
+                    .padding(.vertical, 4)
+                }
+                .listRowBackground(Color.red.opacity(0.08))
+            }
+
             Section("Session") {
                 LabeledContent("Workout", value: session.workoutCode)
                 LabeledContent("Started", value: session.startedAt.formatted(date: .abbreviated, time: .shortened))
@@ -78,10 +94,43 @@ struct WorkoutSummaryView: View {
                 }
             } header: {
                 Text("Sets")
+            } footer: {
+                Text("Changes save automatically. Tap Save to confirm.")
+                    .font(.caption2)
             }
         }
         .listStyle(.grouped)
         .navigationTitle("Summary")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack(spacing: 6) {
+                    if savedFlash {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                            .transition(.opacity)
+                    }
+                    Button("Save") {
+                        services.coreData.save()
+                        if services.coreData.lastSaveError == nil {
+                            withAnimation { savedFlash = true }
+                            Task {
+                                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                withAnimation { savedFlash = false }
+                            }
+                        }
+                    }
+                    .bold()
+                }
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if let saved = services.coreData.lastSavedAt {
+                Text("Saved \(saved.formatted(date: .omitted, time: .standard))")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom, 4)
+            }
+        }
         .onAppear { notesDraft = session.notes ?? "" }
         .sheet(item: $sheet) { state in
             switch state {

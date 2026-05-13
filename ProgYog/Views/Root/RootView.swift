@@ -27,6 +27,14 @@ struct RootView: View {
                 SessionHistoryView()
             }
             .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
+
+            NavigationStack {
+                SettingsView(services: services)
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+            .badge(services.errorLog.unreadCount)
         }
         .environment(\.managedObjectContext, services.coreData.moc)
     }

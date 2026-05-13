@@ -14,6 +14,7 @@ final class HeartRateService: NSObject, ObservableObject {
     @Published private(set) var bpm: Int?
     @Published private(set) var state: ConnectionState = .idle
     @Published private(set) var discovered: [CBPeripheral] = []
+    weak var errorLog: ErrorLog?
 
     enum ConnectionState: Equatable {
         case idle
@@ -148,6 +149,7 @@ extension HeartRateService: CBCentralManagerDelegate {
     ) {
         Task { @MainActor in
             self.state = .disconnected
+            self.errorLog?.warning("BLE.connect", "Failed to connect to \(peripheral.name ?? "device")", error: error)
         }
     }
 
@@ -159,6 +161,9 @@ extension HeartRateService: CBCentralManagerDelegate {
         Task { @MainActor in
             self.state = .disconnected
             self.bpm = nil
+            if let error {
+                self.errorLog?.warning("BLE.disconnect", "Disconnected from \(peripheral.name ?? "device")", error: error)
+            }
         }
     }
 }

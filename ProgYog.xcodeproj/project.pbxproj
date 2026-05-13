@@ -32,6 +32,9 @@
 		AE0000020000000000000021 /* AudioCueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000022 /* AudioCueService.swift */; };
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
+		AE0000020000000000000051 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000052 /* ErrorLog.swift */; };
+		AE0000070000000000000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000002 /* SettingsView.swift */; };
+		AE0000070000000000000011 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000012 /* ErrorDetailView.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -78,6 +81,9 @@
 		AE0000020000000000000022 /* AudioCueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCueService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
+		AE0000020000000000000052 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
+		AE0000070000000000000002 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AE0000070000000000000012 /* ErrorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 				AE0000020000000000000012 /* HeartRateService.swift */,
 				AE0000020000000000000022 /* AudioCueService.swift */,
 				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
+				AE0000020000000000000052 /* ErrorLog.swift */,
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
 			);
@@ -204,9 +211,19 @@
 				AE0000030000000000000102 /* Workouts */,
 				AE0000030000000000000103 /* Catalog */,
 				AE0000060000000000000100 /* History */,
+				AE0000070000000000000100 /* Settings */,
 				AE0000050000000000000100 /* Charts */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AE0000070000000000000100 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000070000000000000002 /* SettingsView.swift */,
+				AE0000070000000000000012 /* ErrorDetailView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		AE0000060000000000000100 /* History */ = {
@@ -337,6 +354,9 @@
 				AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */,
 				AE0000020000000000000031 /* AppServices.swift in Sources */,
 				AE0000020000000000000041 /* PreviewSupport.swift in Sources */,
+				AE0000020000000000000051 /* ErrorLog.swift in Sources */,
+				AE0000070000000000000001 /* SettingsView.swift in Sources */,
+				AE0000070000000000000011 /* ErrorDetailView.swift in Sources */,
 				AE0000020000000000000001 /* CoreDataService.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
 				AE0000020000000000000021 /* AudioCueService.swift in Sources */,

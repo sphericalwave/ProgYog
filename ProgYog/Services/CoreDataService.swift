@@ -6,8 +6,15 @@
 import CoreData
 import UIKit
 
+@MainActor
 final class CoreDataService: ObservableObject {
     let container: NSPersistentContainer
+    weak var errorLog: ErrorLog?
+
+    @Published private(set) var lastSavedAt: Date?
+    @Published var lastSaveError: String?
+    @Published private(set) var didBackupOnLaunch: Bool = false
+    @Published private(set) var backupURL: URL?
 
     var moc: NSManagedObjectContext { container.viewContext }
 
@@ -23,30 +30,66 @@ final class CoreDataService: ObservableObject {
             desc.shouldInferMappingModelAutomatically = true
         }
 
+        self.container = container
+
+        var loadErrorCaptured: NSError?
+        var backupURLCaptured: URL?
+
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
-                Self.wipeStore(container: container)
+                loadErrorCaptured = error
+                backupURLCaptured = Self.backupAndReset(container: container)
                 container.loadPersistentStores { _, retryError in
                     if let retryError = retryError {
-                        fatalError("CoreData store unrecoverable: \(retryError)")
+                        fatalError("CoreData store unrecoverable after backup: \(retryError)")
                     }
                 }
-                print("CoreData store was incompatible (\(error.code)); wiped and rebuilt.")
                 UserDefaults.standard.removeObject(forKey: "didSeedJSON")
+                UserDefaults.standard.removeObject(forKey: "seedVersion")
             }
         }
 
-        self.container = container
+        if let err = loadErrorCaptured {
+            self.didBackupOnLaunch = true
+            self.backupURL = backupURLCaptured
+            self.lastSaveError = "Store load failed; backed up and rebuilt. \(err.localizedDescription)"
+        }
 
         NotificationCenter.default.addObserver(
             forName: UIApplication.willResignActiveNotification, object: nil, queue: nil
-        ) { [weak self] _ in self?.save() }
+        ) { [weak self] _ in
+            Task { @MainActor in self?.save() }
+        }
+    }
+
+    func attach(errorLog: ErrorLog) {
+        self.errorLog = errorLog
+        if didBackupOnLaunch {
+            let path = backupURL?.path ?? "unknown"
+            errorLog.record(
+                .error,
+                source: "CoreData.load",
+                message: "Store load failed; previous data backed up.",
+                error: NSError(
+                    domain: "ProgYog.CoreData",
+                    code: -1,
+                    userInfo: [NSLocalizedDescriptionKey: "Backup at \(path)"]
+                )
+            )
+        }
     }
 
     func save() {
         guard moc.hasChanges else { return }
-        do { try moc.save() }
-        catch { print("CoreData save error: \(error)") }
+        do {
+            try moc.save()
+            lastSavedAt = Date()
+            lastSaveError = nil
+        } catch {
+            let message = (error as NSError).localizedDescription
+            lastSaveError = message
+            errorLog?.error("CoreData.save", "Save failed: \(message)", error: error)
+        }
     }
 
     private static let seedVersionKey = "seedVersion"
@@ -94,14 +137,24 @@ final class CoreDataService: ObservableObject {
         moc.reset()
     }
 
-    private static func wipeStore(container: NSPersistentContainer) {
-        guard let url = container.persistentStoreDescriptions.first?.url else { return }
+    /// Rename existing SQLite to a timestamped .broken file (preserves data),
+    /// detaches stores, and returns the backup URL. Safer than rm -rf.
+    private static func backupAndReset(container: NSPersistentContainer) -> URL? {
+        guard let url = container.persistentStoreDescriptions.first?.url else { return nil }
         let coordinator = container.persistentStoreCoordinator
         for store in coordinator.persistentStores {
             try? coordinator.remove(store)
         }
-        try? FileManager.default.removeItem(at: url)
-        try? FileManager.default.removeItem(at: url.appendingPathExtension("-shm"))
-        try? FileManager.default.removeItem(at: url.appendingPathExtension("-wal"))
+        let stamp = ISO8601DateFormatter().string(from: Date())
+            .replacingOccurrences(of: ":", with: "-")
+        let parent = url.deletingLastPathComponent()
+        let stem = url.deletingPathExtension().lastPathComponent
+        let backup = parent.appendingPathComponent("\(stem)-broken-\(stamp).sqlite")
+        let backupShm = backup.appendingPathExtension("-shm")
+        let backupWal = backup.appendingPathExtension("-wal")
+        try? FileManager.default.moveItem(at: url, to: backup)
+        try? FileManager.default.moveItem(at: url.appendingPathExtension("-shm"), to: backupShm)
+        try? FileManager.default.moveItem(at: url.appendingPathExtension("-wal"), to: backupWal)
+        return backup
     }
 }
