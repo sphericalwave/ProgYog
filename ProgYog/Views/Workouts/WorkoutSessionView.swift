@@ -51,6 +51,7 @@ struct WorkoutSessionView: View {
                 SetLogSheet(
                     skill: skill,
                     suggestion: vm.suggestion,
+                    currentSession: vm.session,
                     onSave: { vm.recordLog($0) }
                 )
                 .interactiveDismissDisabled()

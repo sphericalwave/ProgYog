@@ -10,6 +10,7 @@ struct SetLogSheet: View {
     let skill: CDAbsSkill
     let suggestion: ProgressionDecision
     let editing: SetLog?
+    let currentSession: Session?
     let onSave: (_ entry: Entry) -> Void
 
     struct Entry {
@@ -35,11 +36,13 @@ struct SetLogSheet: View {
         skill: CDAbsSkill,
         suggestion: ProgressionDecision,
         editing: SetLog? = nil,
+        currentSession: Session? = nil,
         onSave: @escaping (Entry) -> Void
     ) {
         self.skill = skill
         self.suggestion = suggestion
         self.editing = editing
+        self.currentSession = currentSession ?? editing?.session
         self.onSave = onSave
         _logs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: true)],
@@ -58,7 +61,7 @@ struct SetLogSheet: View {
 
                 if logs.count >= 2 {
                     Section("Trend") {
-                        SkillTrendChart(logs: Array(logs))
+                        SkillTrendChart(logs: Array(logs), highlightSession: currentSession)
                     }
                 }
 
@@ -176,6 +179,7 @@ private struct SetLogSheetPreviewHost: View {
                 SetLogSheet(
                     skill: PreviewSupport.sampleSkill,
                     suggestion: .progress,
+                    currentSession: PreviewSupport.sampleSession,
                     onSave: { _ in }
                 )
                 .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
@@ -191,6 +195,7 @@ private struct SetLogSheetPreviewHost: View {
     SetLogSheet(
         skill: PreviewSupport.sampleSkill,
         suggestion: .progress,
+        currentSession: PreviewSupport.sampleSession,
         onSave: { _ in }
     )
     .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)

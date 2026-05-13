@@ -115,23 +115,83 @@ enum PreviewSupport {
             }
         }
 
-        // A finished sample session in workout A with one SetLog per family
+        // Three historical workout-A sessions plus today's, so the
+        // SetLogSheet trend chart has multiple data points and a clear
+        // "highlight current session" effect for the sample skill.
+        let day: TimeInterval = 24 * 3600
+        let historyOffsetsAndMetrics: [(daysAgo: Double, metrics: [(rpt: Int16, rpe: Int16, rpd: Int16, reps: Int16, decision: String, notes: String?)])] = [
+            (
+                14,
+                [
+                    (5, 7, 5, 6, "hold",     "First go-round, struggled to keep heels down."),
+                    (5, 7, 4, 6, "hold",     nil),
+                    (4, 8, 5, 5, "regress",  "Twisting hurt the low back."),
+                    (4, 8, 5, 5, "regress",  nil),
+                ]
+            ),
+            (
+                7,
+                [
+                    (6, 7, 4, 8, "hold",     "Better today, kept the heels closer."),
+                    (6, 7, 3, 8, "progress", "Found rhythm on the second rep."),
+                    (5, 8, 4, 6, "hold",     nil),
+                    (5, 7, 4, 6, "hold",     nil),
+                ]
+            ),
+            (
+                3,
+                [
+                    (7, 6, 3, 10, "progress", "Hip is finally opening up."),
+                    (7, 7, 3, 10, "progress", nil),
+                    (6, 7, 3, 9,  "hold",     nil),
+                    (6, 7, 3, 9,  "hold",     nil),
+                ]
+            ),
+        ]
+
+        let familyOrder = ["Up Down Dog", "Leg Balance", "Twisting Table", "Lunge Twist"]
+
+        for (daysAgo, metrics) in historyOffsetsAndMetrics {
+            let s = Session(workoutCode: "A", moc: moc)
+            s.startedAt = Date().addingTimeInterval(-daysAgo * day)
+            s.endedAt = Date().addingTimeInterval(-daysAgo * day + 1800)
+            s.notes = nil
+            for (idx, famName) in familyOrder.enumerated() {
+                guard let skill = skillByName["A/\(famName)/2"] else { continue }
+                let m = metrics[idx]
+                let log = SetLog(context: moc)
+                log.id = UUID()
+                log.session = s
+                log.absSkill = skill
+                log.roundIndex = 0
+                log.orderInRound = Int16(idx)
+                log.reps = m.reps
+                log.rpt = m.rpt
+                log.rpe = m.rpe
+                log.rpd = m.rpd
+                log.notes = m.notes
+                log.durationSec = 60
+                log.decision = m.decision
+                log.loggedAt = s.startedAt.addingTimeInterval(Double(idx) * 120)
+            }
+        }
+
+        // Today's session — the one used as the "current" highlight in previews.
         let session = Session(workoutCode: "A", moc: moc)
         session.startedAt = Date().addingTimeInterval(-3600)
         session.endedAt = Date().addingTimeInterval(-2400)
         session.notes = "Felt good today; left hip warmed up after round 2."
 
-        let familyOrder = ["Up Down Dog", "Leg Balance", "Twisting Table", "Lunge Twist"]
-        let metrics: [(rpt: Int16, rpe: Int16, rpd: Int16, reps: Int16, decision: String, notes: String?)] = [
+        let todayMetrics: [(rpt: Int16, rpe: Int16, rpd: Int16, reps: Int16, decision: String, notes: String?)] = [
             (8, 7, 2, 12, "progress", "Smooth, locked elbows held the whole minute."),
-            (7, 6, 3, 10, "hold", nil),
-            (6, 8, 4, 8,  "hold", "Tight thoracic — switch sides at 30s felt rough."),
-            (4, 9, 6, 6,  "regress", "Knee twinge on the right side."),
+            (7, 6, 3, 10, "hold",     nil),
+            (6, 8, 4, 8,  "hold",     "Tight thoracic — switch sides at 30s felt rough."),
+            (4, 9, 6, 6,  "regress",  "Knee twinge on the right side."),
         ]
 
         for (idx, famName) in familyOrder.enumerated() {
             guard let skill = skillByName["A/\(famName)/2"] else { continue }
-            let m = metrics[idx]
+            let m = todayMetrics[idx]
             let log = SetLog(context: moc)
             log.id = UUID()
             log.session = session

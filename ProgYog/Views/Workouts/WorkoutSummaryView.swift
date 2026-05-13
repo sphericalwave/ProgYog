@@ -139,7 +139,8 @@ struct WorkoutSummaryView: View {
                     SetLogSheet(
                         skill: skill,
                         suggestion: log.decisionValue,
-                        editing: log
+                        editing: log,
+                        currentSession: session
                     ) { entry in
                         apply(entry, to: log)
                     }
@@ -149,7 +150,11 @@ struct WorkoutSummaryView: View {
                     sheet = .add(skill)
                 }
             case .add(let skill):
-                SetLogSheet(skill: skill, suggestion: .hold) { entry in
+                SetLogSheet(
+                    skill: skill,
+                    suggestion: .hold,
+                    currentSession: session
+                ) { entry in
                     createLog(for: skill, entry: entry)
                 }
             }
