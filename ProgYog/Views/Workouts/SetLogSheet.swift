@@ -167,13 +167,32 @@ struct SetLogSheet: View {
 }
 
 #if DEBUG
-#Preview {
+private struct SetLogSheetPreviewHost: View {
+    @State private var presented = true
+    var body: some View {
+        Color(.systemGroupedBackground)
+            .ignoresSafeArea()
+            .sheet(isPresented: $presented) {
+                SetLogSheet(
+                    skill: PreviewSupport.sampleSkill,
+                    suggestion: .progress,
+                    onSave: { _ in }
+                )
+                .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+            }
+    }
+}
+
+#Preview("Modal") {
+    SetLogSheetPreviewHost()
+}
+
+#Preview("Inline") {
     SetLogSheet(
         skill: PreviewSupport.sampleSkill,
         suggestion: .progress,
         onSave: { _ in }
     )
-    .environmentObject(PreviewSupport.services)
     .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
 }
 #endif

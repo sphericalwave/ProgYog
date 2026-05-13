@@ -19,26 +19,51 @@ enum PreviewSupport {
         return s
     }()
 
-    static var sampleSession: Session {
+    static let sampleSession: Session = {
+        _ = services
         let fr: NSFetchRequest<Session> = Session.fetchRequest()
         fr.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
         fr.fetchLimit = 1
-        return (try? services.coreData.moc.fetch(fr))?.first ?? Session(workoutCode: "A", moc: services.coreData.moc)
-    }
+        if let s = (try? services.coreData.moc.fetch(fr))?.first { return s }
+        let session = Session(workoutCode: "A", moc: services.coreData.moc)
+        try? services.coreData.moc.save()
+        return session
+    }()
 
-    static var sampleSkill: CDAbsSkill {
+    static let sampleSkill: CDAbsSkill = {
+        _ = services
+        let moc = services.coreData.moc
         let fr: NSFetchRequest<CDAbsSkill> = CDAbsSkill.fetchRequest()
         fr.predicate = NSPredicate(format: "series == %@ AND family == %@ AND depth == 2", "A", "Up Down Dog")
         fr.fetchLimit = 1
-        return (try? services.coreData.moc.fetch(fr))?.first ?? CDAbsSkill(context: services.coreData.moc)
-    }
+        if let s = (try? moc.fetch(fr))?.first { return s }
+        let skill = CDAbsSkill(context: moc)
+        skill.name = "Extended Knee Toe Point"
+        skill.depth = 2
+        skill.family = "Up Down Dog"
+        skill.series = "A"
+        skill.instructions = "Step back into a rear lunge, with your feet parallel, and shoulder width apart from each other. Exhale and bring your rear knee up and to chest. Extend and lock knee."
+        skill.symetrical = true
+        skill.timeCode = 75
+        skill.url = URL(string: "https://example.com")!
+        try? moc.save()
+        return skill
+    }()
 
-    static var sampleFamily: CDSkillFamily {
+    static let sampleFamily: CDSkillFamily = {
+        _ = services
+        let moc = services.coreData.moc
         let fr: NSFetchRequest<CDSkillFamily> = CDSkillFamily.fetchRequest()
         fr.predicate = NSPredicate(format: "series == %@ AND order == 1", "A")
         fr.fetchLimit = 1
-        return (try? services.coreData.moc.fetch(fr))?.first ?? CDSkillFamily(context: services.coreData.moc)
-    }
+        if let f = (try? moc.fetch(fr))?.first { return f }
+        let family = CDSkillFamily(context: moc)
+        family.name = "Up Down Dog"
+        family.order = 1
+        family.series = "A"
+        try? moc.save()
+        return family
+    }()
 
     private static func seed(in moc: NSManagedObjectContext) {
         let placeholderURL = URL(string: "https://example.com")!
