@@ -9,6 +9,7 @@ import CoreData
 struct SetLogSheet: View {
     let skill: CDAbsSkill
     let suggestion: ProgressionDecision
+    let editing: SetLog?
     let onSave: (_ entry: Entry) -> Void
 
     struct Entry {
@@ -30,9 +31,15 @@ struct SetLogSheet: View {
     @State private var decision: ProgressionDecision = .hold
     @Environment(\.dismiss) private var dismiss
 
-    init(skill: CDAbsSkill, suggestion: ProgressionDecision, onSave: @escaping (Entry) -> Void) {
+    init(
+        skill: CDAbsSkill,
+        suggestion: ProgressionDecision,
+        editing: SetLog? = nil,
+        onSave: @escaping (Entry) -> Void
+    ) {
         self.skill = skill
         self.suggestion = suggestion
+        self.editing = editing
         self.onSave = onSave
         _logs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: true)],
@@ -103,7 +110,7 @@ struct SetLogSheet: View {
                     Text("Next Set")
                 }
             }
-            .navigationTitle("Log Set")
+            .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -118,13 +125,22 @@ struct SetLogSheet: View {
                 }
             }
             .onAppear {
-                if let last = lastLog {
-                    reps = Int(last.reps)
-                    rpt = Int(last.rpt)
-                    rpe = Int(last.rpe)
-                    rpd = Int(last.rpd)
+                if let edit = editing {
+                    reps = Int(edit.reps)
+                    rpt = Int(edit.rpt)
+                    rpe = Int(edit.rpe)
+                    rpd = Int(edit.rpd)
+                    notes = edit.notes ?? ""
+                    decision = edit.decisionValue
+                } else {
+                    if let last = lastLog {
+                        reps = Int(last.reps)
+                        rpt = Int(last.rpt)
+                        rpe = Int(last.rpe)
+                        rpd = Int(last.rpd)
+                    }
+                    decision = suggestion
                 }
-                decision = suggestion
             }
         }
     }
@@ -149,3 +165,15 @@ struct SetLogSheet: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SetLogSheet(
+        skill: PreviewSupport.sampleSkill,
+        suggestion: .progress,
+        onSave: { _ in }
+    )
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

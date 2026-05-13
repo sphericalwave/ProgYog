@@ -62,3 +62,13 @@ struct AbsSkillListView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        AbsSkillListView()
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

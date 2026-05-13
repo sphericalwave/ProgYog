@@ -49,6 +49,8 @@ struct SkillFamilyListView: View {
         .navigationTitle("Skill Families")
     }
 
+    // MARK: helpers below
+
     @ViewBuilder
     private func stats(for family: CDSkillFamily) -> some View {
         let logs = setLogs.filter { $0.absSkill?.skillFamily == family }
@@ -68,3 +70,13 @@ struct SkillFamilyListView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SkillFamilyListView()
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

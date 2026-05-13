@@ -11,8 +11,13 @@ final class CoreDataService: ObservableObject {
 
     var moc: NSManagedObjectContext { container.viewContext }
 
-    init() {
+    init(inMemory: Bool = false) {
         let container = NSPersistentContainer(name: "ProgYog")
+        if inMemory {
+            let desc = NSPersistentStoreDescription()
+            desc.url = URL(fileURLWithPath: "/dev/null")
+            container.persistentStoreDescriptions = [desc]
+        }
         if let desc = container.persistentStoreDescriptions.first {
             desc.shouldMigrateStoreAutomatically = true
             desc.shouldInferMappingModelAutomatically = true

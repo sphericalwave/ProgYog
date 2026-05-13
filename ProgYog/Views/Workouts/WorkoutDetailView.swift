@@ -126,3 +126,13 @@ struct WorkoutDetailView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        WorkoutDetailView(workoutCode: "A")
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

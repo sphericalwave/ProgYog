@@ -66,3 +66,13 @@ struct SkillDetailView: View {
         .navigationTitle(skill.name)
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SkillDetailView(skill: PreviewSupport.sampleSkill)
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

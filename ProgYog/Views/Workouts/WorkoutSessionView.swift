@@ -185,6 +185,16 @@ private struct HRPill: View {
     }
 }
 
+#if DEBUG
+#Preview("Idle") {
+    NavigationStack {
+        WorkoutSessionView(workoutCode: "A", services: PreviewSupport.services)
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif
+
 private struct HRConnectSheet: View {
     @ObservedObject var heartRate: HeartRateService
     @Environment(\.dismiss) private var dismiss

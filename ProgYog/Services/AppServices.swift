@@ -12,10 +12,12 @@ final class AppServices: ObservableObject {
     let audio: AudioCueService
     let theme: SwTheme
 
-    init() {
-        let cd = CoreDataService()
-        cd.seedIfNeeded()
-        cd.mergeLegacyNotesIfNeeded()
+    init(inMemory: Bool = false) {
+        let cd = CoreDataService(inMemory: inMemory)
+        if !inMemory {
+            cd.seedIfNeeded()
+            cd.mergeLegacyNotesIfNeeded()
+        }
         self.coreData = cd
         self.heartRate = HeartRateService()
         self.audio = AudioCueService()

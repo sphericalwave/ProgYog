@@ -31,3 +31,13 @@ struct SkillFamilyDetailView: View {
         .navigationTitle(family.name)
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SkillFamilyDetailView(family: PreviewSupport.sampleFamily)
+    }
+    .environmentObject(PreviewSupport.services)
+    .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

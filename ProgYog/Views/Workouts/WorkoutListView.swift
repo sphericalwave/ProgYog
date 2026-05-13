@@ -65,3 +65,11 @@ struct WorkoutListView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    WorkoutListView()
+        .environmentObject(PreviewSupport.services)
+        .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
+}
+#endif

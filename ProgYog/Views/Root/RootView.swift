@@ -31,3 +31,10 @@ struct RootView: View {
         .environment(\.managedObjectContext, services.coreData.moc)
     }
 }
+
+#if DEBUG
+#Preview {
+    RootView()
+        .environmentObject(PreviewSupport.services)
+}
+#endif
