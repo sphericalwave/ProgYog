@@ -12,7 +12,7 @@ struct SetLogSheet: View {
     let editing: SetLog?
     let currentSession: Session?
     let onSave: (_ entry: Entry) -> Void
-
+    
     struct Entry {
         let reps: Int
         let rpt: Int
@@ -21,9 +21,9 @@ struct SetLogSheet: View {
         let notes: String
         let decision: ProgressionDecision
     }
-
+    
     @FetchRequest private var logs: FetchedResults<SetLog>
-
+    
     @State private var reps: Int = 1
     @State private var rpt: Int = 7
     @State private var rpe: Int = 6
@@ -31,7 +31,7 @@ struct SetLogSheet: View {
     @State private var notes: String = ""
     @State private var decision: ProgressionDecision = .hold
     @Environment(\.dismiss) private var dismiss
-
+    
     init(
         skill: CDAbsSkill,
         suggestion: ProgressionDecision,
@@ -49,74 +49,63 @@ struct SetLogSheet: View {
             predicate: NSPredicate(format: "absSkill == %@", skill)
         )
     }
-
+    
     private var lastLog: SetLog? { logs.last }
-
+    
     var body: some View {
         NavigationStack {
             Form {
-                Section(skill.name) {
-                    Text("Level \(skill.depth)").foregroundStyle(.secondary)
-                }
-
-                if logs.count >= 2 {
-                    Section("Trend") {
-                        SkillTrendChart(logs: Array(logs), highlightSession: currentSession)
-                    }
-                }
-
-                Section("Reps") {
-                    Stepper(value: $reps, in: 0...200) {
-                        HStack {
-                            Text("\(reps)").monospacedDigit().font(.title3.bold())
-                            if let last = lastLog {
-                                Text("last \(last.reps)").font(.caption).foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                }
-
-                metricRow(title: "Technique (RPT)", value: $rpt, hint: "10 = perfect form")
-                metricRow(title: "Exertion (RPE)", value: $rpe, hint: "10 = max effort")
-                metricRow(title: "Discomfort (RPD)", value: $rpd, hint: "10 = worst pain")
-
-                Section("Notes") {
-                    TextField(
-                        "Notes (optional)",
-                        text: $notes,
-                        prompt: Text(notesPlaceholder),
-                        axis: .vertical
-                    )
-                    .lineLimit(2...6)
-
-                    if let last = lastLog?.notes, !last.isEmpty {
-                        Button {
-                            notes = last
-                        } label: {
-                            Label("Use last comment", systemImage: "arrow.uturn.left")
-                                .font(.callout)
-                        }
-                    }
-                }
-
+                
                 Section {
+                    metricRow(label: "Reps", value: $reps, range: 0...200)
+                    metricRow(label: "Technique", value: $rpt, range: 1...10)
+                    metricRow(label: "Exertion",  value: $rpe, range: 1...10)
+                    metricRow(label: "Discomfort", value: $rpd, range: 1...10)
+                    
+                    HStack {
+                        TextField(
+                            "Notes (optional)",
+                            text: $notes,
+                            prompt: Text(notesPlaceholder),
+                            axis: .vertical
+                        )
+                        .lineLimit(2...6)
+                        
+                        if let last = lastLog?.notes, !last.isEmpty {
+                            Button(action: { notes = last }) {
+                                Image(systemName: "arrow.uturn.left")
+                                    .imageScale(.large)
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                    }
+                    
                     Picker("Decision", selection: $decision) {
                         ForEach(ProgressionDecision.allCases, id: \.self) { d in
                             Text(d.rawValue.capitalized).tag(d)
                         }
                     }
                     .pickerStyle(.segmented)
-                    Text("Suggested: \(suggestion.rawValue.capitalized)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                } header: {
-                    Text("Next Set")
+                } header : {
+                    HStack {
+                        Text(skill.name)
+                        Spacer()
+                        Text("Level \(skill.depth)")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                
+                if logs.count >= 2 {
+                    Section("Trend") {
+                        SkillTrendChart(logs: Array(logs), highlightSession: currentSession)
+                    }
                 }
             }
             .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Spacer()
                     Button("Save") {
                         onSave(Entry(
                             reps: reps, rpt: rpt, rpe: rpe, rpd: rpd,
@@ -147,23 +136,23 @@ struct SetLogSheet: View {
             }
         }
     }
-
+    
     private var notesPlaceholder: String {
         let last = lastLog?.notes ?? ""
         return last.isEmpty ? "Notes (optional)" : last
     }
-
+    
     @ViewBuilder
-    private func metricRow(title: String, value: Binding<Int>, hint: String) -> some View {
-        Section(title) {
-            Stepper(value: value, in: 1...10) {
-                HStack {
-                    Text("\(value.wrappedValue)")
-                        .monospacedDigit()
-                        .font(.title3.bold())
-                        .frame(width: 36, alignment: .leading)
-                    Text(hint).font(.caption).foregroundStyle(.secondary)
-                }
+    private func metricRow(label: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
+        Stepper(value: value, in: range) {
+            HStack(spacing: 12) {
+                Text(label)
+                    .font(.callout)
+                Spacer()
+                Text("\(value.wrappedValue)")
+                    .monospacedDigit()
+                    .font(.title3.bold())
+                    .frame(minWidth: 36, alignment: .trailing)
             }
         }
     }
