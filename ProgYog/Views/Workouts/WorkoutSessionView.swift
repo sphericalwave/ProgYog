@@ -15,25 +15,17 @@ struct WorkoutSessionView: View {
     }
 
     var body: some View {
-        VStack(spacing: 24) {
-            header
+        VStack(spacing: 16) {
+            nameHeader
 
-            Spacer()
-
-            switch vm.phase {
-            case .idle:
-                idleView
-            case .running:
-                runningView
-            case .logging:
-                Color.clear.frame(height: 1) // sheet handles it
-            case .finished:
-                finishedView
+            if let skill = vm.currentSkill, !skill.instructions.isEmpty {
+                instructionsCard(for: skill)
+                    .frame(maxHeight: .infinity)
+            } else {
+                Spacer()
             }
 
-            Spacer()
-
-            HRPill(heartRate: services.heartRate)
+            phaseContent
         }
         .padding()
         .navigationTitle("Workout \(vm.workoutCode)")
@@ -46,6 +38,9 @@ struct WorkoutSessionView: View {
                     vm.cancel()
                     dismiss()
                 }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                HRPill(heartRate: services.heartRate)
             }
         }
         .sheet(isPresented: Binding(
@@ -63,34 +58,45 @@ struct WorkoutSessionView: View {
         }
     }
 
-    private var header: some View {
-        VStack(spacing: 8) {
-            VStack(spacing: 4) {
-                Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
-                if let skill = vm.currentSkill {
-                    Text(skill.name).font(.title2).bold()
-                    Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
-                }
+    private var nameHeader: some View {
+        VStack(spacing: 4) {
+            Text(vm.headerLine).font(.subheadline).foregroundStyle(.secondary)
+            if let skill = vm.currentSkill {
+                Text(skill.name).font(.title2).bold()
+                Text("Level \(skill.depth)").font(.caption).foregroundStyle(.secondary)
             }
-            if let skill = vm.currentSkill, !skill.instructions.isEmpty {
-                ScrollView {
-                    Text(skill.instructions)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .frame(maxHeight: 140)
-                .padding(12)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
-            }
+        }
+    }
+
+    private func instructionsCard(for skill: CDAbsSkill) -> some View {
+        ScrollView {
+            Text(skill.instructions)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
+    }
+
+    @ViewBuilder
+    private var phaseContent: some View {
+        switch vm.phase {
+        case .idle:
+            idleView
+        case .running:
+            runningView
+        case .logging:
+            Color.clear.frame(height: 1) // sheet handles it
+        case .finished:
+            finishedView
         }
     }
 
     private var idleView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "play.circle.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(.tint)
+
             Button(action: vm.startSet) {
                 Text(vm.familyIdx == 0 && vm.roundIdx == 0 ? "Start Workout" : "Start Set")
                     .font(.title3.bold())
