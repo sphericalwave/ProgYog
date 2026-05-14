@@ -15,16 +15,18 @@ struct SetLogSheet: View {
     
     struct Entry {
         let reps: Int
+        let rom: Int
         let rpt: Int
         let rpe: Int
         let rpd: Int
         let notes: String
         let decision: ProgressionDecision
     }
-    
+
     @FetchRequest private var logs: FetchedResults<SetLog>
-    
+
     @State private var reps: Int = 1
+    @State private var rom: Int = 100
     @State private var rpt: Int = 7
     @State private var rpe: Int = 6
     @State private var rpd: Int = 3
@@ -58,6 +60,7 @@ struct SetLogSheet: View {
                 
                 Section {
                     metricRow(label: "Reps", value: $reps, range: 0...200)
+                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
                     metricRow(label: "Technique", value: $rpt, range: 1...10)
                     metricRow(label: "Exertion",  value: $rpe, range: 1...10)
                     metricRow(label: "Discomfort", value: $rpd, range: 1...10)
@@ -104,11 +107,11 @@ struct SetLogSheet: View {
             .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    Spacer()
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         onSave(Entry(
-                            reps: reps, rpt: rpt, rpe: rpe, rpd: rpd,
+                            reps: reps, rom: rom,
+                            rpt: rpt, rpe: rpe, rpd: rpd,
                             notes: notes, decision: decision
                         ))
                         dismiss()
@@ -119,6 +122,7 @@ struct SetLogSheet: View {
             .onAppear {
                 if let edit = editing {
                     reps = Int(edit.reps)
+                    rom = Int(edit.rom)
                     rpt = Int(edit.rpt)
                     rpe = Int(edit.rpe)
                     rpd = Int(edit.rpd)
@@ -127,6 +131,7 @@ struct SetLogSheet: View {
                 } else {
                     if let last = lastLog {
                         reps = Int(last.reps)
+                        rom = Int(last.rom)
                         rpt = Int(last.rpt)
                         rpe = Int(last.rpe)
                         rpd = Int(last.rpd)
@@ -143,16 +148,22 @@ struct SetLogSheet: View {
     }
     
     @ViewBuilder
-    private func metricRow(label: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
-        Stepper(value: value, in: range) {
+    private func metricRow(
+        label: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        step: Int = 1,
+        suffix: String = ""
+    ) -> some View {
+        Stepper(value: value, in: range, step: step) {
             HStack(spacing: 12) {
                 Text(label)
                     .font(.callout)
                 Spacer()
-                Text("\(value.wrappedValue)")
+                Text("\(value.wrappedValue)\(suffix)")
                     .monospacedDigit()
                     .font(.title3.bold())
-                    .frame(minWidth: 36, alignment: .trailing)
+                    .frame(minWidth: 44, alignment: .trailing)
             }
         }
     }

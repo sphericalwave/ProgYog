@@ -43,6 +43,7 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="orderInRound" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="reps" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rom" attributeType="Integer 16" defaultValueString="100" usesScalarValueType="YES"/>
         <attribute name="roundIndex" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="rpd" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="rpdNote" optional="YES" attributeType="String"/>

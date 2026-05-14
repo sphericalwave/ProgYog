@@ -19,6 +19,7 @@ extension SetLog {
     @NSManaged public var roundIndex: Int16
     @NSManaged public var orderInRound: Int16
     @NSManaged public var reps: Int16
+    @NSManaged public var rom: Int16
     @NSManaged public var rpt: Int16
     @NSManaged public var rpe: Int16
     @NSManaged public var rpd: Int16

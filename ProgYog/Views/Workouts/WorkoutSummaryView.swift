@@ -199,6 +199,7 @@ struct WorkoutSummaryView: View {
             dup.roundIndex = nextRound
             dup.orderInRound = src.orderInRound
             dup.reps = src.reps
+            dup.rom = src.rom
             dup.rpt = src.rpt
             dup.rpe = src.rpe
             dup.rpd = src.rpd
@@ -228,7 +229,7 @@ struct WorkoutSummaryView: View {
                     .foregroundStyle(.secondary)
             }
             HStack(spacing: 4) {
-                Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) ·")
+                Text("reps \(log.reps) · ROM \(log.rom)% · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
                     .foregroundStyle(.secondary)
                 Text(log.decisionValue.label)
                     .foregroundStyle(log.decisionValue.color)
@@ -255,6 +256,7 @@ struct WorkoutSummaryView: View {
 
     private func apply(_ entry: SetLogSheet.Entry, to log: SetLog) {
         log.reps = Int16(entry.reps)
+        log.rom = Int16(entry.rom)
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)
@@ -274,6 +276,7 @@ struct WorkoutSummaryView: View {
         log.roundIndex = Int16(lastRound)
         log.orderInRound = Int16(inRound)
         log.reps = Int16(entry.reps)
+        log.rom = Int16(entry.rom)
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)

@@ -57,7 +57,7 @@ struct SkillDetailView: View {
                             Text(log.loggedAt.formatted(date: .abbreviated, time: .shortened))
                                 .font(.caption.bold())
                             HStack(spacing: 4) {
-                                Text("RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) · reps \(log.reps) ·")
+                                Text("reps \(log.reps) · ROM \(log.rom)% · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
                                     .foregroundStyle(.secondary)
                                 Text(log.decisionValue.label)
                                     .foregroundStyle(log.decisionValue.color)
@@ -70,6 +70,18 @@ struct SkillDetailView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                    }
+                }
+            }
+
+            if !skill.posterAssetNames.isEmpty {
+                Section("Images") {
+                    ForEach(skill.posterAssetNames, id: \.self) { name in
+                        Image(name)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .listRowInsets(EdgeInsets())
                     }
                 }
             }

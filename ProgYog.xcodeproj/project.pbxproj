@@ -37,6 +37,7 @@
 		AE0000070000000000000011 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000012 /* ErrorDetailView.swift */; };
 		AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000002 /* SkillPosterGallery.swift */; };
 		AE0000080000000000000011 /* SkillThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000012 /* SkillThumbnail.swift */; };
+		AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000090000000000000002 /* KeyboardDismiss.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -88,6 +89,7 @@
 		AE0000070000000000000012 /* ErrorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailView.swift; sourceTree = "<group>"; };
 		AE0000080000000000000002 /* SkillPosterGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPosterGallery.swift; sourceTree = "<group>"; };
 		AE0000080000000000000012 /* SkillThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillThumbnail.swift; sourceTree = "<group>"; };
+		AE0000090000000000000002 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				AE0000060000000000000100 /* History */,
 				AE0000070000000000000100 /* Settings */,
 				AE0000050000000000000100 /* Charts */,
+				AE0000090000000000000002 /* KeyboardDismiss.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				AE0000070000000000000011 /* ErrorDetailView.swift in Sources */,
 				AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */,
 				AE0000080000000000000011 /* SkillThumbnail.swift in Sources */,
+				AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */,
 				AE0000020000000000000001 /* CoreDataService.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
 				AE0000020000000000000021 /* AudioCueService.swift in Sources */,

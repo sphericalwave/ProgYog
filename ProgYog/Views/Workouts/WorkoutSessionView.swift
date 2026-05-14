@@ -18,6 +18,11 @@ struct WorkoutSessionView: View {
         VStack(spacing: 16) {
             nameHeader
 
+            if let skill = vm.currentSkill, !skill.posterAssetNames.isEmpty {
+                SkillPosterGallery(names: skill.posterAssetNames)
+                    .frame(maxHeight: 220)
+            }
+
             if let skill = vm.currentSkill, !skill.instructions.isEmpty {
                 instructionsCard(for: skill)
                     .frame(maxHeight: .infinity)
@@ -72,11 +77,30 @@ struct WorkoutSessionView: View {
     }
 
     private func instructionsCard(for skill: CDAbsSkill) -> some View {
-        ScrollView {
-            Text(skill.instructions)
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Instructions")
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Button {
+                    if services.audio.isSpeaking {
+                        services.audio.stopSpeaking()
+                    } else {
+                        services.audio.speak(skill.instructions)
+                    }
+                } label: {
+                    Image(systemName: services.audio.isSpeaking ? "stop.circle.fill" : "play.circle.fill")
+                        .imageScale(.large)
+                }
+                .buttonStyle(.borderless)
+            }
+            ScrollView {
+                Text(skill.instructions)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(12)

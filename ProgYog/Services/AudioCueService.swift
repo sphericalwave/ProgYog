@@ -27,7 +27,6 @@ enum AudioCue {
     }
 
     var isAlert: Bool {
-        // alert variant plays louder and vibrates on devices with rings off
         switch self {
         case .terminal, .roundEnd: return true
         default: return false
@@ -35,16 +34,21 @@ enum AudioCue {
     }
 }
 
-final class AudioCueService {
+@MainActor
+final class AudioCueService: NSObject, ObservableObject {
+    @Published private(set) var isSpeaking: Bool = false
+
     private let synth = AVSpeechSynthesizer()
 
-    init() {
+    override init() {
+        super.init()
         try? AVAudioSession.sharedInstance().setCategory(
             .playback,
             mode: .default,
             options: [.mixWithOthers, .duckOthers]
         )
         try? AVAudioSession.sharedInstance().setActive(true)
+        synth.delegate = self
     }
 
     func play(_ cue: AudioCue) {
@@ -60,9 +64,25 @@ final class AudioCueService {
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.95
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synth.speak(utterance)
+        isSpeaking = true
     }
 
     func stopSpeaking() {
         synth.stopSpeaking(at: .immediate)
+        isSpeaking = false
+    }
+}
+
+extension AudioCueService: AVSpeechSynthesizerDelegate {
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        Task { @MainActor in self.isSpeaking = true }
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        Task { @MainActor in self.isSpeaking = false }
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        Task { @MainActor in self.isSpeaking = false }
     }
 }
