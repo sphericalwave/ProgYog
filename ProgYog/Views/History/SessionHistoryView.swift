@@ -43,6 +43,7 @@ struct SessionHistoryView: View {
     }
 
     private func delete(_ session: Session) {
+        WorkoutCalendarBridge.remove(session)
         moc.delete(session)
         services.coreData.save()
     }

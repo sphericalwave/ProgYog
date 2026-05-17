@@ -13,6 +13,7 @@
 		AE0000010000000000000030 /* HRSample+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000031 /* HRSample+.swift */; };
 		AE0000020000000000000001 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000002 /* CoreDataService.swift */; };
 		AE0000020000000000000011 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000012 /* HeartRateService.swift */; };
+		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
 		AE0000020000000000000021 /* AudioCueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000022 /* AudioCueService.swift */; };
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
@@ -73,6 +74,7 @@
 		AE0000010000000000000031 /* HRSample+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRSample+.swift"; sourceTree = "<group>"; };
 		AE0000020000000000000002 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000012 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
+		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
 		AE0000020000000000000022 /* AudioCueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCueService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				AE0000020000000000000032 /* AppServices.swift */,
 				AE0000020000000000000002 /* CoreDataService.swift */,
 				AE0000020000000000000012 /* HeartRateService.swift */,
+				AE00000200000000000000F2 /* WorkoutCalendar.swift */,
 				AE0000020000000000000022 /* AudioCueService.swift */,
 				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
 				AE0000020000000000000052 /* ErrorLog.swift */,
@@ -430,6 +433,7 @@
 				AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */,
 				AE0000020000000000000001 /* CoreDataService.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
+				AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */,
 				AE0000020000000000000021 /* AudioCueService.swift in Sources */,
 				AE0000010000000000000001 /* ProgressionEvaluator.swift in Sources */,
 				AE0000030000000000000001 /* RootView.swift in Sources */,

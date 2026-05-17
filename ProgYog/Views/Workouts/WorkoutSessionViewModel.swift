@@ -90,6 +90,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         if totalSets >= totalRounds * famCount {
             session.endedAt = session.endedAt ?? Date()
             services.coreData.save()
+            WorkoutCalendarBridge.syncCompleted(session)
             phase = .finished
         }
     }
@@ -268,6 +269,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         if roundIdx >= totalRounds {
             session.endedAt = Date()
             services.coreData.save()
+            WorkoutCalendarBridge.syncCompleted(session)
             phase = .finished
         } else {
             phase = .idle

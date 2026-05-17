@@ -53,5 +53,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>progyog</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

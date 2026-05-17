@@ -11,6 +11,7 @@ struct SettingsView: View {
     @ObservedObject private var log: ErrorLog
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
+    @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
 
     init() {
         // Placeholder; environmentObject swaps in real instances.
@@ -50,6 +51,15 @@ struct SettingsView: View {
                         "Max heart rate",
                         value: "\(HRSettings.effectiveMax(age: hrAge, manualOverride: hrMaxOverride)) bpm"
                     )
+                }
+            }
+
+            Section("Calendar") {
+                NavigationLink {
+                    CalendarSyncSettingsView()
+                } label: {
+                    LabeledContent("Workout calendar",
+                                   value: calendarEnabled ? "On" : "Off")
                 }
             }
 
@@ -186,6 +196,86 @@ private struct HRMaxSettingsView: View {
         .listStyle(.grouped)
         .navigationTitle("Max Heart Rate")
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private struct CalendarSyncSettingsView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @AppStorage(WorkoutCalendar.enabledKey) private var enabled = false
+    @AppStorage(WorkoutCalendar.colorKey) private var colorHex = WorkoutCalendar.defaultColorHex
+    @State private var denied = false
+    @State private var confirmRemoveAll = false
+
+    private var color: Binding<Color> {
+        Binding(
+            get: { Color(hex: colorHex) ?? .orange },
+            set: { newValue in
+                let hex = newValue.hexString
+                colorHex = hex
+                WorkoutCalendar.setColor(hex: hex)
+            }
+        )
+    }
+
+    var body: some View {
+        List {
+            Section {
+                Toggle("Show workouts in Calendar", isOn: $enabled)
+                    .onChange(of: enabled) { _, on in
+                        if on {
+                            Task {
+                                let ok = await WorkoutCalendar.requestAccess()
+                                if ok {
+                                    denied = false
+                                    WorkoutCalendarBridge.syncAll(moc: moc)
+                                } else {
+                                    enabled = false
+                                    denied = true
+                                }
+                            }
+                        } else {
+                            WorkoutCalendar.disable()
+                        }
+                    }
+                if denied {
+                    Text("Calendar access denied. Enable it in Settings › Privacy › Calendars.")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            } footer: {
+                Text("Mirrors each completed workout into a \"Workout\" calendar as a timed event. Tap an event to open it in the app.")
+            }
+
+            if enabled {
+                Section("Appearance") {
+                    ColorPicker("Calendar color", selection: color, supportsOpacity: false)
+                }
+
+                Section {
+                    Button("Add all past workouts") {
+                        WorkoutCalendarBridge.syncAll(moc: moc)
+                    }
+                    Button("Remove all workout events", role: .destructive) {
+                        confirmRemoveAll = true
+                    }
+                } footer: {
+                    Text("Add backfills every completed workout. Remove clears the events but keeps the calendar.")
+                }
+            }
+        }
+        .listStyle(.grouped)
+        .navigationTitle("Workout Calendar")
+        .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            "Remove all workout events?",
+            isPresented: $confirmRemoveAll,
+            titleVisibility: .visible
+        ) {
+            Button("Remove All", role: .destructive) {
+                WorkoutCalendarBridge.removeAll()
+            }
+            Button("Cancel", role: .cancel) { }
+        }
     }
 }
 

@@ -94,6 +94,7 @@ struct WorkoutDetailView: View {
             Button("Discard", role: .destructive) {
                 guard let session = inProgress else { return }
                 inProgress = nil
+                WorkoutCalendarBridge.remove(session)
                 services.coreData.moc.delete(session)
                 services.coreData.save()
             }
