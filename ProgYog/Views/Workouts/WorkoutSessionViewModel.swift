@@ -130,6 +130,35 @@ final class WorkoutSessionViewModel: ObservableObject {
         return skills.first { $0.depth == depth }
     }
 
+    /// Depths that actually exist for the current family, sorted ascending.
+    /// Bounds the manual level override to skills that really exist (a depth
+    /// with no skill would make `currentSkill` nil and blank the view).
+    private var currentFamilyDepths: [Int16] {
+        guard let fam = currentFamily else { return [] }
+        let skills = (fam.absSkills as? Set<CDAbsSkill>) ?? []
+        return skills.map(\.depth).sorted()
+    }
+
+    var canRegressCurrentSkill: Bool {
+        guard let min = currentFamilyDepths.first else { return false }
+        return currentDepth > min
+    }
+
+    var canProgressCurrentSkill: Bool {
+        guard let max = currentFamilyDepths.last else { return false }
+        return currentDepth < max
+    }
+
+    func regressCurrentSkill() {
+        guard let fam = currentFamily, let min = currentFamilyDepths.first else { return }
+        familyDepths[fam.objectID] = Swift.max(currentDepth - 1, min)
+    }
+
+    func progressCurrentSkill() {
+        guard let fam = currentFamily, let max = currentFamilyDepths.last else { return }
+        familyDepths[fam.objectID] = Swift.min(currentDepth + 1, max)
+    }
+
     var headerLine: String {
         "Round \(roundIdx + 1) of \(totalRounds) · Skill \(familyIdx + 1) of \(families.count)"
     }

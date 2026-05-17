@@ -23,6 +23,10 @@ struct WorkoutSessionView: View {
                     .frame(maxHeight: 220)
             }
 
+            if vm.currentSkill != nil {
+                levelControls
+            }
+
             if let skill = vm.currentSkill, !skill.instructions.isEmpty {
                 instructionsCard(for: skill)
                     .frame(maxHeight: .infinity)
@@ -74,6 +78,24 @@ struct WorkoutSessionView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    private var levelControls: some View {
+        HStack(spacing: 12) {
+            Button(action: vm.regressCurrentSkill) {
+                Label("Regress", systemImage: "arrow.down")
+                    .frame(maxWidth: .infinity)
+            }
+            .disabled(!vm.canRegressCurrentSkill)
+
+            Button(action: vm.progressCurrentSkill) {
+                Label("Progress", systemImage: "arrow.up")
+                    .frame(maxWidth: .infinity)
+            }
+            .disabled(!vm.canProgressCurrentSkill)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.regular)
     }
 
     private func instructionsCard(for skill: CDAbsSkill) -> some View {
