@@ -14,9 +14,9 @@ import Foundation
 import SwiftUI
 
 enum ProgressionDecision: String, CaseIterable {
-    case progress
-    case `repeat` //swift keyword
     case regress
+    case `repeat` //swift keyword
+    case progress
 
     var color: Color {
         switch self {
