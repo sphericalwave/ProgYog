@@ -158,9 +158,15 @@ struct SetLogSheet: View {
         }
     }
     
+    /// Most recent set (for this skill) that actually has a comment.
+    private var lastNote: String? {
+        logs.reversed().lazy
+            .compactMap(\.notes)
+            .first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    }
+
     private var notesPlaceholder: String {
-        let last = lastLog?.notes ?? ""
-        return last.isEmpty ? "Notes (optional)" : last
+        lastNote ?? "Notes (optional)"
     }
     
     /// HR stats for this set: a saved log's stored values when editing,
