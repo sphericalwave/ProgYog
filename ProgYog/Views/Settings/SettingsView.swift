@@ -9,6 +9,8 @@ struct SettingsView: View {
     @EnvironmentObject private var services: AppServices
     @ObservedObject private var coreData: CoreDataService
     @ObservedObject private var log: ErrorLog
+    @AppStorage(HRSettings.ageKey) private var hrAge = 30
+    @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
 
     init() {
         // Placeholder; environmentObject swaps in real instances.
@@ -37,6 +39,17 @@ struct SettingsView: View {
                         Label("Previous data backed up", systemImage: "tray.full")
                             .foregroundStyle(.orange)
                     }
+                }
+            }
+
+            Section("Heart Rate") {
+                NavigationLink {
+                    HRMaxSettingsView()
+                } label: {
+                    LabeledContent(
+                        "Max heart rate",
+                        value: "\(HRSettings.effectiveMax(age: hrAge, manualOverride: hrMaxOverride)) bpm"
+                    )
                 }
             }
 
@@ -130,6 +143,49 @@ private struct BackupDetailView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Backup")
+    }
+}
+
+private struct HRMaxSettingsView: View {
+    @AppStorage(HRSettings.ageKey) private var age = 30
+    @AppStorage(HRSettings.overrideKey) private var manualOverride = 0
+
+    private var formulaMax: Int { max(220 - age, 1) }
+    private var isOverridden: Bool { manualOverride > 0 }
+
+    var body: some View {
+        List {
+            Section("Age") {
+                Stepper(value: $age, in: 10...100) {
+                    LabeledContent("Age", value: "\(age)")
+                }
+            }
+
+            Section {
+                LabeledContent("220 − age", value: "\(formulaMax) bpm")
+                Toggle("Override max HR", isOn: Binding(
+                    get: { isOverridden },
+                    set: { manualOverride = $0 ? formulaMax : 0 }
+                ))
+                if isOverridden {
+                    Stepper(value: $manualOverride, in: 100...230) {
+                        LabeledContent("Max HR", value: "\(manualOverride) bpm")
+                    }
+                }
+            } footer: {
+                Text("Defaults to the 220 − age estimate. Override it with your measured max heart rate. Used to show each set's heart rate as a percentage of max.")
+            }
+
+            Section("Effective") {
+                LabeledContent(
+                    "Max heart rate",
+                    value: "\(HRSettings.effectiveMax(age: age, manualOverride: manualOverride)) bpm"
+                )
+            }
+        }
+        .listStyle(.grouped)
+        .navigationTitle("Max Heart Rate")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

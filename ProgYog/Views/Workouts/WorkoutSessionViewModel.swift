@@ -201,6 +201,15 @@ final class WorkoutSessionViewModel: ObservableObject {
         phase = .logging
     }
 
+    /// Min/max/avg HR over the just-finished set, from the live sample buffer.
+    /// Valid during `.logging` (the buffer is cleared only on the next
+    /// `startSet`). Same math as `recordLog` persists onto the `SetLog`.
+    var currentSetHRStats: (min: Int, max: Int, avg: Int)? {
+        let bpms = sampleBuffer.map(\.bpm)
+        guard let lo = bpms.min(), let hi = bpms.max() else { return nil }
+        return (lo, hi, bpms.reduce(0, +) / max(bpms.count, 1))
+    }
+
     func recordLog(_ entry: SetLogSheet.Entry) {
         guard let skill = currentSkill else { return }
 

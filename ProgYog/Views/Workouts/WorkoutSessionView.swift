@@ -79,6 +79,7 @@ struct WorkoutSessionView: View {
                     skill: skill,
                     suggestion: vm.suggestion,
                     currentSession: vm.session,
+                    liveHRStats: vm.currentSetHRStats,
                     onSave: { vm.recordLog($0) }
                 )
                 .interactiveDismissDisabled()

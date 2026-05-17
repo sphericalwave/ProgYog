@@ -11,6 +11,7 @@ struct SetLogSheet: View {
     let suggestion: ProgressionDecision
     let editing: SetLog?
     let currentSession: Session?
+    let liveHRStats: (min: Int, max: Int, avg: Int)?
     let onSave: (_ entry: Entry) -> Void
     
     struct Entry {
@@ -34,17 +35,22 @@ struct SetLogSheet: View {
     @State private var decision: ProgressionDecision = .`repeat`
     @Environment(\.dismiss) private var dismiss
     
+    @AppStorage(HRSettings.ageKey) private var hrAge = 30
+    @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
+
     init(
         skill: CDAbsSkill,
         suggestion: ProgressionDecision,
         editing: SetLog? = nil,
         currentSession: Session? = nil,
+        liveHRStats: (min: Int, max: Int, avg: Int)? = nil,
         onSave: @escaping (Entry) -> Void
     ) {
         self.skill = skill
         self.suggestion = suggestion
         self.editing = editing
         self.currentSession = currentSession ?? editing?.session
+        self.liveHRStats = liveHRStats
         self.onSave = onSave
         _logs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: true)],
@@ -57,7 +63,15 @@ struct SetLogSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                
+
+                if let hr = resolvedHRStats {
+                    Section("Heart rate") {
+                        hrStatRow("Min", hr.min)
+                        hrStatRow("Avg", hr.avg)
+                        hrStatRow("Max", hr.max)
+                    }
+                }
+
                 Section {
                     
                     metricRow(label: "Reps", value: $reps, range: 0...200)
@@ -149,6 +163,32 @@ struct SetLogSheet: View {
         return last.isEmpty ? "Notes (optional)" : last
     }
     
+    /// HR stats for this set: a saved log's stored values when editing,
+    /// otherwise the live stats from the just-finished set. nil → no HR row.
+    private var resolvedHRStats: (min: Int, max: Int, avg: Int)? {
+        if let e = editing, e.hrAvg > 0 {
+            return (Int(e.hrMin), Int(e.hrMax), Int(e.hrAvg))
+        }
+        return liveHRStats
+    }
+
+    @ViewBuilder
+    private func hrStatRow(_ label: String, _ bpm: Int) -> some View {
+        let hrMax = HRSettings.effectiveMax(age: hrAge, manualOverride: hrMaxOverride)
+        HStack(spacing: 12) {
+            Text(label).font(.callout)
+            Spacer()
+            Text("\(bpm) bpm")
+                .monospacedDigit()
+                .font(.title3.bold())
+            Text("\(hrMax > 0 ? bpm * 100 / hrMax : 0)%")
+                .monospacedDigit()
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .frame(minWidth: 44, alignment: .trailing)
+        }
+    }
+
     @ViewBuilder
     private func metricRow(
         label: String,
