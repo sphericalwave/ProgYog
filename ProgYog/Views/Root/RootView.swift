@@ -37,6 +37,7 @@ struct RootView: View {
             .badge(services.errorLog.unreadCount)
         }
         .environment(\.managedObjectContext, services.coreData.moc)
+        .keyboardDoneToolbar()
     }
 }
 

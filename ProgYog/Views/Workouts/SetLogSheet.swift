@@ -59,6 +59,7 @@ struct SetLogSheet: View {
             Form {
                 
                 Section {
+                    
                     metricRow(label: "Reps", value: $reps, range: 0...200)
                     metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
                     metricRow(label: "Technique", value: $rpt, range: 1...10)
@@ -106,6 +107,7 @@ struct SetLogSheet: View {
             }
             .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
             .navigationBarTitleDisplayMode(.inline)
+            .keyboardDoneToolbar()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
