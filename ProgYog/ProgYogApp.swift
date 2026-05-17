@@ -18,9 +18,20 @@ struct ProgYogApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environmentObject(services)
-                .onAppear { KeyboardDismiss.installWindowTapRecognizer() }
+            if isProduction {
+                RootView()
+                    .environmentObject(services)
+                    .onAppear { KeyboardDismiss.installWindowTapRecognizer() }
+            }
+            // else: empty WindowGroup — unit tests build no view tree,
+            // so the lazy AppServices @StateObject is never constructed.
         }
+    }
+
+    // qualitycoding.org/bypass-swiftui-app-launch-unit-testing
+    // false under in-process unit tests (XCTestCase linked) → skip launch.
+    // UI tests run out-of-process so XCTestCase is absent → true → real app.
+    private var isProduction: Bool {
+        NSClassFromString("XCTestCase") == nil
     }
 }

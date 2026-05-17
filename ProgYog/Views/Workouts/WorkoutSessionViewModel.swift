@@ -182,6 +182,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         log.roundIndex = Int16(roundIdx)
         log.orderInRound = Int16(familyIdx)
         log.reps = Int16(entry.reps)
+        log.rom = Int16(entry.rom)
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)

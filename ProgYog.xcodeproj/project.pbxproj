@@ -3,26 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */; };
-		AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B756E25E06FE200A0FF28 /* Assets.xcassets */; };
-		AF0B757225E06FE200A0FF28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */; };
-		AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */; };
-		AF0B75C125E1500600A0FF28 /* JsonSkillData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B75C025E1500600A0FF28 /* JsonSkillData.swift */; };
-		AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* CDYogSeries+.swift */; };
-		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
-		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
-		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
-		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
-		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
-		AF8B518C25E56E9700519B9D /* ProgYogData.json in Resources */ = {isa = PBXBuildFile; fileRef = AF8B518B25E56E9700519B9D /* ProgYogData.json */; };
-		AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8C8272EC569006B38BB /* SwTheme.swift */; };
-		AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */; };
-		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
-		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 		AE0000010000000000000001 /* ProgressionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000002 /* ProgressionEvaluator.swift */; };
 		AE0000010000000000000010 /* Session+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000011 /* Session+.swift */; };
 		AE0000010000000000000020 /* SetLog+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000021 /* SetLog+.swift */; };
@@ -33,11 +17,6 @@
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
 		AE0000020000000000000051 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000052 /* ErrorLog.swift */; };
-		AE0000070000000000000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000002 /* SettingsView.swift */; };
-		AE0000070000000000000011 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000012 /* ErrorDetailView.swift */; };
-		AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000002 /* SkillPosterGallery.swift */; };
-		AE0000080000000000000011 /* SkillThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000012 /* SkillThumbnail.swift */; };
-		AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000090000000000000002 /* KeyboardDismiss.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -54,27 +33,40 @@
 		AE0000050000000000000021 /* HRCurveChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000022 /* HRCurveChart.swift */; };
 		AE0000050000000000000031 /* SkillDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000032 /* SkillDetailView.swift */; };
 		AE0000060000000000000001 /* SessionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000060000000000000002 /* SessionHistoryView.swift */; };
+		AE0000070000000000000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000002 /* SettingsView.swift */; };
+		AE0000070000000000000011 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000012 /* ErrorDetailView.swift */; };
+		AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000002 /* SkillPosterGallery.swift */; };
+		AE0000080000000000000011 /* SkillThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000012 /* SkillThumbnail.swift */; };
+		AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000090000000000000002 /* KeyboardDismiss.swift */; };
+		AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */; };
+		AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B756E25E06FE200A0FF28 /* Assets.xcassets */; };
+		AF0B757225E06FE200A0FF28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */; };
+		AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */; };
+		AF0B75C125E1500600A0FF28 /* JsonSkillData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B75C025E1500600A0FF28 /* JsonSkillData.swift */; };
+		AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* CDYogSeries+.swift */; };
+		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
+		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
+		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
+		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
+		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
+		AF8B518C25E56E9700519B9D /* ProgYogData.json in Resources */ = {isa = PBXBuildFile; fileRef = AF8B518B25E56E9700519B9D /* ProgYogData.json */; };
+		AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8C8272EC569006B38BB /* SwTheme.swift */; };
+		AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */; };
+		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
+		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AF3BEA5D2FBA0E470076FF55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF0B755F25E06FDE00A0FF28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF0B756625E06FDE00A0FF28;
+			remoteInfo = ProgYog;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		AF0B756725E06FDE00A0FF28 /* ProgYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogApp.swift; sourceTree = "<group>"; };
-		AF0B756E25E06FE200A0FF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AF0B757625E06FE200A0FF28 /* ProgressiveYog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProgressiveYog.xcdatamodel; sourceTree = "<group>"; };
-		AF0B757825E06FE200A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF0B75C025E1500600A0FF28 /* JsonSkillData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillData.swift; sourceTree = "<group>"; };
-		AF2B36D725E4494D009E760F /* CDYogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDYogSeries+.swift"; sourceTree = "<group>"; };
-		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
-		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
-		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
-		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
-		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
-		AF8B518B25E56E9700519B9D /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
-		AFD2C8C8272EC569006B38BB /* SwTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwTheme.swift; sourceTree = "<group>"; };
-		AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwFontMods.swift; sourceTree = "<group>"; };
-		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
-		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AE0000010000000000000002 /* ProgressionEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionEvaluator.swift; sourceTree = "<group>"; };
 		AE0000010000000000000011 /* Session+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+.swift"; sourceTree = "<group>"; };
 		AE0000010000000000000021 /* SetLog+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetLog+.swift"; sourceTree = "<group>"; };
@@ -85,11 +77,6 @@
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
 		AE0000020000000000000052 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
-		AE0000070000000000000002 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		AE0000070000000000000012 /* ErrorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailView.swift; sourceTree = "<group>"; };
-		AE0000080000000000000002 /* SkillPosterGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPosterGallery.swift; sourceTree = "<group>"; };
-		AE0000080000000000000012 /* SkillThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillThumbnail.swift; sourceTree = "<group>"; };
-		AE0000090000000000000002 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -106,7 +93,35 @@
 		AE0000050000000000000022 /* HRCurveChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCurveChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000032 /* SkillDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillDetailView.swift; sourceTree = "<group>"; };
 		AE0000060000000000000002 /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = "<group>"; };
+		AE0000070000000000000002 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AE0000070000000000000012 /* ErrorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailView.swift; sourceTree = "<group>"; };
+		AE0000080000000000000002 /* SkillPosterGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPosterGallery.swift; sourceTree = "<group>"; };
+		AE0000080000000000000012 /* SkillThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillThumbnail.swift; sourceTree = "<group>"; };
+		AE0000090000000000000002 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
+		AF0B756725E06FDE00A0FF28 /* ProgYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogApp.swift; sourceTree = "<group>"; };
+		AF0B756E25E06FE200A0FF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AF0B757625E06FE200A0FF28 /* ProgressiveYog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProgressiveYog.xcdatamodel; sourceTree = "<group>"; };
+		AF0B757825E06FE200A0FF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF0B75C025E1500600A0FF28 /* JsonSkillData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillData.swift; sourceTree = "<group>"; };
+		AF2B36D725E4494D009E760F /* CDYogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDYogSeries+.swift"; sourceTree = "<group>"; };
+		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
+		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
+		AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
+		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
+		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
+		AF8B518B25E56E9700519B9D /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
+		AFD2C8C8272EC569006B38BB /* SwTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwTheme.swift; sourceTree = "<group>"; };
+		AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwFontMods.swift; sourceTree = "<group>"; };
+		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
+		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ProgYogTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AF0B756425E06FDE00A0FF28 /* Frameworks */ = {
@@ -116,13 +131,112 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AF3BEA562FBA0E470076FF55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE0000010000000000000003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000020000000000000032 /* AppServices.swift */,
+				AE0000020000000000000002 /* CoreDataService.swift */,
+				AE0000020000000000000012 /* HeartRateService.swift */,
+				AE0000020000000000000022 /* AudioCueService.swift */,
+				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
+				AE0000020000000000000052 /* ErrorLog.swift */,
+				AE0000020000000000000042 /* PreviewSupport.swift */,
+				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AE0000030000000000000100 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000030000000000000101 /* Root */,
+				AE0000030000000000000102 /* Workouts */,
+				AE0000030000000000000103 /* Catalog */,
+				AE0000060000000000000100 /* History */,
+				AE0000070000000000000100 /* Settings */,
+				AE0000050000000000000100 /* Charts */,
+				AE0000090000000000000002 /* KeyboardDismiss.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AE0000030000000000000101 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000030000000000000002 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		AE0000030000000000000102 /* Workouts */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000030000000000000012 /* WorkoutListView.swift */,
+				AE0000030000000000000022 /* WorkoutDetailView.swift */,
+				AE0000040000000000000012 /* WorkoutSessionView.swift */,
+				AE0000040000000000000002 /* WorkoutSessionViewModel.swift */,
+				AE0000040000000000000022 /* SetLogSheet.swift */,
+				AE0000040000000000000032 /* WorkoutSummaryView.swift */,
+				AE0000040000000000000042 /* SkillFamilyDetailView.swift */,
+				AE0000040000000000000052 /* SkillPickerSheet.swift */,
+			);
+			path = Workouts;
+			sourceTree = "<group>";
+		};
+		AE0000030000000000000103 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000030000000000000032 /* SkillFamilyListView.swift */,
+				AE0000030000000000000042 /* AbsSkillListView.swift */,
+				AE0000050000000000000032 /* SkillDetailView.swift */,
+				AE0000080000000000000002 /* SkillPosterGallery.swift */,
+				AE0000080000000000000012 /* SkillThumbnail.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		AE0000050000000000000100 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000050000000000000002 /* SkillTrendChart.swift */,
+				AE0000050000000000000012 /* WorkoutCompositeChart.swift */,
+				AE0000050000000000000022 /* HRCurveChart.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		AE0000060000000000000100 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000060000000000000002 /* SessionHistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		AE0000070000000000000100 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000070000000000000002 /* SettingsView.swift */,
+				AE0000070000000000000012 /* ErrorDetailView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		AF0B755E25E06FDE00A0FF28 = {
 			isa = PBXGroup;
 			children = (
 				AF0B756925E06FDE00A0FF28 /* ProgYog */,
+				AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */,
 				AF0B756825E06FDE00A0FF28 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -131,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				AF0B756725E06FDE00A0FF28 /* ProgYog.app */,
+				AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,97 +310,6 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		AE0000010000000000000003 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000020000000000000032 /* AppServices.swift */,
-				AE0000020000000000000002 /* CoreDataService.swift */,
-				AE0000020000000000000012 /* HeartRateService.swift */,
-				AE0000020000000000000022 /* AudioCueService.swift */,
-				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
-				AE0000020000000000000052 /* ErrorLog.swift */,
-				AE0000020000000000000042 /* PreviewSupport.swift */,
-				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		AE0000030000000000000100 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000030000000000000101 /* Root */,
-				AE0000030000000000000102 /* Workouts */,
-				AE0000030000000000000103 /* Catalog */,
-				AE0000060000000000000100 /* History */,
-				AE0000070000000000000100 /* Settings */,
-				AE0000050000000000000100 /* Charts */,
-				AE0000090000000000000002 /* KeyboardDismiss.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		AE0000070000000000000100 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000070000000000000002 /* SettingsView.swift */,
-				AE0000070000000000000012 /* ErrorDetailView.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		AE0000060000000000000100 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000060000000000000002 /* SessionHistoryView.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
-		AE0000050000000000000100 /* Charts */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000050000000000000002 /* SkillTrendChart.swift */,
-				AE0000050000000000000012 /* WorkoutCompositeChart.swift */,
-				AE0000050000000000000022 /* HRCurveChart.swift */,
-			);
-			path = Charts;
-			sourceTree = "<group>";
-		};
-		AE0000030000000000000101 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000030000000000000002 /* RootView.swift */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
-		AE0000030000000000000102 /* Workouts */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000030000000000000012 /* WorkoutListView.swift */,
-				AE0000030000000000000022 /* WorkoutDetailView.swift */,
-				AE0000040000000000000012 /* WorkoutSessionView.swift */,
-				AE0000040000000000000002 /* WorkoutSessionViewModel.swift */,
-				AE0000040000000000000022 /* SetLogSheet.swift */,
-				AE0000040000000000000032 /* WorkoutSummaryView.swift */,
-				AE0000040000000000000042 /* SkillFamilyDetailView.swift */,
-				AE0000040000000000000052 /* SkillPickerSheet.swift */,
-			);
-			path = Workouts;
-			sourceTree = "<group>";
-		};
-		AE0000030000000000000103 /* Catalog */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000030000000000000032 /* SkillFamilyListView.swift */,
-				AE0000030000000000000042 /* AbsSkillListView.swift */,
-				AE0000050000000000000032 /* SkillDetailView.swift */,
-				AE0000080000000000000002 /* SkillPosterGallery.swift */,
-				AE0000080000000000000012 /* SkillThumbnail.swift */,
-			);
-			path = Catalog;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -306,17 +330,44 @@
 			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AF3BEA582FBA0E470076FF55 /* ProgYogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF3BEA612FBA0E470076FF55 /* Build configuration list for PBXNativeTarget "ProgYogTests" */;
+			buildPhases = (
+				AF3BEA552FBA0E470076FF55 /* Sources */,
+				AF3BEA562FBA0E470076FF55 /* Frameworks */,
+				AF3BEA572FBA0E470076FF55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF3BEA5E2FBA0E470076FF55 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */,
+			);
+			name = ProgYogTests;
+			packageProductDependencies = (
+			);
+			productName = ProgYogTests;
+			productReference = AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		AF0B755F25E06FDE00A0FF28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					AF0B756625E06FDE00A0FF28 = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					AF3BEA582FBA0E470076FF55 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = AF0B756625E06FDE00A0FF28;
 					};
 				};
 			};
@@ -334,6 +385,7 @@
 			projectRoot = "";
 			targets = (
 				AF0B756625E06FDE00A0FF28 /* ProgYog */,
+				AF3BEA582FBA0E470076FF55 /* ProgYogTests */,
 			);
 		};
 /* End PBXProject section */
@@ -348,6 +400,13 @@
 				AF8B518C25E56E9700519B9D /* ProgYogData.json in Resources */,
 				AFE924C825E59741005048B2 /* SkillFam.json in Resources */,
 				AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF3BEA572FBA0E470076FF55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,7 +462,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AF3BEA552FBA0E470076FF55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AF3BEA5E2FBA0E470076FF55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF0B756625E06FDE00A0FF28 /* ProgYog */;
+			targetProxy = AF3BEA5D2FBA0E470076FF55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AF0B758F25E06FE300A0FF28 /* Debug */ = {
@@ -566,6 +640,61 @@
 			};
 			name = Release;
 		};
+		AF3BEA5F2FBA0E470076FF55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgYog.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProgYog";
+			};
+			name = Debug;
+		};
+		AF3BEA602FBA0E470076FF55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgYog.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProgYog";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -583,6 +712,15 @@
 			buildConfigurations = (
 				AF0B759225E06FE300A0FF28 /* Debug */,
 				AF0B759325E06FE300A0FF28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF3BEA612FBA0E470076FF55 /* Build configuration list for PBXNativeTarget "ProgYogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF3BEA5F2FBA0E470076FF55 /* Debug */,
+				AF3BEA602FBA0E470076FF55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
