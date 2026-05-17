@@ -14,6 +14,14 @@ struct WorkoutSessionView: View {
         _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services, resuming: existing))
     }
 
+    #if DEBUG
+    init(previewPhase: WorkoutSessionViewModel.Phase, workoutCode: String, services: AppServices) {
+        let model = WorkoutSessionViewModel(workoutCode: workoutCode, services: services)
+        model.phase = previewPhase
+        _vm = StateObject(wrappedValue: model)
+    }
+    #endif
+
     var body: some View {
         VStack(spacing: 16) {
             nameHeader
@@ -42,14 +50,24 @@ struct WorkoutSessionView: View {
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button("Cancel") {
-                    vm.cancel()
-                    dismiss()
+            if vm.phase == .finished {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        WorkoutSummaryView(session: vm.session)
+                    } label: {
+                        Text("Done").bold()
+                    }
                 }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                HRPill(heartRate: services.heartRate)
+            } else {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        vm.cancel()
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    HRPill(heartRate: services.heartRate)
+                }
             }
         }
         .sheet(isPresented: Binding(
@@ -187,28 +205,24 @@ struct WorkoutSessionView: View {
                 .foregroundStyle(.green)
             Text("Workout complete").font(.title2.bold())
 
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Session notes").font(.caption).foregroundStyle(.secondary)
-                TextField(
-                    "How did it feel?",
-                    text: Binding(
-                        get: { vm.session.notes ?? "" },
-                        set: { vm.setSessionNotes($0) }
-                    ),
-                    axis: .vertical
-                )
-                .lineLimit(3...6)
-                .textFieldStyle(.roundedBorder)
-            }
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Session notes").font(.caption).foregroundStyle(.secondary)
+                    TextField(
+                        "How did it feel?",
+                        text: Binding(
+                            get: { vm.session.notes ?? "" },
+                            set: { vm.setSessionNotes($0) }
+                        ),
+                        axis: .vertical
+                    )
+                    .lineLimit(3...6)
+                    .textFieldStyle(.roundedBorder)
+                }
+                .frame(maxWidth: .infinity)
 
-            NavigationLink {
-                WorkoutSummaryView(session: vm.session)
-            } label: {
-                Text("View Summary")
-                    .frame(maxWidth: .infinity)
+                HRPill(heartRate: services.heartRate)
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
         }
     }
 
@@ -241,13 +255,20 @@ private struct HRPill: View {
 }
 
 #if DEBUG
-#Preview("Idle") {
+@MainActor
+private func workoutSessionPreview(_ phase: WorkoutSessionViewModel.Phase) -> some View {
     NavigationStack {
-        WorkoutSessionView(workoutCode: "A", services: PreviewSupport.services)
+        WorkoutSessionView(previewPhase: phase, workoutCode: "A", services: PreviewSupport.services)
     }
+    .keyboardDoneToolbar()
     .environmentObject(PreviewSupport.services)
     .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
 }
+
+#Preview("Idle") { workoutSessionPreview(.idle) }
+#Preview("Running") { workoutSessionPreview(.running) }
+#Preview("Logging") { workoutSessionPreview(.logging) }
+#Preview("Finished") { workoutSessionPreview(.finished) }
 #endif
 
 private struct HRConnectSheet: View {
