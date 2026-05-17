@@ -20,7 +20,7 @@ struct SessionHistoryView: View {
                 Text("No sessions yet. Start a workout to log your first set.")
                     .foregroundStyle(.secondary)
             }
-            ForEach(sessions, id: \.id) { session in
+            ForEach(sessions, id: \.objectID) { session in
                 NavigationLink(value: session.objectID) {
                     SessionRow(session: session)
                 }
@@ -31,9 +31,6 @@ struct SessionHistoryView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
-            }
-            .onDelete { offsets in
-                offsets.map { sessions[$0] }.forEach(delete)
             }
         }
         .listStyle(.grouped)
@@ -65,19 +62,23 @@ private struct SessionRow: View {
     }
 
     var body: some View {
-        let setCount = logs.count
-        let roundCount = Set(logs.map { $0.roundIndex }).count
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text("Workout \(session.workoutCode)").font(.headline)
-                Spacer()
-                Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
+        if session.isDeleted || session.managedObjectContext == nil {
+            EmptyView()
+        } else {
+            let setCount = logs.count
+            let roundCount = Set(logs.map { $0.roundIndex }).count
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("Workout \(session.workoutCode)").font(.headline)
+                    Spacer()
+                    Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Text("\(roundCount) round\(roundCount == 1 ? "" : "s") · \(setCount) set\(setCount == 1 ? "" : "s")")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            Text("\(roundCount) round\(roundCount == 1 ? "" : "s") · \(setCount) set\(setCount == 1 ? "" : "s")")
-                .font(.caption)
-                .foregroundStyle(.secondary)
         }
     }
 }

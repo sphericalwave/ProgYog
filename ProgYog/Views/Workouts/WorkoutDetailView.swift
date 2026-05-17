@@ -88,14 +88,14 @@ struct WorkoutDetailView: View {
             NavigationStack {
                 WorkoutSessionView(workoutCode: workoutCode, services: services, resuming: resuming)
             }
+            .keyboardDoneToolbar()
         }
         .alert("Discard session?", isPresented: $discardAlert) {
             Button("Discard", role: .destructive) {
-                if let session = inProgress {
-                    services.coreData.moc.delete(session)
-                    services.coreData.save()
-                }
-                refreshInProgress()
+                guard let session = inProgress else { return }
+                inProgress = nil
+                services.coreData.moc.delete(session)
+                services.coreData.save()
             }
             Button("Cancel", role: .cancel) { }
         } message: {
