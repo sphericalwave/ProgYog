@@ -23,28 +23,20 @@ struct WorkoutSessionView: View {
     #endif
 
     var body: some View {
-        VStack(spacing: 16) {
-            nameHeader
-
-            if let skill = vm.currentSkill, !skill.posterAssetNames.isEmpty {
-                SkillPosterGallery(names: skill.posterAssetNames)
-                    .frame(maxHeight: 220)
-            }
-
-            if vm.currentSkill != nil {
-                levelControls
-            }
-
-            if let skill = vm.currentSkill, !skill.instructions.isEmpty {
-                instructionsCard(for: skill)
-                    .frame(maxHeight: .infinity)
+        Group {
+            if vm.phase == .finished {
+                // Scrollable so the keyboard can't cover "Session notes".
+                ScrollView {
+                    sessionContent(fill: false)
+                        .padding()
+                }
+                .scrollDismissesKeyboard(.interactively)
             } else {
-                Spacer()
+                // Fixed layout: timer/buttons stay pinned by the fill below.
+                sessionContent(fill: true)
+                    .padding()
             }
-
-            phaseContent
         }
-        .padding()
         .navigationTitle("Workout \(vm.workoutCode)")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
@@ -84,6 +76,34 @@ struct WorkoutSessionView: View {
                 )
                 .interactiveDismissDisabled()
             }
+        }
+    }
+
+    /// Shared phase content. `fill` keeps the idle/running/logging layout
+    /// (instructions card / Spacer expand to pin the timer & buttons); the
+    /// finished phase passes `false` so it sizes naturally inside a ScrollView.
+    @ViewBuilder
+    private func sessionContent(fill: Bool) -> some View {
+        VStack(spacing: 16) {
+            nameHeader
+
+            if let skill = vm.currentSkill, !skill.posterAssetNames.isEmpty {
+                SkillPosterGallery(names: skill.posterAssetNames)
+                    .frame(maxHeight: 220)
+            }
+
+            if vm.currentSkill != nil {
+                levelControls
+            }
+
+            if let skill = vm.currentSkill, !skill.instructions.isEmpty {
+                instructionsCard(for: skill)
+                    .frame(maxHeight: fill ? .infinity : nil)
+            } else if fill {
+                Spacer()
+            }
+
+            phaseContent
         }
     }
 
