@@ -84,7 +84,19 @@ struct WorkoutDetailView: View {
             if !sessions.isEmpty {
                 Section("Session History") {
                     ForEach(sessions, id: \.objectID) { session in
-                        sessionRow(session)
+                        NavigationLink {
+                            WorkoutSummaryView(session: session)
+                        } label: {
+                            sessionRow(session)
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                            Button {
+                                _ = services.coreData.duplicateSession(session)
+                            } label: {
+                                Label("Duplicate", systemImage: "plus.square.on.square")
+                            }
+                            .tint(.blue)
+                        }
                     }
                 }
             }
@@ -110,6 +122,15 @@ struct WorkoutDetailView: View {
         .alert("Discard session?", isPresented: $discardAlert) {
             Button("Discard", role: .destructive) {
                 guard let session = inProgress else { return }
+                let snap = SessionRecovery.snapshot(session)
+                let coreData = services.coreData
+                services.undo.push(description: "in-progress session") {
+                    let restored = SessionRecovery.restore(snap, into: coreData.moc)
+                    coreData.save()
+                    if restored.endedAt != nil {
+                        WorkoutCalendarBridge.syncCompleted(restored)
+                    }
+                }
                 inProgress = nil
                 WorkoutCalendarBridge.remove(session)
                 services.coreData.moc.delete(session)
@@ -117,7 +138,7 @@ struct WorkoutDetailView: View {
             }
             Button("Cancel", role: .cancel) { }
         } message: {
-            Text("This will permanently remove the in-progress session and all logged sets.")
+            Text("This will permanently remove the in-progress session and all logged sets. Shake to undo.")
         }
     }
 

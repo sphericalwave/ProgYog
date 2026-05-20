@@ -31,6 +31,14 @@ struct SessionHistoryView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
+                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                    Button {
+                        _ = services.coreData.duplicateSession(session)
+                    } label: {
+                        Label("Duplicate", systemImage: "plus.square.on.square")
+                    }
+                    .tint(.blue)
+                }
             }
         }
         .listStyle(.grouped)
@@ -43,6 +51,15 @@ struct SessionHistoryView: View {
     }
 
     private func delete(_ session: Session) {
+        let snap = SessionRecovery.snapshot(session)
+        let coreData = services.coreData
+        services.undo.push(description: "1 session") {
+            let restored = SessionRecovery.restore(snap, into: coreData.moc)
+            coreData.save()
+            if restored.endedAt != nil {
+                WorkoutCalendarBridge.syncCompleted(restored)
+            }
+        }
         WorkoutCalendarBridge.remove(session)
         moc.delete(session)
         services.coreData.save()

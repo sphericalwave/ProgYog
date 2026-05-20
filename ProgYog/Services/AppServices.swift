@@ -12,6 +12,7 @@ final class AppServices: ObservableObject {
     let audio: AudioCueService
     let theme: SwTheme
     let errorLog: ErrorLog
+    let undo: UndoStack
 
     init(inMemory: Bool = false) {
         let log = ErrorLog()
@@ -29,6 +30,7 @@ final class AppServices: ObservableObject {
         self.audio = AudioCueService()
         self.theme = SwTheme()
         self.errorLog = log
+        self.undo = UndoStack()
         log.info("App", "Launched")
     }
 }

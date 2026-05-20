@@ -92,6 +92,55 @@ final class CoreDataService: ObservableObject {
         }
     }
 
+    /// Deep-copy a Session: new IDs, fresh startedAt; SetLogs and HR samples
+    /// duplicated verbatim aside from their UUIDs. Completed sessions
+    /// rebase endedAt to now so calendar ordering stays coherent.
+    @discardableResult
+    func duplicateSession(_ source: Session) -> Session {
+        let dup = Session(context: moc)
+        dup.id = UUID()
+        dup.startedAt = Date()
+        dup.endedAt = source.endedAt == nil ? nil : Date()
+        dup.workoutCode = source.workoutCode
+        dup.notes = source.notes
+
+        for src in source.orderedSetLogs {
+            let log = SetLog(context: moc)
+            log.id = UUID()
+            log.session = dup
+            log.absSkill = src.absSkill
+            log.roundIndex = src.roundIndex
+            log.orderInRound = src.orderInRound
+            log.reps = src.reps
+            log.rom = src.rom
+            log.rpt = src.rpt
+            log.rpe = src.rpe
+            log.rpd = src.rpd
+            log.rptNote = src.rptNote
+            log.rpeNote = src.rpeNote
+            log.rpdNote = src.rpdNote
+            log.notes = src.notes
+            log.durationSec = src.durationSec
+            log.decision = src.decision
+            log.hrAvg = src.hrAvg
+            log.hrMin = src.hrMin
+            log.hrMax = src.hrMax
+            log.loggedAt = src.loggedAt
+
+            for s in src.orderedHRSamples {
+                let sample = HRSample(context: moc)
+                sample.t = s.t
+                sample.bpm = s.bpm
+                sample.setLog = log
+            }
+        }
+        save()
+        if dup.endedAt != nil {
+            WorkoutCalendarBridge.syncCompleted(dup)
+        }
+        return dup
+    }
+
     private static let seedVersionKey = "seedVersion"
     private static let currentSeedVersion = 2
 

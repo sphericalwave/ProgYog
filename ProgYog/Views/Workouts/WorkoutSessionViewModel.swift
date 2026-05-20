@@ -104,6 +104,15 @@ final class WorkoutSessionViewModel: ObservableObject {
     }
 
     func discardSession() {
+        let snap = SessionRecovery.snapshot(session)
+        let coreData = services.coreData
+        services.undo.push(description: "session") {
+            let restored = SessionRecovery.restore(snap, into: coreData.moc)
+            coreData.save()
+            if restored.endedAt != nil {
+                WorkoutCalendarBridge.syncCompleted(restored)
+            }
+        }
         moc.delete(session)
         services.coreData.save()
     }

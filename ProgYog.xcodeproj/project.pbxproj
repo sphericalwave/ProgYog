@@ -13,24 +13,27 @@
 		AE0000010000000000000030 /* HRSample+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000031 /* HRSample+.swift */; };
 		AE0000020000000000000001 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000002 /* CoreDataService.swift */; };
 		AE0000020000000000000011 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000012 /* HeartRateService.swift */; };
-		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
 		AE0000020000000000000021 /* AudioCueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000022 /* AudioCueService.swift */; };
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
 		AE0000020000000000000051 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000052 /* ErrorLog.swift */; };
 		AE0000020000000000000061 /* CompletionScorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000062 /* CompletionScorer.swift */; };
-		AE0000040000000000000061 /* CompletionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000062 /* CompletionChip.swift */; };
+		AE0000020000000000000071 /* UndoStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000072 /* UndoStack.swift */; };
+		AE0000020000000000000081 /* SessionRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000082 /* SessionRecovery.swift */; };
+		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
 		AE0000030000000000000031 /* SkillFamilyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000032 /* SkillFamilyListView.swift */; };
 		AE0000030000000000000041 /* AbsSkillListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000042 /* AbsSkillListView.swift */; };
+		AE0000030000000000000051 /* ShakeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000052 /* ShakeListener.swift */; };
 		AE0000040000000000000001 /* WorkoutSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000002 /* WorkoutSessionViewModel.swift */; };
 		AE0000040000000000000011 /* WorkoutSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000012 /* WorkoutSessionView.swift */; };
 		AE0000040000000000000021 /* SetLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000022 /* SetLogSheet.swift */; };
 		AE0000040000000000000031 /* WorkoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000032 /* WorkoutSummaryView.swift */; };
 		AE0000040000000000000041 /* SkillFamilyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000042 /* SkillFamilyDetailView.swift */; };
 		AE0000040000000000000051 /* SkillPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000052 /* SkillPickerSheet.swift */; };
+		AE0000040000000000000061 /* CompletionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000062 /* CompletionChip.swift */; };
 		AE0000050000000000000001 /* SkillTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000002 /* SkillTrendChart.swift */; };
 		AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000012 /* WorkoutCompositeChart.swift */; };
 		AE0000050000000000000021 /* HRCurveChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000022 /* HRCurveChart.swift */; };
@@ -76,24 +79,27 @@
 		AE0000010000000000000031 /* HRSample+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRSample+.swift"; sourceTree = "<group>"; };
 		AE0000020000000000000002 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000012 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
-		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
 		AE0000020000000000000022 /* AudioCueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCueService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
 		AE0000020000000000000052 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
 		AE0000020000000000000062 /* CompletionScorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionScorer.swift; sourceTree = "<group>"; };
-		AE0000040000000000000062 /* CompletionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChip.swift; sourceTree = "<group>"; };
+		AE0000020000000000000072 /* UndoStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoStack.swift; sourceTree = "<group>"; };
+		AE0000020000000000000082 /* SessionRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecovery.swift; sourceTree = "<group>"; };
+		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000032 /* SkillFamilyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamilyListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000042 /* AbsSkillListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsSkillListView.swift; sourceTree = "<group>"; };
+		AE0000030000000000000052 /* ShakeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeListener.swift; sourceTree = "<group>"; };
 		AE0000040000000000000002 /* WorkoutSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionViewModel.swift; sourceTree = "<group>"; };
 		AE0000040000000000000012 /* WorkoutSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000022 /* SetLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLogSheet.swift; sourceTree = "<group>"; };
 		AE0000040000000000000032 /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummaryView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000042 /* SkillFamilyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamilyDetailView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000052 /* SkillPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPickerSheet.swift; sourceTree = "<group>"; };
+		AE0000040000000000000062 /* CompletionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChip.swift; sourceTree = "<group>"; };
 		AE0000050000000000000002 /* SkillTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTrendChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000012 /* WorkoutCompositeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompositeChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000022 /* HRCurveChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCurveChart.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 				AE0000020000000000000022 /* AudioCueService.swift */,
 				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
 				AE0000020000000000000062 /* CompletionScorer.swift */,
+				AE0000020000000000000072 /* UndoStack.swift */,
+				AE0000020000000000000082 /* SessionRecovery.swift */,
 				AE0000020000000000000052 /* ErrorLog.swift */,
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
@@ -182,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				AE0000030000000000000002 /* RootView.swift */,
+				AE0000030000000000000052 /* ShakeListener.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -433,6 +442,9 @@
 				AE0000020000000000000041 /* PreviewSupport.swift in Sources */,
 				AE0000020000000000000051 /* ErrorLog.swift in Sources */,
 				AE0000020000000000000061 /* CompletionScorer.swift in Sources */,
+				AE0000020000000000000071 /* UndoStack.swift in Sources */,
+				AE0000020000000000000081 /* SessionRecovery.swift in Sources */,
+				AE0000030000000000000051 /* ShakeListener.swift in Sources */,
 				AE0000040000000000000061 /* CompletionChip.swift in Sources */,
 				AE0000070000000000000001 /* SettingsView.swift in Sources */,
 				AE0000070000000000000011 /* ErrorDetailView.swift in Sources */,

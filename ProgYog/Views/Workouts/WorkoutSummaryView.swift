@@ -104,8 +104,7 @@ struct WorkoutSummaryView: View {
                         .buttonStyle(.plain)
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
-                                services.coreData.moc.delete(log)
-                                services.coreData.save()
+                                deleteLog(log)
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
@@ -198,6 +197,22 @@ struct WorkoutSummaryView: View {
                 }
             }
         }
+    }
+
+    private func deleteLog(_ log: SetLog) {
+        guard let session = log.session else {
+            services.coreData.moc.delete(log)
+            services.coreData.save()
+            return
+        }
+        let snap = SessionRecovery.snapshot(log)
+        let coreData = services.coreData
+        services.undo.push(description: "1 set") {
+            _ = SessionRecovery.restore(snap, into: coreData.moc, session: session)
+            coreData.save()
+        }
+        services.coreData.moc.delete(log)
+        services.coreData.save()
     }
 
     private func duplicateRound(_ group: (round: Int16, logs: [SetLog])) {
