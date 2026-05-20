@@ -18,6 +18,8 @@
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
 		AE0000020000000000000051 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000052 /* ErrorLog.swift */; };
+		AE0000020000000000000061 /* CompletionScorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000062 /* CompletionScorer.swift */; };
+		AE0000040000000000000061 /* CompletionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000062 /* CompletionChip.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -79,6 +81,8 @@
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
 		AE0000020000000000000052 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
+		AE0000020000000000000062 /* CompletionScorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionScorer.swift; sourceTree = "<group>"; };
+		AE0000040000000000000062 /* CompletionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChip.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				AE00000200000000000000F2 /* WorkoutCalendar.swift */,
 				AE0000020000000000000022 /* AudioCueService.swift */,
 				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
+				AE0000020000000000000062 /* CompletionScorer.swift */,
 				AE0000020000000000000052 /* ErrorLog.swift */,
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
@@ -192,6 +197,7 @@
 				AE0000040000000000000032 /* WorkoutSummaryView.swift */,
 				AE0000040000000000000042 /* SkillFamilyDetailView.swift */,
 				AE0000040000000000000052 /* SkillPickerSheet.swift */,
+				AE0000040000000000000062 /* CompletionChip.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -426,6 +432,8 @@
 				AE0000020000000000000031 /* AppServices.swift in Sources */,
 				AE0000020000000000000041 /* PreviewSupport.swift in Sources */,
 				AE0000020000000000000051 /* ErrorLog.swift in Sources */,
+				AE0000020000000000000061 /* CompletionScorer.swift in Sources */,
+				AE0000040000000000000061 /* CompletionChip.swift in Sources */,
 				AE0000070000000000000001 /* SettingsView.swift in Sources */,
 				AE0000070000000000000011 /* ErrorDetailView.swift in Sources */,
 				AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */,

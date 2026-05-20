@@ -9,6 +9,7 @@ import CoreData
 struct WorkoutListView: View {
     private let workoutCodes = ["A", "B", "C", "D", "E"]
 
+    @Environment(\.managedObjectContext) private var moc
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
@@ -17,13 +18,21 @@ struct WorkoutListView: View {
         NavigationStack {
             List(workoutCodes, id: \.self) { code in
                 NavigationLink(value: code) {
-                    HStack {
+                    HStack(spacing: 10) {
                         Image(systemName: "circle.fill")
                             .foregroundColor(color(for: code))
                         Text("Workout \(code)")
                             .font(.headline)
                         Spacer()
                         stats(for: code)
+                        CompletionChip(
+                            percent: CompletionScorer.lastSessionPercent(workoutCode: code, moc: moc),
+                            caption: "last"
+                        )
+                        CompletionChip(
+                            percent: CompletionScorer.allTimeBestSessionPercent(workoutCode: code, moc: moc),
+                            caption: "best"
+                        )
                     }
                 }
             }

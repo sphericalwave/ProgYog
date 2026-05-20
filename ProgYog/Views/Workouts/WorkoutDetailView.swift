@@ -17,6 +17,7 @@ struct WorkoutDetailView: View {
 
     @FetchRequest private var families: FetchedResults<CDSkillFamily>
     @FetchRequest private var setLogs: FetchedResults<SetLog>
+    @FetchRequest private var sessions: FetchedResults<Session>
 
     init(workoutCode: String) {
         self.workoutCode = workoutCode
@@ -27,6 +28,10 @@ struct WorkoutDetailView: View {
         _setLogs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: false)],
             predicate: NSPredicate(format: "absSkill.skillFamily.series == %@", workoutCode)
+        )
+        _sessions = FetchRequest<Session>(
+            sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)],
+            predicate: NSPredicate(format: "workoutCode == %@", workoutCode)
         )
     }
 
@@ -67,7 +72,19 @@ struct WorkoutDetailView: View {
                             Text(family.name)
                             Spacer()
                             stats(for: family)
+                            CompletionChip(
+                                percent: CompletionScorer.allTimeBestFamilyPercent(family),
+                                caption: "best"
+                            )
                         }
+                    }
+                }
+            }
+
+            if !sessions.isEmpty {
+                Section("Session History") {
+                    ForEach(sessions, id: \.objectID) { session in
+                        sessionRow(session)
                     }
                 }
             }
@@ -106,6 +123,21 @@ struct WorkoutDetailView: View {
 
     private func refreshInProgress() {
         inProgress = WorkoutSessionViewModel.inProgressSession(for: workoutCode, moc: services.coreData.moc)
+    }
+
+    @ViewBuilder
+    private func sessionRow(_ session: Session) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
+                    .font(.caption.bold())
+                Text("\(session.orderedSetLogs.count) sets")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            CompletionChip(percent: CompletionScorer.sessionPercent(session))
+        }
     }
 
     @ViewBuilder

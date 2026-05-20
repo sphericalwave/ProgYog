@@ -64,3 +64,17 @@ extension CDSkillFamily {
 }
 
 extension CDSkillFamily: Identifiable { }
+
+extension CDSkillFamily {
+    /// Skills sorted by depth ascending. Zero when empty.
+    var orderedAbsSkills: [CDAbsSkill] {
+        let set = absSkills as? Set<CDAbsSkill> ?? []
+        return set.sorted { $0.depth < $1.depth }
+    }
+
+    /// Max depth across all skills in this family. Zero when empty.
+    var maxDepth: Int16 {
+        let set = absSkills as? Set<CDAbsSkill> ?? []
+        return set.map { $0.depth }.max() ?? 0
+    }
+}

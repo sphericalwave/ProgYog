@@ -38,6 +38,12 @@ extension Session {
             return $0.orderInRound < $1.orderInRound
         }
     }
+
+    /// Mean of per-family completion % across all families logged in
+    /// this session. `nil` when nothing logged. See `CompletionScorer`.
+    var completionPercent: Double? {
+        CompletionScorer.sessionPercent(self)
+    }
 }
 
 extension Session {

@@ -77,6 +77,17 @@ struct WorkoutSummaryView: View {
             }
 
             if !setLogs.isEmpty {
+                Section("Completion") {
+                    HStack {
+                        Text("Session").bold()
+                        Spacer()
+                        CompletionChip(percent: CompletionScorer.sessionPercent(session))
+                    }
+                    ForEach(completionFamilies, id: \.objectID) { family in
+                        completionRow(family)
+                    }
+                }
+
                 Section("Composite") {
                     WorkoutCompositeChart(families: WorkoutCompositeChart.averages(from: Array(setLogs)))
                 }
@@ -209,6 +220,32 @@ struct WorkoutSummaryView: View {
             dup.loggedAt = Date()
         }
         services.coreData.save()
+    }
+
+    /// Families logged in this session, ordered by `CDSkillFamily.order`.
+    private var completionFamilies: [CDSkillFamily] {
+        let families = Set(setLogs.compactMap { $0.absSkill?.skillFamily })
+        return families.sorted { $0.order < $1.order }
+    }
+
+    /// Last set logged for `family` in this session (by round / order).
+    private func lastFamilyLog(_ family: CDSkillFamily) -> SetLog? {
+        setLogs.filter { $0.absSkill?.skillFamily == family }.last
+    }
+
+    @ViewBuilder
+    private func completionRow(_ family: CDSkillFamily) -> some View {
+        let pct = CompletionScorer.familyPercent(in: session, family: family)
+        HStack {
+            Text(family.name)
+            Spacer()
+            if let last = lastFamilyLog(family), let depth = last.absSkill?.depth {
+                Text("\(depth)/\(family.maxDepth)")
+                    .font(.caption.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            }
+            CompletionChip(percent: pct)
+        }
     }
 
     private var roundGroups: [(round: Int16, logs: [SetLog])] {

@@ -51,6 +51,15 @@ extension SetLog {
         let set = hrSamples as? Set<HRSample> ?? []
         return set.sorted { $0.t < $1.t }
     }
+
+    /// Set meets the inclusive completion-quality bar
+    /// (RPT ≥ 8, RPE ≤ 6, RPD ≤ 1, ROM ≥ 95).
+    var qualifiesForCompletion: Bool {
+        rpt >= CompletionScorer.rptMin
+            && rpe <= CompletionScorer.rpeMax
+            && rpd <= CompletionScorer.rpdMax
+            && rom >= CompletionScorer.romMin
+    }
 }
 
 extension SetLog {

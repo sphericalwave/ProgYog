@@ -12,6 +12,10 @@ struct SettingsView: View {
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
+    @AppStorage(CompletionSettings.rptMinKey) private var compRptMin = 0
+    @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
+    @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
+    @AppStorage(CompletionSettings.romMinKey) private var compRomMin = 0
 
     init() {
         // Placeholder; environmentObject swaps in real instances.
@@ -60,6 +64,21 @@ struct SettingsView: View {
                 } label: {
                     LabeledContent("Workout calendar",
                                    value: calendarEnabled ? "On" : "Off")
+                }
+            }
+
+            Section("Completion Scoring") {
+                NavigationLink {
+                    CompletionSettingsView()
+                } label: {
+                    LabeledContent(
+                        "Qualifying set",
+                        value: "RPT≥\(CompletionSettings.rptMin) · "
+                             + "RPE≤\(CompletionSettings.rpeMax) · "
+                             + "RPD≤\(CompletionSettings.rpdMax) · "
+                             + "ROM≥\(CompletionSettings.romMin)%"
+                    )
+                    .font(.callout)
                 }
             }
 
@@ -276,6 +295,54 @@ private struct CalendarSyncSettingsView: View {
             }
             Button("Cancel", role: .cancel) { }
         }
+    }
+}
+
+private struct CompletionSettingsView: View {
+    // Bound directly to @AppStorage so the Stepper +/- triggers a real
+    // write + SwiftUI re-render. Default = the constant, so a fresh user
+    // sees the real bar (not 0).
+    @AppStorage(CompletionSettings.rptMinKey) private var rptMin: Int = Int(CompletionSettings.defaultRptMin)
+    @AppStorage(CompletionSettings.rpeMaxKey) private var rpeMax: Int = Int(CompletionSettings.defaultRpeMax)
+    @AppStorage(CompletionSettings.rpdMaxKey) private var rpdMax: Int = Int(CompletionSettings.defaultRpdMax)
+    @AppStorage(CompletionSettings.romMinKey) private var romMin: Int = Int(CompletionSettings.defaultRomMin)
+
+    var body: some View {
+        List {
+            Section {
+                Stepper(value: $rptMin, in: 1...10) {
+                    LabeledContent("Technique (RPT) ≥", value: "\(rptMin)")
+                }
+                Stepper(value: $rpeMax, in: 1...10) {
+                    LabeledContent("Effort (RPE) ≤", value: "\(rpeMax)")
+                }
+                Stepper(value: $rpdMax, in: 1...10) {
+                    LabeledContent("Discomfort (RPD) ≤", value: "\(rpdMax)")
+                }
+                Stepper(value: $romMin, in: 5...100, step: 5) {
+                    LabeledContent("Range of Motion (ROM) ≥", value: "\(romMin)%")
+                }
+            } footer: {
+                Text("A set counts toward completion when it meets all four. "
+                   + "Lower the bar to get easier wins; raise it to track elite reps.")
+            }
+
+            Section("Defaults") {
+                LabeledContent("RPT ≥", value: "\(CompletionSettings.defaultRptMin)")
+                LabeledContent("RPE ≤", value: "\(CompletionSettings.defaultRpeMax)")
+                LabeledContent("RPD ≤", value: "\(CompletionSettings.defaultRpdMax)")
+                LabeledContent("ROM ≥", value: "\(CompletionSettings.defaultRomMin)%")
+                Button("Reset to defaults") {
+                    rptMin = Int(CompletionSettings.defaultRptMin)
+                    rpeMax = Int(CompletionSettings.defaultRpeMax)
+                    rpdMax = Int(CompletionSettings.defaultRpdMax)
+                    romMin = Int(CompletionSettings.defaultRomMin)
+                }
+            }
+        }
+        .listStyle(.grouped)
+        .navigationTitle("Completion Scoring")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
