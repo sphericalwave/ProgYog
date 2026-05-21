@@ -102,7 +102,7 @@ struct WorkoutDetailView: View {
             }
         }
         .listStyle(.grouped)
-        .navigationTitle("Workout \(workoutCode)")
+        .navigationTitle(WorkoutLabel.display(forCode: workoutCode))
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(inProgress == nil ? "Start" : "New") {

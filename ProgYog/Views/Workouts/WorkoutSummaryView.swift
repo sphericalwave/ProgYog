@@ -59,7 +59,7 @@ struct WorkoutSummaryView: View {
             }
 
             Section("Session") {
-                LabeledContent("Workout", value: session.workoutCode)
+                LabeledContent("Name", value: WorkoutLabel.display(for: session))
                 DatePicker("Started", selection: startBinding)
                 Toggle("Completed", isOn: completedBinding)
                 if session.endedAt != nil {

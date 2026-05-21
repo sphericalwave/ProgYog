@@ -64,6 +64,12 @@ struct RootView: View {
                 routePendingSession()
             }
         }
+        .task {
+            // First-launch sync — scenePhase onChange only fires on a
+            // change to .active, so a fresh launch wouldn't catch
+            // calendar title drift (e.g. after a rename patch).
+            WorkoutCalendarBridge.syncAll(moc: services.coreData.moc)
+        }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
             WorkoutCalendarBridge.syncAll(moc: services.coreData.moc)

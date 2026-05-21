@@ -21,7 +21,7 @@ struct WorkoutListView: View {
                     HStack(spacing: 10) {
                         Image(systemName: "circle.fill")
                             .foregroundColor(color(for: code))
-                        Text("Workout \(code)")
+                        Text(WorkoutLabel.display(forCode: code))
                             .font(.headline)
                         Spacer()
                         stats(for: code)

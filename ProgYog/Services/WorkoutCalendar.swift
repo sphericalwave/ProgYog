@@ -187,7 +187,7 @@ enum WorkoutCalendarBridge {
         return UUID(uuidString: last)
     }
 
-    private static func title(_ s: Session) -> String { "Workout \(s.workoutCode)" }
+    private static func title(_ s: Session) -> String { WorkoutLabel.display(for: s) }
 
     private static func notes(_ s: Session) -> String? {
         let logs = s.orderedSetLogs

@@ -87,7 +87,7 @@ private struct SessionRow: View {
             let roundCount = Set(logs.map { $0.roundIndex }).count
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text("Workout \(session.workoutCode)").font(.headline)
+                    Text(WorkoutLabel.display(for: session)).font(.headline)
                     Spacer()
                     Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
                         .font(.caption)

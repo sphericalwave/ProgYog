@@ -37,7 +37,7 @@ struct WorkoutSessionView: View {
                     .padding()
             }
         }
-        .navigationTitle("Workout \(vm.workoutCode)")
+        .navigationTitle(WorkoutLabel.display(forCode: vm.workoutCode))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }

@@ -21,6 +21,7 @@
 		AE0000020000000000000071 /* UndoStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000072 /* UndoStack.swift */; };
 		AE0000020000000000000081 /* SessionRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000082 /* SessionRecovery.swift */; };
 		AE0000020000000000000091 /* SessionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000092 /* SessionEditor.swift */; };
+		AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000A2 /* WorkoutLabel.swift */; };
 		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
@@ -88,6 +89,7 @@
 		AE0000020000000000000072 /* UndoStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoStack.swift; sourceTree = "<group>"; };
 		AE0000020000000000000082 /* SessionRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecovery.swift; sourceTree = "<group>"; };
 		AE0000020000000000000092 /* SessionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEditor.swift; sourceTree = "<group>"; };
+		AE00000200000000000000A2 /* WorkoutLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLabel.swift; sourceTree = "<group>"; };
 		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				AE0000020000000000000072 /* UndoStack.swift */,
 				AE0000020000000000000082 /* SessionRecovery.swift */,
 				AE0000020000000000000092 /* SessionEditor.swift */,
+				AE00000200000000000000A2 /* WorkoutLabel.swift */,
 				AE0000020000000000000052 /* ErrorLog.swift */,
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
@@ -448,6 +451,7 @@
 				AE0000020000000000000071 /* UndoStack.swift in Sources */,
 				AE0000020000000000000081 /* SessionRecovery.swift in Sources */,
 				AE0000020000000000000091 /* SessionEditor.swift in Sources */,
+				AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */,
 				AE0000030000000000000051 /* ShakeListener.swift in Sources */,
 				AE0000040000000000000061 /* CompletionChip.swift in Sources */,
 				AE0000070000000000000001 /* SettingsView.swift in Sources */,

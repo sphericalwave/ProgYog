@@ -28,7 +28,7 @@ struct SkillFamilyListView: View {
     var body: some View {
         List {
             ForEach(groupedSeries, id: \.series) { group in
-                Section("Workout \(group.series)") {
+                Section(WorkoutLabel.display(forCode: group.series)) {
                     ForEach(group.families, id: \.self) { family in
                         NavigationLink {
                             SkillFamilyDetailView(family: family)
