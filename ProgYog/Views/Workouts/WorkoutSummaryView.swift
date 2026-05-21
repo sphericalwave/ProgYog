@@ -60,9 +60,12 @@ struct WorkoutSummaryView: View {
 
             Section("Session") {
                 LabeledContent("Workout", value: session.workoutCode)
-                LabeledContent("Started", value: session.startedAt.formatted(date: .abbreviated, time: .shortened))
-                if let end = session.endedAt {
-                    LabeledContent("Ended", value: end.formatted(date: .abbreviated, time: .shortened))
+                DatePicker("Started", selection: startBinding)
+                Toggle("Completed", isOn: completedBinding)
+                if session.endedAt != nil {
+                    DatePicker("Ended",
+                               selection: endBinding,
+                               in: session.startedAt...)
                 }
                 LabeledContent("Sets", value: "\(setLogs.count)")
             }
@@ -197,6 +200,47 @@ struct WorkoutSummaryView: View {
                 }
             }
         }
+    }
+
+    // MARK: - Session edit bindings
+
+    private var startBinding: Binding<Date> {
+        Binding(
+            get: { session.startedAt },
+            set: { new in
+                SessionEditor.shiftStart(session, to: new)
+                services.coreData.save()
+                if session.endedAt != nil {
+                    WorkoutCalendarBridge.syncCompleted(session)
+                }
+            }
+        )
+    }
+
+    private var endBinding: Binding<Date> {
+        Binding(
+            get: { session.endedAt ?? session.startedAt },
+            set: { new in
+                SessionEditor.setEnd(session, to: new)
+                services.coreData.save()
+                WorkoutCalendarBridge.syncCompleted(session)
+            }
+        )
+    }
+
+    private var completedBinding: Binding<Bool> {
+        Binding(
+            get: { session.endedAt != nil },
+            set: { on in
+                SessionEditor.setCompleted(session, on)
+                services.coreData.save()
+                if on {
+                    WorkoutCalendarBridge.syncCompleted(session)
+                } else {
+                    WorkoutCalendarBridge.remove(session)
+                }
+            }
+        )
     }
 
     private func deleteLog(_ log: SetLog) {
