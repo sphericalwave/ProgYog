@@ -11,9 +11,7 @@ struct WorkoutDetailView: View {
 
     @EnvironmentObject private var services: AppServices
     @State private var sessionPresented = false
-    @State private var resuming: Session?
     @State private var inProgress: Session?
-    @State private var discardAlert = false
 
     @FetchRequest private var families: FetchedResults<CDSkillFamily>
     @FetchRequest private var setLogs: FetchedResults<SetLog>
@@ -37,30 +35,6 @@ struct WorkoutDetailView: View {
 
     var body: some View {
         List {
-            if let session = inProgress {
-                Section("In Progress") {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Started \(session.startedAt.formatted(date: .abbreviated, time: .shortened))")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text("\(session.orderedSetLogs.count) sets logged")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Button {
-                        resuming = session
-                        sessionPresented = true
-                    } label: {
-                        Label("Resume", systemImage: "play.circle.fill")
-                    }
-                    Button(role: .destructive) {
-                        discardAlert = true
-                    } label: {
-                        Label("Discard", systemImage: "trash")
-                    }
-                }
-            }
-
             Section("Skill Families") {
                 ForEach(families, id: \.self) { family in
                     NavigationLink {
@@ -105,40 +79,27 @@ struct WorkoutDetailView: View {
         .navigationTitle(WorkoutLabel.display(forCode: workoutCode))
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(inProgress == nil ? "Start" : "New") {
-                    resuming = nil
-                    sessionPresented = true
+                if let session = inProgress {
+                    NavigationLink {
+                        WorkoutSummaryView(session: session)
+                    } label: {
+                        Text("Open").bold()
+                    }
+                    .buttonStyle(.borderedProminent)
+                } else {
+                    Button("Start") {
+                        sessionPresented = true
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.borderedProminent)
             }
         }
         .onAppear(perform: refreshInProgress)
         .fullScreenCover(isPresented: $sessionPresented, onDismiss: refreshInProgress) {
             NavigationStack {
-                WorkoutSessionView(workoutCode: workoutCode, services: services, resuming: resuming)
+                WorkoutSessionView(workoutCode: workoutCode, services: services)
             }
             .keyboardDoneToolbar()
-        }
-        .alert("Discard session?", isPresented: $discardAlert) {
-            Button("Discard", role: .destructive) {
-                guard let session = inProgress else { return }
-                let snap = SessionRecovery.snapshot(session)
-                let coreData = services.coreData
-                services.undo.push(description: "in-progress session") {
-                    let restored = SessionRecovery.restore(snap, into: coreData.moc)
-                    coreData.save()
-                    if restored.endedAt != nil {
-                        WorkoutCalendarBridge.syncCompleted(restored)
-                    }
-                }
-                inProgress = nil
-                WorkoutCalendarBridge.remove(session)
-                services.coreData.moc.delete(session)
-                services.coreData.save()
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("This will permanently remove the in-progress session and all logged sets. Shake to undo.")
         }
     }
 
@@ -155,6 +116,11 @@ struct WorkoutDetailView: View {
                 Text("\(session.orderedSetLogs.count) sets")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+                if session.endedAt == nil {
+                    Text("In Progress")
+                        .font(.caption2.bold())
+                        .foregroundStyle(.orange)
+                }
             }
             Spacer()
             CompletionChip(percent: CompletionScorer.sessionPercent(session))

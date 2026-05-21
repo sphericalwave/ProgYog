@@ -9,9 +9,12 @@ import CoreData
 struct WorkoutSummaryView: View {
     @ObservedObject var session: Session
     @EnvironmentObject private var services: AppServices
+    @Environment(\.dismiss) private var dismiss
     @State private var notesDraft: String = ""
     @State private var sheet: Sheet?
     @State private var savedFlash: Bool = false
+    @State private var resumePresented = false
+    @State private var discardAlert = false
 
     @FetchRequest private var setLogs: FetchedResults<SetLog>
 
@@ -41,8 +44,40 @@ struct WorkoutSummaryView: View {
         }
     }
 
+    /// Session may be deleted (Discard) while this view is still in the
+    /// nav stack mid-dismissal. Accessing `session.startedAt` etc. on a
+    /// deleted/orphaned NSManagedObject traps in `_PFFaultHandler`, so
+    /// short-circuit the body to a placeholder until SwiftUI tears us down.
+    private var sessionAlive: Bool {
+        !session.isDeleted && session.managedObjectContext != nil
+    }
+
     var body: some View {
+        if !sessionAlive {
+            Color.clear
+        } else {
+            sessionBody
+        }
+    }
+
+    @ViewBuilder
+    private var sessionBody: some View {
         List {
+            if session.endedAt == nil {
+                Section("In Progress") {
+                    Button {
+                        resumePresented = true
+                    } label: {
+                        Label("Resume", systemImage: "play.circle.fill")
+                    }
+                    Button(role: .destructive) {
+                        discardAlert = true
+                    } label: {
+                        Label("Discard", systemImage: "trash")
+                    }
+                }
+            }
+
             if let err = services.coreData.lastSaveError {
                 Section {
                     VStack(alignment: .leading, spacing: 8) {
@@ -173,6 +208,36 @@ struct WorkoutSummaryView: View {
             }
         }
         .onAppear { notesDraft = session.notes ?? "" }
+        .fullScreenCover(isPresented: $resumePresented) {
+            NavigationStack {
+                WorkoutSessionView(
+                    workoutCode: session.workoutCode,
+                    services: services,
+                    resuming: session
+                )
+            }
+            .keyboardDoneToolbar()
+        }
+        .alert("Discard session?", isPresented: $discardAlert) {
+            Button("Discard", role: .destructive) {
+                let snap = SessionRecovery.snapshot(session)
+                let coreData = services.coreData
+                services.undo.push(description: "in-progress session") {
+                    let restored = SessionRecovery.restore(snap, into: coreData.moc)
+                    coreData.save()
+                    if restored.endedAt != nil {
+                        WorkoutCalendarBridge.syncCompleted(restored)
+                    }
+                }
+                WorkoutCalendarBridge.remove(session)
+                services.coreData.moc.delete(session)
+                services.coreData.save()
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("This will permanently remove the in-progress session and all logged sets. Shake to undo.")
+        }
         .sheet(item: $sheet) { state in
             switch state {
             case .edit(let log):
