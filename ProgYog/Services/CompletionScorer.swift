@@ -2,11 +2,17 @@
 //  CompletionScorer.swift
 //  ProgYog
 //
-//  Inclusive % completed metric. A set "qualifies" when RPT ≥ 8, RPE ≤ 6,
-//  RPD ≤ 1, ROM ≥ 95. A family's contribution to a session is the
-//  (depth / family.maxDepth) of its LAST qualifying set in that session,
-//  or 0 if the last set didn't qualify, or nil if the family wasn't
-//  logged at all (so it's excluded from the session mean — not punished).
+//  ROM-keyed continuous % completed metric. A family's contribution to
+//  a session uses the LAST set logged for that family:
+//
+//      romFraction  = clamp(last.rom / romMin, 0...1)
+//      familyPercent = (max(depth - 1, 0) + romFraction) / maxDepth × 100
+//
+//  RPT / RPE / RPD remain editable thresholds but are advisory — they no
+//  longer gate the metric. The only way to read 0% is depth 1 with
+//  ROM 0 ("the first skill is literally impossible"). Families with no
+//  logs in the session return nil and are excluded from the session
+//  mean (so early sessions aren't punished for untouched families).
 //
 
 import Foundation
@@ -57,18 +63,23 @@ enum CompletionScorer {
     /// Returns 0...100 for the family's contribution to this session.
     /// `nil` when the family has no logs in the session — caller excludes it
     /// from the session mean so early sessions aren't crushed by untouched
-    /// families.
+    /// families. Lower depths are banked; ROM short of `romMin` yields
+    /// partial credit toward the current depth's slot.
     static func familyPercent(in session: Session,
                               family: CDSkillFamily) -> Double? {
         let logs = session.orderedSetLogs.filter {
             $0.absSkill?.skillFamily == family
         }
         guard let last = logs.last else { return nil }
-        guard last.qualifiesForCompletion else { return 0 }
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return 0 }
         let depth = Double(last.absSkill?.depth ?? 0)
-        return min(100, (depth / maxDepth) * 100)
+        let romMin = Double(CompletionScorer.romMin)
+        let romFraction = romMin > 0
+            ? min(1.0, max(0.0, Double(last.rom) / romMin))
+            : 0.0
+        let achieved = max(0.0, depth - 1.0) + romFraction
+        return min(100, (achieved / maxDepth) * 100)
     }
 
     // MARK: - Per-session

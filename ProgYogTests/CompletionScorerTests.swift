@@ -3,7 +3,9 @@
 //  ProgYogTests
 //
 //  Unit tests for the % completed metric.
-//  Qualifying set: RPT ≥ 8, RPE ≤ 6, RPD ≤ 1, ROM ≥ 95.
+//  ROM-keyed continuous: familyPercent =
+//      (max(depth - 1, 0) + clamp(rom/romMin, 0...1)) / maxDepth × 100.
+//  RPT / RPE / RPD are advisory — they do not gate the metric.
 //
 
 import XCTest
@@ -103,32 +105,37 @@ final class CompletionScorerTests: XCTestCase {
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
+    // RPT / RPE / RPD are advisory under the ROM-keyed formula; a fail on
+    // any of them with full ROM still yields full credit at the logged depth.
     func testQualifyingCriteria_OneTickOff_RPTFails() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 7, rpe: 6, rpd: 1, rom: 100)
-        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
     func testQualifyingCriteria_OneTickOff_RPEFails() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 7, rpd: 1, rom: 100)
-        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
     func testQualifyingCriteria_OneTickOff_RPDFails() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 6, rpd: 2, rom: 100)
-        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
-    func testQualifyingCriteria_OneTickOff_ROMFails() {
+    // ROM under threshold scales partial credit toward the current depth's
+    // slot. depth 3 / 3, rom 94 → ((2 + 94/95) / 3) * 100 ≈ 99.65.
+    func testQualifyingCriteria_OneTickOff_ROMFails() throws {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 6, rpd: 1, rom: 94)
-        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+        let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
+        XCTAssertEqual(p, (2.0 + 94.0/95.0) / 3.0 * 100.0, accuracy: 0.0001)
     }
 
     // MARK: - Family percent uses LAST set
@@ -136,14 +143,14 @@ final class CompletionScorerTests: XCTestCase {
     func testFamilyPercent_UsesLastSetByRoundOrder() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
-        // Earlier round: qualifying depth-5 — should NOT be used.
+        // Earlier round: depth-5 — should NOT be used.
         addLog(session, skill: fam.orderedAbsSkills.last!,
                rpt: 10, rpe: 5, rpd: 1, rom: 100, round: 0)
-        // Latest round: non-qualifying depth-2 — IS used.
+        // Latest round: depth-2 with full ROM — IS used. (1 + 1)/5 = 40.
         let depth2 = fam.orderedAbsSkills.first { $0.depth == 2 }!
         addLog(session, skill: depth2,
                rpt: 5, rpe: 6, rpd: 1, rom: 100, round: 1)
-        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 40)
     }
 
     func testFamilyPercent_DepthOverMaxDepth() {
@@ -168,7 +175,8 @@ final class CompletionScorerTests: XCTestCase {
         let famB = makeFamily(code: "A", name: "B1", depths: [1, 2, 3, 4, 5])
         let famC = makeFamily(code: "A", name: "C1", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
-        // 5/5 = 100, 3/5 = 60, non-qualifying = 0. Mean = 53.333…
+        // All full-ROM. famA d5 → 100, famB d3 → 60, famC d5 (low rpt) → 100.
+        // Mean = 86.6667.
         addLog(session, skill: famA.orderedAbsSkills.last!,
                rpt: 10, rpe: 6, rpd: 1, rom: 100, round: 0)
         addLog(session, skill: famB.orderedAbsSkills.first { $0.depth == 3 }!,
@@ -176,7 +184,7 @@ final class CompletionScorerTests: XCTestCase {
         addLog(session, skill: famC.orderedAbsSkills.last!,
                rpt: 4, rpe: 6, rpd: 1, rom: 100, round: 0)
         let p = try XCTUnwrap(CompletionScorer.sessionPercent(session))
-        XCTAssertEqual(p, (100.0 + 60.0 + 0.0) / 3.0, accuracy: 0.0001)
+        XCTAssertEqual(p, (100.0 + 60.0 + 100.0) / 3.0, accuracy: 0.0001)
     }
 
     func testSessionPercent_EmptySessionIsNil() {
@@ -255,5 +263,46 @@ final class CompletionScorerTests: XCTestCase {
         // returns nil because there are no logs. But guard the math path too.
         XCTAssertEqual(fam.maxDepth, 0)
         XCTAssertNil(CompletionScorer.familyPercent(in: session, family: fam))
+    }
+
+    // MARK: - ROM-keyed partial credit
+
+    /// Stuck at L1 with partial ROM — non-zero credit (the user's
+    /// motivating case). RPT/RPE/RPD failing too, but ignored.
+    func testFamilyPercent_StuckAtL1_PartialROM() throws {
+        let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
+        let session = makeSession(code: "A")
+        let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
+        addLog(session, skill: depth1, rpt: 5, rpe: 8, rpd: 3, rom: 50)
+        let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
+        XCTAssertEqual(p, (50.0 / 95.0) / 5.0 * 100.0, accuracy: 0.0001)
+    }
+
+    /// The ONE case that should still read 0: depth 1, rom 0.
+    func testFamilyPercent_StuckAtL1_ZeroROM() {
+        let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
+        let session = makeSession(code: "A")
+        let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
+        addLog(session, skill: depth1, rpt: 8, rpe: 6, rpd: 1, rom: 0)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
+    }
+
+    /// rom = 100, romMin = 95: raw fraction 1.0526… must clamp to 1 so
+    /// L1's slot can't overflow into the next depth's slot.
+    func testFamilyPercent_ROMAboveThresholdClamps() {
+        let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
+        let session = makeSession(code: "A")
+        let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
+        addLog(session, skill: depth1, rpt: 8, rpe: 6, rpd: 1, rom: 100)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 20)
+    }
+
+    /// Full ROM at top depth — RPT/RPE/RPD failures don't dock the metric.
+    func testFamilyPercent_RPTFailWithFullROM_StillFullCredit() {
+        let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
+        let session = makeSession(code: "A")
+        addLog(session, skill: fam.orderedAbsSkills.last!,
+               rpt: 1, rpe: 10, rpd: 5, rom: 100)
+        XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 }
