@@ -117,7 +117,7 @@ struct WorkoutDetailView: View {
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                 if session.endedAt == nil {
-                    Text("In Progress")
+                    Text("In Progress · \(progressPercent(session))%")
                         .font(.caption2.bold())
                         .foregroundStyle(.orange)
                 }
@@ -125,6 +125,15 @@ struct WorkoutDetailView: View {
             Spacer()
             CompletionChip(percent: CompletionScorer.sessionPercent(session))
         }
+    }
+
+    /// completed sets / (totalRounds × families). Matches
+    /// `WorkoutSessionViewModel.totalRounds` (= 5).
+    private func progressPercent(_ session: Session) -> Int {
+        let total = 5 * families.count
+        guard total > 0 else { return 0 }
+        let done = session.orderedSetLogs.count
+        return Int((Double(done) / Double(total) * 100).rounded())
     }
 
     @ViewBuilder
