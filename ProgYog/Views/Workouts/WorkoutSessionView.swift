@@ -64,7 +64,9 @@ struct WorkoutSessionView: View {
         }
         .sheet(isPresented: Binding(
             get: { vm.phase == .logging },
-            set: { _ in }
+            set: { presented in
+                if !presented, vm.phase == .logging { vm.phase = .idle }
+            }
         )) {
             if let skill = vm.currentSkill {
                 SetLogSheet(
@@ -72,9 +74,9 @@ struct WorkoutSessionView: View {
                     suggestion: vm.suggestion,
                     currentSession: vm.session,
                     liveHRStats: vm.currentSetHRStats,
-                    onSave: { vm.recordLog($0) }
+                    onSave: { vm.recordLog($0) },
+                    onCancel: { vm.phase = .idle }
                 )
-                .interactiveDismissDisabled()
             }
         }
     }
