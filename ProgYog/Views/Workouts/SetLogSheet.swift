@@ -13,6 +13,7 @@ struct SetLogSheet: View {
     let currentSession: Session?
     let liveHRStats: (min: Int, max: Int, avg: Int)?
     let onSave: (_ entry: Entry) -> Void
+    let onCancel: (() -> Void)?
     
     struct Entry {
         let reps: Int
@@ -44,7 +45,8 @@ struct SetLogSheet: View {
         editing: SetLog? = nil,
         currentSession: Session? = nil,
         liveHRStats: (min: Int, max: Int, avg: Int)? = nil,
-        onSave: @escaping (Entry) -> Void
+        onSave: @escaping (Entry) -> Void,
+        onCancel: (() -> Void)? = nil
     ) {
         self.skill = skill
         self.suggestion = suggestion
@@ -52,6 +54,7 @@ struct SetLogSheet: View {
         self.currentSession = currentSession ?? editing?.session
         self.liveHRStats = liveHRStats
         self.onSave = onSave
+        self.onCancel = onCancel
         _logs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: true)],
             predicate: NSPredicate(format: "absSkill == %@", skill)
@@ -123,6 +126,12 @@ struct SetLogSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .keyboardDoneToolbar()
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        onCancel?()
+                        dismiss()
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         onSave(Entry(
