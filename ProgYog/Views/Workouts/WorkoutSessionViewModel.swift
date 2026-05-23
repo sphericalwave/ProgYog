@@ -326,19 +326,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         }
     }
 
-    private func computeStartingDepth(for family: CDSkillFamily) -> Int16 {
-        let fr: NSFetchRequest<SetLog> = SetLog.fetchRequest()
-        fr.predicate = NSPredicate(format: "absSkill.skillFamily == %@", family)
-        fr.sortDescriptors = [NSSortDescriptor(key: "loggedAt", ascending: false)]
-        fr.fetchLimit = 1
-        guard let last = (try? moc.fetch(fr))?.first,
-              let lastDepth = last.absSkill?.depth else { return 1 }
-        switch last.decisionValue {
-        case .progress: return min(lastDepth + 1, 5)
-        case .regress:  return max(lastDepth - 1, 1)
-        case .`repeat`:     return lastDepth
-        }
-    }
+    private func computeStartingDepth(for family: CDSkillFamily) -> Int16 { 1 }
 
     private func computeSuggestion(for skill: CDAbsSkill) -> ProgressionDecision {
         let fr: NSFetchRequest<SetLog> = SetLog.fetchRequest()
