@@ -190,43 +190,46 @@ enum WorkoutCalendar {
 #if canImport(EventKit) && canImport(CoreData)
 import CoreData
 
-/// One contiguous working interval within a `Session`. Derived from
-/// `SetLog.loggedAt` clustering — see `WorkoutSegmenter`. Indexes are
-/// 0-based, chronological. Pure value type; no Core Data storage.
+/// One calendar-day's worth of work within a `Session`. Derived by
+/// grouping `SetLog.loggedAt` per local-TZ day — see `WorkoutSegmenter`.
+/// `dayStart` is the local midnight that keys the segment; `index` is
+/// chronological day order within the session.
 struct WorkoutSegment {
     let index: Int
+    let dayStart: Date
     let startedAt: Date
     let endedAt: Date
     let setLogs: [SetLog]
 }
 
 enum WorkoutSegmenter {
-    /// New segment starts when the gap between consecutive `loggedAt`
-    /// timestamps is ≥ this. 10 min matches the user's intuition for
-    /// "stepping away" vs. "rest between sets."
-    static let gap: TimeInterval = 10 * 60
-
-    /// Sort by `loggedAt` (not round/order — async use can reorder rounds
-    /// across the day) and split where the gap is ≥ `gap`.
+    /// Group sets by `Calendar.current.startOfDay(for: loggedAt)` so the
+    /// calendar shows exactly one timed bar per workout per day, even when
+    /// the work spans many hours. A session that physically crosses
+    /// midnight produces two segments (one per day) to keep bars from
+    /// drawing across day boundaries.
     static func segments(of session: Session) -> [WorkoutSegment] {
         let logs = session.orderedSetLogs.sorted { $0.loggedAt < $1.loggedAt }
         guard !logs.isEmpty else { return [] }
 
-        var buckets: [[SetLog]] = [[logs[0]]]
-        for log in logs.dropFirst() {
-            let prev = buckets[buckets.count - 1].last!.loggedAt
-            if log.loggedAt.timeIntervalSince(prev) >= gap {
-                buckets.append([log])
+        let cal = Calendar.current
+        var buckets: [(day: Date, logs: [SetLog])] = []
+        for log in logs {
+            let day = cal.startOfDay(for: log.loggedAt)
+            if buckets.last?.day == day {
+                buckets[buckets.count - 1].logs.append(log)
             } else {
-                buckets[buckets.count - 1].append(log)
+                buckets.append((day, [log]))
             }
         }
 
-        return buckets.enumerated().map { idx, group in
-            let first = group.first!
-            let last = group.last!
+        return buckets.enumerated().map { idx, b in
+            let first = b.logs.first!
+            let last = b.logs.last!
             let start = first.loggedAt.addingTimeInterval(-TimeInterval(first.durationSec))
-            return WorkoutSegment(index: idx, startedAt: start, endedAt: last.loggedAt, setLogs: group)
+            return WorkoutSegment(index: idx, dayStart: b.day,
+                                  startedAt: start, endedAt: last.loggedAt,
+                                  setLogs: b.logs)
         }
     }
 }
@@ -235,28 +238,35 @@ enum WorkoutSegmenter {
 enum WorkoutCalendarBridge {
     static let scheme = "progyog"
 
-    /// Stable URL per (session, segment). Cleanup uses
-    /// `sessionURLPrefix` to sweep stale segment indices AND legacy
-    /// pre-segments URLs (`progyog://session/<sid>`, no suffix).
-    static func segmentURL(for session: Session, index: Int) -> URL? {
-        URL(string: "\(scheme)://session/\(session.id.uuidString)/segment/\(index)")
+    private static let dayKeyFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.calendar = .current
+        f.timeZone = .current
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyyMMdd"
+        return f
+    }()
+
+    /// Stable URL per (session, calendar day). Cleanup uses
+    /// `sessionURLPrefix` to sweep stale URLs under the same session —
+    /// including legacy `/segment/<n>` forms and the very-legacy
+    /// no-suffix URL — so old events get reconciled to the day-keyed
+    /// scheme on the next sync.
+    static func dayURL(for session: Session, dayStart: Date) -> URL? {
+        URL(string: "\(scheme)://session/\(session.id.uuidString)/day/\(dayKeyFormatter.string(from: dayStart))")
     }
 
     static func sessionURLPrefix(_ session: Session) -> String {
         "\(scheme)://session/\(session.id.uuidString)"
     }
 
-    /// Parse a deep link back to a session id. Handles both the legacy
-    /// `progyog://session/<uuid>` and the new `…/segment/<n>` form.
+    /// Parse a deep link back to a session id. Handles the no-suffix,
+    /// `/segment/<n>`, and `/day/<yyyyMMdd>` URL forms (session id is
+    /// always the first path component).
     static func sessionID(from url: URL) -> UUID? {
         guard url.scheme == scheme, url.host == "session" else { return nil }
         let parts = url.pathComponents.filter { $0 != "/" }
         return parts.first.flatMap(UUID.init(uuidString:))
-    }
-
-    private static func title(_ s: Session, segment: WorkoutSegment, total: Int) -> String {
-        let base = WorkoutLabel.display(for: s)
-        return total > 1 ? "\(base) · \(segment.index + 1)/\(total)" : base
     }
 
     private static func notes(_ s: Session, segment: WorkoutSegment) -> String? {
@@ -266,18 +276,17 @@ enum WorkoutCalendarBridge {
         return parts.joined(separator: "\n")
     }
 
-    /// Mirror every segment of a session as its own timed event.
-    /// Sweeps stale URLs under this session's prefix on the way out, so
-    /// re-clustering (or upgrade from the legacy single-event URL) leaves
-    /// no orphans.
+    /// Mirror a session as one timed event per calendar day it was
+    /// worked on. Sweeps stale URLs under this session's prefix on the
+    /// way out, so day re-bucketing AND upgrades from the older
+    /// per-chunk / single-event URL schemes leave no orphans.
     static func syncSegments(_ s: Session) {
         guard WorkoutCalendar.isEnabled, WorkoutCalendar.isAuthorized else { return }
-        let segs = WorkoutSegmenter.segments(of: s)
+        let title = WorkoutLabel.display(for: s)
         var kept = Set<URL>()
-        for seg in segs {
-            guard let url = segmentURL(for: s, index: seg.index) else { continue }
-            WorkoutCalendar.upsert(title: title(s, segment: seg, total: segs.count),
-                                   start: seg.startedAt, end: seg.endedAt,
+        for seg in WorkoutSegmenter.segments(of: s) {
+            guard let url = dayURL(for: s, dayStart: seg.dayStart) else { continue }
+            WorkoutCalendar.upsert(title: title, start: seg.startedAt, end: seg.endedAt,
                                    url: url, notes: notes(s, segment: seg))
             kept.insert(url)
         }

@@ -12,7 +12,12 @@ final class WorkoutSegmenterTests: XCTestCase {
 
     private var services: AppServices!
     private var moc: NSManagedObjectContext { services.coreData.moc }
-    private let t0 = Date(timeIntervalSince1970: 1_700_000_000)
+    /// Local-TZ noon, far from any DST edge.
+    private let day0: Date = {
+        var c = DateComponents()
+        c.year = 2026; c.month = 5; c.day = 24; c.hour = 12
+        return Calendar.current.date(from: c)!
+    }()
     private let dur: Int16 = 60
 
     override func setUpWithError() throws {
@@ -24,7 +29,7 @@ final class WorkoutSegmenterTests: XCTestCase {
     }
 
     @discardableResult
-    private func addLog(_ session: Session, at offset: TimeInterval, round: Int16 = 0) -> SetLog {
+    private func addLog(_ session: Session, at date: Date, round: Int16 = 0) -> SetLog {
         let log = SetLog(context: moc)
         log.id = UUID()
         log.session = session
@@ -32,7 +37,7 @@ final class WorkoutSegmenterTests: XCTestCase {
         log.orderInRound = Int16(session.orderedSetLogs.filter { $0.roundIndex == round }.count)
         log.durationSec = dur
         log.decision = "repeat"
-        log.loggedAt = t0.addingTimeInterval(offset)
+        log.loggedAt = date
         return log
     }
 
@@ -44,67 +49,62 @@ final class WorkoutSegmenterTests: XCTestCase {
 
     func testSingleSet() {
         let s = makeSession()
-        addLog(s, at: 0)
+        addLog(s, at: day0)
         let segs = WorkoutSegmenter.segments(of: s)
         XCTAssertEqual(segs.count, 1)
         XCTAssertEqual(segs[0].index, 0)
-        XCTAssertEqual(segs[0].startedAt, t0.addingTimeInterval(-TimeInterval(dur)))
-        XCTAssertEqual(segs[0].endedAt, t0)
-        XCTAssertEqual(segs[0].setLogs.count, 1)
+        XCTAssertEqual(segs[0].dayStart, Calendar.current.startOfDay(for: day0))
+        XCTAssertEqual(segs[0].startedAt, day0.addingTimeInterval(-TimeInterval(dur)))
+        XCTAssertEqual(segs[0].endedAt, day0)
     }
 
-    func testTwoSetsWithinGap() {
+    /// Two sets on the same calendar day, hours apart → one segment.
+    func testTwoSetsSameDayHoursApart() {
         let s = makeSession()
-        addLog(s, at: 0)
-        addLog(s, at: 5 * 60) // 5 min apart, under 10 min threshold
+        addLog(s, at: day0)                                  // noon
+        addLog(s, at: day0.addingTimeInterval(6 * 60 * 60))  // 6pm
         let segs = WorkoutSegmenter.segments(of: s)
         XCTAssertEqual(segs.count, 1)
         XCTAssertEqual(segs[0].setLogs.count, 2)
-        XCTAssertEqual(segs[0].endedAt, t0.addingTimeInterval(5 * 60))
+        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(6 * 60 * 60))
     }
 
-    func testTwoSetsPastGap() {
+    /// Sets on different local-TZ days → one segment per day.
+    func testTwoSetsDifferentDays() {
         let s = makeSession()
-        addLog(s, at: 0)
-        addLog(s, at: 15 * 60) // well past 10 min
+        addLog(s, at: day0)
+        addLog(s, at: day0.addingTimeInterval(24 * 60 * 60))
         let segs = WorkoutSegmenter.segments(of: s)
         XCTAssertEqual(segs.count, 2)
-        XCTAssertEqual(segs[0].endedAt, t0)
+        XCTAssertEqual(segs[0].index, 0)
         XCTAssertEqual(segs[1].index, 1)
-        XCTAssertEqual(segs[1].startedAt, t0.addingTimeInterval(15 * 60 - TimeInterval(dur)))
+        XCTAssertEqual(segs[0].setLogs.count, 1)
+        XCTAssertEqual(segs[1].setLogs.count, 1)
     }
 
-    /// `loggedAt` exactly 10 min apart → gap is `>= 10*60`, so new segment.
-    func testGapBoundaryExactlyTenMinutesSplits() {
+    func testThreeSetsAcrossTwoDays() {
         let s = makeSession()
-        addLog(s, at: 0)
-        addLog(s, at: 10 * 60)
-        XCTAssertEqual(WorkoutSegmenter.segments(of: s).count, 2)
-    }
-
-    /// Sets logged out of round/order but in chronological `loggedAt` should
-    /// still cluster correctly — segmenter sorts by `loggedAt`, not round.
-    func testNonChronologicalRoundOrder() {
-        let s = makeSession()
-        // Round 1 set logged FIRST (e.g. earlier in the day)
-        addLog(s, at: 0, round: 1)
-        // Then a round-0 set logged LATER but within gap
-        addLog(s, at: 2 * 60, round: 0)
-        // Then a gap, then another set
-        addLog(s, at: 30 * 60, round: 1)
+        addLog(s, at: day0)                                  // day A
+        addLog(s, at: day0.addingTimeInterval(60 * 60))      // day A, 1h later
+        addLog(s, at: day0.addingTimeInterval(25 * 60 * 60)) // day B
         let segs = WorkoutSegmenter.segments(of: s)
         XCTAssertEqual(segs.count, 2)
         XCTAssertEqual(segs[0].setLogs.count, 2)
         XCTAssertEqual(segs[1].setLogs.count, 1)
+        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(60 * 60))
     }
 
-    func testThreeSegments() {
+    /// Late-night + early-morning across midnight → two segments.
+    func testMidnightCrossingSplits() {
         let s = makeSession()
-        addLog(s, at: 0)
-        addLog(s, at: 20 * 60)
-        addLog(s, at: 60 * 60)
+        let cal = Calendar.current
+        let lateNight = cal.date(bySettingHour: 23, minute: 50, second: 0, of: day0)!
+        let earlyMorning = cal.date(byAdding: .minute, value: 20, to: lateNight)!
+        addLog(s, at: lateNight)
+        addLog(s, at: earlyMorning)
         let segs = WorkoutSegmenter.segments(of: s)
-        XCTAssertEqual(segs.count, 3)
-        XCTAssertEqual(segs.map(\.index), [0, 1, 2])
+        XCTAssertEqual(segs.count, 2)
+        XCTAssertEqual(segs[0].endedAt, lateNight)
+        XCTAssertEqual(segs[1].startedAt, earlyMorning.addingTimeInterval(-TimeInterval(dur)))
     }
 }
