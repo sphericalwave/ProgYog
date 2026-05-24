@@ -134,6 +134,24 @@ enum WorkoutCalendar {
         try? store.remove(ev, span: .thisEvent, commit: true)
     }
 
+    /// Remove every event in the app calendar whose URL starts with `prefix`
+    /// AND is not in `keeping`. Scans a ±1y window around `now`. Used to
+    /// reconcile a multi-event group (e.g. all segment events for one
+    /// session) when the desired set has changed.
+    static func reconcile(urlPrefix prefix: String, keeping: Set<URL>) {
+        guard isAuthorized, let cal = appCalendar() else { return }
+        let now = Date()
+        let start = Calendar.current.date(byAdding: .year, value: -1, to: now) ?? now
+        let end = Calendar.current.date(byAdding: .year, value: 1, to: now) ?? now
+        let pred = store.predicateForEvents(withStart: start, end: end, calendars: [cal])
+        for ev in store.events(matching: pred) {
+            guard let u = ev.url, u.absoluteString.hasPrefix(prefix),
+                  !keeping.contains(u) else { continue }
+            try? store.remove(ev, span: .thisEvent, commit: false)
+        }
+        try? store.commit()
+    }
+
     /// Wipe every event in the app calendar but keep the calendar itself.
     static func removeAllEvents() {
         guard isAuthorized, let cal = appCalendar() else { return }
@@ -172,51 +190,113 @@ enum WorkoutCalendar {
 #if canImport(EventKit) && canImport(CoreData)
 import CoreData
 
+/// One contiguous working interval within a `Session`. Derived from
+/// `SetLog.loggedAt` clustering — see `WorkoutSegmenter`. Indexes are
+/// 0-based, chronological. Pure value type; no Core Data storage.
+struct WorkoutSegment {
+    let index: Int
+    let startedAt: Date
+    let endedAt: Date
+    let setLogs: [SetLog]
+}
+
+enum WorkoutSegmenter {
+    /// New segment starts when the gap between consecutive `loggedAt`
+    /// timestamps is ≥ this. 10 min matches the user's intuition for
+    /// "stepping away" vs. "rest between sets."
+    static let gap: TimeInterval = 10 * 60
+
+    /// Sort by `loggedAt` (not round/order — async use can reorder rounds
+    /// across the day) and split where the gap is ≥ `gap`.
+    static func segments(of session: Session) -> [WorkoutSegment] {
+        let logs = session.orderedSetLogs.sorted { $0.loggedAt < $1.loggedAt }
+        guard !logs.isEmpty else { return [] }
+
+        var buckets: [[SetLog]] = [[logs[0]]]
+        for log in logs.dropFirst() {
+            let prev = buckets[buckets.count - 1].last!.loggedAt
+            if log.loggedAt.timeIntervalSince(prev) >= gap {
+                buckets.append([log])
+            } else {
+                buckets[buckets.count - 1].append(log)
+            }
+        }
+
+        return buckets.enumerated().map { idx, group in
+            let first = group.first!
+            let last = group.last!
+            let start = first.loggedAt.addingTimeInterval(-TimeInterval(first.durationSec))
+            return WorkoutSegment(index: idx, startedAt: start, endedAt: last.loggedAt, setLogs: group)
+        }
+    }
+}
+
 @MainActor
 enum WorkoutCalendarBridge {
     static let scheme = "progyog"
 
-    static func url(for session: Session) -> URL? {
-        URL(string: "\(scheme)://session/\(session.id.uuidString)")
+    /// Stable URL per (session, segment). Cleanup uses
+    /// `sessionURLPrefix` to sweep stale segment indices AND legacy
+    /// pre-segments URLs (`progyog://session/<sid>`, no suffix).
+    static func segmentURL(for session: Session, index: Int) -> URL? {
+        URL(string: "\(scheme)://session/\(session.id.uuidString)/segment/\(index)")
     }
 
-    /// Parse `progyog://session/<uuid>` from an incoming deep link.
+    static func sessionURLPrefix(_ session: Session) -> String {
+        "\(scheme)://session/\(session.id.uuidString)"
+    }
+
+    /// Parse a deep link back to a session id. Handles both the legacy
+    /// `progyog://session/<uuid>` and the new `…/segment/<n>` form.
     static func sessionID(from url: URL) -> UUID? {
-        guard url.scheme == scheme, url.host == "session",
-              let last = url.pathComponents.last else { return nil }
-        return UUID(uuidString: last)
+        guard url.scheme == scheme, url.host == "session" else { return nil }
+        let parts = url.pathComponents.filter { $0 != "/" }
+        return parts.first.flatMap(UUID.init(uuidString:))
     }
 
-    private static func title(_ s: Session) -> String { WorkoutLabel.display(for: s) }
+    private static func title(_ s: Session, segment: WorkoutSegment, total: Int) -> String {
+        let base = WorkoutLabel.display(for: s)
+        return total > 1 ? "\(base) · \(segment.index + 1)/\(total)" : base
+    }
 
-    private static func notes(_ s: Session) -> String? {
-        let logs = s.orderedSetLogs
-        let rounds = Set(logs.map(\.roundIndex)).count
-        var parts = ["\(rounds) round\(rounds == 1 ? "" : "s") · "
-            + "\(logs.count) set\(logs.count == 1 ? "" : "s")"]
-        if let n = s.notes, !n.isEmpty { parts.append(n) }
+    private static func notes(_ s: Session, segment: WorkoutSegment) -> String? {
+        let n = segment.setLogs.count
+        var parts = ["\(n) set\(n == 1 ? "" : "s")"]
+        if let extra = s.notes, !extra.isEmpty { parts.append(extra) }
         return parts.joined(separator: "\n")
     }
 
-    /// Mirror one finished session. No-op unless enabled + authorized.
-    static func syncCompleted(_ s: Session) {
-        guard WorkoutCalendar.isEnabled, WorkoutCalendar.isAuthorized,
-              let end = s.endedAt, let url = url(for: s) else { return }
-        WorkoutCalendar.upsert(title: title(s), start: s.startedAt,
-                               end: end, url: url, notes: notes(s))
+    /// Mirror every segment of a session as its own timed event.
+    /// Sweeps stale URLs under this session's prefix on the way out, so
+    /// re-clustering (or upgrade from the legacy single-event URL) leaves
+    /// no orphans.
+    static func syncSegments(_ s: Session) {
+        guard WorkoutCalendar.isEnabled, WorkoutCalendar.isAuthorized else { return }
+        let segs = WorkoutSegmenter.segments(of: s)
+        var kept = Set<URL>()
+        for seg in segs {
+            guard let url = segmentURL(for: s, index: seg.index) else { continue }
+            WorkoutCalendar.upsert(title: title(s, segment: seg, total: segs.count),
+                                   start: seg.startedAt, end: seg.endedAt,
+                                   url: url, notes: notes(s, segment: seg))
+            kept.insert(url)
+        }
+        WorkoutCalendar.reconcile(urlPrefix: sessionURLPrefix(s), keeping: kept)
     }
 
-    static func remove(_ s: Session) {
-        guard let url = url(for: s) else { return }
-        WorkoutCalendar.remove(url: url, around: s.startedAt)
+    /// Delete every event tied to this session (segments + legacy URL).
+    static func removeAll(for s: Session) {
+        WorkoutCalendar.reconcile(urlPrefix: sessionURLPrefix(s), keeping: [])
     }
 
-    /// Backfill / reconcile every completed session.
+    /// Backfill / reconcile every session that has logged sets.
+    /// Drops the `endedAt != nil` predicate so in-progress chunked
+    /// workouts also appear on the calendar.
     static func syncAll(moc: NSManagedObjectContext) {
         guard WorkoutCalendar.isEnabled, WorkoutCalendar.isAuthorized else { return }
         let fr: NSFetchRequest<Session> = Session.fetchRequest()
-        fr.predicate = NSPredicate(format: "endedAt != nil")
-        for s in (try? moc.fetch(fr)) ?? [] { syncCompleted(s) }
+        fr.predicate = NSPredicate(format: "setLogs.@count > 0")
+        for s in (try? moc.fetch(fr)) ?? [] { syncSegments(s) }
     }
 
     static func removeAll() { WorkoutCalendar.removeAllEvents() }

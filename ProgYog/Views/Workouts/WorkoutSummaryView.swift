@@ -225,11 +225,9 @@ struct WorkoutSummaryView: View {
                 services.undo.push(description: "in-progress session") {
                     let restored = SessionRecovery.restore(snap, into: coreData.moc)
                     coreData.save()
-                    if restored.endedAt != nil {
-                        WorkoutCalendarBridge.syncCompleted(restored)
-                    }
+                    WorkoutCalendarBridge.syncSegments(restored)
                 }
-                WorkoutCalendarBridge.remove(session)
+                WorkoutCalendarBridge.removeAll(for: session)
                 services.coreData.moc.delete(session)
                 services.coreData.save()
                 dismiss()
@@ -275,9 +273,6 @@ struct WorkoutSummaryView: View {
             set: { new in
                 SessionEditor.shiftStart(session, to: new)
                 services.coreData.save()
-                if session.endedAt != nil {
-                    WorkoutCalendarBridge.syncCompleted(session)
-                }
             }
         )
     }
@@ -288,7 +283,6 @@ struct WorkoutSummaryView: View {
             set: { new in
                 SessionEditor.setEnd(session, to: new)
                 services.coreData.save()
-                WorkoutCalendarBridge.syncCompleted(session)
             }
         )
     }
@@ -299,11 +293,7 @@ struct WorkoutSummaryView: View {
             set: { on in
                 SessionEditor.setCompleted(session, on)
                 services.coreData.save()
-                if on {
-                    WorkoutCalendarBridge.syncCompleted(session)
-                } else {
-                    WorkoutCalendarBridge.remove(session)
-                }
+                WorkoutCalendarBridge.syncSegments(session)
             }
         )
     }
@@ -319,9 +309,11 @@ struct WorkoutSummaryView: View {
         services.undo.push(description: "1 set") {
             _ = SessionRecovery.restore(snap, into: coreData.moc, session: session)
             coreData.save()
+            WorkoutCalendarBridge.syncSegments(session)
         }
         services.coreData.moc.delete(log)
         services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
     }
 
     private func duplicateRound(_ group: (round: Int16, logs: [SetLog])) {
@@ -344,6 +336,7 @@ struct WorkoutSummaryView: View {
             dup.loggedAt = Date()
         }
         services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
     }
 
     /// Families logged in this session, ordered by `CDSkillFamily.order`.
@@ -424,6 +417,7 @@ struct WorkoutSummaryView: View {
         log.notes = entry.notes.isEmpty ? nil : entry.notes
         log.decision = entry.decision.rawValue
         services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
     }
 
     private func createLog(for skill: CDAbsSkill, entry: SetLogSheet.Entry) {
@@ -446,6 +440,7 @@ struct WorkoutSummaryView: View {
         log.decision = entry.decision.rawValue
         log.loggedAt = Date()
         services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
     }
 }
 

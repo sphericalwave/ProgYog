@@ -90,7 +90,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         if totalSets >= totalRounds * famCount {
             session.endedAt = session.endedAt ?? Date()
             services.coreData.save()
-            WorkoutCalendarBridge.syncCompleted(session)
+            WorkoutCalendarBridge.syncSegments(session)
             phase = .finished
         }
     }
@@ -109,10 +109,9 @@ final class WorkoutSessionViewModel: ObservableObject {
         services.undo.push(description: "session") {
             let restored = SessionRecovery.restore(snap, into: coreData.moc)
             coreData.save()
-            if restored.endedAt != nil {
-                WorkoutCalendarBridge.syncCompleted(restored)
-            }
+            WorkoutCalendarBridge.syncSegments(restored)
         }
+        WorkoutCalendarBridge.removeAll(for: session)
         moc.delete(session)
         services.coreData.save()
     }
@@ -265,6 +264,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         }
 
         services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
         advance()
     }
 
@@ -278,7 +278,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         if roundIdx >= totalRounds {
             session.endedAt = Date()
             services.coreData.save()
-            WorkoutCalendarBridge.syncCompleted(session)
+            WorkoutCalendarBridge.syncSegments(session)
             phase = .finished
         } else {
             phase = .idle

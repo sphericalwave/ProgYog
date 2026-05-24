@@ -135,9 +135,7 @@ final class CoreDataService: ObservableObject {
             }
         }
         save()
-        if dup.endedAt != nil {
-            WorkoutCalendarBridge.syncCompleted(dup)
-        }
+        WorkoutCalendarBridge.syncSegments(dup)
         return dup
     }
 
