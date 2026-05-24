@@ -36,6 +36,8 @@
 		AE0000040000000000000041 /* SkillFamilyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000042 /* SkillFamilyDetailView.swift */; };
 		AE0000040000000000000051 /* SkillPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000052 /* SkillPickerSheet.swift */; };
 		AE0000040000000000000061 /* CompletionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000062 /* CompletionChip.swift */; };
+		AE0000040000000000000071 /* WorkoutFamilyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */; };
+		AE0000050000000000000041 /* WorkoutFamilyCompletionChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000042 /* WorkoutFamilyCompletionChart.swift */; };
 		AE0000050000000000000001 /* SkillTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000002 /* SkillTrendChart.swift */; };
 		AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000012 /* WorkoutCompositeChart.swift */; };
 		AE0000050000000000000021 /* HRCurveChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000022 /* HRCurveChart.swift */; };
@@ -104,6 +106,8 @@
 		AE0000040000000000000042 /* SkillFamilyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillFamilyDetailView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000052 /* SkillPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPickerSheet.swift; sourceTree = "<group>"; };
 		AE0000040000000000000062 /* CompletionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChip.swift; sourceTree = "<group>"; };
+		AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFamilyDetailView.swift; sourceTree = "<group>"; };
+		AE0000050000000000000042 /* WorkoutFamilyCompletionChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFamilyCompletionChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000002 /* SkillTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTrendChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000012 /* WorkoutCompositeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompositeChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000022 /* HRCurveChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCurveChart.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 				AE0000040000000000000042 /* SkillFamilyDetailView.swift */,
 				AE0000040000000000000052 /* SkillPickerSheet.swift */,
 				AE0000040000000000000062 /* CompletionChip.swift */,
+				AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 				AE0000050000000000000002 /* SkillTrendChart.swift */,
 				AE0000050000000000000012 /* WorkoutCompositeChart.swift */,
 				AE0000050000000000000022 /* HRCurveChart.swift */,
+				AE0000050000000000000042 /* WorkoutFamilyCompletionChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -475,9 +481,11 @@
 				AE0000040000000000000031 /* WorkoutSummaryView.swift in Sources */,
 				AE0000040000000000000041 /* SkillFamilyDetailView.swift in Sources */,
 				AE0000040000000000000051 /* SkillPickerSheet.swift in Sources */,
+				AE0000040000000000000071 /* WorkoutFamilyDetailView.swift in Sources */,
 				AE0000050000000000000001 /* SkillTrendChart.swift in Sources */,
 				AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */,
 				AE0000050000000000000021 /* HRCurveChart.swift in Sources */,
+				AE0000050000000000000041 /* WorkoutFamilyCompletionChart.swift in Sources */,
 				AE0000050000000000000031 /* SkillDetailView.swift in Sources */,
 				AE0000060000000000000001 /* SessionHistoryView.swift in Sources */,
 				AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */,

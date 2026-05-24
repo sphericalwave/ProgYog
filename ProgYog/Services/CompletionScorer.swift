@@ -82,6 +82,27 @@ enum CompletionScorer {
         return min(100, (achieved / maxDepth) * 100)
     }
 
+    /// Per-round contribution for a family in this session. Same formula as
+    /// `familyPercent`, restricted to logs whose `roundIndex == round`.
+    /// `nil` when the family wasn't logged that round.
+    static func roundFamilyPercent(in session: Session,
+                                   family: CDSkillFamily,
+                                   round: Int16) -> Double? {
+        let logs = session.orderedSetLogs.filter {
+            $0.absSkill?.skillFamily == family && $0.roundIndex == round
+        }
+        guard let last = logs.last else { return nil }
+        let maxDepth = Double(family.maxDepth)
+        guard maxDepth > 0 else { return 0 }
+        let depth = Double(last.absSkill?.depth ?? 0)
+        let romMin = Double(CompletionScorer.romMin)
+        let romFraction = romMin > 0
+            ? min(1.0, max(0.0, Double(last.rom) / romMin))
+            : 0.0
+        let achieved = max(0.0, depth - 1.0) + romFraction
+        return min(100, (achieved / maxDepth) * 100)
+    }
+
     // MARK: - Per-session
 
     /// Mean of per-family % over the families that appeared in the session.

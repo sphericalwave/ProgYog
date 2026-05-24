@@ -115,15 +115,24 @@ struct WorkoutSummaryView: View {
             }
 
             if !setLogs.isEmpty {
-                Section("Completion") {
+                Section {
+                    ForEach(completionFamilies, id: \.objectID) { family in
+                        NavigationLink {
+                            WorkoutFamilyDetailView(session: session, family: family)
+                        } label: {
+                            completionRow(family)
+                        }
+                    }
+                } header: {
                     HStack {
                         Text("Session").bold()
                         Spacer()
                         CompletionChip(percent: CompletionScorer.sessionPercent(session))
                     }
-                    ForEach(completionFamilies, id: \.objectID) { family in
-                        completionRow(family)
-                    }
+                }
+
+                Section("Family %") {
+                    WorkoutFamilyCompletionChart(points: WorkoutFamilyCompletionChart.points(for: session))
                 }
 
                 Section("Composite") {
@@ -401,7 +410,6 @@ struct WorkoutSummaryView: View {
                 Text("HR avg \(log.hrAvg) (min \(log.hrMin), max \(log.hrMax))")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
-                HRCurveChart(samples: log.orderedHRSamples)
             }
         }
         .padding(.vertical, 4)
