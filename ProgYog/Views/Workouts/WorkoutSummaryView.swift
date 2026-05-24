@@ -11,7 +11,6 @@ struct WorkoutSummaryView: View {
     @EnvironmentObject private var services: AppServices
     @Environment(\.dismiss) private var dismiss
     @State private var notesDraft: String = ""
-    @State private var sheet: Sheet?
     @State private var savedFlash: Bool = false
     @State private var resumePresented = false
     @State private var discardAlert = false
@@ -28,20 +27,6 @@ struct WorkoutSummaryView: View {
             ],
             predicate: NSPredicate(format: "session == %@", session)
         )
-    }
-
-    private enum Sheet: Identifiable {
-        case edit(SetLog)
-        case picker
-        case add(CDAbsSkill)
-
-        var id: String {
-            switch self {
-            case .edit(let l): return "edit-\(l.objectID.uriRepresentation().absoluteString)"
-            case .picker:      return "picker"
-            case .add(let s):  return "add-\(s.objectID.uriRepresentation().absoluteString)"
-            }
-        }
     }
 
     /// Session may be deleted (Discard) while this view is still in the
@@ -93,16 +78,12 @@ struct WorkoutSummaryView: View {
                 .listRowBackground(Color.red.opacity(0.08))
             }
 
-            Section("Session") {
-                LabeledContent("Name", value: WorkoutLabel.display(for: session))
-                DatePicker("Started", selection: startBinding)
-                Toggle("Completed", isOn: completedBinding)
-                if session.endedAt != nil {
-                    DatePicker("Ended",
-                               selection: endBinding,
-                               in: session.startedAt...)
+            Section {
+                NavigationLink {
+                    SessionInfoDetailView(session: session)
+                } label: {
+                    sessionSummaryRow
                 }
-                LabeledContent("Sets", value: "\(setLogs.count)")
             }
 
             Section("Session Notes") {
@@ -134,54 +115,6 @@ struct WorkoutSummaryView: View {
                 Section("Family %") {
                     WorkoutFamilyCompletionChart(points: WorkoutFamilyCompletionChart.points(for: session))
                 }
-
-                Section("Composite") {
-                    WorkoutCompositeChart(families: WorkoutCompositeChart.averages(from: Array(setLogs)))
-                }
-            }
-
-            ForEach(roundGroups, id: \.round) { group in
-                Section {
-                    ForEach(group.logs, id: \.objectID) { log in
-                        Button {
-                            sheet = .edit(log)
-                        } label: {
-                            setRow(log)
-                        }
-                        .buttonStyle(.plain)
-                        .swipeActions(edge: .trailing) {
-                            Button(role: .destructive) {
-                                deleteLog(log)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                    }
-                } header: {
-                    HStack {
-                        Text("Round \(group.round + 1)")
-                        Spacer()
-                        Button {
-                            duplicateRound(group)
-                        } label: {
-                            Label("Duplicate", systemImage: "plus.square.on.square")
-                                .labelStyle(.iconOnly)
-                                .imageScale(.large)
-                        }
-                        .buttonStyle(.borderless)
-                    }
-                }
-            }
-
-            Section {
-                Button {
-                    sheet = .picker
-                } label: {
-                    Label("Add Set", systemImage: "plus.circle.fill")
-                }
-            } footer: {
-                Text("Changes save automatically. Tap Save to confirm.")
-                    .font(.caption2)
             }
         }
         .listStyle(.grouped)
@@ -245,108 +178,55 @@ struct WorkoutSummaryView: View {
         } message: {
             Text("This will permanently remove the in-progress session and all logged sets. Shake to undo.")
         }
-        .sheet(item: $sheet) { state in
-            switch state {
-            case .edit(let log):
-                if let skill = log.absSkill {
-                    SetLogSheet(
-                        skill: skill,
-                        suggestion: log.decisionValue,
-                        editing: log,
-                        currentSession: session
-                    ) { entry in
-                        apply(entry, to: log)
-                    }
+    }
+
+    // MARK: - Session summary row
+
+    @ViewBuilder
+    private var sessionSummaryRow: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(WorkoutLabel.display(for: session))
+                    .font(.body).bold()
+                Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text("\(setLogs.count) sets")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            HStack(spacing: 6) {
+                if let worst = lowestScoredFamily {
+                    SkillThumbnail(assetName: lastFamilyLog(worst)?.absSkill?.posterAssetName, size: 40)
                 }
-            case .picker:
-                SkillPickerSheet(workoutCode: session.workoutCode) { skill in
-                    sheet = .add(skill)
-                }
-            case .add(let skill):
-                SetLogSheet(
-                    skill: skill,
-                    suggestion: .`repeat`,
-                    currentSession: session
-                ) { entry in
-                    createLog(for: skill, entry: entry)
+                if let best = highestScoredFamily, best != lowestScoredFamily {
+                    SkillThumbnail(assetName: lastFamilyLog(best)?.absSkill?.posterAssetName, size: 40)
                 }
             }
         }
     }
 
-    // MARK: - Session edit bindings
-
-    private var startBinding: Binding<Date> {
-        Binding(
-            get: { session.startedAt },
-            set: { new in
-                SessionEditor.shiftStart(session, to: new)
-                services.coreData.save()
-            }
-        )
-    }
-
-    private var endBinding: Binding<Date> {
-        Binding(
-            get: { session.endedAt ?? session.startedAt },
-            set: { new in
-                SessionEditor.setEnd(session, to: new)
-                services.coreData.save()
-            }
-        )
-    }
-
-    private var completedBinding: Binding<Bool> {
-        Binding(
-            get: { session.endedAt != nil },
-            set: { on in
-                SessionEditor.setCompleted(session, on)
-                services.coreData.save()
-                WorkoutCalendarBridge.syncSegments(session)
-            }
-        )
-    }
-
-    private func deleteLog(_ log: SetLog) {
-        guard let session = log.session else {
-            services.coreData.moc.delete(log)
-            services.coreData.save()
-            return
+    private var scoredFamilies: [(family: CDSkillFamily, pct: Double)] {
+        completionFamilies.compactMap { family in
+            guard let pct = CompletionScorer.familyPercent(in: session, family: family) else { return nil }
+            return (family, pct)
         }
-        let snap = SessionRecovery.snapshot(log)
-        let coreData = services.coreData
-        services.undo.push(description: "1 set") {
-            _ = SessionRecovery.restore(snap, into: coreData.moc, session: session)
-            coreData.save()
-            WorkoutCalendarBridge.syncSegments(session)
-        }
-        services.coreData.moc.delete(log)
-        services.coreData.save()
-        WorkoutCalendarBridge.syncSegments(session)
     }
 
-    private func duplicateRound(_ group: (round: Int16, logs: [SetLog])) {
-        let nextRound = (roundGroups.map { $0.round }.max() ?? -1) + 1
-        for src in group.logs {
-            let dup = SetLog(context: services.coreData.moc)
-            dup.id = UUID()
-            dup.session = session
-            dup.absSkill = src.absSkill
-            dup.roundIndex = nextRound
-            dup.orderInRound = src.orderInRound
-            dup.reps = src.reps
-            dup.rom = src.rom
-            dup.rpt = src.rpt
-            dup.rpe = src.rpe
-            dup.rpd = src.rpd
-            dup.notes = src.notes
-            dup.durationSec = src.durationSec
-            dup.decision = src.decision
-            dup.loggedAt = Date()
-        }
-        services.coreData.save()
-        WorkoutCalendarBridge.syncSegments(session)
+    private var lowestScoredFamily: CDSkillFamily? {
+        scoredFamilies.min { a, b in
+            a.pct != b.pct ? a.pct < b.pct : a.family.order < b.family.order
+        }?.family
     }
+
+    private var highestScoredFamily: CDSkillFamily? {
+        scoredFamilies.max { a, b in
+            a.pct != b.pct ? a.pct < b.pct : a.family.order > b.family.order
+        }?.family
+    }
+
+    // MARK: - Completion section helpers
 
     /// Families logged in this session, ordered by `CDSkillFamily.order`.
     private var completionFamilies: [CDSkillFamily] {
@@ -354,7 +234,6 @@ struct WorkoutSummaryView: View {
         return families.sorted { $0.order < $1.order }
     }
 
-    /// Last set logged for `family` in this session (by round / order).
     private func lastFamilyLog(_ family: CDSkillFamily) -> SetLog? {
         setLogs.filter { $0.absSkill?.skillFamily == family }.last
     }
@@ -372,83 +251,6 @@ struct WorkoutSummaryView: View {
             }
             CompletionChip(percent: pct)
         }
-    }
-
-    private var roundGroups: [(round: Int16, logs: [SetLog])] {
-        let dict = Dictionary(grouping: Array(setLogs)) { $0.roundIndex }
-        return dict.keys.sorted().map { round in
-            (round: round, logs: dict[round]!.sorted { $0.orderInRound < $1.orderInRound })
-        }
-    }
-
-    @ViewBuilder
-    private func setRow(_ log: SetLog) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Text(log.absSkill?.name ?? "—").bold()
-                Spacer()
-                Text("R\(log.roundIndex + 1)·\(log.orderInRound + 1)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            HStack(spacing: 4) {
-                Text("reps \(log.reps) · ROM \(log.rom)% · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
-                    .foregroundStyle(.secondary)
-                Text(log.decisionValue.label)
-                    .foregroundStyle(log.decisionValue.color)
-                    .bold()
-            }
-            .font(.caption)
-            if let notes = log.notes, !notes.isEmpty {
-                Text(notes)
-                    .font(.caption)
-                    .padding(8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(RoundedRectangle(cornerRadius: 6).fill(Color(.tertiarySystemBackground)))
-            }
-            if log.hrAvg > 0 {
-                Text("HR avg \(log.hrAvg) (min \(log.hrMin), max \(log.hrMax))")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding(.vertical, 4)
-        .contentShape(Rectangle())
-    }
-
-    private func apply(_ entry: SetLogSheet.Entry, to log: SetLog) {
-        log.reps = Int16(entry.reps)
-        log.rom = Int16(entry.rom)
-        log.rpt = Int16(entry.rpt)
-        log.rpe = Int16(entry.rpe)
-        log.rpd = Int16(entry.rpd)
-        log.notes = entry.notes.isEmpty ? nil : entry.notes
-        log.decision = entry.decision.rawValue
-        services.coreData.save()
-        WorkoutCalendarBridge.syncSegments(session)
-    }
-
-    private func createLog(for skill: CDAbsSkill, entry: SetLogSheet.Entry) {
-        let log = SetLog(context: services.coreData.moc)
-        log.id = UUID()
-        log.session = session
-        log.absSkill = skill
-        let existing = setLogs
-        let lastRound = existing.last?.roundIndex ?? 0
-        let inRound = existing.filter { $0.roundIndex == lastRound }.count
-        log.roundIndex = Int16(lastRound)
-        log.orderInRound = Int16(inRound)
-        log.reps = Int16(entry.reps)
-        log.rom = Int16(entry.rom)
-        log.rpt = Int16(entry.rpt)
-        log.rpe = Int16(entry.rpe)
-        log.rpd = Int16(entry.rpd)
-        log.notes = entry.notes.isEmpty ? nil : entry.notes
-        log.durationSec = 60
-        log.decision = entry.decision.rawValue
-        log.loggedAt = Date()
-        services.coreData.save()
-        WorkoutCalendarBridge.syncSegments(session)
     }
 }
 

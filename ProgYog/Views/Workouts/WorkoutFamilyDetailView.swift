@@ -9,12 +9,45 @@ struct WorkoutFamilyDetailView: View {
     @ObservedObject var session: Session
     let family: CDSkillFamily
 
+    @EnvironmentObject private var services: AppServices
+    @State private var sheet: Sheet?
+
+    private enum Sheet: Identifiable {
+        case edit(SetLog)
+        case add(CDAbsSkill)
+
+        var id: String {
+            switch self {
+            case .edit(let l): return "edit-\(l.objectID.uriRepresentation().absoluteString)"
+            case .add(let s):  return "add-\(s.objectID.uriRepresentation().absoluteString)"
+            }
+        }
+    }
+
     var body: some View {
         List {
+            if !familyLogs.isEmpty {
+                Section("Composite") {
+                    WorkoutCompositeChart(logs: familyLogs)
+                }
+            }
+
             ForEach(roundGroups, id: \.round) { group in
                 Section {
                     ForEach(group.logs, id: \.objectID) { log in
-                        setRow(log)
+                        Button {
+                            sheet = .edit(log)
+                        } label: {
+                            setRow(log)
+                        }
+                        .buttonStyle(.plain)
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                deleteLog(log)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     }
                 } header: {
                     HStack {
@@ -28,9 +61,42 @@ struct WorkoutFamilyDetailView: View {
                     }
                 }
             }
+
+            Section {
+                Button {
+                    if let skill = familyLogs.last?.absSkill ?? family.orderedAbsSkills.last {
+                        sheet = .add(skill)
+                    }
+                } label: {
+                    Label("Add Set", systemImage: "plus.circle.fill")
+                }
+            }
         }
         .listStyle(.grouped)
         .navigationTitle(family.name)
+        .sheet(item: $sheet) { state in
+            switch state {
+            case .edit(let log):
+                if let skill = log.absSkill {
+                    SetLogSheet(
+                        skill: skill,
+                        suggestion: log.decisionValue,
+                        editing: log,
+                        currentSession: session
+                    ) { entry in
+                        apply(entry, to: log)
+                    }
+                }
+            case .add(let skill):
+                SetLogSheet(
+                    skill: skill,
+                    suggestion: .`repeat`,
+                    currentSession: session
+                ) { entry in
+                    createLog(for: skill, entry: entry)
+                }
+            }
+        }
     }
 
     private var familyLogs: [SetLog] {
@@ -76,5 +142,55 @@ struct WorkoutFamilyDetailView: View {
             }
         }
         .padding(.vertical, 4)
+        .contentShape(Rectangle())
+    }
+
+    private func deleteLog(_ log: SetLog) {
+        let snap = SessionRecovery.snapshot(log)
+        let coreData = services.coreData
+        let captured = session
+        services.undo.push(description: "1 set") {
+            _ = SessionRecovery.restore(snap, into: coreData.moc, session: captured)
+            coreData.save()
+            WorkoutCalendarBridge.syncSegments(captured)
+        }
+        services.coreData.moc.delete(log)
+        services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
+    }
+
+    private func apply(_ entry: SetLogSheet.Entry, to log: SetLog) {
+        log.reps = Int16(entry.reps)
+        log.rom = Int16(entry.rom)
+        log.rpt = Int16(entry.rpt)
+        log.rpe = Int16(entry.rpe)
+        log.rpd = Int16(entry.rpd)
+        log.notes = entry.notes.isEmpty ? nil : entry.notes
+        log.decision = entry.decision.rawValue
+        services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
+    }
+
+    private func createLog(for skill: CDAbsSkill, entry: SetLogSheet.Entry) {
+        let log = SetLog(context: services.coreData.moc)
+        log.id = UUID()
+        log.session = session
+        log.absSkill = skill
+        let existing = session.orderedSetLogs
+        let lastRound = existing.last?.roundIndex ?? 0
+        let inRound = existing.filter { $0.roundIndex == lastRound }.count
+        log.roundIndex = Int16(lastRound)
+        log.orderInRound = Int16(inRound)
+        log.reps = Int16(entry.reps)
+        log.rom = Int16(entry.rom)
+        log.rpt = Int16(entry.rpt)
+        log.rpe = Int16(entry.rpe)
+        log.rpd = Int16(entry.rpd)
+        log.notes = entry.notes.isEmpty ? nil : entry.notes
+        log.durationSec = 60
+        log.decision = entry.decision.rawValue
+        log.loggedAt = Date()
+        services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
     }
 }
