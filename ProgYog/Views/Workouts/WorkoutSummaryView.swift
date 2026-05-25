@@ -97,6 +97,8 @@ struct WorkoutSummaryView: View {
 
             if !setLogs.isEmpty {
                 Section {
+                    WorkoutFamilyCompletionChart(points: WorkoutFamilyCompletionChart.points(for: session))
+                    
                     ForEach(completionFamilies, id: \.objectID) { family in
                         NavigationLink {
                             WorkoutFamilyDetailView(session: session, family: family)
@@ -106,14 +108,10 @@ struct WorkoutSummaryView: View {
                     }
                 } header: {
                     HStack {
-                        Text("Session").bold()
+                        Text("Session %").bold()
                         Spacer()
                         CompletionChip(percent: CompletionScorer.sessionPercent(session))
                     }
-                }
-
-                Section("Family %") {
-                    WorkoutFamilyCompletionChart(points: WorkoutFamilyCompletionChart.points(for: session))
                 }
             }
         }
