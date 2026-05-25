@@ -7,7 +7,7 @@ import SwiftUI
 import CoreData
 
 struct WorkoutListView: View {
-    private let workoutCodes = ["A", "B", "C", "D", "E"]
+    private let workoutCodes = WorkoutPalette.codes
 
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(
@@ -20,7 +20,7 @@ struct WorkoutListView: View {
                 NavigationLink(value: code) {
                     HStack(spacing: 10) {
                         Image(systemName: "circle.fill")
-                            .foregroundColor(color(for: code))
+                            .foregroundColor(WorkoutPalette.color(for: code))
                         Text(WorkoutLabel.display(forCode: code))
                             .font(.headline)
                         Spacer()

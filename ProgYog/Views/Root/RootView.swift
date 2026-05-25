@@ -23,16 +23,10 @@ struct RootView: View {
                 .tag(0)
 
             NavigationStack {
-                SkillFamilyListView()
+                DashboardView()
             }
-            .tabItem { Label("Families", systemImage: "list.bullet") }
+            .tabItem { Label("Dashboard", systemImage: "chart.bar.xaxis") }
             .tag(1)
-
-            NavigationStack {
-                AbsSkillListView()
-            }
-            .tabItem { Label("Skills", systemImage: "square.grid.2x2") }
-            .tag(2)
 
             NavigationStack(path: $historyPath) {
                 SessionHistoryView()
