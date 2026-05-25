@@ -33,7 +33,8 @@ struct DashboardView: View {
         let completion = Self.completionPoints(all, moc: moc)
         let weekly = Self.weeklyPoints(all)
         let monthly = Self.monthlyPoints(all)
-        let timing = Self.timePoints(all)
+        let total = Self.totalTimePoints(all)
+        let avg = Self.avgTimePoints(all)
 
         return List {
             Section("Completion %") {
@@ -45,8 +46,11 @@ struct DashboardView: View {
             Section("Sessions per month") {
                 VolumeChart(points: monthly, unit: .month, labelFormat: .dateTime.month(.abbreviated))
             }
-            Section("Time per workout") {
-                TimeChart(points: timing)
+            Section("Total time on-mat per workout") {
+                TimeChart(points: total)
+            }
+            Section("Average time per session") {
+                TimeChart(points: avg)
             }
         }
         .listStyle(.grouped)
@@ -211,17 +215,32 @@ extension DashboardView {
         return buckets.map { VolumePoint(bucketStart: $0, count: grouped[$0]?.count ?? 0) }
     }
 
-    fileprivate static func timePoints(_ sessions: [Session]) -> [TimePoint] {
+    fileprivate static func totalTimePoints(_ sessions: [Session]) -> [TimePoint] {
         WorkoutPalette.codes.map { code in
-            let minutes = sessions
-                .filter { $0.workoutCode == code }
-                .compactMap { s -> Double? in
-                    guard let end = s.endedAt else { return nil }
-                    return end.timeIntervalSince(s.startedAt) / 60
-                }
-                .reduce(0, +)
-            return TimePoint(id: code, code: code, minutes: Int(minutes.rounded()))
+            let seconds = secondsForCode(code, in: sessions)
+            return TimePoint(id: code, code: code, minutes: Int((Double(seconds) / 60).rounded()))
         }
+    }
+
+    fileprivate static func avgTimePoints(_ sessions: [Session]) -> [TimePoint] {
+        WorkoutPalette.codes.map { code in
+            let codeSessions = sessions.filter { $0.workoutCode == code }
+            guard !codeSessions.isEmpty else {
+                return TimePoint(id: code, code: code, minutes: 0)
+            }
+            let seconds = codeSessions
+                .flatMap { $0.orderedSetLogs }
+                .reduce(0) { $0 + Int($1.durationSec) }
+            let avgSec = Double(seconds) / Double(codeSessions.count)
+            return TimePoint(id: code, code: code, minutes: Int((avgSec / 60).rounded()))
+        }
+    }
+
+    private static func secondsForCode(_ code: String, in sessions: [Session]) -> Int {
+        sessions
+            .filter { $0.workoutCode == code }
+            .flatMap { $0.orderedSetLogs }
+            .reduce(0) { $0 + Int($1.durationSec) }
     }
 }
 
