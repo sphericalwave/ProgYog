@@ -9,6 +9,7 @@ struct WorkoutSessionView: View {
     @StateObject private var vm: WorkoutSessionViewModel
     @EnvironmentObject private var services: AppServices
     @Environment(\.dismiss) private var dismiss
+    @State private var summaryPresented = false
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services, resuming: existing))
@@ -23,34 +24,22 @@ struct WorkoutSessionView: View {
     #endif
 
     var body: some View {
-        Group {
-            if vm.phase == .finished {
-                // Scrollable so the keyboard can't cover "Session notes".
-                ScrollView {
-                    sessionContent(fill: false)
-                        .padding()
-                }
-                .scrollDismissesKeyboard(.interactively)
-            } else {
-                // Fixed layout: timer/buttons stay pinned by the fill below.
-                sessionContent(fill: true)
-                    .padding()
+        sessionContent(fill: true)
+            .padding()
+            .navigationTitle(WorkoutLabel.display(forCode: vm.workoutCode))
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                UIApplication.shared.isIdleTimerDisabled = true
+                if vm.phase == .finished { summaryPresented = true }
             }
-        }
-        .navigationTitle(WorkoutLabel.display(forCode: vm.workoutCode))
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
-        .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
-        .toolbar {
-            if vm.phase == .finished {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        WorkoutSummaryView(session: vm.session)
-                    } label: {
-                        Text("Done").bold()
-                    }
-                }
-            } else {
+            .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
+            .onChange(of: vm.phase) { _, new in
+                if new == .finished { summaryPresented = true }
+            }
+            .navigationDestination(isPresented: $summaryPresented) {
+                WorkoutSummaryView(session: vm.session, onDone: { dismiss() })
+            }
+            .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         vm.cancel()
@@ -61,7 +50,6 @@ struct WorkoutSessionView: View {
                     HRPill(heartRate: services.heartRate)
                 }
             }
-        }
         .sheet(isPresented: Binding(
             get: { vm.phase == .logging },
             set: { presented in
@@ -177,10 +165,8 @@ struct WorkoutSessionView: View {
             idleView
         case .running:
             runningView
-        case .logging:
-            Color.clear.frame(height: 1) // sheet handles it
-        case .finished:
-            finishedView
+        case .logging, .finished:
+            Color.clear.frame(height: 1) // sheet / summary push handles it
         }
     }
 
@@ -218,34 +204,6 @@ struct WorkoutSessionView: View {
             }
             .buttonStyle(.bordered)
             .controlSize(.large)
-        }
-    }
-
-    private var finishedView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 60))
-                .foregroundStyle(.green)
-            Text("Workout complete").font(.title2.bold())
-
-            HStack(alignment: .top, spacing: 12) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Session notes").font(.caption).foregroundStyle(.secondary)
-                    TextField(
-                        "How did it feel?",
-                        text: Binding(
-                            get: { vm.session.notes ?? "" },
-                            set: { vm.setSessionNotes($0) }
-                        ),
-                        axis: .vertical
-                    )
-                    .lineLimit(3...6)
-                    .textFieldStyle(.roundedBorder)
-                }
-                .frame(maxWidth: .infinity)
-
-                HRPill(heartRate: services.heartRate)
-            }
         }
     }
 

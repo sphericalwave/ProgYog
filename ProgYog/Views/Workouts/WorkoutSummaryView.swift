@@ -15,10 +15,13 @@ struct WorkoutSummaryView: View {
     @State private var resumePresented = false
     @State private var discardAlert = false
 
+    let onDone: (() -> Void)?
+
     @FetchRequest private var setLogs: FetchedResults<SetLog>
 
-    init(session: Session) {
+    init(session: Session, onDone: (() -> Void)? = nil) {
         self.session = session
+        self.onDone = onDone
         _setLogs = FetchRequest<SetLog>(
             sortDescriptors: [
                 NSSortDescriptor(key: "roundIndex", ascending: true),
@@ -119,23 +122,31 @@ struct WorkoutSummaryView: View {
         .navigationTitle("Summary")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 6) {
-                    if savedFlash {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .transition(.opacity)
-                    }
-                    Button("Save") {
+                if let onDone {
+                    Button("Done") {
                         services.coreData.save()
-                        if services.coreData.lastSaveError == nil {
-                            withAnimation { savedFlash = true }
-                            Task {
-                                try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                withAnimation { savedFlash = false }
-                            }
-                        }
+                        onDone()
                     }
                     .bold()
+                } else {
+                    HStack(spacing: 6) {
+                        if savedFlash {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                                .transition(.opacity)
+                        }
+                        Button("Save") {
+                            services.coreData.save()
+                            if services.coreData.lastSaveError == nil {
+                                withAnimation { savedFlash = true }
+                                Task {
+                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                    withAnimation { savedFlash = false }
+                                }
+                            }
+                        }
+                        .bold()
+                    }
                 }
             }
         }
