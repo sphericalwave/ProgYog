@@ -10,7 +10,7 @@ struct RootView: View {
     @EnvironmentObject var services: AppServices
     @Environment(\.scenePhase) private var scenePhase
 
-    @State private var selectedTab = 0
+    @AppStorage("rootSelectedTab") private var selectedTab = 0
     @State private var historyPath: [NSManagedObjectID] = []
     @State private var pendingSessionID: UUID?
 
