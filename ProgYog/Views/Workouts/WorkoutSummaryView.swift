@@ -13,6 +13,7 @@ struct WorkoutSummaryView: View {
     @State private var notesDraft: String = ""
     @State private var savedFlash: Bool = false
     @State private var resumePresented = false
+    @State private var completeAlert = false
     @State private var discardAlert = false
     #if canImport(EventKit)
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
@@ -60,6 +61,11 @@ struct WorkoutSummaryView: View {
                         resumePresented = true
                     } label: {
                         Label("Resume", systemImage: "play.circle.fill")
+                    }
+                    Button {
+                        completeAlert = true
+                    } label: {
+                        Label("Complete", systemImage: "checkmark.circle.fill")
                     }
                     Button(role: .destructive) {
                         discardAlert = true
@@ -175,6 +181,16 @@ struct WorkoutSummaryView: View {
                 )
             }
             .keyboardDoneToolbar()
+        }
+        .alert("Complete session?", isPresented: $completeAlert) {
+            Button("Complete") {
+                session.endedAt = Date()
+                services.coreData.save()
+                WorkoutCalendarBridge.syncSegments(session)
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Marks this session as finished with the rounds already logged.")
         }
         .alert("Discard session?", isPresented: $discardAlert) {
             Button("Discard", role: .destructive) {
