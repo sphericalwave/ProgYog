@@ -12,6 +12,7 @@ struct SetLogSheet: View {
     let editing: SetLog?
     let currentSession: Session?
     let liveHRStats: (min: Int, max: Int, avg: Int)?
+    let isFinalRound: Bool
     let onSave: (_ entry: Entry) -> Void
     let onCancel: (() -> Void)?
     
@@ -23,6 +24,8 @@ struct SetLogSheet: View {
         let rpd: Int
         let notes: String
         let decision: ProgressionDecision
+        let isometric: Bool
+        let sliceCount: Int
     }
 
     @FetchRequest private var logs: FetchedResults<SetLog>
@@ -34,6 +37,8 @@ struct SetLogSheet: View {
     @State private var rpd: Int = 3
     @State private var notes: String = ""
     @State private var decision: ProgressionDecision = .`repeat`
+    @State private var isometric: Bool = false
+    @State private var sliceCount: Int = 0
     @Environment(\.dismiss) private var dismiss
     
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
@@ -45,6 +50,7 @@ struct SetLogSheet: View {
         editing: SetLog? = nil,
         currentSession: Session? = nil,
         liveHRStats: (min: Int, max: Int, avg: Int)? = nil,
+        isFinalRound: Bool = false,
         onSave: @escaping (Entry) -> Void,
         onCancel: (() -> Void)? = nil
     ) {
@@ -53,6 +59,7 @@ struct SetLogSheet: View {
         self.editing = editing
         self.currentSession = currentSession ?? editing?.session
         self.liveHRStats = liveHRStats
+        self.isFinalRound = isFinalRound
         self.onSave = onSave
         self.onCancel = onCancel
         _logs = FetchRequest<SetLog>(
@@ -107,6 +114,11 @@ struct SetLogSheet: View {
                         }
                     }
                     .pickerStyle(.segmented)
+
+                    if isFinalRound {
+                        Toggle("Isometric", isOn: $isometric)
+                        metricRow(label: "Slices", value: $sliceCount, range: 0...30)
+                    }
                 } header : {
                     HStack {
                         Text(skill.name)
@@ -137,7 +149,8 @@ struct SetLogSheet: View {
                         onSave(Entry(
                             reps: reps, rom: rom,
                             rpt: rpt, rpe: rpe, rpd: rpd,
-                            notes: notes, decision: decision
+                            notes: notes, decision: decision,
+                            isometric: isometric, sliceCount: sliceCount
                         ))
                         dismiss()
                     }
@@ -153,6 +166,8 @@ struct SetLogSheet: View {
                     rpd = Int(edit.rpd)
                     notes = edit.notes ?? ""
                     decision = edit.decisionValue
+                    isometric = edit.isometric
+                    sliceCount = Int(edit.sliceCount)
                 } else {
                     if let last = lastLog {
                         reps = Int(last.reps)
@@ -162,6 +177,7 @@ struct SetLogSheet: View {
                         rpd = Int(last.rpd)
                     }
                     decision = suggestion
+                    sliceCount = Int(skill.sliceCount)
                 }
             }
         }

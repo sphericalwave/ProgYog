@@ -24,6 +24,7 @@ extension CDAbsSkill {
     @NSManaged public var series: String
     @NSManaged public var family: String
     @NSManaged public var url: URL
+    @NSManaged public var sliceCount: Int16
     @NSManaged public var setLogs: NSSet?
     @NSManaged public var skillFamily: CDSkillFamily?
 }

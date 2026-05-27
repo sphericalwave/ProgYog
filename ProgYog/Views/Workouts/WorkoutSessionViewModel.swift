@@ -38,6 +38,7 @@ final class WorkoutSessionViewModel: ObservableObject {
     private var setStartedAt: Date = .distantPast
     private var lastBeepedSecond: Int = -1
     private var didPlayHalfwayBell: Bool = false
+    private var activeSliceCount: Int = 0
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         self.workoutCode = workoutCode
@@ -168,11 +169,17 @@ final class WorkoutSessionViewModel: ObservableObject {
 
     var isFirstSetOfRound: Bool { familyIdx == 0 }
     var isLastSetOfRound: Bool { familyIdx == families.count - 1 }
+    var isFinalRound: Bool { roundIdx == totalRounds - 1 }
+
+    var effectiveDuration: Int {
+        activeSliceCount > 0 ? activeSliceCount * 30 : setDurationSec
+    }
 
     func startSet() {
         guard let skill = currentSkill else { return }
         phase = .running
-        secondsRemaining = setDurationSec
+        activeSliceCount = isFinalRound ? Int(skill.sliceCount) : 0
+        secondsRemaining = effectiveDuration
         sampleBuffer.removeAll()
         setStartedAt = Date()
         lastBeepedSecond = -1
@@ -228,8 +235,10 @@ final class WorkoutSessionViewModel: ObservableObject {
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)
         log.notes = entry.notes.isEmpty ? nil : entry.notes
-        log.durationSec = Int16(setDurationSec)
+        log.durationSec = Int16(effectiveDuration)
         log.decision = entry.decision.rawValue
+        log.isometric = entry.isometric
+        log.sliceCount = Int16(entry.sliceCount)
         log.loggedAt = Date()
 
         let bpms = sampleBuffer.map { $0.bpm }
@@ -255,6 +264,10 @@ final class WorkoutSessionViewModel: ObservableObject {
             case .`repeat`:     next = current
             }
             familyDepths[fam.objectID] = next
+        }
+
+        if entry.sliceCount != Int(skill.sliceCount) {
+            skill.sliceCount = Int16(entry.sliceCount)
         }
 
         services.coreData.save()
@@ -307,10 +320,16 @@ final class WorkoutSessionViewModel: ObservableObject {
             lastBeepedSecond = secondsRemaining
         }
 
-        let halfway = setDurationSec / 2
-        if !didPlayHalfwayBell, secondsRemaining == halfway {
-            services.audio.play(.halfwayBell)
-            didPlayHalfwayBell = true
+        if activeSliceCount > 0 {
+            if secondsRemaining > 0 && secondsRemaining % 30 == 0 {
+                services.audio.play(.halfwayBell)
+            }
+        } else {
+            let halfway = setDurationSec / 2
+            if !didPlayHalfwayBell, secondsRemaining == halfway {
+                services.audio.play(.halfwayBell)
+                didPlayHalfwayBell = true
+            }
         }
 
         if secondsRemaining <= 0 {

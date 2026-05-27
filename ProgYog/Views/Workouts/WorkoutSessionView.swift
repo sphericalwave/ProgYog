@@ -62,6 +62,7 @@ struct WorkoutSessionView: View {
                     suggestion: vm.suggestion,
                     currentSession: vm.session,
                     liveHRStats: vm.currentSetHRStats,
+                    isFinalRound: vm.isFinalRound,
                     onSave: { vm.recordLog($0) },
                     onCancel: { vm.phase = .idle }
                 )
@@ -196,7 +197,7 @@ struct WorkoutSessionView: View {
                 .font(.system(size: 96, weight: .heavy, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
-            ProgressView(value: Double(vm.secondsRemaining), total: Double(vm.setDurationSec))
+            ProgressView(value: Double(vm.secondsRemaining), total: Double(vm.effectiveDuration))
                 .progressViewStyle(.linear)
             Button(action: vm.skipToLog) {
                 Label("Skip to Log", systemImage: "forward.fill")

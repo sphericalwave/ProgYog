@@ -28,6 +28,8 @@ extension SetLog {
     @NSManaged public var rpdNote: String?
     @NSManaged public var notes: String?
     @NSManaged public var durationSec: Int16
+    @NSManaged public var isometric: Bool
+    @NSManaged public var sliceCount: Int16
     @NSManaged public var decision: String
     @NSManaged public var hrAvg: Int16
     @NSManaged public var hrMin: Int16
