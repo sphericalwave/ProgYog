@@ -71,11 +71,23 @@ struct SetLogSheet: View {
     
     private var lastLog: SetLog? { logs.last }
 
-    /// Live completion score: clamp(rom / romTarget, 0, 1) × 100.
-    /// Depth-independent — any skill at full range scores 100%.
+    /// Set score: clamp(rom / romTarget, 0–100%). Depth-independent.
     private var setScore: Double? {
         let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
         return min(100, max(0, Double(rom) / target * 100))
+    }
+
+    /// Workout score: (depth − 1 + romFraction) / maxDepth × 100.
+    /// 100% only at highest skill level with full ROM.
+    private var workoutScore: Double? {
+        guard let family = skill.skillFamily else { return nil }
+        let maxDepth = Double(family.maxDepth)
+        guard maxDepth > 0 else { return nil }
+        let depth = Double(skill.depth)
+        let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
+        let romFraction = min(1.0, max(0.0, Double(rom) / target))
+        let achieved = max(0.0, depth - 1.0) + romFraction
+        return min(100, (achieved / maxDepth) * 100)
     }
     
     var body: some View {
@@ -102,11 +114,19 @@ struct SetLogSheet: View {
                         }
                     }
 
-                    metricRow(label: "Reps", value: $reps, range: 0...200)
-                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
-                    metricRow(label: "Technique", value: $rpt, range: 1...10)
-                    metricRow(label: "Exertion",  value: $rpe, range: 1...10)
-                    metricRow(label: "Discomfort", value: $rpd, range: 1...10)
+                    HStack {
+                        Text("Workout score")
+                            .font(.callout)
+                        Spacer()
+                        CompletionChip(percent: workoutScore)
+                    }
+
+                    Picker("Decision", selection: $decision) {
+                        ForEach(ProgressionDecision.allCases, id: \.self) { d in
+                            Text(d.rawValue.capitalized).tag(d)
+                        }
+                    }
+                    .pickerStyle(.segmented)
 
                     HStack {
                         TextField(
@@ -126,12 +146,11 @@ struct SetLogSheet: View {
                         }
                     }
 
-                    Picker("Decision", selection: $decision) {
-                        ForEach(ProgressionDecision.allCases, id: \.self) { d in
-                            Text(d.rawValue.capitalized).tag(d)
-                        }
-                    }
-                    .pickerStyle(.segmented)
+                    metricRow(label: "Reps", value: $reps, range: 0...200)
+                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
+                    metricRow(label: "Technique", value: $rpt, range: 1...10)
+                    metricRow(label: "Exertion",  value: $rpe, range: 1...10)
+                    metricRow(label: "Discomfort", value: $rpd, range: 1...10)
 
                     if isFinalRound {
                         Toggle("Isometric", isOn: $isometric)
@@ -146,11 +165,6 @@ struct SetLogSheet: View {
                     }
                 }
 
-                if logs.count >= 2 {
-                    Section("Trend") {
-                        SkillTrendChart(logs: Array(logs), highlightSession: currentSession)
-                    }
-                }
             }
             .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
             .navigationBarTitleDisplayMode(.inline)
