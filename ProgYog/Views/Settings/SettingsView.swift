@@ -320,10 +320,9 @@ struct CompletionSettingsView: View {
             } header: {
                 Text("Scoring")
             } footer: {
-                Text("Score = (depth − 1 + ROM ÷ target) ÷ family max depth × 100. "
-                   + "Depth below your current skill is fully banked. ROM scales the final slot — "
-                   + "hitting the target gives full credit, falling short gives partial credit. "
-                   + "Raise the target to demand fuller range; lower it for injury-modified work.")
+                Text("Two scores, one target:\n\n"
+                   + "Set score — clamp(ROM ÷ target, 0–100%). Depth-independent. Full range at any level = 100%.\n\n"
+                   + "Workout score — (depth − 1 + ROM fraction) ÷ max depth × 100. Reaches 100% only at the highest skill level with full ROM. Tracks how far through the progression you are.")
             }
 
             Section {

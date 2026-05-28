@@ -2,17 +2,21 @@
 //  CompletionScorer.swift
 //  ProgYog
 //
-//  ROM-keyed continuous % completed metric. A family's contribution to
-//  a session uses the LAST set logged for that family:
+//  Two distinct scores:
 //
+//  SET SCORE (per-set, shown in SetLogSheet):
+//      clamp(rom / romMin, 0...1) × 100
+//      Depth-independent — full range at any level = 100%.
+//
+//  WORKOUT SCORE (per-session/family, shown in lists and summaries):
 //      romFraction  = clamp(last.rom / romMin, 0...1)
-//      familyPercent = (max(depth - 1, 0) + romFraction) / maxDepth × 100
+//      familyPercent = (max(depth − 1, 0) + romFraction) / maxDepth × 100
+//      100% requires the highest-depth skill AND full ROM.
+//      Uses the LAST set logged for that family in the session.
 //
-//  RPT / RPE / RPD remain editable thresholds but are advisory — they no
-//  longer gate the metric. The only way to read 0% is depth 1 with
-//  ROM 0 ("the first skill is literally impossible"). Families with no
-//  logs in the session return nil and are excluded from the session
-//  mean (so early sessions aren't punished for untouched families).
+//  RPT / RPE / RPD are advisory (used in qualifiesForCompletion on SetLog)
+//  but don't affect either score. Families with no logs return nil and are
+//  excluded from the session mean.
 //
 
 import Foundation

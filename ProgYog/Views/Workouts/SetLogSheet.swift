@@ -71,18 +71,11 @@ struct SetLogSheet: View {
     
     private var lastLog: SetLog? { logs.last }
 
-    /// Live completion score for the values currently entered (0–100, or nil
-    /// when family depth info is unavailable). Matches `CompletionScorer`'s
-    /// ROM-keyed formula: lower depths are banked, ROM scales the final slot.
+    /// Live completion score: clamp(rom / romTarget, 0, 1) × 100.
+    /// Depth-independent — any skill at full range scores 100%.
     private var setScore: Double? {
-        guard let family = skill.skillFamily else { return nil }
-        let maxDepth = Double(family.maxDepth)
-        guard maxDepth > 0 else { return nil }
-        let depth = Double(skill.depth)
-        let romMinVal = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
-        let romFraction = min(1.0, max(0.0, Double(rom) / romMinVal))
-        let achieved = max(0.0, depth - 1.0) + romFraction
-        return min(100, (achieved / maxDepth) * 100)
+        let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
+        return min(100, max(0, Double(rom) / target * 100))
     }
     
     var body: some View {
