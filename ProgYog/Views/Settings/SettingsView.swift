@@ -116,6 +116,10 @@ struct SettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.accentColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .onAppear { log.markRead() }
     }
 
@@ -298,7 +302,7 @@ private struct CalendarSyncSettingsView: View {
     }
 }
 
-private struct CompletionSettingsView: View {
+struct CompletionSettingsView: View {
     // Bound directly to @AppStorage so the Stepper +/- triggers a real
     // write + SwiftUI re-render. Default = the constant, so a fresh user
     // sees the real bar (not 0).
@@ -310,6 +314,19 @@ private struct CompletionSettingsView: View {
     var body: some View {
         List {
             Section {
+                Stepper(value: $romMin, in: 5...100, step: 5) {
+                    LabeledContent("ROM target ≥", value: "\(romMin)%")
+                }
+            } header: {
+                Text("Scoring")
+            } footer: {
+                Text("Score = (depth − 1 + ROM ÷ target) ÷ family max depth × 100. "
+                   + "Depth below your current skill is fully banked. ROM scales the final slot — "
+                   + "hitting the target gives full credit, falling short gives partial credit. "
+                   + "Raise the target to demand fuller range; lower it for injury-modified work.")
+            }
+
+            Section {
                 Stepper(value: $rptMin, in: 1...10) {
                     LabeledContent("Technique (RPT) ≥", value: "\(rptMin)")
                 }
@@ -319,25 +336,25 @@ private struct CompletionSettingsView: View {
                 Stepper(value: $rpdMax, in: 1...10) {
                     LabeledContent("Discomfort (RPD) ≤", value: "\(rpdMax)")
                 }
-                Stepper(value: $romMin, in: 5...100, step: 5) {
-                    LabeledContent("Range of Motion (ROM) ≥", value: "\(romMin)%")
-                }
+            } header: {
+                Text("Advisory thresholds")
             } footer: {
-                Text("A set counts toward completion when it meets all four. "
-                   + "Lower the bar to get easier wins; raise it to track elite reps.")
+                Text("RPT, RPE, and RPD are logged and visible in history but don't change your score. They're reference points to flag sets that felt off.")
             }
 
-            Section("Defaults") {
+            Section {
+                LabeledContent("ROM target", value: "\(CompletionSettings.defaultRomMin)%")
                 LabeledContent("RPT ≥", value: "\(CompletionSettings.defaultRptMin)")
                 LabeledContent("RPE ≤", value: "\(CompletionSettings.defaultRpeMax)")
                 LabeledContent("RPD ≤", value: "\(CompletionSettings.defaultRpdMax)")
-                LabeledContent("ROM ≥", value: "\(CompletionSettings.defaultRomMin)%")
                 Button("Reset to defaults") {
                     rptMin = Int(CompletionSettings.defaultRptMin)
                     rpeMax = Int(CompletionSettings.defaultRpeMax)
                     rpdMax = Int(CompletionSettings.defaultRpdMax)
                     romMin = Int(CompletionSettings.defaultRomMin)
                 }
+            } header: {
+                Text("Defaults")
             }
         }
         .listStyle(.grouped)

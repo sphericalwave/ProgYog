@@ -26,6 +26,10 @@ struct DashboardView: View {
             }
         }
         .navigationTitle("Dashboard")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.accentColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 
     private var statsList: some View {

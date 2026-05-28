@@ -43,6 +43,7 @@ struct SetLogSheet: View {
     
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
+    @AppStorage(CompletionSettings.romMinKey) private var romMin: Int = Int(CompletionSettings.defaultRomMin)
 
     init(
         skill: CDAbsSkill,
@@ -69,6 +70,20 @@ struct SetLogSheet: View {
     }
     
     private var lastLog: SetLog? { logs.last }
+
+    /// Live completion score for the values currently entered (0–100, or nil
+    /// when family depth info is unavailable). Matches `CompletionScorer`'s
+    /// ROM-keyed formula: lower depths are banked, ROM scales the final slot.
+    private var setScore: Double? {
+        guard let family = skill.skillFamily else { return nil }
+        let maxDepth = Double(family.maxDepth)
+        guard maxDepth > 0 else { return nil }
+        let depth = Double(skill.depth)
+        let romMinVal = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
+        let romFraction = min(1.0, max(0.0, Double(rom) / romMinVal))
+        let achieved = max(0.0, depth - 1.0) + romFraction
+        return min(100, (achieved / maxDepth) * 100)
+    }
     
     var body: some View {
         NavigationStack {
@@ -83,13 +98,23 @@ struct SetLogSheet: View {
                 }
 
                 Section {
-                    
+                    NavigationLink {
+                        CompletionSettingsView()
+                    } label: {
+                        HStack {
+                            Text("Set score")
+                                .font(.callout)
+                            Spacer()
+                            CompletionChip(percent: setScore)
+                        }
+                    }
+
                     metricRow(label: "Reps", value: $reps, range: 0...200)
                     metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
                     metricRow(label: "Technique", value: $rpt, range: 1...10)
                     metricRow(label: "Exertion",  value: $rpe, range: 1...10)
                     metricRow(label: "Discomfort", value: $rpd, range: 1...10)
-                    
+
                     HStack {
                         TextField(
                             "Notes (optional)",
@@ -98,7 +123,7 @@ struct SetLogSheet: View {
                             axis: .vertical
                         )
                         .lineLimit(2...6)
-                        
+
                         if let last = lastLog?.notes, !last.isEmpty {
                             Button(action: { notes = last }) {
                                 Image(systemName: "arrow.uturn.left")
@@ -107,7 +132,7 @@ struct SetLogSheet: View {
                             .buttonStyle(.bordered)
                         }
                     }
-                    
+
                     Picker("Decision", selection: $decision) {
                         ForEach(ProgressionDecision.allCases, id: \.self) { d in
                             Text(d.rawValue.capitalized).tag(d)
@@ -127,7 +152,7 @@ struct SetLogSheet: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                
+
                 if logs.count >= 2 {
                     Section("Trend") {
                         SkillTrendChart(logs: Array(logs), highlightSession: currentSession)

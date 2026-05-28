@@ -38,6 +38,10 @@ struct WorkoutListView: View {
             }
             .listStyle(.grouped)
             .navigationTitle("Workouts")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.accentColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationDestination(for: String.self) { code in
                 WorkoutDetailView(workoutCode: code)
             }

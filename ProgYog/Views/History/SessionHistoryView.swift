@@ -43,6 +43,10 @@ struct SessionHistoryView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("History")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.accentColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .navigationDestination(for: NSManagedObjectID.self) { id in
             if let session = sessions.first(where: { $0.objectID == id }) {
                 WorkoutSummaryView(session: session)
