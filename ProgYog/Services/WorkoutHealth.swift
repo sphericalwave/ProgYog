@@ -72,9 +72,7 @@ enum WorkoutHealth {
         metadata: [String: Any] = [:]
     ) async {
         guard isAuthorized else { return }
-        if let old = await existing(uuid: uuid) {
-            try? await store.delete(old)
-        }
+        let old = await existing(uuid: uuid)
         var meta = metadata
         meta[HKMetadataKeyExternalUUID] = uuid
         let clampedEnd = max(end, start.addingTimeInterval(1))
@@ -90,7 +88,9 @@ enum WorkoutHealth {
             metadata: meta
         )
         do {
+            // Save new first — only delete old after the new one lands safely.
             try await store.save(workout)
+            if let old { try? await store.delete(old) }
         } catch {
             print("[WorkoutHealth] upsert: \(error)")
         }
@@ -166,22 +166,7 @@ enum WorkoutHealthBridge {
     /// Mirror a session as one HKWorkout per calendar day it was worked on.
     static func syncSegments(_ s: Session) {
         guard WorkoutHealth.isEnabled, WorkoutHealth.isAuthorized else { return }
-        Task {
-            let title = WorkoutLabel.display(for: s)
-            var kept = Set<String>()
-            for seg in WorkoutSegmenter.segments(of: s) {
-                let uuid = segmentUUID(for: s, dayStart: seg.dayStart)
-                await WorkoutHealth.upsert(
-                    uuid: uuid,
-                    activityType: .yoga,
-                    start: seg.startedAt,
-                    end: seg.endedAt,
-                    metadata: [HKMetadataKeyWorkoutBrandName: title]
-                )
-                kept.insert(uuid)
-            }
-            await WorkoutHealth.reconcile(uuidPrefix: sessionUUIDPrefix(s), keeping: kept)
-        }
+        Task { await syncAsync(s) }
     }
 
     /// Delete every HealthKit workout tied to this session.
@@ -190,11 +175,31 @@ enum WorkoutHealthBridge {
     }
 
     /// Backfill / reconcile every session that has logged sets.
+    /// Runs all sessions sequentially in one task — concurrent HK batch
+    /// writes are unreliable and drop entries silently.
     static func syncAll(moc: NSManagedObjectContext) {
         guard WorkoutHealth.isEnabled, WorkoutHealth.isAuthorized else { return }
         let fr: NSFetchRequest<Session> = Session.fetchRequest()
         fr.predicate = NSPredicate(format: "setLogs.@count > 0")
-        for s in (try? moc.fetch(fr)) ?? [] { syncSegments(s) }
+        let sessions = (try? moc.fetch(fr)) ?? []
+        Task { for s in sessions { await syncAsync(s) } }
+    }
+
+    private static func syncAsync(_ s: Session) async {
+        let title = WorkoutLabel.display(for: s)
+        var kept = Set<String>()
+        for seg in WorkoutSegmenter.segments(of: s) {
+            let uuid = segmentUUID(for: s, dayStart: seg.dayStart)
+            await WorkoutHealth.upsert(
+                uuid: uuid,
+                activityType: .yoga,
+                start: seg.startedAt,
+                end: seg.endedAt,
+                metadata: [HKMetadataKeyWorkoutBrandName: title]
+            )
+            kept.insert(uuid)
+        }
+        await WorkoutHealth.reconcile(uuidPrefix: sessionUUIDPrefix(s), keeping: kept)
     }
 
     static func removeAll() {
