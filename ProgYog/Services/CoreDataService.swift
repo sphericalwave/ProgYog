@@ -136,6 +136,7 @@ final class CoreDataService: ObservableObject {
         }
         save()
         WorkoutCalendarBridge.syncSegments(dup)
+        WorkoutHealthBridge.syncSegments(dup)
         return dup
     }
 

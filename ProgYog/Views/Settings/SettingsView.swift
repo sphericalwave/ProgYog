@@ -12,6 +12,7 @@ struct SettingsView: View {
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
+    @AppStorage(WorkoutHealth.enabledKey) private var healthEnabled = false
     @AppStorage(CompletionSettings.rptMinKey) private var compRptMin = 0
     @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
     @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
@@ -64,6 +65,14 @@ struct SettingsView: View {
                 } label: {
                     LabeledContent("Workout calendar",
                                    value: calendarEnabled ? "On" : "Off")
+                }
+            }
+
+            Section("Health") {
+                NavigationLink {
+                    HealthSyncSettingsView()
+                } label: {
+                    LabeledContent("Apple Health", value: healthEnabled ? "On" : "Off")
                 }
             }
 
@@ -296,6 +305,68 @@ private struct CalendarSyncSettingsView: View {
         ) {
             Button("Remove All", role: .destructive) {
                 WorkoutCalendarBridge.removeAll()
+            }
+            Button("Cancel", role: .cancel) { }
+        }
+    }
+}
+
+private struct HealthSyncSettingsView: View {
+    @Environment(\.managedObjectContext) private var moc
+    @AppStorage(WorkoutHealth.enabledKey) private var enabled = false
+    @State private var denied = false
+    @State private var confirmRemoveAll = false
+
+    var body: some View {
+        List {
+            Section {
+                Toggle("Show workouts in Health", isOn: $enabled)
+                    .onChange(of: enabled) { _, on in
+                        if on {
+                            Task {
+                                let ok = await WorkoutHealth.requestAccess()
+                                if ok {
+                                    denied = false
+                                    WorkoutHealthBridge.syncAll(moc: moc)
+                                } else {
+                                    enabled = false
+                                    denied = true
+                                }
+                            }
+                        }
+                    }
+                if denied {
+                    Text("Health access denied. Enable it in Settings › Privacy & Security › Health › ProgYog.")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            } footer: {
+                Text("Logs each completed workout into Apple Health as a Yoga session. One entry per workout day.")
+            }
+
+            if enabled {
+                Section {
+                    Button("Add all past workouts") {
+                        WorkoutHealthBridge.syncAll(moc: moc)
+                    }
+                    Button("Remove all workout data", role: .destructive) {
+                        confirmRemoveAll = true
+                    }
+                } footer: {
+                    Text("Add backfills every completed workout. Remove deletes all workout data written by this app from Health.")
+                }
+            }
+        }
+        .listStyle(.grouped)
+        .navigationTitle("Apple Health")
+        .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            "Remove all workout data from Health?",
+            isPresented: $confirmRemoveAll,
+            titleVisibility: .visible
+        ) {
+            Button("Remove All", role: .destructive) {
+                WorkoutHealthBridge.removeAll()
             }
             Button("Cancel", role: .cancel) { }
         }

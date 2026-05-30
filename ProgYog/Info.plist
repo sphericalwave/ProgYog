@@ -60,6 +60,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Used to log your completed workouts into Apple Health as Yoga sessions.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
 	<key>NSCalendarsUsageDescription</key>

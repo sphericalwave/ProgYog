@@ -153,10 +153,12 @@ struct WorkoutFamilyDetailView: View {
             _ = SessionRecovery.restore(snap, into: coreData.moc, session: captured)
             coreData.save()
             WorkoutCalendarBridge.syncSegments(captured)
+            WorkoutHealthBridge.syncSegments(captured)
         }
         services.coreData.moc.delete(log)
         services.coreData.save()
         WorkoutCalendarBridge.syncSegments(session)
+        WorkoutHealthBridge.syncSegments(session)
     }
 
     private func apply(_ entry: SetLogSheet.Entry, to log: SetLog) {
@@ -169,6 +171,7 @@ struct WorkoutFamilyDetailView: View {
         log.decision = entry.decision.rawValue
         services.coreData.save()
         WorkoutCalendarBridge.syncSegments(session)
+        WorkoutHealthBridge.syncSegments(session)
     }
 
     private func createLog(for skill: CDAbsSkill, entry: SetLogSheet.Entry) {
@@ -192,5 +195,6 @@ struct WorkoutFamilyDetailView: View {
         log.loggedAt = Date()
         services.coreData.save()
         WorkoutCalendarBridge.syncSegments(session)
+        WorkoutHealthBridge.syncSegments(session)
     }
 }

@@ -64,6 +64,7 @@ struct SessionInfoDetailView: View {
                 SessionEditor.setCompleted(session, on)
                 services.coreData.save()
                 WorkoutCalendarBridge.syncSegments(session)
+                WorkoutHealthBridge.syncSegments(session)
             }
         )
     }

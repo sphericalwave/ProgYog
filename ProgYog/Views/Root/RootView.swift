@@ -63,10 +63,12 @@ struct RootView: View {
             // change to .active, so a fresh launch wouldn't catch
             // calendar title drift (e.g. after a rename patch).
             WorkoutCalendarBridge.syncAll(moc: services.coreData.moc)
+            WorkoutHealthBridge.syncAll(moc: services.coreData.moc)
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
             WorkoutCalendarBridge.syncAll(moc: services.coreData.moc)
+            WorkoutHealthBridge.syncAll(moc: services.coreData.moc)
             routePendingSession()
         }
     }

@@ -61,8 +61,10 @@ struct SessionHistoryView: View {
             let restored = SessionRecovery.restore(snap, into: coreData.moc)
             coreData.save()
             WorkoutCalendarBridge.syncSegments(restored)
+            WorkoutHealthBridge.syncSegments(restored)
         }
         WorkoutCalendarBridge.removeAll(for: session)
+        WorkoutHealthBridge.removeAll(for: session)
         moc.delete(session)
         services.coreData.save()
     }

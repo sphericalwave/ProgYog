@@ -187,6 +187,7 @@ struct WorkoutSummaryView: View {
                 session.endedAt = Date()
                 services.coreData.save()
                 WorkoutCalendarBridge.syncSegments(session)
+                WorkoutHealthBridge.syncSegments(session)
             }
             Button("Cancel", role: .cancel) { }
         } message: {
@@ -200,8 +201,10 @@ struct WorkoutSummaryView: View {
                     let restored = SessionRecovery.restore(snap, into: coreData.moc)
                     coreData.save()
                     WorkoutCalendarBridge.syncSegments(restored)
+                    WorkoutHealthBridge.syncSegments(restored)
                 }
                 WorkoutCalendarBridge.removeAll(for: session)
+                WorkoutHealthBridge.removeAll(for: session)
                 services.coreData.moc.delete(session)
                 services.coreData.save()
                 dismiss()
