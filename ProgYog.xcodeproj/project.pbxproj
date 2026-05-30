@@ -23,6 +23,8 @@
 		AE0000020000000000000091 /* SessionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000092 /* SessionEditor.swift */; };
 		AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000A2 /* WorkoutLabel.swift */; };
 		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
+		AE00000200000000000000B1 /* WorkoutHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000B2 /* WorkoutHealth.swift */; };
+		AE00000200000000000000C1 /* WorkoutSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000C2 /* WorkoutSegmenter.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -67,6 +69,7 @@
 		AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */; };
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
 		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
+		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +99,8 @@
 		AE0000020000000000000092 /* SessionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEditor.swift; sourceTree = "<group>"; };
 		AE00000200000000000000A2 /* WorkoutLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLabel.swift; sourceTree = "<group>"; };
 		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
+		AE00000200000000000000B2 /* WorkoutHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHealth.swift; sourceTree = "<group>"; };
+		AE00000200000000000000C2 /* WorkoutSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSegmenter.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -144,6 +149,7 @@
 		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFF2055C2FCB2E8000430D49 /* ProgYog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProgYog.entitlements; sourceTree = "<group>"; };
+		AFF2055E2FCB309A00430D49 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -155,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +182,8 @@
 				AE0000020000000000000002 /* CoreDataService.swift */,
 				AE0000020000000000000012 /* HeartRateService.swift */,
 				AE00000200000000000000F2 /* WorkoutCalendar.swift */,
+				AE00000200000000000000B2 /* WorkoutHealth.swift */,
+				AE00000200000000000000C2 /* WorkoutSegmenter.swift */,
 				AE0000020000000000000022 /* AudioCueService.swift */,
 				AE0000010000000000000002 /* ProgressionEvaluator.swift */,
 				AE0000020000000000000062 /* CompletionScorer.swift */,
@@ -285,6 +294,7 @@
 			children = (
 				AF0B756925E06FDE00A0FF28 /* ProgYog */,
 				AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */,
+				AFF2055D2FCB309900430D49 /* Frameworks */,
 				AF0B756825E06FDE00A0FF28 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -357,6 +367,14 @@
 				AE0000010000000000000031 /* HRSample+.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		AFF2055D2FCB309900430D49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFF2055E2FCB309A00430D49 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,6 +507,8 @@
 				AE0000020000000000000001 /* CoreDataService.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
 				AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */,
+				AE00000200000000000000B1 /* WorkoutHealth.swift in Sources */,
+				AE00000200000000000000C1 /* WorkoutSegmenter.swift in Sources */,
 				AE0000020000000000000021 /* AudioCueService.swift in Sources */,
 				AE0000010000000000000001 /* ProgressionEvaluator.swift in Sources */,
 				AE0000030000000000000001 /* RootView.swift in Sources */,
