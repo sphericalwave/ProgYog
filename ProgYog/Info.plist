@@ -16,17 +16,29 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>progyog</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Used to receive heart rate from your BLE chest strap during workouts.</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>bluetooth-central</string>
-		<string>audio</string>
-	</array>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Used to log your completed workouts into Apple Health as Yoga sessions.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -34,6 +46,11 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>audio</string>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
@@ -59,23 +76,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Used to log your completed workouts into Apple Health as Yoga sessions.</string>
-	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>progyog</string>
-			</array>
-		</dict>
 	</array>
 </dict>
 </plist>
