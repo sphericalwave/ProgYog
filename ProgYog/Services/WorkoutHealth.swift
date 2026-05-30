@@ -79,20 +79,20 @@ enum WorkoutHealth {
         var meta = metadata
         meta[HKMetadataKeyExternalUUID] = uuid
         let clampedEnd = max(end, start.addingTimeInterval(1))
-        // HKWorkoutBuilder is for live sessions; direct init is correct for
-        // retroactive logging and avoids silent failures on batch import.
-        let workout = HKWorkout(
-            activityType: activityType,
-            start: start,
-            end: clampedEnd,
-            duration: clampedEnd.timeIntervalSince(start),
-            totalEnergyBurned: nil,
-            totalDistance: nil,
-            metadata: meta
-        )
+        let config = HKWorkoutConfiguration()
+        config.activityType = activityType
+        config.locationType = .indoor
+        let builder = HKWorkoutBuilder(healthStore: store, configuration: config, device: nil)
         do {
-            // Save new first — only delete old after the new one lands safely.
-            try await store.save(workout)
+            try await builder.beginCollection(at: start)
+            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+                builder.addMetadata(meta) { _, error in
+                    if let error { cont.resume(throwing: error) } else { cont.resume() }
+                }
+            }
+            try await builder.endCollection(at: clampedEnd)
+            let workout = try await builder.finishWorkout()
+            // Delete old only after new one lands safely.
             if let old { try? await store.delete(old) }
             return workout
         } catch {
