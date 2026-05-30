@@ -101,7 +101,7 @@ enum WorkoutHealth {
                                      start: r.date, end: r.date)
                 }
                 try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-                    builder.addSamples(samples) { _, error in
+                    builder.add(samples) { _, error in
                         if let error { cont.resume(throwing: error) } else { cont.resume() }
                     }
                 }
