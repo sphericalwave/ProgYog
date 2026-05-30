@@ -72,7 +72,8 @@ enum WorkoutHealth {
         activityType: HKWorkoutActivityType,
         start: Date,
         end: Date,
-        metadata: [String: Any] = [:]
+        metadata: [String: Any] = [:],
+        heartRate: [(date: Date, bpm: Int)] = []
     ) async -> HKWorkout? {
         guard isAuthorized else { return nil }
         let old = await existing(uuid: uuid)
@@ -90,6 +91,21 @@ enum WorkoutHealth {
                     if let error { cont.resume(throwing: error) } else { cont.resume() }
                 }
             }
+            if !heartRate.isEmpty,
+               store.authorizationStatus(for: HKQuantityType(.heartRate)) == .sharingAuthorized {
+                let hrType = HKQuantityType(.heartRate)
+                let unit = HKUnit.count().unitDivided(by: .minute())
+                let samples = heartRate.map { r in
+                    HKQuantitySample(type: hrType,
+                                     quantity: HKQuantity(unit: unit, doubleValue: Double(r.bpm)),
+                                     start: r.date, end: r.date)
+                }
+                try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+                    builder.addSamples(samples) { _, error in
+                        if let error { cont.resume(throwing: error) } else { cont.resume() }
+                    }
+                }
+            }
             try await builder.endCollection(at: clampedEnd)
             let workout = try await builder.finishWorkout()
             // Delete old only after new one lands safely.
@@ -99,26 +115,6 @@ enum WorkoutHealth {
             print("[WorkoutHealth] upsert: \(error)")
             return nil
         }
-    }
-
-    static func addHeartRate(_ readings: [(date: Date, bpm: Int)], to workout: HKWorkout) async {
-        guard !readings.isEmpty,
-              store.authorizationStatus(for: HKQuantityType(.heartRate)) == .sharingAuthorized
-        else { return }
-        let hrType = HKQuantityType(.heartRate)
-        let unit = HKUnit.count().unitDivided(by: .minute())
-        let samples = readings.map { r in
-            HKQuantitySample(type: hrType,
-                             quantity: HKQuantity(unit: unit, doubleValue: Double(r.bpm)),
-                             start: r.date, end: r.date)
-        }
-        do {
-            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-                store.add(samples, to: workout) { _, error in
-                    if let error { cont.resume(throwing: error) } else { cont.resume() }
-                }
-            }
-        } catch { print("[WorkoutHealth] addHeartRate: \(error)") }
     }
 
     /// Delete all app workouts whose external UUID starts with `prefix`
@@ -225,15 +221,14 @@ enum WorkoutHealthBridge {
         var kept = Set<String>()
         for seg in WorkoutSegmenter.segments(of: s) {
             let uuid = segmentUUID(for: s, dayStart: seg.dayStart)
-            if let workout = await WorkoutHealth.upsert(
+            await WorkoutHealth.upsert(
                 uuid: uuid,
                 activityType: .yoga,
                 start: seg.startedAt,
                 end: seg.endedAt,
-                metadata: [HKMetadataKeyWorkoutBrandName: title]
-            ) {
-                await WorkoutHealth.addHeartRate(hrReadings(for: seg), to: workout)
-            }
+                metadata: [HKMetadataKeyWorkoutBrandName: title],
+                heartRate: hrReadings(for: seg)
+            )
             kept.insert(uuid)
         }
         await WorkoutHealth.reconcile(uuidPrefix: sessionUUIDPrefix(s), keeping: kept)
