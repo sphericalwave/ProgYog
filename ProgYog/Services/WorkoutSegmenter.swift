@@ -45,10 +45,13 @@ enum WorkoutSegmenter {
 
         return buckets.enumerated().map { idx, b in
             let first = b.logs.first!
-            let last = b.logs.last!
             let start = first.loggedAt.addingTimeInterval(-TimeInterval(first.durationSec))
+            // Use sum of set durations, not wall-clock window, so rest time
+            // between sets doesn't inflate workout minutes in Health/Calendar.
+            let activeDuration = b.logs.reduce(0) { $0 + TimeInterval($1.durationSec) }
+            let end = start.addingTimeInterval(max(activeDuration, 1))
             return WorkoutSegment(index: idx, dayStart: b.day,
-                                  startedAt: start, endedAt: last.loggedAt,
+                                  startedAt: start, endedAt: end,
                                   setLogs: b.logs)
         }
     }
