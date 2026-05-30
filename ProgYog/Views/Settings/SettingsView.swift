@@ -314,8 +314,14 @@ private struct CalendarSyncSettingsView: View {
 private struct HealthSyncSettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @AppStorage(WorkoutHealth.enabledKey) private var enabled = false
+    @AppStorage(WorkoutHealth.lastSyncedAtKey) private var lastSyncedTimestamp: Double = 0
     @State private var denied = false
+    @State private var isSyncing = false
     @State private var confirmRemoveAll = false
+
+    private var lastSyncedAt: Date? {
+        lastSyncedTimestamp > 0 ? Date(timeIntervalSince1970: lastSyncedTimestamp) : nil
+    }
 
     var body: some View {
         List {
@@ -327,7 +333,9 @@ private struct HealthSyncSettingsView: View {
                                 let ok = await WorkoutHealth.requestAccess()
                                 if ok {
                                     denied = false
-                                    WorkoutHealthBridge.syncAll(moc: moc)
+                                    isSyncing = true
+                                    await WorkoutHealthBridge.syncAllAsync(moc: moc)
+                                    isSyncing = false
                                 } else {
                                     enabled = false
                                     denied = true
@@ -346,14 +354,37 @@ private struct HealthSyncSettingsView: View {
 
             if enabled {
                 Section {
-                    Button("Add all past workouts") {
-                        WorkoutHealthBridge.syncAll(moc: moc)
+                    Button {
+                        guard !isSyncing else { return }
+                        isSyncing = true
+                        Task {
+                            await WorkoutHealthBridge.syncAllAsync(moc: moc)
+                            isSyncing = false
+                        }
+                    } label: {
+                        HStack {
+                            Text(isSyncing ? "Syncing…" : "Add all past workouts")
+                            if isSyncing {
+                                Spacer()
+                                ProgressView()
+                            }
+                        }
                     }
+                    .disabled(isSyncing)
+
+                    if let date = lastSyncedAt {
+                        LabeledContent("Last synced",
+                                       value: date.formatted(date: .abbreviated, time: .standard))
+                            .foregroundStyle(.secondary)
+                            .font(.callout)
+                    }
+
                     Button("Remove all workout data", role: .destructive) {
                         confirmRemoveAll = true
                     }
+                    .disabled(isSyncing)
                 } footer: {
-                    Text("Add backfills every completed workout. Remove deletes all workout data written by this app from Health.")
+                    Text("Add backfills every completed workout. Existing entries are updated in place — no duplicates. Remove deletes all workout data written by this app from Health.")
                 }
             }
         }

@@ -19,7 +19,8 @@ import HealthKit
 /// `@AppStorage` settings screen stays in sync.
 @MainActor
 enum WorkoutHealth {
-    static let enabledKey = "workoutHealthEnabled"
+    static let enabledKey        = "workoutHealthEnabled"
+    static let lastSyncedAtKey   = "workoutHealthLastSyncedAt"
 
     static let store = HKHealthStore()
 
@@ -32,8 +33,9 @@ enum WorkoutHealth {
     @discardableResult
     static func requestAccess() async -> Bool {
         guard isAvailable else { return false }
+        let toShare: Set<HKSampleType> = [.workoutType(), HKQuantityType(.heartRate)]
         do {
-            try await store.requestAuthorization(toShare: [.workoutType()], read: [])
+            try await store.requestAuthorization(toShare: toShare, read: [])
             return isAuthorized
         } catch {
             print("[WorkoutHealth] auth error: \(error)")
@@ -64,14 +66,15 @@ enum WorkoutHealth {
 
     // MARK: Public API
 
+    @discardableResult
     static func upsert(
         uuid: String,
         activityType: HKWorkoutActivityType,
         start: Date,
         end: Date,
         metadata: [String: Any] = [:]
-    ) async {
-        guard isAuthorized else { return }
+    ) async -> HKWorkout? {
+        guard isAuthorized else { return nil }
         let old = await existing(uuid: uuid)
         var meta = metadata
         meta[HKMetadataKeyExternalUUID] = uuid
@@ -91,9 +94,31 @@ enum WorkoutHealth {
             // Save new first — only delete old after the new one lands safely.
             try await store.save(workout)
             if let old { try? await store.delete(old) }
+            return workout
         } catch {
             print("[WorkoutHealth] upsert: \(error)")
+            return nil
         }
+    }
+
+    static func addHeartRate(_ readings: [(date: Date, bpm: Int)], to workout: HKWorkout) async {
+        guard !readings.isEmpty,
+              store.authorizationStatus(for: HKQuantityType(.heartRate)) == .sharingAuthorized
+        else { return }
+        let hrType = HKQuantityType(.heartRate)
+        let unit = HKUnit.count().unitDivided(by: .minute())
+        let samples = readings.map { r in
+            HKQuantitySample(type: hrType,
+                             quantity: HKQuantity(unit: unit, doubleValue: Double(r.bpm)),
+                             start: r.date, end: r.date)
+        }
+        do {
+            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+                store.add(samples, to: workout) { _, error in
+                    if let error { cont.resume(throwing: error) } else { cont.resume() }
+                }
+            }
+        } catch { print("[WorkoutHealth] addHeartRate: \(error)") }
     }
 
     /// Delete all app workouts whose external UUID starts with `prefix`
@@ -178,11 +203,21 @@ enum WorkoutHealthBridge {
     /// Runs all sessions sequentially in one task — concurrent HK batch
     /// writes are unreliable and drop entries silently.
     static func syncAll(moc: NSManagedObjectContext) {
+        Task { await syncAllAsync(moc: moc) }
+    }
+
+    /// Awaitable form used by the settings UI so it can show a spinner
+    /// and stamp a last-synced timestamp on completion.
+    static func syncAllAsync(moc: NSManagedObjectContext) async {
         guard WorkoutHealth.isEnabled, WorkoutHealth.isAuthorized else { return }
         let fr: NSFetchRequest<Session> = Session.fetchRequest()
         fr.predicate = NSPredicate(format: "setLogs.@count > 0")
         let sessions = (try? moc.fetch(fr)) ?? []
-        Task { for s in sessions { await syncAsync(s) } }
+        for s in sessions { await syncAsync(s) }
+        UserDefaults.standard.set(
+            Date().timeIntervalSince1970,
+            forKey: WorkoutHealth.lastSyncedAtKey
+        )
     }
 
     private static func syncAsync(_ s: Session) async {
@@ -190,16 +225,27 @@ enum WorkoutHealthBridge {
         var kept = Set<String>()
         for seg in WorkoutSegmenter.segments(of: s) {
             let uuid = segmentUUID(for: s, dayStart: seg.dayStart)
-            await WorkoutHealth.upsert(
+            if let workout = await WorkoutHealth.upsert(
                 uuid: uuid,
                 activityType: .yoga,
                 start: seg.startedAt,
                 end: seg.endedAt,
                 metadata: [HKMetadataKeyWorkoutBrandName: title]
-            )
+            ) {
+                await WorkoutHealth.addHeartRate(hrReadings(for: seg), to: workout)
+            }
             kept.insert(uuid)
         }
         await WorkoutHealth.reconcile(uuidPrefix: sessionUUIDPrefix(s), keeping: kept)
+    }
+
+    private static func hrReadings(for seg: WorkoutSegment) -> [(date: Date, bpm: Int)] {
+        seg.setLogs.flatMap { log in
+            let setStart = log.loggedAt.addingTimeInterval(-TimeInterval(log.durationSec))
+            return log.orderedHRSamples.map { s in
+                (date: setStart.addingTimeInterval(s.t), bpm: Int(s.bpm))
+            }
+        }
     }
 
     static func removeAll() {
