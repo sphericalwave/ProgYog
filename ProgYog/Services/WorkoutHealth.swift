@@ -75,22 +75,22 @@ enum WorkoutHealth {
         if let old = await existing(uuid: uuid) {
             try? await store.delete(old)
         }
-        let config = HKWorkoutConfiguration()
-        config.activityType = activityType
-        config.locationType = .indoor
-        let builder = HKWorkoutBuilder(healthStore: store, configuration: config, device: nil)
+        var meta = metadata
+        meta[HKMetadataKeyExternalUUID] = uuid
+        let clampedEnd = max(end, start.addingTimeInterval(1))
+        // HKWorkoutBuilder is for live sessions; direct init is correct for
+        // retroactive logging and avoids silent failures on batch import.
+        let workout = HKWorkout(
+            activityType: activityType,
+            start: start,
+            end: clampedEnd,
+            duration: clampedEnd.timeIntervalSince(start),
+            totalEnergyBurned: nil,
+            totalDistance: nil,
+            metadata: meta
+        )
         do {
-            var meta = metadata
-            meta[HKMetadataKeyExternalUUID] = uuid
-            try await builder.beginCollection(at: start)
-            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-                builder.addMetadata(meta) { _, error in
-                    if let error { cont.resume(throwing: error) }
-                    else { cont.resume() }
-                }
-            }
-            try await builder.endCollection(at: max(end, start.addingTimeInterval(1)))
-            _ = try await builder.finishWorkout()
+            try await store.save(workout)
         } catch {
             print("[WorkoutHealth] upsert: \(error)")
         }
