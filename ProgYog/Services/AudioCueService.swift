@@ -45,7 +45,7 @@ final class AudioCueService: NSObject, ObservableObject {
         try? AVAudioSession.sharedInstance().setCategory(
             .playback,
             mode: .default,
-            options: [.mixWithOthers, .duckOthers]
+            options: [.mixWithOthers]
         )
         try? AVAudioSession.sharedInstance().setActive(true)
         synth.delegate = self
