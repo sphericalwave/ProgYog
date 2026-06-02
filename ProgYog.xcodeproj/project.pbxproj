@@ -61,6 +61,7 @@
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
 		AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000082 /* SessionInfoDetailView.swift */; };
+		AE0000040000000000000091 /* AddVariantSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000092 /* AddVariantSheet.swift */; };
 		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
 		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
@@ -116,6 +117,7 @@
 		AE0000040000000000000062 /* CompletionChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChip.swift; sourceTree = "<group>"; };
 		AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFamilyDetailView.swift; sourceTree = "<group>"; };
 		AE0000040000000000000082 /* SessionInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfoDetailView.swift; sourceTree = "<group>"; };
+		AE0000040000000000000092 /* AddVariantSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVariantSheet.swift; sourceTree = "<group>"; };
 		AE0000050000000000000002 /* SkillTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTrendChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000012 /* WorkoutCompositeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompositeChart.swift; sourceTree = "<group>"; };
 		AE0000050000000000000022 /* HRCurveChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCurveChart.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				AE0000040000000000000062 /* CompletionChip.swift */,
 				AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */,
 				AE0000040000000000000082 /* SessionInfoDetailView.swift */,
+				AE0000040000000000000092 /* AddVariantSheet.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */,
 				AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */,
 				AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */,
+				AE0000040000000000000091 /* AddVariantSheet.swift in Sources */,
 				AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */,
 				AE0000010000000000000010 /* Session+.swift in Sources */,
 				AE0000010000000000000020 /* SetLog+.swift in Sources */,

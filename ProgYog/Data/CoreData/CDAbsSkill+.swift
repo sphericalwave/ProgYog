@@ -16,6 +16,7 @@ extension CDAbsSkill {
         return NSFetchRequest<CDAbsSkill>(entityName: "CDAbsSkill")
     }
 
+    @NSManaged public var customPhotoData: Data?
     @NSManaged public var depth: Int16
     @NSManaged public var instructions: String
     @NSManaged public var name: String

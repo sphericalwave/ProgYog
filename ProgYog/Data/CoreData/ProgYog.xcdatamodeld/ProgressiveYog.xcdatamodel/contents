@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDAbsSkill" representedClassName="CDAbsSkill" syncable="YES">
+        <attribute name="customPhotoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="depth" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="family" attributeType="String"/>
         <attribute name="instructions" attributeType="String"/>

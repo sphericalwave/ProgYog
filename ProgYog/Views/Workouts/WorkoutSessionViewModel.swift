@@ -78,9 +78,10 @@ final class WorkoutSessionViewModel: ObservableObject {
                 .filter { $0.absSkill?.skillFamily == fam }
                 .last
             if let last = lastInFam, let baseDepth = last.absSkill?.depth {
+                let depths = fam.orderedAbsSkills.map(\.depth)
                 switch last.decisionValue {
-                case .progress: familyDepths[fam.objectID] = min(baseDepth + 1, 5)
-                case .regress:  familyDepths[fam.objectID] = max(baseDepth - 1, 1)
+                case .progress: familyDepths[fam.objectID] = depths.first(where: { $0 > baseDepth }) ?? baseDepth
+                case .regress:  familyDepths[fam.objectID] = depths.reversed().first(where: { $0 < baseDepth }) ?? baseDepth
                 case .`repeat`:     familyDepths[fam.objectID] = baseDepth
                 }
             } else {
@@ -164,6 +165,38 @@ final class WorkoutSessionViewModel: ObservableObject {
     func progressCurrentSkill() {
         guard let fam = currentFamily, let max = currentFamilyDepths.last else { return }
         familyDepths[fam.objectID] = Swift.min(currentDepth + 1, max)
+    }
+
+    var nextSkill: CDAbsSkill? {
+        guard let fam = currentFamily, let current = currentSkill else { return nil }
+        let ordered = fam.orderedAbsSkills
+        guard let idx = ordered.firstIndex(where: { $0.objectID == current.objectID }),
+              idx + 1 < ordered.count else { return nil }
+        return ordered[idx + 1]
+    }
+
+    func addVariant(name: String, instructions: String, photoData: Data?, insertBefore: CDAbsSkill?) {
+        guard let fam = currentFamily else { return }
+        let targetDepth: Int16
+        if let anchor = insertBefore {
+            targetDepth = anchor.depth
+            for skill in fam.orderedAbsSkills where skill.depth >= targetDepth {
+                skill.depth += 1
+            }
+        } else {
+            targetDepth = fam.maxDepth + 1
+        }
+        let skill = CDAbsSkill(context: moc)
+        skill.name = name
+        skill.depth = targetDepth
+        skill.instructions = instructions
+        skill.customPhotoData = photoData
+        skill.series = fam.series
+        skill.family = fam.name
+        skill.url = URL(string: "about:blank")!
+        skill.skillFamily = fam
+        familyDepths[fam.objectID] = targetDepth
+        services.coreData.save()
     }
 
     var headerLine: String {
@@ -260,10 +293,11 @@ final class WorkoutSessionViewModel: ObservableObject {
 
         if let fam = currentFamily {
             let current = familyDepths[fam.objectID] ?? 1
+            let depths = fam.orderedAbsSkills.map(\.depth)
             let next: Int16
             switch entry.decision {
-            case .progress: next = min(current + 1, 5)
-            case .regress:  next = max(current - 1, 1)
+            case .progress: next = depths.first(where: { $0 > current }) ?? current
+            case .regress:  next = depths.reversed().first(where: { $0 < current }) ?? current
             case .`repeat`:     next = current
             }
             familyDepths[fam.objectID] = next

@@ -10,6 +10,12 @@ struct WorkoutSessionView: View {
     @EnvironmentObject private var services: AppServices
     @Environment(\.dismiss) private var dismiss
     @State private var summaryPresented = false
+    @State private var addVariantKind: AddVariantKind?
+
+    private enum AddVariantKind: Identifiable {
+        case easier, harder
+        var id: Self { self }
+    }
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services, resuming: existing))
@@ -68,6 +74,19 @@ struct WorkoutSessionView: View {
                 )
             }
         }
+        .sheet(item: $addVariantKind) { kind in
+            if let fam = vm.currentFamily {
+                AddVariantSheet(
+                    family: fam,
+                    currentSkill: vm.currentSkill,
+                    defaultInsertBefore: kind == .easier ? vm.currentSkill : vm.nextSkill,
+                    onSave: { name, instructions, photoData, insertBefore in
+                        vm.addVariant(name: name, instructions: instructions,
+                                      photoData: photoData, insertBefore: insertBefore)
+                    }
+                )
+            }
+        }
     }
 
     /// Shared phase content. `fill` keeps the idle/running/logging layout
@@ -78,9 +97,17 @@ struct WorkoutSessionView: View {
         VStack(spacing: 16) {
             nameHeader
 
-            if let skill = vm.currentSkill, !skill.posterAssetNames.isEmpty {
-                SkillPosterGallery(names: skill.posterAssetNames)
-                    .frame(maxHeight: 220)
+            if let skill = vm.currentSkill {
+                if !skill.posterAssetNames.isEmpty {
+                    SkillPosterGallery(names: skill.posterAssetNames)
+                        .frame(maxHeight: 220)
+                } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
+                    Image(uiImage: img)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 220)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
             }
 
             if vm.currentSkill != nil {
@@ -188,6 +215,17 @@ struct WorkoutSessionView: View {
             }
             .buttonStyle(.bordered)
             .controlSize(.large)
+
+            if vm.currentFamily != nil {
+                HStack(spacing: 12) {
+                    Button("Add Easier Variant") { addVariantKind = .easier }
+                        .frame(maxWidth: .infinity)
+                    Button("Add Harder Variant") { addVariantKind = .harder }
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+            }
         }
     }
 

@@ -4,15 +4,21 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SkillThumbnail: View {
     let assetName: String?
+    var photoData: Data? = nil
     var size: CGFloat = 48
 
     var body: some View {
         Group {
             if let n = assetName {
                 Image(n)
+                    .resizable()
+                    .scaledToFill()
+            } else if let data = photoData, let img = UIImage(data: data) {
+                Image(uiImage: img)
                     .resizable()
                     .scaledToFill()
             } else {
