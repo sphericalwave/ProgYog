@@ -11,6 +11,7 @@ struct WorkoutSessionView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var summaryPresented = false
     @State private var addVariantKind: AddVariantKind?
+    @State private var poseCheckPresented = false
 
     private enum AddVariantKind: Identifiable {
         case easier, harder
@@ -86,6 +87,9 @@ struct WorkoutSessionView: View {
                     }
                 )
             }
+        }
+        .fullScreenCover(isPresented: $poseCheckPresented) {
+            NavigationStack { PostureCameraView() }
         }
     }
 
@@ -226,6 +230,13 @@ struct WorkoutSessionView: View {
                 .buttonStyle(.bordered)
                 .controlSize(.small)
             }
+
+            Button { poseCheckPresented = true } label: {
+                Label("Posture Check", systemImage: "figure.stand")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.regular)
         }
     }
 

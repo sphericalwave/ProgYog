@@ -71,6 +71,11 @@
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
 		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
+		AE00000200000000000000E1 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000E2 /* PoseDetectionService.swift */; };
+		AE0000D00000000000000001 /* BodyPose.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000002 /* BodyPose.swift */; };
+		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
+		AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000012 /* PoseOverlayCanvas.swift */; };
+		AE0000C00000000000000021 /* PostureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000022 /* PostureCameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +157,11 @@
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFF2055C2FCB2E8000430D49 /* ProgYog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProgYog.entitlements; sourceTree = "<group>"; };
 		AFF2055E2FCB309A00430D49 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		AE00000200000000000000E2 /* PoseDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionService.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000002 /* BodyPose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPose.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000012 /* PoseOverlayCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayCanvas.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000022 /* PostureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureCameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -197,8 +207,27 @@
 				AE0000020000000000000052 /* ErrorLog.swift */,
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
+				AE00000200000000000000E2 /* PoseDetectionService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		AE0000D00000000000000100 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000D00000000000000002 /* BodyPose.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AE0000C00000000000000100 /* Pose */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000C00000000000000002 /* CameraPreviewView.swift */,
+				AE0000C00000000000000012 /* PoseOverlayCanvas.swift */,
+				AE0000C00000000000000022 /* PostureCameraView.swift */,
+			);
+			path = Pose;
 			sourceTree = "<group>";
 		};
 		AE0000030000000000000100 /* Views */ = {
@@ -211,6 +240,7 @@
 				AE0000060000000000000100 /* History */,
 				AE0000070000000000000100 /* Settings */,
 				AE0000050000000000000100 /* Charts */,
+				AE0000C00000000000000100 /* Pose */,
 				AE0000090000000000000002 /* KeyboardDismiss.swift */,
 			);
 			path = Views;
@@ -318,6 +348,7 @@
 				AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */,
 				AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */,
 				AE0000010000000000000003 /* Services */,
+				AE0000D00000000000000100 /* Models */,
 				AE0000030000000000000100 /* Views */,
 				AF0B75EF25E1AB3600A0FF28 /* Data */,
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
@@ -545,6 +576,11 @@
 				AF0B75C125E1500600A0FF28 /* JsonSkillData.swift in Sources */,
 				AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */,
 				AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */,
+				AE00000200000000000000E1 /* PoseDetectionService.swift in Sources */,
+				AE0000D00000000000000001 /* BodyPose.swift in Sources */,
+				AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */,
+				AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */,
+				AE0000C00000000000000021 /* PostureCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

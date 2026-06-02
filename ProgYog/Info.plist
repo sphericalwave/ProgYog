@@ -33,6 +33,8 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Used to receive heart rate from your BLE chest strap during workouts.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to show a real-time skeleton overlay so you can check your posture alignment during yoga practice.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
 	<key>NSCalendarsUsageDescription</key>
