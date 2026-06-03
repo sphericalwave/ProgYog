@@ -33,7 +33,7 @@ enum PostureAnalyzer {
     // Angle of left→right joint line from horizontal. + = right joint higher, – = left higher.
     private static func lateralTilt(_ left: BodyJoint?, _ right: BodyJoint?) -> Double? {
         guard let l = left, let r = right, l.confidence > 0.3, r.confidence > 0.3 else { return nil }
-        return atan2(r.position.y - l.position.y, r.position.x - l.position.x) * 180 / .pi
+        return atan2(r.position.y - l.position.y, r.position.x - l.position.x) * 180 / Double.pi
     }
 
     private static func classify(
