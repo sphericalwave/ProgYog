@@ -35,6 +35,12 @@ struct RootView: View {
             .tag(historyTab)
 
             NavigationStack {
+                PostureCameraView()
+            }
+            .tabItem { Label("Vision", systemImage: "person.fill.viewfinder") }
+            .tag(5)
+
+            NavigationStack {
                 SettingsView(services: services)
             }
             .tabItem {

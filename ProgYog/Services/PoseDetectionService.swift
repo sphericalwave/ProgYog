@@ -4,11 +4,10 @@ import Vision
 @MainActor
 final class PoseDetectionService: NSObject, ObservableObject {
     @Published private(set) var pose: BodyPose?
-    @Published private(set) var status = "Starting…"
+    @Published private(set) var isFrontCamera = true
 
     nonisolated let captureSession: AVCaptureSession
     private let captureQueue = DispatchQueue(label: "ProgYog.captureQueue", qos: .userInitiated)
-    private var framesReceived = 0
 
     override init() {
         captureSession = AVCaptureSession()
@@ -16,87 +15,107 @@ final class PoseDetectionService: NSObject, ObservableObject {
     }
 
     func start() {
+        if captureSession.isRunning { return }
         Task { @MainActor in
+            if !captureSession.inputs.isEmpty {
+                captureQueue.async { [session = captureSession] in session.startRunning() }
+                return
+            }
             let auth = AVCaptureDevice.authorizationStatus(for: .video)
             switch auth {
             case .authorized:
                 setupAndStart()
             case .notDetermined:
-                status = "Requesting camera permission…"
-                let granted = await AVCaptureDevice.requestAccess(for: .video)
-                if granted { setupAndStart() }
-                else { status = "Camera access denied — enable in Settings → Privacy → Camera" }
+                if await AVCaptureDevice.requestAccess(for: .video) { setupAndStart() }
             case .denied, .restricted:
-                status = "Camera access denied — enable in Settings → Privacy → Camera"
+                break
             @unknown default:
-                status = "Unknown camera authorization status"
+                break
             }
         }
     }
 
     func stop() {
-        captureQueue.async { [session = captureSession] in
-            session.stopRunning()
-        }
+        captureQueue.async { [session = captureSession] in session.stopRunning() }
         pose = nil
-        framesReceived = 0
+    }
+
+    func flip() {
+        let newPosition: AVCaptureDevice.Position = isFrontCamera ? .back : .front
+        isFrontCamera = (newPosition == .front)
+        pose = nil
+
+        captureQueue.async { [session = captureSession, newPosition] in
+            guard
+                let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition),
+                let newInput = try? AVCaptureDeviceInput(device: device)
+            else { return }
+
+            session.beginConfiguration()
+            session.inputs.forEach { session.removeInput($0) }
+            guard session.canAddInput(newInput) else {
+                session.commitConfiguration()
+                return
+            }
+            session.addInput(newInput)
+            session.commitConfiguration()
+
+            guard
+                let output = session.outputs.first(where: { $0 is AVCaptureVideoDataOutput }),
+                let connection = output.connection(with: .video)
+            else { return }
+
+            if connection.isVideoRotationAngleSupported(90) {
+                connection.videoRotationAngle = 90
+            } else {
+                connection.videoOrientation = .portrait
+            }
+            if connection.isVideoMirroringSupported {
+                connection.isVideoMirrored = (newPosition == .front)
+            }
+        }
     }
 
     private func setupAndStart() {
-        guard configure() else { return }
-        captureQueue.async { [session = captureSession] in
-            session.startRunning()
-        }
-        status = "Session started, detecting…"
+        guard configure(position: .front) else { return }
+        captureQueue.async { [session = captureSession] in session.startRunning() }
     }
 
-    // Returns true if session was configured successfully.
     @discardableResult
-    private func configure() -> Bool {
+    private func configure(position: AVCaptureDevice.Position) -> Bool {
         captureSession.beginConfiguration()
         captureSession.sessionPreset = .high
 
         guard
-            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
+            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: position),
             let input = try? AVCaptureDeviceInput(device: device),
             captureSession.canAddInput(input)
         else {
             captureSession.commitConfiguration()
-            status = "Failed to open front camera"
             return false
         }
         captureSession.addInput(input)
 
         let output = AVCaptureVideoDataOutput()
         output.alwaysDiscardsLateVideoFrames = true
-        // BGRA is the format Vision handles most efficiently
-        output.videoSettings = [
-            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
-        ]
+        output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         output.setSampleBufferDelegate(self, queue: captureQueue)
         guard captureSession.canAddOutput(output) else {
             captureSession.commitConfiguration()
-            status = "Failed to add video output"
             return false
         }
         captureSession.addOutput(output)
         captureSession.commitConfiguration()
 
-        // Configure connection AFTER commit — connections aren't fully wired until then.
         if let connection = output.connection(with: .video) {
             if connection.isVideoRotationAngleSupported(90) {
                 connection.videoRotationAngle = 90
-                status = "Connection: rotation=90°"
             } else {
-                // Fallback for devices where videoRotationAngle isn't supported
                 connection.videoOrientation = .portrait
-                status = "Connection: orientation=portrait (fallback)"
             }
             if connection.isVideoMirroringSupported {
-                connection.isVideoMirrored = true
+                connection.isVideoMirrored = (position == .front)
             }
-        } else {
-            status = "No video connection after commit"
         }
         return true
     }
@@ -109,32 +128,12 @@ extension PoseDetectionService: AVCaptureVideoDataOutputSampleBufferDelegate {
         from connection: AVCaptureConnection
     ) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-
         let request = VNDetectHumanBodyPoseRequest()
-        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
-        do {
-            try handler.perform([request])
-        } catch {
-            Task { @MainActor [weak self] in
-                self?.status = "Vision error: \(error.localizedDescription)"
-            }
-            return
-        }
-
-        let detected: BodyPose?
-        if let observation = request.results?.first {
-            detected = BodyPose.from(observation)
-        } else {
-            detected = nil
-        }
-
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
+            .perform([request])
+        let detected = request.results?.first.flatMap(BodyPose.from)
         Task { @MainActor [weak self] in
-            guard let self else { return }
-            self.framesReceived += 1
-            self.status = detected != nil
-                ? "Detected ✓ (frame \(self.framesReceived))"
-                : "No body found (frame \(self.framesReceived))"
-            self.pose = detected
+            self?.pose = detected
         }
     }
 }

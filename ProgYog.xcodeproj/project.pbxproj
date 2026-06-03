@@ -76,6 +76,9 @@
 		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
 		AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000012 /* PoseOverlayCanvas.swift */; };
 		AE0000C00000000000000021 /* PostureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000022 /* PostureCameraView.swift */; };
+		AE0000D00000000000000011 /* PostureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000012 /* PostureReport.swift */; };
+		AE0000020000000000000101 /* PostureAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000102 /* PostureAnalyzer.swift */; };
+		AE0000C00000000000000031 /* PostureHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000032 /* PostureHUDView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +165,9 @@
 		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000012 /* PoseOverlayCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayCanvas.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000022 /* PostureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureCameraView.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000012 /* PostureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReport.swift; sourceTree = "<group>"; };
+		AE0000020000000000000102 /* PostureAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureAnalyzer.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000032 /* PostureHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureHUDView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -208,6 +214,7 @@
 				AE0000020000000000000042 /* PreviewSupport.swift */,
 				AFD2C8C8272EC569006B38BB /* SwTheme.swift */,
 				AE00000200000000000000E2 /* PoseDetectionService.swift */,
+				AE0000020000000000000102 /* PostureAnalyzer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -216,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				AE0000D00000000000000002 /* BodyPose.swift */,
+				AE0000D00000000000000012 /* PostureReport.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 				AE0000C00000000000000002 /* CameraPreviewView.swift */,
 				AE0000C00000000000000012 /* PoseOverlayCanvas.swift */,
 				AE0000C00000000000000022 /* PostureCameraView.swift */,
+				AE0000C00000000000000032 /* PostureHUDView.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -581,6 +590,9 @@
 				AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */,
 				AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */,
 				AE0000C00000000000000021 /* PostureCameraView.swift in Sources */,
+				AE0000D00000000000000011 /* PostureReport.swift in Sources */,
+				AE0000020000000000000101 /* PostureAnalyzer.swift in Sources */,
+				AE0000C00000000000000031 /* PostureHUDView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
