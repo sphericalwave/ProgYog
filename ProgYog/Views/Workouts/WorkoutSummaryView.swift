@@ -15,6 +15,7 @@ struct WorkoutSummaryView: View {
     @State private var resumePresented = false
     @State private var completeAlert = false
     @State private var discardAlert = false
+    @State private var scheduleNextPresented = false
     #if canImport(EventKit)
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
     #endif
@@ -182,12 +183,19 @@ struct WorkoutSummaryView: View {
             }
             .keyboardDoneToolbar()
         }
+        .sheet(isPresented: $scheduleNextPresented) {
+            ScheduleNextWorkoutSheet(
+                workoutName: WorkoutLabel.display(for: session),
+                workoutCode: session.workoutCode
+            )
+        }
         .alert("Complete session?", isPresented: $completeAlert) {
             Button("Complete") {
                 session.endedAt = Date()
                 services.coreData.save()
                 WorkoutCalendarBridge.syncSegments(session)
                 WorkoutHealthBridge.syncSegments(session)
+                scheduleNextPresented = true
             }
             Button("Cancel", role: .cancel) { }
         } message: {

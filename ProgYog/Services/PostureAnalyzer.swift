@@ -3,24 +3,23 @@ import CoreGraphics
 
 enum PostureAnalyzer {
     static func analyze(_ pose: BodyPose) -> PostureReport? {
-        guard
-            let neck = pose[.neck], neck.confidence > 0.4,
-            let root = pose[.root], root.confidence > 0.4
-        else { return nil }
+        guard let neck = pose[.neck], neck.confidence > 0.3 else { return nil }
 
-        let spineAngle = tiltDeg(
-            dx: neck.position.x - root.position.x,
-            dy: neck.position.y - root.position.y
-        )
-        let hipTilt = lateralTilt(pose[.leftHip], pose[.rightHip])
-        let shoulderTilt = lateralTilt(pose[.leftShoulder], pose[.rightShoulder])
-        let postureClass = classify(pose: pose, neckY: neck.position.y, rootY: root.position.y)
+        let root = pose[.root].flatMap { $0.confidence > 0.3 ? $0 : nil }
+
+        let spineAngle = root.map {
+            tiltDeg(dx: neck.position.x - $0.position.x, dy: neck.position.y - $0.position.y)
+        } ?? 0.0
+
+        let postureClass = root.map {
+            classify(pose: pose, neckY: neck.position.y, rootY: $0.position.y)
+        } ?? .unknown
 
         return PostureReport(
             postureClass: postureClass,
             spineAngle: spineAngle,
-            hipTilt: hipTilt,
-            shoulderTilt: shoulderTilt
+            hipTilt: lateralTilt(pose[.leftHip], pose[.rightHip]),
+            shoulderTilt: lateralTilt(pose[.leftShoulder], pose[.rightShoulder])
         )
     }
 

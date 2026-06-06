@@ -62,6 +62,8 @@ struct RootView: View {
             if let id = WorkoutCalendarBridge.sessionID(from: url) {
                 pendingSessionID = id
                 routePendingSession()
+            } else if url.scheme == WorkoutCalendarBridge.scheme, url.host == "upcoming" {
+                selectedTab = 0
             }
         }
         .task {

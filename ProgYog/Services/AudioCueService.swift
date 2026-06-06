@@ -2,12 +2,11 @@
 //  AudioCueService.swift
 //  ProgYog
 //
-//  Uses system sounds as placeholders. Swap with bundled .caf files later.
+//  Tones generated via AVAudioEngine so .playback session bypasses silent switch.
 //
 
 import Foundation
 import AVFoundation
-import AudioToolbox
 
 enum AudioCue {
     case countdownBeep      // 3-2-1 ticks
@@ -16,20 +15,14 @@ enum AudioCue {
     case roundStart
     case roundEnd
 
-    var systemSoundID: SystemSoundID {
+    // (frequency Hz, duration s, amplitude 0–1)
+    var tone: (Float, Float, Float) {
         switch self {
-        case .countdownBeep: return 1057   // Tink
-        case .terminal:      return 1005   // NewMail
-        case .halfwayBell:   return 1013   // SMSReceived
-        case .roundStart:    return 1117   // BeginRecording
-        case .roundEnd:      return 1118   // EndRecording
-        }
-    }
-
-    var isAlert: Bool {
-        switch self {
-        case .terminal, .roundEnd: return true
-        default: return false
+        case .countdownBeep: return (880,  0.08, 0.4)
+        case .terminal:      return (1047, 0.35, 0.5)
+        case .halfwayBell:   return (659,  0.18, 0.4)
+        case .roundStart:    return (880,  0.12, 0.5)
+        case .roundEnd:      return (523,  0.40, 0.5)
         }
     }
 }
@@ -39,24 +32,47 @@ final class AudioCueService: NSObject, ObservableObject {
     @Published private(set) var isSpeaking: Bool = false
 
     private let synth = AVSpeechSynthesizer()
+    private let engine = AVAudioEngine()
+    private let playerNode = AVAudioPlayerNode()
+    private let sampleRate: Double = 44100
 
     override init() {
         super.init()
+#if os(iOS)
         try? AVAudioSession.sharedInstance().setCategory(
             .playback,
             mode: .default,
             options: [.mixWithOthers]
         )
         try? AVAudioSession.sharedInstance().setActive(true)
+#endif
+
+        engine.attach(playerNode)
+        let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1)!
+        engine.connect(playerNode, to: engine.mainMixerNode, format: format)
+        try? engine.start()
+
         synth.delegate = self
     }
 
     func play(_ cue: AudioCue) {
-        if cue.isAlert {
-            AudioServicesPlayAlertSound(cue.systemSoundID)
-        } else {
-            AudioServicesPlaySystemSound(cue.systemSoundID)
+        let (freq, duration, amplitude) = cue.tone
+        let frameCount = AVAudioFrameCount(sampleRate * Double(duration))
+        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
+              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return }
+        buffer.frameLength = frameCount
+
+        let samples = buffer.floatChannelData![0]
+        let fadeFrames = min(Int(sampleRate * 0.005), Int(frameCount) / 4)
+        for i in 0..<Int(frameCount) {
+            var env: Float = 1.0
+            if i < fadeFrames { env = Float(i) / Float(fadeFrames) }
+            else if i > Int(frameCount) - fadeFrames { env = Float(Int(frameCount) - i) / Float(fadeFrames) }
+            samples[i] = amplitude * env * sin(2 * Float.pi * freq * Float(i) / Float(sampleRate))
         }
+
+        if !playerNode.isPlaying { playerNode.play() }
+        playerNode.scheduleBuffer(buffer, completionHandler: nil)
     }
 
     func speak(_ text: String) {

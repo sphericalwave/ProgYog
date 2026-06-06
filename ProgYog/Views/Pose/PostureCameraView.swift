@@ -55,7 +55,7 @@ struct PostureCameraView: View {
                 HStack(spacing: 16) {
                     // Record current reading
                     Button {
-                        guard let r = report else { return }
+                        let r = report ?? PostureReport(postureClass: .unknown, spineAngle: 0, hipTilt: nil, shoulderTilt: nil)
                         store.record(r)
                         withAnimation { didRecord = true }
                         Task {
@@ -65,8 +65,7 @@ struct PostureCameraView: View {
                     } label: {
                         Image(systemName: "record.circle")
                     }
-                    .tint(report != nil ? .red : .white.opacity(0.4))
-                    .disabled(report == nil)
+                    .tint(.red)
 
                     // History
                     Button { recordingsPresented = true } label: {
