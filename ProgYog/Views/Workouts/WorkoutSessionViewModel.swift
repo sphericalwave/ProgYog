@@ -308,8 +308,6 @@ final class WorkoutSessionViewModel: ObservableObject {
         }
 
         services.coreData.save()
-        WorkoutCalendarBridge.syncSegments(session)
-        WorkoutHealthBridge.syncSegments(session)
         advance()
     }
 

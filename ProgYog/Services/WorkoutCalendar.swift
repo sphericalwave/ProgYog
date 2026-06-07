@@ -50,7 +50,6 @@ import EventKit
 /// Generic mirror of timed events into a dedicated, color-configurable system
 /// calendar. State (enabled / color / calendar id) lives in `UserDefaults`
 /// under public keys so a SwiftUI `@AppStorage` settings screen stays in sync.
-@MainActor
 enum WorkoutCalendar {
     /// Calendar name shown in Apple Calendar — a shared concept across apps.
     static var calendarTitle = "Workout"
@@ -236,22 +235,32 @@ enum WorkoutCalendarBridge {
     /// worked on. Sweeps stale URLs under this session's prefix on the
     /// way out, so day re-bucketing AND upgrades from the older
     /// per-chunk / single-event URL schemes leave no orphans.
+    /// Core Data is read on the calling (main) actor; EK work runs on a
+    /// background task so the main thread is never blocked.
     static func syncSegments(_ s: Session) {
         guard WorkoutCalendar.isEnabled, WorkoutCalendar.isAuthorized else { return }
         let title = WorkoutLabel.display(for: s)
-        var kept = Set<URL>()
-        for seg in WorkoutSegmenter.segments(of: s) {
-            guard let url = dayURL(for: s, dayStart: seg.dayStart) else { continue }
-            WorkoutCalendar.upsert(title: title, start: seg.startedAt, end: seg.endedAt,
-                                   url: url, notes: notes(s, segment: seg))
-            kept.insert(url)
+        let prefix = sessionURLPrefix(s)
+        // Extract everything we need from Core Data objects on the main thread.
+        let items: [(url: URL, start: Date, end: Date, notes: String?)] =
+            WorkoutSegmenter.segments(of: s).compactMap { seg in
+                guard let url = dayURL(for: s, dayStart: seg.dayStart) else { return nil }
+                return (url, seg.startedAt, seg.endedAt, notes(s, segment: seg))
+            }
+        let kept = Set(items.map(\.url))
+        Task.detached {
+            for item in items {
+                WorkoutCalendar.upsert(title: title, start: item.start, end: item.end,
+                                       url: item.url, notes: item.notes)
+            }
+            WorkoutCalendar.reconcile(urlPrefix: prefix, keeping: kept)
         }
-        WorkoutCalendar.reconcile(urlPrefix: sessionURLPrefix(s), keeping: kept)
     }
 
     /// Delete every event tied to this session (segments + legacy URL).
     static func removeAll(for s: Session) {
-        WorkoutCalendar.reconcile(urlPrefix: sessionURLPrefix(s), keeping: [])
+        let prefix = sessionURLPrefix(s)
+        Task.detached { WorkoutCalendar.reconcile(urlPrefix: prefix, keeping: []) }
     }
 
     /// Backfill / reconcile every session that has logged sets.
