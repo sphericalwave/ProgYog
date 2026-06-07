@@ -22,9 +22,12 @@
 		AE0000020000000000000081 /* SessionRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000082 /* SessionRecovery.swift */; };
 		AE0000020000000000000091 /* SessionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000092 /* SessionEditor.swift */; };
 		AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000A2 /* WorkoutLabel.swift */; };
-		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
 		AE00000200000000000000B1 /* WorkoutHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000B2 /* WorkoutHealth.swift */; };
 		AE00000200000000000000C1 /* WorkoutSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000C2 /* WorkoutSegmenter.swift */; };
+		AE00000200000000000000E1 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000E2 /* PoseDetectionService.swift */; };
+		AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000F2 /* WorkoutCalendar.swift */; };
+		AE0000020000000000000101 /* PostureAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000102 /* PostureAnalyzer.swift */; };
+		AE0000020000000000000111 /* PostureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000112 /* PostureStore.swift */; };
 		AE0000030000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000002 /* RootView.swift */; };
 		AE0000030000000000000011 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000012 /* WorkoutListView.swift */; };
 		AE0000030000000000000021 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000030000000000000022 /* WorkoutDetailView.swift */; };
@@ -39,6 +42,7 @@
 		AE0000040000000000000051 /* SkillPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000052 /* SkillPickerSheet.swift */; };
 		AE0000040000000000000061 /* CompletionChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000062 /* CompletionChip.swift */; };
 		AE0000040000000000000071 /* WorkoutFamilyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */; };
+		AE0000040000000000000091 /* AddVariantSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000092 /* AddVariantSheet.swift */; };
 		AE0000050000000000000001 /* SkillTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000002 /* SkillTrendChart.swift */; };
 		AE0000050000000000000011 /* WorkoutCompositeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000012 /* WorkoutCompositeChart.swift */; };
 		AE0000050000000000000021 /* HRCurveChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000050000000000000022 /* HRCurveChart.swift */; };
@@ -52,6 +56,14 @@
 		AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000090000000000000002 /* KeyboardDismiss.swift */; };
 		AE00000A0000000000000001 /* WorkoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000A0000000000000002 /* WorkoutPalette.swift */; };
 		AE00000B0000000000000001 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000B0000000000000002 /* DashboardView.swift */; };
+		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
+		AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000012 /* PoseOverlayCanvas.swift */; };
+		AE0000C00000000000000021 /* PostureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000022 /* PostureCameraView.swift */; };
+		AE0000C00000000000000031 /* PostureHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000032 /* PostureHUDView.swift */; };
+		AE0000C00000000000000041 /* PostureRecordingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000042 /* PostureRecordingsView.swift */; };
+		AE0000D00000000000000001 /* BodyPose.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000002 /* BodyPose.swift */; };
+		AE0000D00000000000000011 /* PostureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000012 /* PostureReport.swift */; };
+		AE0000D00000000000000021 /* PostureSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000022 /* PostureSnapshot.swift */; };
 		AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */; };
 		AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B756E25E06FE200A0FF28 /* Assets.xcassets */; };
 		AF0B757225E06FE200A0FF28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */; };
@@ -61,27 +73,16 @@
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
 		AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000082 /* SessionInfoDetailView.swift */; };
-		AE0000040000000000000091 /* AddVariantSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000092 /* AddVariantSheet.swift */; };
 		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
 		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
 		AF8B518C25E56E9700519B9D /* ProgYogData.json in Resources */ = {isa = PBXBuildFile; fileRef = AF8B518B25E56E9700519B9D /* ProgYogData.json */; };
+		AFC102D02FD45C600022143E /* ScheduleNextWorkoutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */; };
 		AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8C8272EC569006B38BB /* SwTheme.swift */; };
 		AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */; };
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
 		AFE924C825E59741005048B2 /* SkillFam.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C625E59741005048B2 /* SkillFam.json */; };
 		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
-		AE00000200000000000000E1 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000200000000000000E2 /* PoseDetectionService.swift */; };
-		AE0000D00000000000000001 /* BodyPose.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000002 /* BodyPose.swift */; };
-		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
-		AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000012 /* PoseOverlayCanvas.swift */; };
-		AE0000C00000000000000021 /* PostureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000022 /* PostureCameraView.swift */; };
-		AE0000D00000000000000011 /* PostureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000012 /* PostureReport.swift */; };
-		AE0000020000000000000101 /* PostureAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000102 /* PostureAnalyzer.swift */; };
-		AE0000C00000000000000031 /* PostureHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000032 /* PostureHUDView.swift */; };
-		AE0000D00000000000000021 /* PostureSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000022 /* PostureSnapshot.swift */; };
-		AE0000020000000000000111 /* PostureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000112 /* PostureStore.swift */; };
-		AE0000C00000000000000041 /* PostureRecordingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000042 /* PostureRecordingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,9 +111,12 @@
 		AE0000020000000000000082 /* SessionRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecovery.swift; sourceTree = "<group>"; };
 		AE0000020000000000000092 /* SessionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEditor.swift; sourceTree = "<group>"; };
 		AE00000200000000000000A2 /* WorkoutLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLabel.swift; sourceTree = "<group>"; };
-		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
 		AE00000200000000000000B2 /* WorkoutHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHealth.swift; sourceTree = "<group>"; };
 		AE00000200000000000000C2 /* WorkoutSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSegmenter.swift; sourceTree = "<group>"; };
+		AE00000200000000000000E2 /* PoseDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionService.swift; sourceTree = "<group>"; };
+		AE00000200000000000000F2 /* WorkoutCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCalendar.swift; sourceTree = "<group>"; };
+		AE0000020000000000000102 /* PostureAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureAnalyzer.swift; sourceTree = "<group>"; };
+		AE0000020000000000000112 /* PostureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureStore.swift; sourceTree = "<group>"; };
 		AE0000030000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000012 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		AE0000030000000000000022 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
@@ -142,6 +146,14 @@
 		AE0000090000000000000002 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		AE00000A0000000000000002 /* WorkoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPalette.swift; sourceTree = "<group>"; };
 		AE00000B0000000000000002 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000012 /* PoseOverlayCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayCanvas.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000022 /* PostureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureCameraView.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000032 /* PostureHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureHUDView.swift; sourceTree = "<group>"; };
+		AE0000C00000000000000042 /* PostureRecordingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureRecordingsView.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000002 /* BodyPose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPose.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000012 /* PostureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReport.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000022 /* PostureSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureSnapshot.swift; sourceTree = "<group>"; };
 		AF0B756725E06FDE00A0FF28 /* ProgYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogApp.swift; sourceTree = "<group>"; };
 		AF0B756E25E06FE200A0FF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,23 +169,13 @@
 		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
 		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
 		AF8B518B25E56E9700519B9D /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
+		AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNextWorkoutSheet.swift; sourceTree = "<group>"; };
 		AFD2C8C8272EC569006B38BB /* SwTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwTheme.swift; sourceTree = "<group>"; };
 		AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwFontMods.swift; sourceTree = "<group>"; };
 		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFF2055C2FCB2E8000430D49 /* ProgYog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProgYog.entitlements; sourceTree = "<group>"; };
 		AFF2055E2FCB309A00430D49 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		AE00000200000000000000E2 /* PoseDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionService.swift; sourceTree = "<group>"; };
-		AE0000D00000000000000002 /* BodyPose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPose.swift; sourceTree = "<group>"; };
-		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
-		AE0000C00000000000000012 /* PoseOverlayCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayCanvas.swift; sourceTree = "<group>"; };
-		AE0000C00000000000000022 /* PostureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureCameraView.swift; sourceTree = "<group>"; };
-		AE0000D00000000000000012 /* PostureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReport.swift; sourceTree = "<group>"; };
-		AE0000020000000000000102 /* PostureAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureAnalyzer.swift; sourceTree = "<group>"; };
-		AE0000C00000000000000032 /* PostureHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureHUDView.swift; sourceTree = "<group>"; };
-		AE0000D00000000000000022 /* PostureSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureSnapshot.swift; sourceTree = "<group>"; };
-		AE0000020000000000000112 /* PostureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureStore.swift; sourceTree = "<group>"; };
-		AE0000C00000000000000042 /* PostureRecordingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureRecordingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -226,28 +228,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		AE0000D00000000000000100 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000D00000000000000002 /* BodyPose.swift */,
-				AE0000D00000000000000012 /* PostureReport.swift */,
-				AE0000D00000000000000022 /* PostureSnapshot.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		AE0000C00000000000000100 /* Pose */ = {
-			isa = PBXGroup;
-			children = (
-				AE0000C00000000000000002 /* CameraPreviewView.swift */,
-				AE0000C00000000000000012 /* PoseOverlayCanvas.swift */,
-				AE0000C00000000000000022 /* PostureCameraView.swift */,
-				AE0000C00000000000000032 /* PostureHUDView.swift */,
-				AE0000C00000000000000042 /* PostureRecordingsView.swift */,
-			);
-			path = Pose;
-			sourceTree = "<group>";
-		};
 		AE0000030000000000000100 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +268,7 @@
 				AE0000040000000000000072 /* WorkoutFamilyDetailView.swift */,
 				AE0000040000000000000082 /* SessionInfoDetailView.swift */,
 				AE0000040000000000000092 /* AddVariantSheet.swift */,
+				AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -338,6 +319,28 @@
 				AE00000B0000000000000002 /* DashboardView.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		AE0000C00000000000000100 /* Pose */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000C00000000000000002 /* CameraPreviewView.swift */,
+				AE0000C00000000000000012 /* PoseOverlayCanvas.swift */,
+				AE0000C00000000000000022 /* PostureCameraView.swift */,
+				AE0000C00000000000000032 /* PostureHUDView.swift */,
+				AE0000C00000000000000042 /* PostureRecordingsView.swift */,
+			);
+			path = Pose;
+			sourceTree = "<group>";
+		};
+		AE0000D00000000000000100 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE0000D00000000000000002 /* BodyPose.swift */,
+				AE0000D00000000000000012 /* PostureReport.swift */,
+				AE0000D00000000000000022 /* PostureSnapshot.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		AF0B755E25E06FDE00A0FF28 = {
@@ -585,6 +588,7 @@
 				AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */,
 				AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */,
 				AE0000040000000000000091 /* AddVariantSheet.swift in Sources */,
+				AFC102D02FD45C600022143E /* ScheduleNextWorkoutSheet.swift in Sources */,
 				AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */,
 				AE0000010000000000000010 /* Session+.swift in Sources */,
 				AE0000010000000000000020 /* SetLog+.swift in Sources */,

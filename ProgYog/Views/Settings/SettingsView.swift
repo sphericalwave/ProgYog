@@ -66,6 +66,11 @@ struct SettingsView: View {
                     LabeledContent("Workout calendar",
                                    value: calendarEnabled ? "On" : "Off")
                 }
+                NavigationLink {
+                    WorkoutSchedulerSettingsView()
+                } label: {
+                    Label("Schedule upcoming workouts", systemImage: "calendar.badge.plus")
+                }
             }
 
             Section("Health") {
@@ -461,6 +466,83 @@ struct CompletionSettingsView: View {
         .listStyle(.grouped)
         .navigationTitle("Completion Scoring")
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private struct WorkoutCodeItem: Identifiable {
+    let code: String
+    var id: String { code }
+}
+
+private struct WorkoutSchedulerSettingsView: View {
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(key: "endedAt", ascending: false)],
+        predicate: NSPredicate(format: "endedAt != nil")
+    ) private var completedSessions: FetchedResults<Session>
+
+    @State private var selectedCode: WorkoutCodeItem?
+
+    private static let sequence = ["A", "B", "C", "D", "E"]
+
+    private var lastSession: Session? { completedSessions.first }
+
+    private var nextCodes: [String] {
+        let startIdx: Int
+        if let code = lastSession?.workoutCode,
+           let idx = Self.sequence.firstIndex(of: code) {
+            startIdx = (idx + 1) % Self.sequence.count
+        } else {
+            startIdx = 0
+        }
+        return (0..<Self.sequence.count).map {
+            Self.sequence[(startIdx + $0) % Self.sequence.count]
+        }
+    }
+
+    var body: some View {
+        List {
+            Section {
+                ForEach(Array(nextCodes.enumerated()), id: \.element) { offset, code in
+                    Button {
+                        selectedCode = WorkoutCodeItem(code: code)
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(WorkoutLabel.display(forCode: code))
+                                    .foregroundStyle(.primary)
+                                if offset == 0 {
+                                    Text("Next up")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            Spacer()
+                            Image(systemName: "calendar.badge.plus")
+                                .foregroundStyle(Color.accentColor)
+                        }
+                    }
+                }
+            } header: {
+                if let last = lastSession, let endedAt = last.endedAt {
+                    Text("Last: \(WorkoutLabel.display(for: last)) · \(endedAt.formatted(date: .abbreviated, time: .omitted))")
+                } else {
+                    Text("No workouts completed yet")
+                }
+            } footer: {
+                Text("Tap a workout to add it to your calendar and set a reminder.")
+            }
+        }
+        .listStyle(.grouped)
+        .navigationTitle("Schedule Workouts")
+        .navigationBarTitleDisplayMode(.inline)
+        #if canImport(EventKit)
+        .sheet(item: $selectedCode) { item in
+            ScheduleNextWorkoutSheet(
+                workoutName: WorkoutLabel.display(forCode: item.code),
+                workoutCode: item.code
+            )
+        }
+        #endif
     }
 }
 
