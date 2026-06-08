@@ -33,14 +33,7 @@ struct SkillFamilyListView: View {
                         NavigationLink {
                             SkillFamilyDetailView(family: family)
                         } label: {
-                            HStack(spacing: 12) {
-                                SkillThumbnail(assetName: familyHero(family), size: 48)
-                                Text("\(family.order).")
-                                    .foregroundStyle(.secondary)
-                                Text(family.name)
-                                Spacer()
-                                stats(for: family)
-                            }
+                            familyRow(family)
                         }
                     }
                 }
@@ -52,10 +45,34 @@ struct SkillFamilyListView: View {
 
     // MARK: helpers below
 
+    @ViewBuilder
+    private func familyRow(_ family: CDSkillFamily) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 12) {
+                SkillThumbnail(assetName: familyHero(family), size: 48)
+                Text("\(family.order).").foregroundStyle(.secondary)
+                Text(family.name)
+                Spacer()
+                stats(for: family)
+            }
+            let pts = sessionPoints(for: family)
+            if !pts.isEmpty {
+                FamilyPercentChart(points: pts, compact: true)
+            }
+        }
+    }
+
     private func familyHero(_ family: CDSkillFamily) -> String? {
         let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
         let lowest = skills.min { $0.depth < $1.depth }
         return lowest?.posterAssetName
+    }
+
+    private func sessionPoints(for family: CDSkillFamily) -> [FamilyPercentChart.Point] {
+        let logs = setLogs.filter { $0.absSkill?.skillFamily == family }
+        let sessions = Array(Set(logs.compactMap { $0.session }))
+            .sorted { $0.startedAt < $1.startedAt }
+        return FamilyPercentChart.points(for: sessions, family: family)
     }
 
     @ViewBuilder

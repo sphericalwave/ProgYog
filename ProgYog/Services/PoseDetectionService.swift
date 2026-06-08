@@ -67,8 +67,6 @@ final class PoseDetectionService: NSObject, ObservableObject {
 
             if connection.isVideoRotationAngleSupported(90) {
                 connection.videoRotationAngle = 90
-            } else {
-                connection.videoOrientation = .portrait
             }
             if connection.isVideoMirroringSupported {
                 connection.isVideoMirrored = (newPosition == .front)
@@ -110,8 +108,6 @@ final class PoseDetectionService: NSObject, ObservableObject {
         if let connection = output.connection(with: .video) {
             if connection.isVideoRotationAngleSupported(90) {
                 connection.videoRotationAngle = 90
-            } else {
-                connection.videoOrientation = .portrait
             }
             if connection.isVideoMirroringSupported {
                 connection.isVideoMirrored = (position == .front)

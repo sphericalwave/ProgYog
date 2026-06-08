@@ -8,6 +8,7 @@ import SwiftUI
 struct SkillPosterGallery: View {
     let names: [String]
     var contentMode: ContentMode = .fit
+    var cornerRadius: CGFloat = 0
 
     var body: some View {
         if names.isEmpty {
@@ -25,6 +26,7 @@ struct SkillPosterGallery: View {
             .tabViewStyle(.page(indexDisplayMode: names.count > 1 ? .always : .never))
             .indexViewStyle(.page(backgroundDisplayMode: .always))
             .aspectRatio(4.0 / 3.0, contentMode: contentMode)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         }
     }
 }

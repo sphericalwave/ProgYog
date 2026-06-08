@@ -17,6 +17,8 @@ struct WorkoutDetailView: View {
     @FetchRequest private var setLogs: FetchedResults<SetLog>
     @FetchRequest private var sessions: FetchedResults<Session>
 
+    @State private var sessionPts: [FamilyPercentChart.Point] = []
+
     init(workoutCode: String) {
         self.workoutCode = workoutCode
         _families = FetchRequest<CDSkillFamily>(
@@ -35,6 +37,13 @@ struct WorkoutDetailView: View {
 
     var body: some View {
         List {
+            if !sessionPts.isEmpty {
+                Section("History") {
+                    FamilyPercentChart(points: sessionPts)
+                        .padding(.vertical, 4)
+                }
+            }
+
             Section("Skill Families") {
                 ForEach(families, id: \.self) { family in
                     NavigationLink {
@@ -95,7 +104,11 @@ struct WorkoutDetailView: View {
                 }
             }
         }
-        .onAppear(perform: refreshInProgress)
+        .onAppear {
+            refreshInProgress()
+            refreshChart()
+        }
+        .onChange(of: sessions.count) { refreshChart() }
         .fullScreenCover(isPresented: $sessionPresented, onDismiss: refreshInProgress) {
             NavigationStack {
                 WorkoutSessionView(workoutCode: workoutCode, services: services)
@@ -142,6 +155,10 @@ struct WorkoutDetailView: View {
         guard total > 0 else { return 0 }
         let done = session.orderedSetLogs.count
         return Int((Double(done) / Double(total) * 100).rounded())
+    }
+
+    private func refreshChart() {
+        sessionPts = FamilyPercentChart.points(for: Array(sessions.reversed()))
     }
 
     @ViewBuilder

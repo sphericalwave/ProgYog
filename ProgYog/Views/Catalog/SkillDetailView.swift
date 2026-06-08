@@ -9,7 +9,9 @@ import CoreData
 struct SkillDetailView: View {
     let skill: CDAbsSkill
 
+    @Environment(\.managedObjectContext) private var moc
     @FetchRequest private var logs: FetchedResults<SetLog>
+    @State private var editingInstructions = false
 
     init(skill: CDAbsSkill) {
         self.skill = skill
@@ -35,9 +37,21 @@ struct SkillDetailView: View {
                 LabeledContent("Symmetrical", value: skill.symetrical ? "Yes" : "No")
             }
 
-            if !skill.instructions.isEmpty {
-                Section("Instructions") {
+            Section {
+                if skill.instructions.isEmpty {
+                    Text("No instructions yet.")
+                        .foregroundStyle(.tertiary)
+                } else {
                     Text(skill.instructions)
+                }
+            } header: {
+                HStack {
+                    Text("Instructions")
+                    Spacer()
+                    Button { editingInstructions = true } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .buttonStyle(.borderless)
                 }
             }
 
@@ -88,6 +102,37 @@ struct SkillDetailView: View {
         }
         .listStyle(.grouped)
         .navigationTitle(skill.name)
+        .sheet(isPresented: $editingInstructions) {
+            InstructionsEditSheet(initialText: skill.instructions) { newText in
+                skill.instructions = newText
+                try? moc.save()
+            }
+        }
+    }
+}
+
+struct InstructionsEditSheet: View {
+    let initialText: String
+    let onSave: (String) -> Void
+    @State private var draft = ""
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            TextEditor(text: $draft)
+                .padding(.horizontal, 4)
+                .navigationTitle("Instructions")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Cancel") { dismiss() }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Done") { onSave(draft); dismiss() }.bold()
+                    }
+                }
+        }
+        .onAppear { draft = initialText }
     }
 }
 

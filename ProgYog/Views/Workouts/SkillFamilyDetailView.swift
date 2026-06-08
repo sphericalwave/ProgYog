@@ -22,8 +22,21 @@ struct SkillFamilyDetailView: View {
         )
     }
 
+    private var sessionPoints: [FamilyPercentChart.Point] {
+        FamilyPercentChart.points(for: family)
+    }
+
+
     var body: some View {
         List {
+            let pts = sessionPoints
+            if !pts.isEmpty {
+                Section("History") {
+                    FamilyPercentChart(points: pts)
+                        .padding(.vertical, 4)
+                }
+            }
+
             ForEach(skills, id: \.objectID) { skill in
                 NavigationLink {
                     SkillDetailView(skill: skill)

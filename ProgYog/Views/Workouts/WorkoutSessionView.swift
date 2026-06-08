@@ -12,6 +12,7 @@ struct WorkoutSessionView: View {
     @State private var summaryPresented = false
     @State private var addVariantPresented = false
     @State private var isometricMode: Bool = false
+    @State private var editingInstructions = false
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         _vm = StateObject(wrappedValue: WorkoutSessionViewModel(workoutCode: workoutCode, services: services, resuming: existing))
@@ -95,6 +96,14 @@ struct WorkoutSessionView: View {
                 )
             }
         }
+        .sheet(isPresented: $editingInstructions) {
+            if let skill = vm.currentSkill {
+                InstructionsEditSheet(initialText: skill.instructions) { newText in
+                    skill.instructions = newText
+                    services.coreData.save()
+                }
+            }
+        }
         .sheet(isPresented: $addVariantPresented) {
             if let fam = vm.currentFamily {
                 AddVariantSheet(
@@ -113,21 +122,17 @@ struct WorkoutSessionView: View {
     @ViewBuilder
     private func skillImageHeader(for skill: CDAbsSkill) -> some View {
         if !skill.posterAssetNames.isEmpty {
-            SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill)
+            SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill, cornerRadius: 12)
                 .frame(maxWidth: .infinity, maxHeight: 220)
-                .clipped()
-//                .padding(.horizontal, -20)
-//                .padding(.vertical, -8)
-                //.listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets())
+                .padding(.bottom)
         } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
             Image(uiImage: img)
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: 220)
-                .clipped()
-//                .padding(.horizontal, -20)
-//                .padding(.vertical, -8)
-                //.listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets())
+                .padding(.bottom)
         }
     }
 
@@ -174,12 +179,12 @@ struct WorkoutSessionView: View {
             .fixedSize()
         }
 
-        if !skill.instructions.isEmpty {
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text("Instructions")
-                        .font(.caption.bold()).foregroundStyle(.secondary)
-                    Spacer()
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("Instructions")
+                    .font(.caption.bold()).foregroundStyle(.secondary)
+                Spacer()
+                if !skill.instructions.isEmpty {
                     Button {
                         if services.audio.isSpeaking { services.audio.stopSpeaking() }
                         else { services.audio.speak(skill.instructions) }
@@ -189,6 +194,15 @@ struct WorkoutSessionView: View {
                     }
                     .buttonStyle(.borderless)
                 }
+                Button { editingInstructions = true } label: {
+                    Image(systemName: "pencil")
+                }
+                .buttonStyle(.borderless)
+            }
+            if skill.instructions.isEmpty {
+                Text("Tap pencil to add instructions.")
+                    .font(.callout).foregroundStyle(.tertiary)
+            } else {
                 Text(skill.instructions)
                     .font(.callout).foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)

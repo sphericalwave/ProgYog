@@ -6,13 +6,13 @@ import SwiftUI
 import Charts
 import CoreData
 
-/// Bar chart of family completion % per workout session.
+/// Bar chart of completion % per workout instance, oldest → newest left → right.
 /// `compact: true` hides axes and shrinks height for list-row use.
 struct FamilyPercentChart: View {
     struct Point: Identifiable {
         let id = UUID()
-        let date: Date
         let percent: Double
+        var barColor: Color? = nil
     }
 
     let points: [Point]
@@ -20,17 +20,19 @@ struct FamilyPercentChart: View {
 
     var body: some View {
         Chart {
-            ForEach(points) { p in
+            ForEach(Array(points.enumerated()), id: \.offset) { idx, p in
                 BarMark(
-                    x: .value("Session", p.date, unit: .day),
-                    y: .value("%", p.percent)
+                    x: .value("Session", String(idx)),
+                    y: .value("%", p.percent),
+                    width: .ratio(0.85)
                 )
-                .foregroundStyle(tint(for: p.percent))
+                .foregroundStyle(p.barColor ?? tint(for: p.percent))
             }
         }
         .chartYScale(domain: 0...100)
-        .chartXAxis(compact ? .hidden : .automatic)
+        .chartXAxis(.hidden)
         .chartYAxis(compact ? .hidden : .automatic)
+        .padding(.horizontal, 8)
         .frame(height: compact ? 36 : 160)
     }
 
@@ -44,6 +46,7 @@ struct FamilyPercentChart: View {
 }
 
 extension FamilyPercentChart {
+    /// Per-session family % for a skill family, oldest first.
     static func points(for family: CDSkillFamily) -> [Point] {
         let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
         let allLogs = skills.flatMap { ($0.setLogs as? Set<SetLog>) ?? [] }
@@ -51,7 +54,20 @@ extension FamilyPercentChart {
             .sorted { $0.startedAt < $1.startedAt }
         return sessions.compactMap { sess in
             guard let pct = CompletionScorer.familyPercent(in: sess, family: family) else { return nil }
-            return Point(date: sess.startedAt, percent: pct)
+            return Point(percent: pct)
+        }
+    }
+
+    /// Per-session overall % for a list of sessions, oldest first.
+    /// Passes workout-palette color per bar when no family is specified.
+    static func points(for sessions: [Session], family: CDSkillFamily? = nil) -> [Point] {
+        sessions.compactMap { sess in
+            let pct = family != nil
+                ? CompletionScorer.familyPercent(in: sess, family: family!)
+                : CompletionScorer.sessionPercent(sess)
+            guard let pct else { return nil }
+            let color: Color? = family == nil ? WorkoutPalette.color(for: sess.workoutCode) : nil
+            return Point(percent: pct, barColor: color)
         }
     }
 }

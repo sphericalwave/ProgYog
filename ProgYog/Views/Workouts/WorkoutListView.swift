@@ -14,25 +14,32 @@ struct WorkoutListView: View {
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
 
+    @State private var histPts: [FamilyPercentChart.Point] = []
+    @State private var lastPcts: [String: Double] = [:]
+    @State private var bestPcts: [String: Double] = [:]
+
     var body: some View {
         NavigationStack {
-            List(workoutCodes, id: \.self) { code in
-                NavigationLink(value: code) {
-                    HStack(spacing: 10) {
-                        Image(systemName: "circle.fill")
-                            .foregroundColor(WorkoutPalette.color(for: code))
-                        Text(WorkoutLabel.display(forCode: code))
-                            .font(.headline)
-                        Spacer()
-                        stats(for: code)
-                        CompletionChip(
-                            percent: CompletionScorer.lastSessionPercent(workoutCode: code, moc: moc),
-                            caption: "last"
-                        )
-                        CompletionChip(
-                            percent: CompletionScorer.allTimeBestSessionPercent(workoutCode: code, moc: moc),
-                            caption: "best"
-                        )
+            List {
+                Section {
+                    ForEach(workoutCodes, id: \.self) { code in
+                        NavigationLink(value: code) {
+                            workoutRow(for: code)
+                        }
+                    }
+                } header: {
+                    if !histPts.isEmpty {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("History")
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                                .textCase(nil)
+                                .padding(.horizontal, 4)
+                            FamilyPercentChart(points: histPts)
+                        }
+                        .padding(10)
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        .padding(.bottom, 4)
                     }
                 }
             }
@@ -45,6 +52,32 @@ struct WorkoutListView: View {
             .navigationDestination(for: String.self) { code in
                 WorkoutDetailView(workoutCode: code)
             }
+            .onAppear { refreshScores() }
+            .onChange(of: sessions.count) { refreshScores() }
+        }
+    }
+
+    private func refreshScores() {
+        let all = Array(sessions) // already loaded, sorted newest-first
+        histPts = FamilyPercentChart.points(for: all.reversed())
+        for code in workoutCodes {
+            let codeSessions = all.filter { $0.workoutCode == code }
+            lastPcts[code] = codeSessions.first.flatMap { CompletionScorer.sessionPercent($0) }
+            bestPcts[code] = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
+        }
+    }
+
+    @ViewBuilder
+    private func workoutRow(for code: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "circle.fill")
+                .foregroundColor(WorkoutPalette.color(for: code))
+            Text(WorkoutLabel.display(forCode: code))
+                .font(.headline)
+            Spacer()
+            stats(for: code)
+            CompletionChip(percent: lastPcts[code], caption: "last")
+            CompletionChip(percent: bestPcts[code], caption: "best")
         }
     }
 
