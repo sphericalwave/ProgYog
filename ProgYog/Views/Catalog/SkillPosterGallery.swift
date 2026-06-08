@@ -7,6 +7,7 @@ import SwiftUI
 
 struct SkillPosterGallery: View {
     let names: [String]
+    var contentMode: ContentMode = .fit
 
     var body: some View {
         if names.isEmpty {
@@ -16,13 +17,14 @@ struct SkillPosterGallery: View {
                 ForEach(names, id: \.self) { n in
                     Image(n)
                         .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
+                        .aspectRatio(contentMode: contentMode)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipped()
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: names.count > 1 ? .always : .never))
             .indexViewStyle(.page(backgroundDisplayMode: .always))
-            .aspectRatio(4.0 / 3.0, contentMode: .fit)
+            .aspectRatio(4.0 / 3.0, contentMode: contentMode)
         }
     }
 }

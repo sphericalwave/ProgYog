@@ -38,7 +38,7 @@ final class WorkoutSessionViewModel: ObservableObject {
     private var setStartedAt: Date = .distantPast
     private var lastBeepedSecond: Int = -1
     private var didPlayHalfwayBell: Bool = false
-    private var activeSliceCount: Int = 0
+    private(set) var activeSliceCount: Int = 0
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
         self.workoutCode = workoutCode
@@ -211,6 +211,13 @@ final class WorkoutSessionViewModel: ObservableObject {
         activeSliceCount > 0 ? activeSliceCount * 30 : setDurationSec
     }
 
+    /// 1-based index of the slice currently being held (0 when slices inactive).
+    var currentSliceNumber: Int {
+        guard activeSliceCount > 0 else { return 0 }
+        let elapsed = effectiveDuration - secondsRemaining
+        return min(elapsed / 30 + 1, activeSliceCount)
+    }
+
     func startSet() {
         guard let skill = currentSkill else { return }
         phase = .running
@@ -342,9 +349,9 @@ final class WorkoutSessionViewModel: ObservableObject {
     private func startTimer() {
         timerTask?.cancel()
         timerTask = Task { [weak self] in
-            while let self, !Task.isCancelled, await self.secondsRemaining > 0 {
+            while let self, !Task.isCancelled, self.secondsRemaining > 0 {
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
-                await self.tick()
+                self.tick()
             }
         }
     }

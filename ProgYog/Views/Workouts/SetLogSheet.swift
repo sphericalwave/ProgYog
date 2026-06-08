@@ -52,6 +52,7 @@ struct SetLogSheet: View {
         currentSession: Session? = nil,
         liveHRStats: (min: Int, max: Int, avg: Int)? = nil,
         isFinalRound: Bool = false,
+        initialIsometric: Bool = false,
         onSave: @escaping (Entry) -> Void,
         onCancel: (() -> Void)? = nil
     ) {
@@ -61,6 +62,7 @@ struct SetLogSheet: View {
         self.currentSession = currentSession ?? editing?.session
         self.liveHRStats = liveHRStats
         self.isFinalRound = isFinalRound
+        self._isometric = State(initialValue: initialIsometric)
         self.onSave = onSave
         self.onCancel = onCancel
         _logs = FetchRequest<SetLog>(
@@ -152,10 +154,7 @@ struct SetLogSheet: View {
                     metricRow(label: "Exertion",  value: $rpe, range: 1...10)
                     metricRow(label: "Discomfort", value: $rpd, range: 1...10)
 
-                    if isFinalRound {
-                        Toggle("Isometric", isOn: $isometric)
-                        metricRow(label: "Slices", value: $sliceCount, range: 0...30)
-                    }
+                    Toggle("Isometric", isOn: $isometric)
                 } header : {
                     HStack {
                         Text(skill.name)
@@ -163,6 +162,19 @@ struct SetLogSheet: View {
                         Text("Level \(skill.depth)")
                             .foregroundStyle(.secondary)
                     }
+                }
+
+                Section {
+                    metricRow(
+                        label: "Slices",
+                        value: $sliceCount,
+                        range: 0...30,
+                        suffix: sliceCount > 0 ? " · \(sliceCount * 30)s" : ""
+                    )
+                } header: {
+                    Text("Isometric Slices")
+                } footer: {
+                    Text("Each slice is a 30-second isometric hold at a distinct position within the movement range — start, quarter, mid, three-quarter, end. \(sliceCount > 0 ? "\(sliceCount) slice\(sliceCount == 1 ? "" : "s") = \(sliceCount * 30) seconds total." : "Set to 0 to skip.")")
                 }
 
             }
