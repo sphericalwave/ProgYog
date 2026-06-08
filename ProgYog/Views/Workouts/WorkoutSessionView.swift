@@ -101,6 +101,7 @@ struct WorkoutSessionView: View {
                 InstructionsEditSheet(initialText: skill.instructions) { newText in
                     skill.instructions = newText
                     services.coreData.save()
+                    vm.objectWillChange.send()
                 }
             }
         }

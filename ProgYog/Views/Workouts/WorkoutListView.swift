@@ -14,6 +14,7 @@ struct WorkoutListView: View {
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
 
+    @State private var orderedCodes: [String] = WorkoutPalette.codes
     @State private var histPts: [FamilyPercentChart.Point] = []
     @State private var lastPcts: [String: Double] = [:]
     @State private var bestPcts: [String: Double] = [:]
@@ -22,7 +23,7 @@ struct WorkoutListView: View {
         NavigationStack {
             List {
                 Section {
-                    ForEach(workoutCodes, id: \.self) { code in
+                    ForEach(orderedCodes, id: \.self) { code in
                         NavigationLink(value: code) {
                             workoutRow(for: code)
                         }
@@ -39,11 +40,13 @@ struct WorkoutListView: View {
                         }
                         .padding(10)
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                        .padding(.bottom, 4)
+                        //.padding(.bottom, 4)
+                        .padding(.vertical, 20)
+                        .listRowInsets(EdgeInsets())
                     }
                 }
             }
-            .listStyle(.grouped)
+            //.listStyle(.grouped)
             .navigationTitle("Workouts")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.accentColor, for: .navigationBar)
@@ -64,6 +67,13 @@ struct WorkoutListView: View {
             let codeSessions = all.filter { $0.workoutCode == code }
             lastPcts[code] = codeSessions.first.flatMap { CompletionScorer.sessionPercent($0) }
             bestPcts[code] = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
+        }
+        let codes = workoutCodes
+        if let last = all.first, let idx = codes.firstIndex(of: last.workoutCode) {
+            let startIdx = last.endedAt == nil ? idx : (idx + 1) % codes.count
+            orderedCodes = Array(codes[startIdx...]) + Array(codes[..<startIdx])
+        } else {
+            orderedCodes = codes
         }
     }
 

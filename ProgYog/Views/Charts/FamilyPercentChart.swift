@@ -6,34 +6,28 @@ import SwiftUI
 import Charts
 import CoreData
 
-/// Bar chart of completion % per workout instance, oldest → newest left → right.
-/// `compact: true` hides axes and shrinks height for list-row use.
+/// CatmullRom line chart of completion % per session, oldest → newest.
+/// When points carry distinct `series` values (one per workout code) separate
+/// coloured lines are drawn. `compact: true` hides axes and shrinks height.
 struct FamilyPercentChart: View {
     struct Point: Identifiable {
         let id = UUID()
         let percent: Double
         var barColor: Color? = nil
+        var series: String = ""
     }
 
     let points: [Point]
     var compact: Bool = false
 
-    var body: some View {
-        Chart {
-            ForEach(Array(points.enumerated()), id: \.offset) { idx, p in
-                BarMark(
-                    x: .value("Session", String(idx)),
-                    y: .value("%", p.percent),
-                    width: .ratio(0.85)
-                )
-                .foregroundStyle(p.barColor ?? tint(for: p.percent))
-            }
-        }
-        .chartYScale(domain: 0...100)
-        .chartXAxis(.hidden)
-        .chartYAxis(compact ? .hidden : .automatic)
-        .padding(.horizontal, 8)
-        .frame(height: compact ? 36 : 160)
+    // Pre-processed entry: x is the index within its own series so every
+    // workout's line starts at 0 and grows independently.
+    private struct Entry: Identifiable {
+        let id = UUID()
+        let x: Int
+        let series: String
+        let percent: Double
+        let color: Color
     }
 
     private func tint(for percent: Double) -> Color {
@@ -42,6 +36,75 @@ struct FamilyPercentChart: View {
         case 50..<80: return .orange
         default: return .red
         }
+    }
+
+    private var entries: [Entry] {
+        var counters: [String: Int] = [:]
+        return points.map { p in
+            let s = p.series.isEmpty ? "_" : p.series
+            let idx = counters[s, default: 0]
+            counters[s] = idx + 1
+            return Entry(x: idx, series: s, percent: p.percent,
+                         color: p.barColor ?? tint(for: p.percent))
+        }
+    }
+
+    private var isMultiSeries: Bool {
+        Set(points.map(\.series)).count > 1
+    }
+
+    var body: some View {
+        let es = entries
+        Chart {
+            if isMultiSeries {
+                ForEach(es) { e in
+                    LineMark(x: .value("n", e.x), y: .value("%", e.percent))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(by: .value("s", e.series))
+                }
+                if !compact {
+                    ForEach(es) { e in
+                        PointMark(x: .value("n", e.x), y: .value("%", e.percent))
+                            .foregroundStyle(by: .value("s", e.series))
+                            .symbolSize(30)
+                    }
+                }
+            } else {
+                ForEach(es) { e in
+                    AreaMark(x: .value("n", e.x),
+                             yStart: .value("base", 0.0),
+                             yEnd: .value("%", e.percent))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(.secondary.opacity(0.08))
+                }
+                ForEach(es) { e in
+                    LineMark(x: .value("n", e.x), y: .value("%", e.percent))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(.secondary.opacity(0.5))
+                }
+                if !compact {
+                    ForEach(es) { e in
+                        PointMark(x: .value("n", e.x), y: .value("%", e.percent))
+                            .foregroundStyle(e.color)
+                            .symbolSize(40)
+                    }
+                }
+            }
+        }
+        .chartForegroundStyleScale([
+            "A": WorkoutPalette.color(for: "A"),
+            "B": WorkoutPalette.color(for: "B"),
+            "C": WorkoutPalette.color(for: "C"),
+            "D": WorkoutPalette.color(for: "D"),
+            "E": WorkoutPalette.color(for: "E"),
+            "_": Color.secondary
+        ] as KeyValuePairs<String, Color>)
+        .chartLegend(isMultiSeries && !compact ? .automatic : .hidden)
+        .chartYScale(domain: 0...100)
+        .chartXAxis(.hidden)
+        .chartYAxis(compact ? .hidden : .automatic)
+        .padding(.horizontal, 8)
+        .frame(height: compact ? 36 : 160)
     }
 }
 
@@ -59,7 +122,7 @@ extension FamilyPercentChart {
     }
 
     /// Per-session overall % for a list of sessions, oldest first.
-    /// Passes workout-palette color per bar when no family is specified.
+    /// Sets `series` to the workout code so per-workout lines can be drawn.
     static func points(for sessions: [Session], family: CDSkillFamily? = nil) -> [Point] {
         sessions.compactMap { sess in
             let pct = family != nil
@@ -67,7 +130,8 @@ extension FamilyPercentChart {
                 : CompletionScorer.sessionPercent(sess)
             guard let pct else { return nil }
             let color: Color? = family == nil ? WorkoutPalette.color(for: sess.workoutCode) : nil
-            return Point(percent: pct, barColor: color)
+            let series: String = family == nil ? sess.workoutCode : ""
+            return Point(percent: pct, barColor: color, series: series)
         }
     }
 }

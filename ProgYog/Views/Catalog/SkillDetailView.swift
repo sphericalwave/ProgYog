@@ -7,7 +7,7 @@ import SwiftUI
 import CoreData
 
 struct SkillDetailView: View {
-    let skill: CDAbsSkill
+    @ObservedObject var skill: CDAbsSkill
 
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest private var logs: FetchedResults<SetLog>
