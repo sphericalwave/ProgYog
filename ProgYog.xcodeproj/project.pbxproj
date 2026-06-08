@@ -248,7 +248,7 @@
 				AE0000050000000000000100 /* Charts */,
 				AE0000C00000000000000100 /* Pose */,
 				AE0000090000000000000002 /* KeyboardDismiss.swift */,
-				AFC102E82FD7415F0022143E /* Onboarding 2 */,
+				AFC102E82FD7415F0022143E /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -434,14 +434,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		AFC102E82FD7415F0022143E /* Onboarding 2 */ = {
+		AFC102E82FD7415F0022143E /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				AFC102E92FD741910022143E /* OnboardingView.swift */,
 				AFC102EB2FD741920022143E /* OnboardingSlide.swift */,
 				AFC102ED2FD741930022143E /* EmailOptInService.swift */,
 			);
-			path = "Onboarding 2";
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		AFF2055D2FCB309900430D49 /* Frameworks */ = {
