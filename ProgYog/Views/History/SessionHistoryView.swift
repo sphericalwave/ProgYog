@@ -91,6 +91,13 @@ private struct SessionRow: View {
             let roundCount = Set(logs.map { $0.roundIndex }).count
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
+                    Text(session.workoutCode)
+                        .font(.caption2.bold())
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(WorkoutPalette.color(for: session.workoutCode).opacity(0.15))
+                        .foregroundStyle(WorkoutPalette.color(for: session.workoutCode))
+                        .clipShape(Capsule())
                     Text(WorkoutLabel.display(for: session)).font(.headline)
                     Spacer()
                     Text(session.startedAt.formatted(date: .abbreviated, time: .shortened))
