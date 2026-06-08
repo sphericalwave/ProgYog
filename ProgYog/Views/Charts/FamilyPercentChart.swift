@@ -53,8 +53,17 @@ struct FamilyPercentChart: View {
         Set(points.map(\.series)).count > 1
     }
 
+    private var yDomain: ClosedRange<Double> {
+        let vals = points.map(\.percent)
+        guard !vals.isEmpty else { return 0...100 }
+        let lo = max(0, (vals.min()! - 10).rounded(.down))
+        let hi = min(100, (vals.max()! + 5).rounded(.up))
+        return lo...max(hi, lo + 1)
+    }
+
     var body: some View {
         let es = entries
+        let floor = yDomain.lowerBound
         Chart {
             if isMultiSeries {
                 ForEach(es) { e in
@@ -72,7 +81,7 @@ struct FamilyPercentChart: View {
             } else {
                 ForEach(es) { e in
                     AreaMark(x: .value("n", e.x),
-                             yStart: .value("base", 0.0),
+                             yStart: .value("base", floor),
                              yEnd: .value("%", e.percent))
                         .interpolationMethod(.catmullRom)
                         .foregroundStyle(.secondary.opacity(0.08))
@@ -100,7 +109,7 @@ struct FamilyPercentChart: View {
             "_": Color.secondary
         ] as KeyValuePairs<String, Color>)
         .chartLegend(isMultiSeries && !compact ? .automatic : .hidden)
-        .chartYScale(domain: 0...100)
+        .chartYScale(domain: yDomain)
         .chartXAxis(.hidden)
         .chartYAxis(compact ? .hidden : .automatic)
         .padding(.horizontal, 8)
