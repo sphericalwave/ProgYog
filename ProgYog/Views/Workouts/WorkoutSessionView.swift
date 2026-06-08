@@ -124,15 +124,15 @@ struct WorkoutSessionView: View {
         if !skill.posterAssetNames.isEmpty {
             SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill, cornerRadius: 12)
                 .frame(maxWidth: .infinity, maxHeight: 220)
+                .padding(.bottom, 20)
                 .listRowInsets(EdgeInsets())
-                .padding(.bottom)
         } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
             Image(uiImage: img)
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: 220)
+                .padding(.bottom, 20)
                 .listRowInsets(EdgeInsets())
-                .padding(.bottom)
         }
     }
 
@@ -150,6 +150,7 @@ struct WorkoutSessionView: View {
             }
             .fixedSize()
         }
+        .padding(.top, 16)
 
         HStack(spacing: 8) {
             Text(skill.family).font(.caption).foregroundStyle(.secondary)
