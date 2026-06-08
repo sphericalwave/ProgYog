@@ -11,7 +11,6 @@ struct WorkoutSessionView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var summaryPresented = false
     @State private var addVariantPresented = false
-    @State private var sliceSheetPresented = false
     @State private var isometricMode: Bool = false
 
     init(workoutCode: String, services: AppServices, resuming existing: Session? = nil) {
@@ -27,10 +26,21 @@ struct WorkoutSessionView: View {
     #endif
 
     var body: some View {
-        ScrollView {
-            sessionContent()
-                .padding()
+        List {
+            if let skill = vm.currentSkill {
+                Section {
+                    skillRows(for: skill)
+                } header: {
+                    skillImageHeader(for: skill)
+                }
+            }
+
+            if vm.phase == .running {
+                Section { runningView.padding(.vertical, 8) }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+            }
         }
+        .listStyle(.insetGrouped)
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 UIApplication.shared.isIdleTimerDisabled = true
@@ -98,144 +108,91 @@ struct WorkoutSessionView: View {
                 )
             }
         }
-        .sheet(isPresented: $sliceSheetPresented) {
-            if let skill = vm.currentSkill {
-                SliceConfigSheet(skill: skill) { count in
-                    skill.sliceCount = Int16(count)
-                    services.coreData.save()
-                }
-            }
+    }
+
+    @ViewBuilder
+    private func skillImageHeader(for skill: CDAbsSkill) -> some View {
+        if !skill.posterAssetNames.isEmpty {
+            SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: 220)
+                .clipped()
+//                .padding(.horizontal, -20)
+//                .padding(.vertical, -8)
+                //.listRowInsets(EdgeInsets())
+        } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
+            Image(uiImage: img)
+                .resizable()
+                .scaledToFill()
+                .frame(maxWidth: .infinity, maxHeight: 220)
+                .clipped()
+//                .padding(.horizontal, -20)
+//                .padding(.vertical, -8)
+                //.listRowInsets(EdgeInsets())
         }
     }
 
     @ViewBuilder
-    private func sessionContent() -> some View {
-        VStack(spacing: 16) {
-            if let skill = vm.currentSkill {
-                instructionsCard(for: skill)
+    private func skillRows(for skill: CDAbsSkill) -> some View {
+        HStack {
+            Text(skill.name).font(.title2.bold())
+            Spacer()
+            Stepper(
+                onIncrement: vm.canProgressCurrentSkill ? { vm.progressCurrentSkill() } : nil,
+                onDecrement: vm.canRegressCurrentSkill ? { vm.regressCurrentSkill() } : nil
+            ) {
+                Text("Level \(skill.depth)")
+                    .font(.caption).foregroundStyle(.secondary).monospacedDigit()
             }
-
-            phaseContent
+            .fixedSize()
         }
-    }
 
-    private func instructionsCard(for skill: CDAbsSkill) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            if !skill.posterAssetNames.isEmpty {
-                SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill)
-                    .frame(maxWidth: .infinity, minHeight: 220, maxHeight: 220)
-                    .clipped()
-                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 10, topTrailingRadius: 10))
-            } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
-                Image(uiImage: img)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 220)
-                    .clipped()
-                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 10, topTrailingRadius: 10))
+        HStack(spacing: 8) {
+            Text(skill.family).font(.caption).foregroundStyle(.secondary)
+            Spacer()
+            Button { addVariantPresented = true } label: {
+                Image(systemName: "plus.circle")
             }
+            .buttonStyle(.borderless)
+            .opacity(vm.currentFamily != nil ? 1 : 0)
+        }
 
-            // Header: title + level stepper, then family + slices + iso
-            VStack(alignment: .leading) {
-                HStack(alignment: .center) {
-                    Text(skill.name)
-                        .font(.title2.bold())
+        HStack(spacing: 8) {
+            Toggle("Iso", isOn: $isometricMode).fixedSize()
+            Spacer()
+            Stepper(
+                value: Binding(
+                    get: { Int(skill.sliceCount) },
+                    set: { skill.sliceCount = Int16($0); services.coreData.save() }
+                ),
+                in: 0...30
+            ) {
+                Text(skill.sliceCount > 0
+                     ? "\(skill.sliceCount) slice\(skill.sliceCount == 1 ? "" : "s")"
+                     : "No slices")
+                    .font(.caption).foregroundStyle(.secondary).monospacedDigit()
+            }
+            .fixedSize()
+        }
+
+        if !skill.instructions.isEmpty {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text("Instructions")
+                        .font(.caption.bold()).foregroundStyle(.secondary)
                     Spacer()
-                    Stepper(
-                        onIncrement: vm.canProgressCurrentSkill ? { vm.progressCurrentSkill() } : nil,
-                        onDecrement: vm.canRegressCurrentSkill ? { vm.regressCurrentSkill() } : nil
-                    ) {
-                        Text("Level \(skill.depth)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .monospacedDigit()
-                    }
-                    .fixedSize()
-                }
-
-                HStack(spacing: 8) {
-
-                    Text(skill.family)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Button { addVariantPresented = true } label: {
-                        Image(systemName: "plus.circle")
+                    Button {
+                        if services.audio.isSpeaking { services.audio.stopSpeaking() }
+                        else { services.audio.speak(skill.instructions) }
+                    } label: {
+                        Image(systemName: services.audio.isSpeaking ? "stop.circle.fill" : "play.circle.fill")
+                            .imageScale(.large)
                     }
                     .buttonStyle(.borderless)
-                    .opacity(vm.currentFamily != nil ? 1 : 0)
                 }
-
-                HStack(spacing: 8) {
-                    Toggle("Iso", isOn: $isometricMode)
-                        .fixedSize()
-                    
-                    Spacer()
-
-                    
-                    Stepper(
-                        value: Binding(
-                            get: { Int(skill.sliceCount) },
-                            set: { skill.sliceCount = Int16($0); services.coreData.save() }
-                        ),
-                        in: 0...30
-                    ) {
-                        Text(skill.sliceCount > 0 ? "\(skill.sliceCount) slice\(skill.sliceCount == 1 ? "" : "s")" : "No slices")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .monospacedDigit()
-                    }
-                    .fixedSize()
-                }
+                Text(skill.instructions)
+                    .font(.callout).foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(12)
-
-            // Body: instructions section
-            if !skill.instructions.isEmpty {
-                Divider()
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Instructions")
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
-                        Spacer()
-                        Button {
-                            if services.audio.isSpeaking {
-                                services.audio.stopSpeaking()
-                            } else {
-                                services.audio.speak(skill.instructions)
-                            }
-                        } label: {
-                            Image(systemName: services.audio.isSpeaking ? "stop.circle.fill" : "play.circle.fill")
-                                .imageScale(.large)
-                        }
-                        .buttonStyle(.borderless)
-                    }
-                    Text(skill.instructions)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(12)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-
-    @ViewBuilder
-    private var phaseContent: some View {
-        switch vm.phase {
-        case .idle:
-            EmptyView()
-        case .running:
-            runningView
-        case .logging, .finished:
-            Color.clear.frame(height: 1)
         }
     }
 
@@ -266,7 +223,6 @@ struct WorkoutSessionView: View {
     private var idleBottomBar: some View {
         if vm.phase == .idle {
             HStack(spacing: 0) {
-                bottomButton("Slices", "pause.circle") { sliceSheetPresented = true }
                 bottomButton(
                     vm.familyIdx == 0 && vm.roundIdx == 0 ? "Start" : "Start Set",
                     "play.fill",
@@ -306,51 +262,6 @@ struct WorkoutSessionView: View {
         let m = s / 60
         let r = s % 60
         return String(format: "%01d:%02d", m, r)
-    }
-}
-
-private struct SliceConfigSheet: View {
-    let skill: CDAbsSkill
-    let onSave: (Int) -> Void
-
-    @State private var count: Int
-    @Environment(\.dismiss) private var dismiss
-
-    init(skill: CDAbsSkill, onSave: @escaping (Int) -> Void) {
-        self.skill = skill
-        self.onSave = onSave
-        _count = State(initialValue: Int(skill.sliceCount))
-    }
-
-    var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    Stepper(value: $count, in: 0...30) {
-                        HStack {
-                            Text("Slices")
-                            Spacer()
-                            Text(count > 0 ? "\(count) · \(count * 30)s" : "Off")
-                                .monospacedDigit()
-                                .bold()
-                        }
-                    }
-                } footer: {
-                    Text("Each slice is a 30-second isometric hold at a distinct position within the movement range — start, quarter, mid, three-quarter, end. \(count > 0 ? "\(count) × 30s = \(count * 30)s total." : "Set above 0 to activate.")")
-                }
-            }
-            .navigationTitle("Isometric Slices")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
-                        onSave(count)
-                        dismiss()
-                    }
-                    .bold()
-                }
-            }
-        }
     }
 }
 
