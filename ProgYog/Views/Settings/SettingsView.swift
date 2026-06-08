@@ -17,6 +17,7 @@ struct SettingsView: View {
     @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
     @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
     @AppStorage(CompletionSettings.romMinKey) private var compRomMin = 0
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
 
     init() {
         // Placeholder; environmentObject swaps in real instances.
@@ -122,6 +123,14 @@ struct SettingsView: View {
                 Text("All recoverable errors are recorded here. Tap an entry for details. Nothing is sent off-device.")
                     .font(.caption2)
             }
+
+            #if DEBUG
+            Section("Developer") {
+                Button("Preview Onboarding") {
+                    hasSeenOnboarding = false
+                }
+            }
+            #endif
 
             Section("About") {
                 LabeledContent("Version", value: appVersion)

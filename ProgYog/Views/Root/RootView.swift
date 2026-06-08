@@ -11,6 +11,7 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @AppStorage("rootSelectedTab") private var selectedTab = 0
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @State private var historyPath: [NSManagedObjectID] = []
     @State private var pendingSessionID: UUID?
 
@@ -53,6 +54,12 @@ struct RootView: View {
         .keyboardDoneToolbar()
         .onShake {
             _ = services.undo.undoLast()
+        }
+        .fullScreenCover(isPresented: Binding(
+            get: { !hasSeenOnboarding },
+            set: { if !$0 { hasSeenOnboarding = true } }
+        )) {
+            OnboardingView()
         }
         .overlay(alignment: .top) {
             UndoToast()
