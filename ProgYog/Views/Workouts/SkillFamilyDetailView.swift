@@ -44,6 +44,7 @@ struct SkillFamilyDetailView: View {
                     HStack(spacing: 12) {
                         SkillThumbnail(
                             assetName: skill.posterAssetName,
+                            assetNames: skill.posterAssetNames,
                             photoData: skill.customPhotoData,
                             size: 48
                         )

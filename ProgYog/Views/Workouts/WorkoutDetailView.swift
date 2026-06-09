@@ -50,7 +50,7 @@ struct WorkoutDetailView: View {
                         SkillFamilyDetailView(family: family)
                     } label: {
                         HStack {
-                            SkillThumbnail(assetName: familyHero(family), size: 48)
+                            SkillThumbnail(assetName: familyHero(family), assetNames: familyHeroNames(family), size: 48)
                             Text("\(family.order).")
                                 .foregroundStyle(.secondary)
                             Text(family.name)
@@ -146,6 +146,11 @@ struct WorkoutDetailView: View {
     private func familyHero(_ family: CDSkillFamily) -> String? {
         let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
         return skills.min { $0.depth < $1.depth }?.posterAssetName
+    }
+
+    private func familyHeroNames(_ family: CDSkillFamily) -> [String] {
+        let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
+        return skills.min { $0.depth < $1.depth }?.posterAssetNames ?? []
     }
 
     /// completed sets / (totalRounds × families). Matches

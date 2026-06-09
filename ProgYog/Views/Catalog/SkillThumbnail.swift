@@ -8,12 +8,21 @@ import UIKit
 
 struct SkillThumbnail: View {
     let assetName: String?
+    var assetNames: [String] = []
     var photoData: Data? = nil
     var size: CGFloat = 48
 
     var body: some View {
         Group {
-            if let n = assetName {
+            let names = assetNames.isEmpty ? (assetName.map { [$0] } ?? []) : assetNames
+            if names.count > 1 {
+                TimelineView(.periodic(from: .now, by: 0.333)) { tl in
+                    let idx = Int(tl.date.timeIntervalSinceReferenceDate) % names.count
+                    Image(names[idx])
+                        .resizable()
+                        .scaledToFill()
+                }
+            } else if let n = names.first {
                 Image(n)
                     .resizable()
                     .scaledToFill()
