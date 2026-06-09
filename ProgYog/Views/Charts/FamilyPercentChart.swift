@@ -113,7 +113,7 @@ struct FamilyPercentChart: View {
         .chartXAxis(.hidden)
         .chartYAxis(compact ? .hidden : .automatic)
         .padding(.horizontal, 8)
-        .frame(height: compact ? 36 : 160)
+        .frame(height: compact ? 36 : 234)
     }
 }
 

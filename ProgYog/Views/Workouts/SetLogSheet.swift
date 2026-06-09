@@ -148,11 +148,18 @@ struct SetLogSheet: View {
                         }
                     }
 
-                    metricRow(label: "Reps", value: $reps, range: 0...200)
+                    metricRow(label: "Reps", value: $reps, range: 0...200, subtitle: "1 rep is both sides of a skill once")
                     metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
-                    metricRow(label: "Technique", value: $rpt, range: 1...10)
-                    metricRow(label: "Exertion",  value: $rpe, range: 1...10)
-                    metricRow(label: "Discomfort", value: $rpd, range: 1...10)
+                    HStack(spacing: 0) {
+                        compactMetric(label: "Technique", value: $rpt, range: 1...10, colorFor: { $0 >= 8 ? .green : .red })
+                        //Divider()
+                        Spacer()
+                        compactMetric(label: "Exertion", value: $rpe, range: 1...10)
+                        //Divider()
+                        Spacer()
+                        compactMetric(label: "Discomfort", value: $rpd, range: 1...10, colorFor: { $0 <= 3 ? .green : .red })
+                    }
+                    .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
 
                     Toggle("Isometric", isOn: $isometric)
                 } header : {
@@ -265,22 +272,55 @@ struct SetLogSheet: View {
     }
 
     @ViewBuilder
+    private func compactMetric(
+        label: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        colorFor: ((Int) -> Color)? = nil
+    ) -> some View {
+        let valueColor = colorFor?(value.wrappedValue) ?? .primary
+        VStack(alignment: .center, spacing: 4) {
+            HStack(spacing: 4) {
+                Text(label)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text("\(value.wrappedValue)")
+                    .font(.caption)
+                    .monospacedDigit()
+                    .foregroundStyle(valueColor)
+            }
+            Stepper(value: value, in: range) { EmptyView() }
+                .labelsHidden()
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 2)
+    }
+
+    @ViewBuilder
     private func metricRow(
         label: String,
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
-        suffix: String = ""
+        suffix: String = "",
+        subtitle: String = ""
     ) -> some View {
         Stepper(value: value, in: range, step: step) {
-            HStack(spacing: 12) {
-                Text(label)
-                    .font(.callout)
-                Spacer()
-                Text("\(value.wrappedValue)\(suffix)")
-                    .monospacedDigit()
-                    .font(.title3.bold())
-                    .frame(minWidth: 44, alignment: .trailing)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 12) {
+                    Text(label)
+                        .font(.callout)
+                    Spacer()
+                    Text("\(value.wrappedValue)\(suffix)")
+                        .monospacedDigit()
+                        .font(.title3.bold())
+                        .frame(minWidth: 44, alignment: .trailing)
+                }
+                if !subtitle.isEmpty {
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
     }

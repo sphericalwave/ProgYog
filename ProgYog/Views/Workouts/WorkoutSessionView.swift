@@ -27,18 +27,19 @@ struct WorkoutSessionView: View {
     #endif
 
     var body: some View {
+        ZStack(alignment: .bottomTrailing) {
         List {
             if let skill = vm.currentSkill {
                 Section {
+                    if vm.phase == .running {
+                        runningView
+                            .padding(.vertical, 8)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    }
                     skillRows(for: skill)
                 } header: {
                     skillImageHeader(for: skill)
                 }
-            }
-
-            if vm.phase == .running {
-                Section { runningView.padding(.vertical, 8) }
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
         }
         .listStyle(.insetGrouped)
@@ -76,7 +77,24 @@ struct WorkoutSessionView: View {
                     HRPill(heartRate: services.heartRate)
                 }
             }
-            .safeAreaInset(edge: .bottom) { idleBottomBar }
+        if vm.phase == .idle {
+            Button(action: vm.startSet) {
+                ZStack {
+                    Circle()
+                        .fill(AngularGradient(
+                            colors: [.accentColor, .purple, .accentColor],
+                            center: .center
+                        ))
+                        .frame(width: 56, height: 56)
+                    Image(systemName: "play.fill")
+                        .font(.title2)
+                        .foregroundStyle(.white)
+                }
+                .shadow(radius: 4, y: 2)
+            }
+            .padding()
+        }
+        } // ZStack
         .sheet(isPresented: Binding(
             get: { vm.phase == .logging },
             set: { presented in
@@ -226,52 +244,15 @@ struct WorkoutSessionView: View {
                 .contentTransition(.numericText())
             ProgressView(value: Double(vm.secondsRemaining), total: Double(vm.effectiveDuration))
                 .progressViewStyle(.linear)
+        }
+        .overlay(alignment: .topTrailing) {
             Button(action: vm.skipToLog) {
-                Label("Skip to Log", systemImage: "forward.fill")
-                    .frame(maxWidth: .infinity)
+                Image(systemName: "forward.fill")
+                    //.padding(8)
             }
             .buttonStyle(.bordered)
-            .controlSize(.large)
+            .padding(.top)
         }
-    }
-
-    @ViewBuilder
-    private var idleBottomBar: some View {
-        if vm.phase == .idle {
-            HStack(spacing: 0) {
-                bottomButton(
-                    vm.familyIdx == 0 && vm.roundIdx == 0 ? "Start" : "Start Set",
-                    "play.fill",
-                    prominent: true
-                ) { vm.startSet() }
-                bottomButton("Log", "square.and.pencil") { vm.skipToLog() }
-            }
-            .padding(.horizontal, 4)
-            .padding(.top, 8)
-            .padding(.bottom, 4)
-            .background(.bar)
-        }
-    }
-
-    private func bottomButton(
-        _ label: String,
-        _ symbol: String,
-        enabled: Bool = true,
-        prominent: Bool = false,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button(action: action) {
-            VStack(spacing: 3) {
-                Image(systemName: symbol)
-                    .font(prominent ? .title2 : .title3)
-                Text(label)
-                    .font(.caption2)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
-            .foregroundStyle(prominent ? Color.accentColor : .primary)
-        }
-        .disabled(!enabled)
     }
 
     private func timeString(_ s: Int) -> String {
