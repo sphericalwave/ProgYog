@@ -23,9 +23,9 @@ struct SkillDetailView: View {
 
     var body: some View {
         List {
-            if !skill.posterAssetNames.isEmpty {
+            if !skill.posterAssetNames.isEmpty || skill.customPhotoData != nil {
                 Section {
-                    SkillPosterGallery(names: skill.posterAssetNames)
+                    SkillAnimatedPoster(skill: skill)
                         .listRowInsets(EdgeInsets())
                 }
             }

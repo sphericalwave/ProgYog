@@ -140,16 +140,8 @@ struct WorkoutSessionView: View {
 
     @ViewBuilder
     private func skillImageHeader(for skill: CDAbsSkill) -> some View {
-        if !skill.posterAssetNames.isEmpty {
-            SkillPosterGallery(names: skill.posterAssetNames, contentMode: .fill, cornerRadius: 12)
-                .frame(maxWidth: .infinity, maxHeight: 220)
-                .padding(.bottom, 20)
-                .listRowInsets(EdgeInsets())
-        } else if let data = skill.customPhotoData, let img = UIImage(data: data) {
-            Image(uiImage: img)
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: 220)
+        if !skill.posterAssetNames.isEmpty || skill.customPhotoData != nil {
+            SkillAnimatedPoster(skill: skill)
                 .padding(.bottom, 20)
                 .listRowInsets(EdgeInsets())
         }

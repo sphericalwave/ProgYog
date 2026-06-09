@@ -82,6 +82,7 @@
 		AFC102EA2FD741910022143E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102E92FD741910022143E /* OnboardingView.swift */; };
 		AFC102EC2FD741920022143E /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102EB2FD741920022143E /* OnboardingSlide.swift */; };
 		AFC102EE2FD741930022143E /* EmailOptInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102ED2FD741930022143E /* EmailOptInService.swift */; };
+		AFC1030C2FD85E7C0022143E /* SkillAnimatedPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1030B2FD85E7C0022143E /* SkillAnimatedPoster.swift */; };
 		AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8C8272EC569006B38BB /* SwTheme.swift */; };
 		AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */; };
 		AFE924C725E59741005048B2 /* YogSeries.json in Resources */ = {isa = PBXBuildFile; fileRef = AFE924C525E59741005048B2 /* YogSeries.json */; };
@@ -178,6 +179,7 @@
 		AFC102E92FD741910022143E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AFC102EB2FD741920022143E /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 		AFC102ED2FD741930022143E /* EmailOptInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailOptInService.swift; sourceTree = "<group>"; };
+		AFC1030B2FD85E7C0022143E /* SkillAnimatedPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillAnimatedPoster.swift; sourceTree = "<group>"; };
 		AFD2C8C8272EC569006B38BB /* SwTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwTheme.swift; sourceTree = "<group>"; };
 		AFD2C8DC272ECD0A006B38BB /* SwFontMods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwFontMods.swift; sourceTree = "<group>"; };
 		AFE924C525E59741005048B2 /* YogSeries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = YogSeries.json; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				AE0000050000000000000032 /* SkillDetailView.swift */,
 				AE0000080000000000000002 /* SkillPosterGallery.swift */,
 				AE0000080000000000000012 /* SkillThumbnail.swift */,
+				AFC1030B2FD85E7C0022143E /* SkillAnimatedPoster.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				AFC102EA2FD741910022143E /* OnboardingView.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
 				AE00000200000000000000F1 /* WorkoutCalendar.swift in Sources */,
+				AFC1030C2FD85E7C0022143E /* SkillAnimatedPoster.swift in Sources */,
 				AE00000200000000000000B1 /* WorkoutHealth.swift in Sources */,
 				AE00000200000000000000C1 /* WorkoutSegmenter.swift in Sources */,
 				AE0000020000000000000021 /* AudioCueService.swift in Sources */,

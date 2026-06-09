@@ -39,6 +39,8 @@ struct SetLogSheet: View {
     @State private var decision: ProgressionDecision = .`repeat`
     @State private var isometric: Bool = false
     @State private var sliceCount: Int = 0
+    @State private var showRepsInfo = false
+    @State private var showSlicesInfo = false
     @Environment(\.dismiss) private var dismiss
     
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
@@ -109,79 +111,95 @@ struct SetLogSheet: View {
                         CompletionSettingsView()
                     } label: {
                         HStack {
-                            Text("Set score")
-                                .font(.callout)
+                            Text("Score").font(.callout)
                             Spacer()
-                            CompletionChip(percent: setScore)
-                        }
-                    }
-
-                    HStack {
-                        Text("Workout score")
-                            .font(.callout)
-                        Spacer()
-                        CompletionChip(percent: workoutScore)
-                    }
-
-                    Picker("Decision", selection: $decision) {
-                        ForEach(ProgressionDecision.allCases, id: \.self) { d in
-                            Text(d.rawValue.capitalized).tag(d)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-
-                    HStack {
-                        TextField(
-                            "Notes (optional)",
-                            text: $notes,
-                            prompt: Text(notesPlaceholder),
-                            axis: .vertical
-                        )
-                        .lineLimit(2...6)
-
-                        if let last = lastLog?.notes, !last.isEmpty {
-                            Button(action: { notes = last }) {
-                                Image(systemName: "arrow.uturn.left")
-                                    .imageScale(.large)
+                            VStack(spacing: 2) {
+                                Text("Set").font(.caption2).foregroundStyle(.secondary)
+                                CompletionChip(percent: setScore)
                             }
-                            .buttonStyle(.bordered)
+                            VStack(spacing: 2) {
+                                Text("Workout").font(.caption2).foregroundStyle(.secondary)
+                                CompletionChip(percent: workoutScore)
+                            }
                         }
                     }
 
-                    metricRow(label: "Reps", value: $reps, range: 0...200, subtitle: "1 rep is both sides of a skill once")
-                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%")
+                    metricRow(label: "Reps", value: $reps, range: 0...200, info: "1 rep is both sides of a skill once", showInfo: $showRepsInfo)
+                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%", colorFor: { $0 >= 80 ? .green : .red })
                     HStack(spacing: 0) {
                         compactMetric(label: "Technique", value: $rpt, range: 1...10, colorFor: { $0 >= 8 ? .green : .red })
-                        //Divider()
                         Spacer()
-                        compactMetric(label: "Exertion", value: $rpe, range: 1...10)
-                        //Divider()
+                        compactMetric(label: "Exertion", value: $rpe, range: 1...10, colorFor: { $0 >= 6 ? .green : .red })
                         Spacer()
                         compactMetric(label: "Discomfort", value: $rpd, range: 1...10, colorFor: { $0 <= 3 ? .green : .red })
                     }
                     .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
 
-                    Toggle("Isometric", isOn: $isometric)
-                } header : {
-                    HStack {
-                        Text(skill.name)
-                        Spacer()
-                        Text("Level \(skill.depth)")
-                            .foregroundStyle(.secondary)
+                    VStack(spacing: 8) {
+                        HStack {
+                            TextField(
+                                "Notes (optional)",
+                                text: $notes,
+                                prompt: Text(notesPlaceholder),
+                                axis: .vertical
+                            )
+                            .lineLimit(2...6)
+                            .padding(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.accentColor, lineWidth: 1)
+                            )
+
+                            Button(action: { if let last = lastNote { notes = last } }) {
+                                Image(systemName: "arrow.uturn.left")
+                                    .imageScale(.large)
+                            }
+                            .buttonStyle(.bordered)
+                            .disabled(lastNote == nil)
+                        }
+
+                        Picker("Decision", selection: $decision) {
+                            ForEach(ProgressionDecision.allCases, id: \.self) { d in
+                                Text(d.rawValue.capitalized).tag(d)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .tint(.accentColor)
                     }
+
+                } header : {
+                    HStack(spacing: 12) {
+                        SkillAnimatedPoster(skill: skill, maxHeight: 80, cornerRadius: 8)
+                            .frame(width: 80, height: 80)
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(skill.name)
+                                .font(.headline)
+                                .foregroundStyle(.primary)
+                            Text(skill.family)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text("Level \(skill.depth)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, 4)
+                    .textCase(nil)
                 }
 
                 Section {
+                    Toggle("Isometric", isOn: $isometric)
+                        .tint(.accentColor)
                     metricRow(
                         label: "Slices",
                         value: $sliceCount,
                         range: 0...30,
-                        suffix: sliceCount > 0 ? " · \(sliceCount * 30)s" : ""
+                        suffix: sliceCount > 0 ? " · \(sliceCount * 30)s" : "",
+                        info: "Each slice is a 30-second isometric hold at a distinct position within the movement range — start, quarter, mid, three-quarter, end.",
+                        showInfo: $showSlicesInfo
                     )
-                } header: {
-                    Text("Isometric Slices")
-                } footer: {
-                    Text("Each slice is a 30-second isometric hold at a distinct position within the movement range — start, quarter, mid, three-quarter, end. \(sliceCount > 0 ? "\(sliceCount) slice\(sliceCount == 1 ? "" : "s") = \(sliceCount * 30) seconds total." : "Set to 0 to skip.")")
                 }
 
             }
@@ -303,24 +321,37 @@ struct SetLogSheet: View {
         range: ClosedRange<Int>,
         step: Int = 1,
         suffix: String = "",
-        subtitle: String = ""
+        info: String = "",
+        showInfo: Binding<Bool>? = nil,
+        colorFor: ((Int) -> Color)? = nil
     ) -> some View {
+        let valueColor = colorFor?(value.wrappedValue) ?? .primary
         Stepper(value: value, in: range, step: step) {
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 12) {
-                    Text(label)
-                        .font(.callout)
-                    Spacer()
-                    Text("\(value.wrappedValue)\(suffix)")
-                        .monospacedDigit()
-                        .font(.title3.bold())
-                        .frame(minWidth: 44, alignment: .trailing)
+            HStack(spacing: 8) {
+                Text(label).font(.callout)
+                if let showInfo, !info.isEmpty {
+                    Button { showInfo.wrappedValue = true } label: {
+                        Image(systemName: "info.circle")
+                            .imageScale(.medium)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(Color.accentColor)
+                    .popover(isPresented: showInfo) {
+                        Text(info)
+                            .font(.callout)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .frame(maxWidth: 280)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .presentationCompactAdaptation(.popover)
+                    }
                 }
-                if !subtitle.isEmpty {
-                    Text(subtitle)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Spacer()
+                Text("\(value.wrappedValue)\(suffix)")
+                    .monospacedDigit()
+                    .font(.title3.bold())
+                    .foregroundStyle(valueColor)
+                    .frame(minWidth: 44, alignment: .trailing)
             }
         }
     }
