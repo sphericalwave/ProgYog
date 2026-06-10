@@ -129,9 +129,9 @@ struct WorkoutSessionView: View {
                     family: fam,
                     currentSkill: vm.currentSkill,
                     defaultInsertBefore: nil,
-                    onSave: { name, instructions, photoData, insertBefore in
+                    onSave: { name, instructions, photos, insertBefore in
                         vm.addVariant(name: name, instructions: instructions,
-                                      photoData: photoData, insertBefore: insertBefore)
+                                      photos: photos, insertBefore: insertBefore)
                     }
                 )
             }

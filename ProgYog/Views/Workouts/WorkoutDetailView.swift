@@ -21,10 +21,11 @@ struct WorkoutDetailView: View {
 
     init(workoutCode: String) {
         self.workoutCode = workoutCode
-        _families = FetchRequest<CDSkillFamily>(
-            sortDescriptors: [NSSortDescriptor(key: "order", ascending: true)],
-            predicate: NSPredicate(format: "series == %@", workoutCode)
-        )
+        let familiesReq = NSFetchRequest<CDSkillFamily>(entityName: "CDSkillFamily")
+        familiesReq.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        familiesReq.predicate = NSPredicate(format: "series == %@", workoutCode)
+        familiesReq.relationshipKeyPathsForPrefetching = ["absSkills"]
+        _families = FetchRequest(fetchRequest: familiesReq)
         _setLogs = FetchRequest<SetLog>(
             sortDescriptors: [NSSortDescriptor(key: "loggedAt", ascending: false)],
             predicate: NSPredicate(format: "absSkill.skillFamily.series == %@", workoutCode)
@@ -50,7 +51,8 @@ struct WorkoutDetailView: View {
                         SkillFamilyDetailView(family: family)
                     } label: {
                         HStack {
-                            SkillThumbnail(assetName: familyHero(family), assetNames: familyHeroNames(family), size: 48)
+                            let heroNames = familyHeroNames(family)
+                            SkillThumbnail(assetName: heroNames.first, assetNames: heroNames, size: 48)
                             Text("\(family.order).")
                                 .foregroundStyle(.secondary)
                             Text(family.name)
@@ -139,13 +141,6 @@ struct WorkoutDetailView: View {
             Spacer()
             CompletionChip(percent: CompletionScorer.sessionPercent(session))
         }
-    }
-
-    /// Poster of the lowest-depth skill in the family (mirrors
-    /// `SkillFamilyListView.familyHero`).
-    private func familyHero(_ family: CDSkillFamily) -> String? {
-        let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
-        return skills.min { $0.depth < $1.depth }?.posterAssetName
     }
 
     private func familyHeroNames(_ family: CDSkillFamily) -> [String] {

@@ -175,7 +175,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         return ordered[idx + 1]
     }
 
-    func addVariant(name: String, instructions: String, photoData: Data?, insertBefore: CDAbsSkill?) {
+    func addVariant(name: String, instructions: String, photos: [Data], insertBefore: CDAbsSkill?) {
         guard let fam = currentFamily else { return }
         let targetDepth: Int16
         if let anchor = insertBefore {
@@ -193,7 +193,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         skill.name = name
         skill.depth = targetDepth
         skill.instructions = instructions
-        skill.customPhotoData = photoData
+        skill.customPhotos = photos
         skill.hideBundleImages = true
         skill.series = fam.series
         skill.family = fam.name

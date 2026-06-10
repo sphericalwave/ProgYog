@@ -10,12 +10,12 @@ struct AddVariantSheet: View {
     let family: CDSkillFamily
     let currentSkill: CDAbsSkill?
     let defaultInsertBefore: CDAbsSkill?
-    let onSave: (_ name: String, _ instructions: String, _ photoData: Data?, _ insertBefore: CDAbsSkill?) -> Void
+    let onSave: (_ name: String, _ instructions: String, _ photos: [Data], _ insertBefore: CDAbsSkill?) -> Void
 
     @State private var name = ""
     @State private var instructions = ""
-    @State private var selectedPhoto: PhotosPickerItem?
-    @State private var photoData: Data?
+    @State private var selectedItems: [PhotosPickerItem] = []
+    @State private var photos: [Data] = []
     @State private var insertion: Insertion = .atEnd
     @Environment(\.dismiss) private var dismiss
 
@@ -48,16 +48,37 @@ struct AddVariantSheet: View {
                         .lineLimit(2...5)
                 }
 
-                Section("Photo") {
-                    PhotosPicker(selection: $selectedPhoto, matching: .images) {
-                        Label(photoData == nil ? "Choose Photo" : "Change Photo", systemImage: "photo")
+                Section("Photos") {
+                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
+                        Label(photos.isEmpty ? "Choose Photos" : "Change Photos (\(photos.count))",
+                              systemImage: "photo.on.rectangle.angled")
                     }
-                    if let data = photoData, let img = UIImage(data: data) {
-                        Image(uiImage: img)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 120)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    if !photos.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(photos.indices, id: \.self) { i in
+                                    if let img = UIImage(data: photos[i]) {
+                                        ZStack(alignment: .topTrailing) {
+                                            Image(uiImage: img)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 80, height: 80)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            Button {
+                                                photos.remove(at: i)
+                                            } label: {
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundStyle(.white, .black.opacity(0.6))
+                                                    .font(.caption)
+                                                    .padding(3)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.vertical, 4)
+                        }
                     }
                 }
 
@@ -78,15 +99,23 @@ struct AddVariantSheet: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        onSave(name, instructions, photoData, insertion.insertBefore)
+                        onSave(name, instructions, photos, insertion.insertBefore)
                         dismiss()
                     }
                     .bold()
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
-            .onChange(of: selectedPhoto) { _, item in
-                Task { photoData = try? await item?.loadTransferable(type: Data.self) }
+            .onChange(of: selectedItems) { _, items in
+                Task {
+                    var loaded: [Data] = []
+                    for item in items {
+                        if let data = try? await item.loadTransferable(type: Data.self) {
+                            loaded.append(data)
+                        }
+                    }
+                    photos = loaded
+                }
             }
             .onAppear {
                 insertion = defaultInsertBefore.map { .before($0) } ?? .atEnd

@@ -18,6 +18,7 @@ extension CDAbsSkill {
 
     @NSManaged public var bundleDepth: Int16
     @NSManaged public var customPhotoData: Data?
+    @NSManaged public var customPhotosData: NSArray?
     @NSManaged public var depth: Int16
     @NSManaged public var hideBundleImages: Bool
     @NSManaged public var instructions: String
@@ -71,19 +72,35 @@ extension CDAbsSkill {
         return "Poses/\(series)-\(order)-\(d)"
     }
 
+    private static var posterNamesCache: [String: [String]] = [:]
+
     /// All bundle-resident pose images for this skill, in extraction order.
     var posterAssetNames: [String] {
         guard !hideBundleImages else { return [] }
+        let stem = posterStem
+        if let cached = Self.posterNamesCache[stem] { return cached }
         var names: [String] = []
         var idx = 0
-        while UIImage(named: "\(posterStem)-\(idx)") != nil {
-            names.append("\(posterStem)-\(idx)")
+        while UIImage(named: "\(stem)-\(idx)") != nil {
+            names.append("\(stem)-\(idx)")
             idx += 1
         }
+        Self.posterNamesCache[stem] = names
         return names
     }
 
     /// The hero image (idx 0) if one exists.
     var posterAssetName: String? { posterAssetNames.first }
+
+    /// Custom photos added by the user (multiple). Prefers customPhotosData,
+    /// falls back to the legacy single customPhotoData.
+    var customPhotos: [Data] {
+        get {
+            if let arr = customPhotosData as? [Data], !arr.isEmpty { return arr }
+            if let d = customPhotoData { return [d] }
+            return []
+        }
+        set { customPhotosData = newValue.isEmpty ? nil : (newValue as NSArray) }
+    }
 }
 

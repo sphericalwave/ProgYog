@@ -76,9 +76,9 @@ struct SkillFamilyDetailView: View {
                 family: family,
                 currentSkill: nil,
                 defaultInsertBefore: nil,
-                onSave: { name, instructions, photoData, insertBefore in
+                onSave: { name, instructions, photos, insertBefore in
                     addVariant(name: name, instructions: instructions,
-                               photoData: photoData, insertBefore: insertBefore)
+                               photos: photos, insertBefore: insertBefore)
                 }
             )
         }
@@ -93,7 +93,8 @@ struct SkillFamilyDetailView: View {
         services.coreData.save()
     }
 
-    private func addVariant(name: String, instructions: String, photoData: Data?, insertBefore: CDAbsSkill?) {
+    private func addVariant(name: String, instructions: String, photos: [Data], insertBefore: CDAbsSkill?) {
+        let moc = services.coreData.moc
         let ordered = Array(skills)
         let targetDepth: Int16
         if let anchor = insertBefore {
@@ -111,7 +112,7 @@ struct SkillFamilyDetailView: View {
         skill.name = name
         skill.depth = targetDepth
         skill.instructions = instructions
-        skill.customPhotoData = photoData
+        skill.customPhotos = photos
         skill.hideBundleImages = true
         skill.series = family.series
         skill.family = family.name

@@ -5,6 +5,7 @@
 
 import SwiftUI
 import CoreData
+import PhotosUI
 
 struct SkillDetailView: View {
     @ObservedObject var skill: CDAbsSkill
@@ -14,6 +15,7 @@ struct SkillDetailView: View {
     @State private var editingInstructions = false
     @State private var editingName = false
     @State private var nameDraft = ""
+    @State private var selectedItems: [PhotosPickerItem] = []
 
     init(skill: CDAbsSkill) {
         self.skill = skill
@@ -23,12 +25,71 @@ struct SkillDetailView: View {
         )
     }
 
+    private var hasAnyImage: Bool {
+        !skill.posterAssetNames.isEmpty || !skill.customPhotos.isEmpty
+    }
+
     var body: some View {
         List {
-            if !skill.posterAssetNames.isEmpty || skill.customPhotoData != nil {
-                Section {
+            Section {
+                if hasAnyImage {
                     SkillAnimatedPoster(skill: skill)
                         .listRowInsets(EdgeInsets())
+                } else {
+                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
+                        VStack(spacing: 8) {
+                            Image(systemName: "photo.badge.plus")
+                                .font(.largeTitle)
+                                .foregroundStyle(.secondary)
+                            Text("Add Photos")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 100)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets())
+                }
+            }
+
+            if hasAnyImage && skill.hideBundleImages {
+                Section {
+                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
+                        Label("Add / Replace Photos", systemImage: "photo.on.rectangle.angled")
+                    }
+                    let photos = skill.customPhotos
+                    if !photos.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(photos.indices, id: \.self) { i in
+                                    if let img = UIImage(data: photos[i]) {
+                                        ZStack(alignment: .topTrailing) {
+                                            Image(uiImage: img)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 72, height: 72)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            Button {
+                                                var updated = skill.customPhotos
+                                                updated.remove(at: i)
+                                                skill.customPhotos = updated
+                                                try? moc.save()
+                                            } label: {
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundStyle(.white, .black.opacity(0.6))
+                                                    .font(.caption)
+                                                    .padding(3)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.vertical, 4)
+                        }
+                    }
+                } header: {
+                    Text("Photos")
                 }
             }
 
@@ -129,6 +190,21 @@ struct SkillDetailView: View {
             InstructionsEditSheet(initialText: skill.instructions) { newText in
                 skill.instructions = newText
                 try? moc.save()
+            }
+        }
+        .onChange(of: selectedItems) { _, items in
+            Task {
+                var loaded: [Data] = []
+                for item in items {
+                    if let data = try? await item.loadTransferable(type: Data.self) {
+                        loaded.append(data)
+                    }
+                }
+                if !loaded.isEmpty {
+                    skill.customPhotos = skill.customPhotos + loaded
+                    try? moc.save()
+                    selectedItems = []
+                }
             }
         }
     }
