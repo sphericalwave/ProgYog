@@ -19,7 +19,15 @@ final class CoreDataService: ObservableObject {
     var moc: NSManagedObjectContext { container.viewContext }
 
     init(inMemory: Bool = false) {
-        let container = NSPersistentContainer(name: "ProgYog")
+        // Load v5 explicitly so Xcode reverting .xccurrentversion can't break persistence.
+        guard let modelURL = Bundle.main.url(
+            forResource: "ProgressiveYog5",
+            withExtension: "mom",
+            subdirectory: "ProgYog.momd"
+        ), let model = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("ProgressiveYog5.mom not found — ensure .xcdatamodeld is in the Xcode target")
+        }
+        let container = NSPersistentContainer(name: "ProgYog", managedObjectModel: model)
         if inMemory {
             let desc = NSPersistentStoreDescription()
             desc.url = URL(fileURLWithPath: "/dev/null")
