@@ -140,7 +140,7 @@ struct WorkoutSessionView: View {
 
     @ViewBuilder
     private func skillImageHeader(for skill: CDAbsSkill) -> some View {
-        if !skill.posterAssetNames.isEmpty || skill.customPhotoData != nil {
+        if !skill.posterAssetNames.isEmpty || !skill.customPhotos.isEmpty {
             SkillAnimatedPoster(skill: skill)
                 .padding(.bottom, 20)
                 .listRowInsets(EdgeInsets())
