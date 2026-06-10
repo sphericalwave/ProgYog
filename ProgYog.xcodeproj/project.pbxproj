@@ -72,6 +72,7 @@
 		AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* CDYogSeries+.swift */; };
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
+		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000082 /* SessionInfoDetailView.swift */; };
 		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
@@ -169,6 +170,7 @@
 		AF2B36D725E4494D009E760F /* CDYogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDYogSeries+.swift"; sourceTree = "<group>"; };
 		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
 		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
+		DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillPhoto+.swift"; sourceTree = "<group>"; };
 		AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
 		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */,
 				AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */,
 				AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */,
+				DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */,
 				AF2B36D725E4494D009E760F /* CDYogSeries+.swift */,
 				AE0000010000000000000011 /* Session+.swift */,
 				AE0000010000000000000021 /* SetLog+.swift */,
@@ -616,6 +619,7 @@
 				AE0000040000000000000091 /* AddVariantSheet.swift in Sources */,
 				AFC102D02FD45C600022143E /* ScheduleNextWorkoutSheet.swift in Sources */,
 				AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */,
+				2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */,
 				AFC102EE2FD741930022143E /* EmailOptInService.swift in Sources */,
 				AE0000010000000000000010 /* Session+.swift in Sources */,
 				AE0000010000000000000020 /* SetLog+.swift in Sources */,
