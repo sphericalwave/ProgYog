@@ -193,6 +193,8 @@ final class WorkoutSessionViewModel: ObservableObject {
         skill.name = name
         skill.depth = targetDepth
         skill.instructions = instructions
+        skill.symetrical = false
+        skill.timeCode = 0
         skill.customPhotos = photos
         skill.hideBundleImages = true
         skill.series = fam.series
