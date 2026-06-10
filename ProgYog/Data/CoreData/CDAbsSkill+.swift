@@ -19,6 +19,7 @@ extension CDAbsSkill {
     @NSManaged public var bundleDepth: Int16
     @NSManaged public var customPhotoData: Data?
     @NSManaged public var depth: Int16
+    @NSManaged public var hideBundleImages: Bool
     @NSManaged public var instructions: String
     @NSManaged public var name: String
     @NSManaged public var symetrical: Bool
