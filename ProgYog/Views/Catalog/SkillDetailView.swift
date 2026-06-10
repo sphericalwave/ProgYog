@@ -12,6 +12,8 @@ struct SkillDetailView: View {
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest private var logs: FetchedResults<SetLog>
     @State private var editingInstructions = false
+    @State private var editingName = false
+    @State private var nameDraft = ""
 
     init(skill: CDAbsSkill) {
         self.skill = skill
@@ -31,10 +33,30 @@ struct SkillDetailView: View {
             }
 
             Section {
+                LabeledContent("Name") {
+                    if editingName {
+                        TextField("Name", text: $nameDraft, onCommit: {
+                            skill.name = nameDraft
+                            try? moc.save()
+                            editingName = false
+                        })
+                        .multilineTextAlignment(.trailing)
+                    } else {
+                        Text(skill.name)
+                            .onTapGesture {
+                                nameDraft = skill.name
+                                editingName = true
+                            }
+                    }
+                }
                 LabeledContent("Family", value: skill.family)
                 LabeledContent("Series", value: skill.series)
                 LabeledContent("Level", value: "\(skill.depth)")
-                LabeledContent("Symmetrical", value: skill.symetrical ? "Yes" : "No")
+                Toggle("Symmetrical", isOn: Binding(
+                    get: { skill.symetrical },
+                    set: { skill.symetrical = $0; try? moc.save() }
+                ))
+                .tint(.accentColor)
             }
 
             Section {
@@ -102,6 +124,7 @@ struct SkillDetailView: View {
         }
         .listStyle(.grouped)
         .navigationTitle(skill.name)
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $editingInstructions) {
             InstructionsEditSheet(initialText: skill.instructions) { newText in
                 skill.instructions = newText

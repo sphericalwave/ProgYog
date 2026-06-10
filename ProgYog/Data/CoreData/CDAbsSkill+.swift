@@ -16,6 +16,7 @@ extension CDAbsSkill {
         return NSFetchRequest<CDAbsSkill>(entityName: "CDAbsSkill")
     }
 
+    @NSManaged public var bundleDepth: Int16
     @NSManaged public var customPhotoData: Data?
     @NSManaged public var depth: Int16
     @NSManaged public var instructions: String
@@ -62,14 +63,16 @@ extension CDAbsSkill: Identifiable { }
 
 extension CDAbsSkill {
     /// Asset-catalog stem under the "Poses" namespace, e.g. "Poses/A-1-2".
-    /// Images are saved at "<stem>-<idx>.imageset".
+    /// Uses bundleDepth when set (non-zero) so images survive depth reordering.
     var posterStem: String {
         let order = skillFamily?.order ?? 0
-        return "Poses/\(series)-\(order)-\(depth)"
+        let d = bundleDepth != 0 ? bundleDepth : depth
+        return "Poses/\(series)-\(order)-\(d)"
     }
 
     /// All bundle-resident pose images for this skill, in extraction order.
     var posterAssetNames: [String] {
+        guard !hideBundleImages else { return [] }
         var names: [String] = []
         var idx = 0
         while UIImage(named: "\(posterStem)-\(idx)") != nil {

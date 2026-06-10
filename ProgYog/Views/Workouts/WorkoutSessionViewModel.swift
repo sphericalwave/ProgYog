@@ -181,6 +181,9 @@ final class WorkoutSessionViewModel: ObservableObject {
         if let anchor = insertBefore {
             targetDepth = anchor.depth
             for skill in fam.orderedAbsSkills where skill.depth >= targetDepth {
+                if skill.bundleDepth == 0 && !skill.hideBundleImages {
+                    skill.bundleDepth = skill.depth
+                }
                 skill.depth += 1
             }
         } else {
@@ -191,6 +194,7 @@ final class WorkoutSessionViewModel: ObservableObject {
         skill.depth = targetDepth
         skill.instructions = instructions
         skill.customPhotoData = photoData
+        skill.hideBundleImages = true
         skill.series = fam.series
         skill.family = fam.name
         skill.url = URL(string: "about:blank")!

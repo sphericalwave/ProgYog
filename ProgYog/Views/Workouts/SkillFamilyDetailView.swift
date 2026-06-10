@@ -99,6 +99,9 @@ struct SkillFamilyDetailView: View {
         if let anchor = insertBefore {
             targetDepth = anchor.depth
             for skill in ordered where skill.depth >= targetDepth {
+                if skill.bundleDepth == 0 && !skill.hideBundleImages {
+                    skill.bundleDepth = skill.depth
+                }
                 skill.depth += 1
             }
         } else {
@@ -109,6 +112,7 @@ struct SkillFamilyDetailView: View {
         skill.depth = targetDepth
         skill.instructions = instructions
         skill.customPhotoData = photoData
+        skill.hideBundleImages = true
         skill.series = family.series
         skill.family = family.name
         skill.url = URL(string: "about:blank")!
