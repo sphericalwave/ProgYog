@@ -88,14 +88,26 @@ final class CoreDataService: ObservableObject {
     }
 
     func save() {
+        moc.processPendingChanges()
         guard moc.hasChanges else { return }
         do {
             try moc.save()
             lastSavedAt = Date()
             lastSaveError = nil
         } catch {
-            let message = (error as NSError).localizedDescription
+            let nsErr = error as NSError
+            let message = nsErr.localizedDescription
             lastSaveError = message
+            let inserted = moc.insertedObjects.map { "\($0.entity.name ?? "?")" }
+            let updated  = moc.updatedObjects.map  { "\($0.entity.name ?? "?")" }
+            print("""
+⚠️ CoreData save failed
+  error:    \(nsErr.code) \(nsErr.domain)
+  message:  \(message)
+  userInfo: \(nsErr.userInfo)
+  inserted: \(inserted)
+  updated:  \(updated)
+""")
             errorLog?.error("CoreData.save", "Save failed: \(message)", error: error)
         }
     }
