@@ -29,6 +29,7 @@ extension CDAbsSkill {
     @NSManaged public var family: String
     @NSManaged public var url: URL
     @NSManaged public var sliceCount: Int16
+    @NSManaged public var photos: NSSet?
     @NSManaged public var setLogs: NSSet?
     @NSManaged public var skillFamily: CDSkillFamily?
 }
@@ -92,15 +93,30 @@ extension CDAbsSkill {
     /// The hero image (idx 0) if one exists.
     var posterAssetName: String? { posterAssetNames.first }
 
-    /// Custom photos added by the user (multiple). Prefers customPhotosData,
-    /// falls back to the legacy single customPhotoData.
+    /// All photos for this skill, sorted by order. Backed by CDSkillPhoto relationship.
     var customPhotos: [Data] {
         get {
-            if let arr = customPhotosData as? [Data], !arr.isEmpty { return arr }
-            if let d = customPhotoData { return [d] }
-            return []
+            let set = (photos as? Set<CDSkillPhoto>) ?? []
+            return set.sorted { $0.order < $1.order }.map { $0.data }
         }
-        set { customPhotosData = newValue.isEmpty ? nil : (newValue as NSArray) }
+        set {
+            if let existing = photos as? Set<CDSkillPhoto> {
+                existing.forEach { managedObjectContext?.delete($0) }
+            }
+            guard !newValue.isEmpty, let moc = managedObjectContext else {
+                photos = nil
+                return
+            }
+            var newSet: Set<CDSkillPhoto> = []
+            for (idx, data) in newValue.enumerated() {
+                let photo = CDSkillPhoto(context: moc)
+                photo.data = data
+                photo.order = Int16(idx)
+                photo.skill = self
+                newSet.insert(photo)
+            }
+            photos = newSet as NSSet
+        }
     }
 }
 

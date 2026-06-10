@@ -46,6 +46,7 @@ struct SkillFamilyDetailView: View {
                             assetName: skill.posterAssetName,
                             assetNames: skill.posterAssetNames,
                             photoData: skill.customPhotoData,
+                            photos: skill.customPhotos,
                             size: 48
                         )
                         VStack(alignment: .leading, spacing: 2) {

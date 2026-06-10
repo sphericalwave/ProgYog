@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDAbsSkill" representedClassName="CDAbsSkill" syncable="YES">
+        <attribute name="bundleDepth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="customPhotoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="customPhotosData" optional="YES" attributeType="Transformable" customClassName="NSArray"/>
+        <attribute name="depth" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="family" attributeType="String"/>
+        <attribute name="hideBundleImages" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="instructions" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="series" attributeType="String"/>
+        <attribute name="sliceCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="symetrical" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="timeCode" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="url" attributeType="URI"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDSkillPhoto" inverseName="skill" inverseEntity="CDSkillPhoto"/>
+        <relationship name="setLogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SetLog" inverseName="absSkill" inverseEntity="SetLog"/>
+        <relationship name="skillFamily" maxCount="1" deletionRule="Nullify" destinationEntity="CDSkillFamily" inverseName="absSkills" inverseEntity="CDSkillFamily"/>
+    </entity>
+    <entity name="CDSkillPhoto" representedClassName="CDSkillPhoto" syncable="YES">
+        <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="skill" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDAbsSkill" inverseName="photos" inverseEntity="CDAbsSkill"/>
+    </entity>
+    <entity name="CDSkillFamily" representedClassName="CDSkillFamily" syncable="YES">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="order" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="series" attributeType="String"/>
+        <relationship name="absSkills" toMany="YES" deletionRule="Nullify" destinationEntity="CDAbsSkill" inverseName="skillFamily" inverseEntity="CDAbsSkill"/>
+        <relationship name="yogSeries" maxCount="1" deletionRule="Nullify" destinationEntity="CDYogSeries" inverseName="skillFamilies" inverseEntity="CDYogSeries"/>
+    </entity>
+    <entity name="CDYogSeries" representedClassName="CDYogSeries" syncable="YES">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="url" attributeType="URI"/>
+        <relationship name="skillFamilies" toMany="YES" deletionRule="Nullify" destinationEntity="CDSkillFamily" inverseName="yogSeries" inverseEntity="CDSkillFamily"/>
+    </entity>
+    <entity name="Session" representedClassName="Session" syncable="YES">
+        <attribute name="endedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="startedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="workoutCode" attributeType="String"/>
+        <relationship name="setLogs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SetLog" inverseName="session" inverseEntity="SetLog"/>
+    </entity>
+    <entity name="SetLog" representedClassName="SetLog" syncable="YES">
+        <attribute name="decision" attributeType="String"/>
+        <attribute name="durationSec" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="isometric" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sliceCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hrAvg" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hrMax" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hrMin" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="loggedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="orderInRound" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="reps" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rom" attributeType="Integer 16" defaultValueString="100" usesScalarValueType="YES"/>
+        <attribute name="roundIndex" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rpd" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rpdNote" optional="YES" attributeType="String"/>
+        <attribute name="rpe" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rpeNote" optional="YES" attributeType="String"/>
+        <attribute name="rpt" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="rptNote" optional="YES" attributeType="String"/>
+        <relationship name="absSkill" maxCount="1" deletionRule="Nullify" destinationEntity="CDAbsSkill" inverseName="setLogs" inverseEntity="CDAbsSkill"/>
+        <relationship name="hrSamples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HRSample" inverseName="setLog" inverseEntity="HRSample"/>
+        <relationship name="session" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="setLogs" inverseEntity="Session"/>
+    </entity>
+    <entity name="HRSample" representedClassName="HRSample" syncable="YES">
+        <attribute name="bpm" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="t" attributeType="Double" usesScalarValueType="YES"/>
+        <relationship name="setLog" maxCount="1" deletionRule="Nullify" destinationEntity="SetLog" inverseName="hrSamples" inverseEntity="SetLog"/>
+    </entity>
+    <elements>
+        <element name="CDAbsSkill" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDSkillPhoto" positionX="160" positionY="0" width="0" height="0"/>
+        <element name="CDSkillFamily" positionX="0" positionY="160" width="0" height="0"/>
+        <element name="CDYogSeries" positionX="0" positionY="320" width="0" height="0"/>
+        <element name="Session" positionX="320" positionY="0" width="0" height="0"/>
+        <element name="SetLog" positionX="320" positionY="160" width="0" height="0"/>
+        <element name="HRSample" positionX="320" positionY="320" width="0" height="0"/>
+    </elements>
+</model>

@@ -188,6 +188,40 @@ final class CoreDataService: ObservableObject {
         UserDefaults.standard.set(true, forKey: Self.notesMergeFlagKey)
     }
 
+    private static let skillPhotoMigrationKey = "didMigrateSkillPhotosV1"
+
+    /// One-time migration: copies bundle images (and any legacy customPhotoData /
+    /// customPhotosData) into CDSkillPhoto records with allowsExternalBinaryDataStorage.
+    func migrateSkillPhotosIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: Self.skillPhotoMigrationKey) else { return }
+        let req = CDAbsSkill.fetchRequest()
+        guard let skills = try? moc.fetch(req) else { return }
+        for skill in skills {
+            var datas: [Data] = []
+            // Bundle images (only for skills that haven't been flagged yet)
+            if !skill.hideBundleImages {
+                datas = skill.posterAssetNames.compactMap {
+                    UIImage(named: $0)?.jpegData(compressionQuality: 0.82)
+                }
+            }
+            // Legacy Transformable array
+            if datas.isEmpty, let arr = skill.customPhotosData as? [Data] {
+                datas = arr
+            }
+            // Legacy single binary
+            if datas.isEmpty, let d = skill.customPhotoData {
+                datas = [d]
+            }
+            if !datas.isEmpty {
+                skill.customPhotos = datas
+                skill.hideBundleImages = true
+            }
+            skill.customPhotosData = nil
+        }
+        save()
+        UserDefaults.standard.set(true, forKey: Self.skillPhotoMigrationKey)
+    }
+
     private func wipeCatalog() {
         for entity in ["CDAbsSkill", "CDSkillFamily", "CDYogSeries"] {
             let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entity)

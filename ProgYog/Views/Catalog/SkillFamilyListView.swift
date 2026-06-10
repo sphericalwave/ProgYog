@@ -49,7 +49,8 @@ struct SkillFamilyListView: View {
     private func familyRow(_ family: CDSkillFamily) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 12) {
-                SkillThumbnail(assetName: familyHero(family), size: 48)
+                SkillThumbnail(assetName: familyHero(family),
+                              photos: familyHeroPhotos(family), size: 48)
                 Text("\(family.order).").foregroundStyle(.secondary)
                 Text(family.name)
                 Spacer()
@@ -64,8 +65,12 @@ struct SkillFamilyListView: View {
 
     private func familyHero(_ family: CDSkillFamily) -> String? {
         let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
-        let lowest = skills.min { $0.depth < $1.depth }
-        return lowest?.posterAssetName
+        return skills.min { $0.depth < $1.depth }?.posterAssetName
+    }
+
+    private func familyHeroPhotos(_ family: CDSkillFamily) -> [Data] {
+        let skills = (family.absSkills as? Set<CDAbsSkill>) ?? []
+        return skills.min { $0.depth < $1.depth }?.customPhotos ?? []
     }
 
     private func sessionPoints(for family: CDSkillFamily) -> [FamilyPercentChart.Point] {
