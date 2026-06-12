@@ -183,10 +183,7 @@ struct WorkoutSessionView: View {
                 ),
                 in: 0...30
             ) {
-                Text(skill.sliceCount > 0
-                     ? "\(skill.sliceCount) slice\(skill.sliceCount == 1 ? "" : "s")"
-                     : "No slices")
-                    .font(.caption).foregroundStyle(.secondary).monospacedDigit()
+                SliceLabel(skill: skill)
             }
             .fixedSize()
         }
@@ -340,5 +337,15 @@ private struct HRConnectSheet: View {
                 }
             }
         }
+    }
+}
+
+private struct SliceLabel: View {
+    @ObservedObject var skill: CDAbsSkill
+    var body: some View {
+        Text(skill.sliceCount > 0
+             ? "\(skill.sliceCount) slice\(skill.sliceCount == 1 ? "" : "s")"
+             : "No slices")
+            .font(.caption).foregroundStyle(.secondary).monospacedDigit()
     }
 }
