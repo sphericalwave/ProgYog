@@ -8,6 +8,8 @@ final class PoseDetectionService: NSObject, ObservableObject {
 
     nonisolated let captureSession: AVCaptureSession
     private let captureQueue = DispatchQueue(label: "ProgYog.captureQueue", qos: .userInitiated)
+    // Reused per-frame; only accessed serially on captureQueue
+    nonisolated(unsafe) private var poseRequest = VNDetectHumanBodyPoseRequest()
 
     override init() {
         captureSession = AVCaptureSession()
@@ -124,10 +126,9 @@ extension PoseDetectionService: AVCaptureVideoDataOutputSampleBufferDelegate {
         from connection: AVCaptureConnection
     ) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        let request = VNDetectHumanBodyPoseRequest()
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
-            .perform([request])
-        let detected = request.results?.first.flatMap(BodyPose.from)
+            .perform([poseRequest])
+        let detected = poseRequest.results?.first.flatMap(BodyPose.from)
         Task { @MainActor [weak self] in
             self?.pose = detected
         }

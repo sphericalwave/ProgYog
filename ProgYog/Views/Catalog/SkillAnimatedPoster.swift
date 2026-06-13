@@ -5,6 +5,7 @@
 
 import SwiftUI
 import CoreData
+import UIKit
 
 struct SkillAnimatedPoster: View {
     let skill: CDAbsSkill
@@ -12,17 +13,25 @@ struct SkillAnimatedPoster: View {
     var cornerRadius: CGFloat = 12
 
     @State private var paused = false
-    @State private var pausedFrame = 0
+    @State private var pausedDate: Date = .now
+    @State private var cachedCustomPhotos: [UIImage] = []
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         let bundleNames = skill.posterAssetNames
-        let customImgs = skill.customPhotos.compactMap { UIImage(data: $0) }
 
-        if !bundleNames.isEmpty {
-            animatedBundleView(names: bundleNames)
-        } else if !customImgs.isEmpty {
-            animatedCustomView(images: customImgs)
+        Group {
+            if !bundleNames.isEmpty {
+                animatedBundleView(names: bundleNames)
+            } else if !cachedCustomPhotos.isEmpty {
+                animatedCustomView(images: cachedCustomPhotos)
+            } else {
+                Color.clear
+            }
+        }
+        .task(id: skill.objectID) {
+            let photoData = skill.customPhotos
+            cachedCustomPhotos = photoData.compactMap { UIImage(data: $0) }
         }
     }
 
@@ -30,7 +39,8 @@ struct SkillAnimatedPoster: View {
     private func animatedBundleView(names: [String]) -> some View {
         Group {
             if paused {
-                Image(names[min(pausedFrame, names.count - 1)])
+                let idx = Int(pausedDate.timeIntervalSinceReferenceDate) % names.count
+                Image(names[idx])
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity, maxHeight: maxHeight)
             } else {
@@ -39,20 +49,20 @@ struct SkillAnimatedPoster: View {
                     Image(names[idx])
                         .resizable().scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: maxHeight)
-                        .onChange(of: idx) { _, new in pausedFrame = new }
                 }
             }
         }
         .modifier(PosterFrame(maxHeight: maxHeight, cornerRadius: cornerRadius,
                               colorScheme: colorScheme, showPause: true,
-                              paused: $paused))
+                              paused: $paused, onPause: { pausedDate = .now }))
     }
 
     @ViewBuilder
     private func animatedCustomView(images: [UIImage]) -> some View {
         Group {
             if paused || images.count == 1 {
-                Image(uiImage: images[min(pausedFrame, images.count - 1)])
+                let idx = Int(pausedDate.timeIntervalSinceReferenceDate) % images.count
+                Image(uiImage: images[idx])
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity, maxHeight: maxHeight)
             } else {
@@ -61,13 +71,12 @@ struct SkillAnimatedPoster: View {
                     Image(uiImage: images[idx])
                         .resizable().scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: maxHeight)
-                        .onChange(of: idx) { _, new in pausedFrame = new }
                 }
             }
         }
         .modifier(PosterFrame(maxHeight: maxHeight, cornerRadius: cornerRadius,
                               colorScheme: colorScheme, showPause: images.count > 1,
-                              paused: $paused))
+                              paused: $paused, onPause: { pausedDate = .now }))
     }
 }
 
@@ -77,6 +86,7 @@ private struct PosterFrame: ViewModifier {
     let colorScheme: ColorScheme
     let showPause: Bool
     @Binding var paused: Bool
+    var onPause: () -> Void = {}
 
     func body(content: Content) -> some View {
         content
@@ -85,7 +95,7 @@ private struct PosterFrame: ViewModifier {
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay(alignment: .topTrailing) {
                 if showPause {
-                    Button { paused.toggle() } label: {
+                    Button { onPause(); paused.toggle() } label: {
                         Image(systemName: paused ? "play.fill" : "pause.fill")
                             .font(.caption).padding(6)
                             .background(.ultraThinMaterial, in: Circle())

@@ -227,6 +227,9 @@ struct WorkoutSummaryView: View {
 
     @ViewBuilder
     private var sessionSummaryRow: some View {
+        let scored = scoredFamilies
+        let worst = scored.min { a, b in a.pct != b.pct ? a.pct < b.pct : a.family.order < b.family.order }?.family
+        let best = scored.max { a, b in a.pct != b.pct ? a.pct < b.pct : a.family.order > b.family.order }?.family
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(WorkoutLabel.display(for: session))
@@ -241,10 +244,10 @@ struct WorkoutSummaryView: View {
             Spacer()
             HStack(spacing: 6) {
                 CompletionChip(percent: CompletionScorer.sessionPercent(session))
-                if let worst = lowestScoredFamily {
+                if let worst {
                     SkillThumbnail(assetName: lastFamilyLog(worst)?.absSkill?.posterAssetName, size: 40)
                 }
-                if let best = highestScoredFamily, best != lowestScoredFamily {
+                if let best, best != worst {
                     SkillThumbnail(assetName: lastFamilyLog(best)?.absSkill?.posterAssetName, size: 40)
                 }
             }
@@ -256,18 +259,6 @@ struct WorkoutSummaryView: View {
             guard let pct = CompletionScorer.familyPercent(in: session, family: family) else { return nil }
             return (family, pct)
         }
-    }
-
-    private var lowestScoredFamily: CDSkillFamily? {
-        scoredFamilies.min { a, b in
-            a.pct != b.pct ? a.pct < b.pct : a.family.order < b.family.order
-        }?.family
-    }
-
-    private var highestScoredFamily: CDSkillFamily? {
-        scoredFamilies.max { a, b in
-            a.pct != b.pct ? a.pct < b.pct : a.family.order > b.family.order
-        }?.family
     }
 
     // MARK: - Completion section helpers

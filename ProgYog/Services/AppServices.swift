@@ -8,11 +8,17 @@ import Foundation
 @MainActor
 final class AppServices: ObservableObject {
     let coreData: CoreDataService
-    let heartRate: HeartRateService
-    let audio: AudioCueService
     let theme: SwTheme
     let errorLog: ErrorLog
     let undo: UndoStack
+
+    private(set) lazy var heartRate: HeartRateService = {
+        let hr = HeartRateService()
+        hr.errorLog = self.errorLog
+        return hr
+    }()
+
+    private(set) lazy var audio: AudioCueService = AudioCueService()
 
     init(inMemory: Bool = false) {
         let log = ErrorLog()
@@ -25,10 +31,6 @@ final class AppServices: ObservableObject {
             cd.migrateSkillPhotosIfNeeded()
         }
         self.coreData = cd
-        let hr = HeartRateService()
-        hr.errorLog = log
-        self.heartRate = hr
-        self.audio = AudioCueService()
         self.theme = SwTheme()
         self.errorLog = log
         self.undo = UndoStack()

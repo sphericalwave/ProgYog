@@ -36,8 +36,16 @@ final class AudioCueService: NSObject, ObservableObject {
     private let playerNode = AVAudioPlayerNode()
     private let sampleRate: Double = 44100
 
+    private var engineReady = false
+
     override init() {
         super.init()
+        synth.delegate = self
+    }
+
+    private func setupEngineIfNeeded() {
+        guard !engineReady else { return }
+        engineReady = true
 #if os(iOS)
         try? AVAudioSession.sharedInstance().setCategory(
             .playback,
@@ -46,16 +54,14 @@ final class AudioCueService: NSObject, ObservableObject {
         )
         try? AVAudioSession.sharedInstance().setActive(true)
 #endif
-
         engine.attach(playerNode)
         let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1)!
         engine.connect(playerNode, to: engine.mainMixerNode, format: format)
         try? engine.start()
-
-        synth.delegate = self
     }
 
     func play(_ cue: AudioCue) {
+        setupEngineIfNeeded()
         let (freq, duration, amplitude) = cue.tone
         let frameCount = AVAudioFrameCount(sampleRate * Double(duration))
         guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),

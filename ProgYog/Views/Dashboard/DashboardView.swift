@@ -8,7 +8,6 @@ import Charts
 import CoreData
 
 struct DashboardView: View {
-    @Environment(\.managedObjectContext) private var moc
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
@@ -34,7 +33,7 @@ struct DashboardView: View {
 
     private var statsList: some View {
         let all = Array(sessions)
-        let completion = Self.completionPoints(all, moc: moc)
+        let completion = Self.completionPoints(all)
         let weekly = Self.weeklyPoints(all)
         let monthly = Self.monthlyPoints(all)
         let total = Self.totalTimePoints(all)
@@ -189,12 +188,14 @@ private struct TimeChart: View {
 // MARK: - Aggregation
 
 extension DashboardView {
-    fileprivate static func completionPoints(_ sessions: [Session], moc: NSManagedObjectContext) -> [CompletionPoint] {
-        WorkoutPalette.codes.compactMap { code in
-            guard let last = CompletionScorer.lastSessionPercent(workoutCode: code, moc: moc) else {
+    fileprivate static func completionPoints(_ sessions: [Session]) -> [CompletionPoint] {
+        let grouped = Dictionary(grouping: sessions, by: \.workoutCode)
+        return WorkoutPalette.codes.compactMap { code in
+            let codeSessions = grouped[code] ?? []
+            guard let last = codeSessions.first.flatMap({ CompletionScorer.sessionPercent($0) }) else {
                 return nil
             }
-            let best = CompletionScorer.allTimeBestSessionPercent(workoutCode: code, moc: moc)
+            let best = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
             return CompletionPoint(id: code, code: code, last: last, best: best)
         }
     }

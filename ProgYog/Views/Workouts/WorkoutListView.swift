@@ -18,6 +18,8 @@ struct WorkoutListView: View {
     @State private var histPts: [FamilyPercentChart.Point] = []
     @State private var lastPcts: [String: Double] = [:]
     @State private var bestPcts: [String: Double] = [:]
+    @State private var sessionCounts: [String: Int] = [:]
+    @State private var lastDates: [String: Date] = [:]
 
     var body: some View {
         NavigationStack {
@@ -63,10 +65,13 @@ struct WorkoutListView: View {
     private func refreshScores() {
         let all = Array(sessions) // already loaded, sorted newest-first
         histPts = FamilyPercentChart.points(for: all.reversed())
+        let grouped = Dictionary(grouping: all, by: \.workoutCode)
         for code in workoutCodes {
-            let codeSessions = all.filter { $0.workoutCode == code }
+            let codeSessions = grouped[code] ?? []
             lastPcts[code] = codeSessions.first.flatMap { CompletionScorer.sessionPercent($0) }
             bestPcts[code] = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
+            sessionCounts[code] = codeSessions.count
+            lastDates[code] = codeSessions.first?.startedAt
         }
         let codes = workoutCodes
         if let last = all.first, let idx = codes.firstIndex(of: last.workoutCode) {
@@ -93,12 +98,12 @@ struct WorkoutListView: View {
 
     @ViewBuilder
     private func stats(for code: String) -> some View {
-        let codeSessions = sessions.filter { $0.workoutCode == code }
+        let count = sessionCounts[code, default: 0]
         VStack(alignment: .trailing, spacing: 2) {
-            Text("\(codeSessions.count) \(codeSessions.count == 1 ? "session" : "sessions")")
+            Text("\(count) \(count == 1 ? "session" : "sessions")")
                 .font(.caption.bold())
                 .monospacedDigit()
-            if let last = codeSessions.first?.startedAt {
+            if let last = lastDates[code] {
                 Text(last.formatted(date: .abbreviated, time: .omitted))
                     .font(.caption2)
                     .foregroundStyle(.secondary)

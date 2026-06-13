@@ -106,7 +106,11 @@ final class HeartRateService: NSObject, ObservableObject {
     }
 
     func disconnect() {
-        if let p = peripheral { central.cancelPeripheralConnection(p) }
+        if let p = peripheral {
+            p.delegate = nil
+            central.cancelPeripheralConnection(p)
+        }
+        peripheral = nil
     }
 }
 

@@ -18,6 +18,14 @@ final class CoreDataService: ObservableObject {
 
     var moc: NSManagedObjectContext { container.viewContext }
 
+    private var resignObserver: NSObjectProtocol?
+
+    deinit {
+        if let token = resignObserver {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+
     init(inMemory: Bool = false) {
         // Load v6 explicitly so Xcode reverting .xccurrentversion can't break persistence.
         guard let modelURL = Bundle.main.url(
@@ -63,7 +71,7 @@ final class CoreDataService: ObservableObject {
             self.lastSaveError = "Store load failed; backed up and rebuilt. \(err.localizedDescription)"
         }
 
-        NotificationCenter.default.addObserver(
+        resignObserver = NotificationCenter.default.addObserver(
             forName: UIApplication.willResignActiveNotification, object: nil, queue: nil
         ) { [weak self] _ in
             Task { @MainActor in self?.save() }
