@@ -192,6 +192,7 @@ struct SetLogSheet: View {
                 Section {
                     Toggle("Isometric", isOn: $isometric)
                         .tint(.accentColor)
+                        .onChange(of: isometric) { _, on in if on { reps = 1 } }
                     metricRow(
                         label: "Slices",
                         value: $sliceCount,
