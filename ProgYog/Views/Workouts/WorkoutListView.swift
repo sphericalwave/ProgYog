@@ -14,8 +14,12 @@ struct WorkoutListView: View {
         sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
     ) private var sessions: FetchedResults<Session>
 
+    private enum ChartMode { case history, roc }
+
     @State private var orderedCodes: [String] = WorkoutPalette.codes
+    @State private var chartMode: ChartMode = .history
     @State private var histPts: [FamilyPercentChart.Point] = []
+    @State private var rocPts: [FamilyPercentChart.Point] = []
     @State private var lastPcts: [String: Double] = [:]
     @State private var bestPcts: [String: Double] = [:]
     @State private var sessionCounts: [String: Int] = [:]
@@ -33,12 +37,25 @@ struct WorkoutListView: View {
                 } header: {
                     if !histPts.isEmpty {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("History")
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
-                                .textCase(nil)
-                                .padding(.horizontal, 4)
-                            FamilyPercentChart(points: histPts)
+                            HStack {
+                                Text("History")
+                                    .font(.caption.bold())
+                                    .foregroundStyle(.secondary)
+                                    .textCase(nil)
+                                    .padding(.horizontal, 4)
+                                Spacer()
+                                Picker("", selection: $chartMode) {
+                                    Text("Progress").tag(ChartMode.history)
+                                    Text("Rate").tag(ChartMode.roc)
+                                }
+                                .pickerStyle(.segmented)
+                                .frame(width: 140)
+                            }
+                            if chartMode == .history {
+                                FamilyPercentChart(points: histPts)
+                            } else {
+                                FamilyPercentChart(points: rocPts, allowNegativeY: true)
+                            }
                         }
                         .padding(10)
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -64,7 +81,9 @@ struct WorkoutListView: View {
 
     private func refreshScores() {
         let all = Array(sessions) // already loaded, sorted newest-first
-        histPts = FamilyPercentChart.points(for: all.reversed())
+        let pts = FamilyPercentChart.points(for: all.reversed())
+        histPts = pts
+        rocPts = Self.rateOfChange(from: pts)
         let grouped = Dictionary(grouping: all, by: \.workoutCode)
         for code in workoutCodes {
             let codeSessions = grouped[code] ?? []
@@ -113,6 +132,19 @@ struct WorkoutListView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    private static func rateOfChange(from pts: [FamilyPercentChart.Point]) -> [FamilyPercentChart.Point] {
+        var lastPct: [String: Double] = [:]
+        var result: [FamilyPercentChart.Point] = []
+        for p in pts {
+            let key = p.series.isEmpty ? "_" : p.series
+            if let prev = lastPct[key] {
+                result.append(.init(percent: p.percent - prev, barColor: p.barColor, series: p.series))
+            }
+            lastPct[key] = p.percent
+        }
+        return result
     }
 
     private func color(for code: String) -> Color {

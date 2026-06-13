@@ -19,6 +19,7 @@ struct FamilyPercentChart: View {
 
     let points: [Point]
     var compact: Bool = false
+    var allowNegativeY: Bool = false
 
     // Pre-processed entry: x is the index within its own series so every
     // workout's line starts at 0 and grows independently.
@@ -55,7 +56,12 @@ struct FamilyPercentChart: View {
 
     private var yDomain: ClosedRange<Double> {
         let vals = points.map(\.percent)
-        guard !vals.isEmpty else { return 0...100 }
+        guard !vals.isEmpty else { return allowNegativeY ? -20...20 : 0...100 }
+        if allowNegativeY {
+            let lo = (vals.min()! - 5).rounded(.down)
+            let hi = (vals.max()! + 5).rounded(.up)
+            return lo...max(hi, lo + 1)
+        }
         let lo = max(0, (vals.min()! - 10).rounded(.down))
         let hi = min(100, (vals.max()! + 5).rounded(.up))
         return lo...max(hi, lo + 1)
@@ -65,6 +71,11 @@ struct FamilyPercentChart: View {
         let es = entries
         let floor = yDomain.lowerBound
         Chart {
+            if allowNegativeY {
+                RuleMark(y: .value("zero", 0))
+                    .foregroundStyle(.secondary.opacity(0.35))
+                    .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 3]))
+            }
             if isMultiSeries {
                 ForEach(es) { e in
                     LineMark(x: .value("n", e.x), y: .value("%", e.percent))
