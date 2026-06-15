@@ -62,6 +62,7 @@ final class AudioCueService: NSObject, ObservableObject {
 
     func play(_ cue: AudioCue) {
         setupEngineIfNeeded()
+        if !engine.isRunning { try? engine.start() }
         let (freq, duration, amplitude) = cue.tone
         let frameCount = AVAudioFrameCount(sampleRate * Double(duration))
         guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
