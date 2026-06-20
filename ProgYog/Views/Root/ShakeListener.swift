@@ -9,11 +9,13 @@
 //
 
 import SwiftUI
-import UIKit
 
 extension Notification.Name {
     static let deviceDidShake = Notification.Name("ProgYog.deviceDidShake")
 }
+
+#if os(iOS)
+import UIKit
 
 private final class ShakeVC: UIViewController {
     override var canBecomeFirstResponder: Bool { true }
@@ -34,14 +36,17 @@ struct ShakeListener: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController { ShakeVC() }
     func updateUIViewController(_ vc: UIViewController, context: Context) {}
 }
+#endif
 
 extension View {
-    /// Fires `action` when the device receives a shake gesture.
-    /// Installs a 0-size invisible UIKit responder behind the view.
     func onShake(perform action: @escaping () -> Void) -> some View {
+        #if os(iOS)
         background(ShakeListener().frame(width: 0, height: 0))
             .onReceive(NotificationCenter.default.publisher(for: .deviceDidShake)) { _ in
                 action()
             }
+        #else
+        self
+        #endif
     }
 }

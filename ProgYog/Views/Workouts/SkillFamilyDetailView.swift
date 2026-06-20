@@ -63,10 +63,10 @@ struct SkillFamilyDetailView: View {
         .listStyle(.grouped)
         .navigationTitle(family.name)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 EditButton()
             }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 Button { addVariantPresented = true } label: {
                     Image(systemName: "plus")
                 }

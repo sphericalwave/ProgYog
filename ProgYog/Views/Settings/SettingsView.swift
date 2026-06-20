@@ -12,7 +12,9 @@ struct SettingsView: View {
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
+    #if canImport(HealthKit)
     @AppStorage(WorkoutHealth.enabledKey) private var healthEnabled = false
+    #endif
     @AppStorage(CompletionSettings.rptMinKey) private var compRptMin = 0
     @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
     @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
@@ -74,6 +76,7 @@ struct SettingsView: View {
                 }
             }
 
+            #if canImport(HealthKit)
             Section("Health") {
                 NavigationLink {
                     HealthSyncSettingsView()
@@ -81,6 +84,7 @@ struct SettingsView: View {
                     LabeledContent("Apple Health", value: healthEnabled ? "On" : "Off")
                 }
             }
+            #endif
 
             Section("Completion Scoring") {
                 NavigationLink {
@@ -139,10 +143,12 @@ struct SettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Settings")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.accentColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
+        #endif
         .onAppear { log.markRead() }
     }
 
@@ -241,7 +247,9 @@ private struct HRMaxSettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Max Heart Rate")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }
 
@@ -311,7 +319,9 @@ private struct CalendarSyncSettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Workout Calendar")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .confirmationDialog(
             "Remove all workout events?",
             isPresented: $confirmRemoveAll,
@@ -325,6 +335,7 @@ private struct CalendarSyncSettingsView: View {
     }
 }
 
+#if canImport(HealthKit)
 private struct HealthSyncSettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @AppStorage(WorkoutHealth.enabledKey) private var enabled = false
@@ -404,7 +415,9 @@ private struct HealthSyncSettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Apple Health")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .confirmationDialog(
             "Remove all workout data from Health?",
             isPresented: $confirmRemoveAll,
@@ -417,6 +430,7 @@ private struct HealthSyncSettingsView: View {
         }
     }
 }
+#endif
 
 struct CompletionSettingsView: View {
     // Bound directly to @AppStorage so the Stepper +/- triggers a real
@@ -474,7 +488,9 @@ struct CompletionSettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Completion Scoring")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }
 
@@ -543,7 +559,9 @@ private struct WorkoutSchedulerSettingsView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Schedule Workouts")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         #if canImport(EventKit)
         .sheet(item: $selectedCode) { item in
             ScheduleNextWorkoutSheet(

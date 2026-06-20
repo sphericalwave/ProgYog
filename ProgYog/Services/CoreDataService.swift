@@ -4,11 +4,15 @@
 //
 
 import CoreData
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
 @MainActor
 final class CoreDataService: ObservableObject {
-    let container: NSPersistentContainer
+    let container: NSPersistentCloudKitContainer
     weak var errorLog: ErrorLog?
 
     @Published private(set) var lastSavedAt: Date?
@@ -19,23 +23,23 @@ final class CoreDataService: ObservableObject {
     var moc: NSManagedObjectContext { container.viewContext }
 
     private var resignObserver: NSObjectProtocol?
+    private var remoteChangeObserver: NSObjectProtocol?
 
     deinit {
-        if let token = resignObserver {
-            NotificationCenter.default.removeObserver(token)
-        }
+        if let token = resignObserver { NotificationCenter.default.removeObserver(token) }
+        if let token = remoteChangeObserver { NotificationCenter.default.removeObserver(token) }
     }
 
     init(inMemory: Bool = false) {
-        // Load v6 explicitly so Xcode reverting .xccurrentversion can't break persistence.
+        // Load v7 explicitly so Xcode reverting .xccurrentversion can't break persistence.
         guard let modelURL = Bundle.main.url(
-            forResource: "ProgressiveYog6",
+            forResource: "ProgressiveYog7",
             withExtension: "mom",
             subdirectory: "ProgYog.momd"
         ), let model = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("ProgressiveYog6.mom not found — ensure .xcdatamodeld is in the Xcode target")
+            fatalError("ProgressiveYog7.mom not found — ensure .xcdatamodeld is in the Xcode target")
         }
-        let container = NSPersistentContainer(name: "ProgYog", managedObjectModel: model)
+        let container = NSPersistentCloudKitContainer(name: "ProgYog", managedObjectModel: model)
         if inMemory {
             let desc = NSPersistentStoreDescription()
             desc.url = URL(fileURLWithPath: "/dev/null")
@@ -44,7 +48,15 @@ final class CoreDataService: ObservableObject {
         if let desc = container.persistentStoreDescriptions.first {
             desc.shouldMigrateStoreAutomatically = true
             desc.shouldInferMappingModelAutomatically = true
+            if !inMemory {
+                desc.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
+                    containerIdentifier: "iCloud.SWS.ProgYog"
+                )
+                desc.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+                desc.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+            }
         }
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         self.container = container
 
@@ -71,10 +83,23 @@ final class CoreDataService: ObservableObject {
             self.lastSaveError = "Store load failed; backed up and rebuilt. \(err.localizedDescription)"
         }
 
+        #if os(iOS)
+        let resignName = UIApplication.willResignActiveNotification
+        #else
+        let resignName = NSApplication.willResignActiveNotification
+        #endif
         resignObserver = NotificationCenter.default.addObserver(
-            forName: UIApplication.willResignActiveNotification, object: nil, queue: nil
+            forName: resignName, object: nil, queue: nil
         ) { [weak self] _ in
             Task { @MainActor in self?.save() }
+        }
+
+        remoteChangeObserver = NotificationCenter.default.addObserver(
+            forName: .NSPersistentStoreRemoteChange,
+            object: container.persistentStoreCoordinator,
+            queue: nil
+        ) { [weak self] _ in
+            Task { @MainActor in self?.container.viewContext.refreshAllObjects() }
         }
     }
 
@@ -164,7 +189,9 @@ final class CoreDataService: ObservableObject {
         }
         save()
         WorkoutCalendarBridge.syncSegments(dup)
+        #if canImport(HealthKit)
         WorkoutHealthBridge.syncSegments(dup)
+        #endif
         return dup
     }
 
@@ -227,15 +254,13 @@ final class CoreDataService: ObservableObject {
         for skill in skills {
             var datas: [Data] = []
             // Bundle images (only for skills that haven't been flagged yet)
+            #if os(iOS)
             if !skill.hideBundleImages {
                 datas = skill.posterAssetNames.compactMap {
                     UIImage(named: $0)?.jpegData(compressionQuality: 0.82)
                 }
             }
-            // Legacy Transformable array
-            if datas.isEmpty, let arr = skill.customPhotosData as? [Data] {
-                datas = arr
-            }
+            #endif
             // Legacy single binary
             if datas.isEmpty, let d = skill.customPhotoData {
                 datas = [d]
@@ -244,7 +269,6 @@ final class CoreDataService: ObservableObject {
                 skill.customPhotos = datas
                 skill.hideBundleImages = true
             }
-            skill.customPhotosData = nil
         }
         save()
         UserDefaults.standard.set(true, forKey: Self.skillPhotoMigrationKey)
@@ -261,7 +285,7 @@ final class CoreDataService: ObservableObject {
 
     /// Rename existing SQLite to a timestamped .broken file (preserves data),
     /// detaches stores, and returns the backup URL. Safer than rm -rf.
-    private static func backupAndReset(container: NSPersistentContainer) -> URL? {
+    private static func backupAndReset(container: NSPersistentCloudKitContainer) -> URL? {
         guard let url = container.persistentStoreDescriptions.first?.url else { return nil }
         let coordinator = container.persistentStoreCoordinator
         for store in coordinator.persistentStores {

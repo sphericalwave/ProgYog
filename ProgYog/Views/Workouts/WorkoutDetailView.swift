@@ -92,7 +92,7 @@ struct WorkoutDetailView: View {
         .listStyle(.grouped)
         .navigationTitle(WorkoutLabel.display(forCode: workoutCode))
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 if let session = inProgress {
                     NavigationLink {
                         WorkoutSummaryView(session: session)

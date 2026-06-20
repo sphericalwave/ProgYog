@@ -10,7 +10,9 @@
 //
 //  WORKOUT SCORE (per-session/family, shown in lists and summaries):
 //      romFraction  = clamp(last.rom / romMin, 0...1)
-//      familyPercent = (max(depth − 1, 0) + romFraction) / maxDepth × 100
+//      familyPercent = (depth × romFraction) / maxDepth × 100
+//      Banked depth levels are scaled by this session's ROM%, not assumed
+//      perfect — the only ROM data point available is the last logged set.
 //      100% requires the highest-depth skill AND full ROM.
 //      Uses the LAST set logged for that family in the session.
 //
@@ -82,7 +84,7 @@ enum CompletionScorer {
         let romFraction = romMin > 0
             ? min(1.0, max(0.0, Double(last.rom) / romMin))
             : 0.0
-        let achieved = max(0.0, depth - 1.0) + romFraction
+        let achieved = depth * romFraction
         return min(100, (achieved / maxDepth) * 100)
     }
 
@@ -103,7 +105,7 @@ enum CompletionScorer {
         let romFraction = romMin > 0
             ? min(1.0, max(0.0, Double(last.rom) / romMin))
             : 0.0
-        let achieved = max(0.0, depth - 1.0) + romFraction
+        let achieved = depth * romFraction
         return min(100, (achieved / maxDepth) * 100)
     }
 

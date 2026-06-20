@@ -14,7 +14,7 @@ extension CDSkillPhoto {
         return NSFetchRequest<CDSkillPhoto>(entityName: "CDSkillPhoto")
     }
 
-    @NSManaged public var data: Data
+    @NSManaged public var data: Data?
     @NSManaged public var order: Int16
     @NSManaged public var skill: CDAbsSkill?
 }

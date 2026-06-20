@@ -7,7 +7,9 @@
 //  large title — applies.
 //
 
+#if os(iOS)
 import UIKit
+#endif
 
 struct SwTheme {
     init() {}

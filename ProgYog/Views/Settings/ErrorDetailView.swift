@@ -4,7 +4,9 @@
 //
 
 import SwiftUI
+#if os(iOS)
 import UIKit
+#endif
 
 struct ErrorDetailView: View {
     let entry: ErrorLog.Entry
@@ -30,11 +32,18 @@ struct ErrorDetailView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("Event Detail")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 Button {
+                    #if os(iOS)
                     UIPasteboard.general.string = exportText
+                    #else
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(exportText, forType: .string)
+                    #endif
                 } label: {
                     Label("Copy", systemImage: "doc.on.doc")
                 }

@@ -41,6 +41,12 @@ final class AudioCueService: NSObject, ObservableObject {
     override init() {
         super.init()
         synth.delegate = self
+        // Speak through the app's audio session so speech obeys the
+        // .playback + .mixWithOthers config below instead of taking over
+        // its own session and interrupting music.
+        #if os(iOS)
+        synth.usesApplicationAudioSession = true
+        #endif
     }
 
     private func setupEngineIfNeeded() {
@@ -83,6 +89,10 @@ final class AudioCueService: NSObject, ObservableObject {
     }
 
     func speak(_ text: String) {
+        // Ensure .playback + .mixWithOthers is active before speaking, even
+        // when no tone has played yet this set (otherwise speech runs on the
+        // default soloAmbient session and interrupts music).
+        setupEngineIfNeeded()
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.95
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")

@@ -57,9 +57,9 @@ struct AddVariantSheet: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 8) {
                                 ForEach(photos.indices, id: \.self) { i in
-                                    if let img = UIImage(data: photos[i]) {
+                                    if let img = PlatformImage.from(data: photos[i]) {
                                         ZStack(alignment: .topTrailing) {
-                                            Image(uiImage: img)
+                                            Image(platformImage: img)
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: 80, height: 80)
@@ -91,13 +91,15 @@ struct AddVariantSheet: View {
                 }
             }
             .navigationTitle("Add Variant")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .keyboardDoneToolbar()
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .automatic) {
                     Button("Save") {
                         onSave(name, instructions, photos, insertion.insertBefore)
                         dismiss()

@@ -37,7 +37,9 @@ final class ROMPersistenceTests: XCTestCase {
             rpe: 6,
             rpd: 2,
             notes: "",
-            decision: .repeat
+            decision: .repeat,
+            isometric: false,
+            sliceCount: 0
         )
 
         vm.recordLog(entry)

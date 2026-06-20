@@ -42,21 +42,30 @@ struct WorkoutSessionView: View {
                 }
             }
         }
+        #if os(iOS)
         .listStyle(.insetGrouped)
+        #else
+        .listStyle(.grouped)
+        #endif
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .onAppear {
+                #if os(iOS)
                 UIApplication.shared.isIdleTimerDisabled = true
+                #endif
                 if vm.phase == .finished { summaryPresented = true }
             }
-            .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
-            .onChange(of: vm.phase) { _, new in
-                if new == .finished { summaryPresented = true }
+            .onDisappear {
+                #if os(iOS)
+                UIApplication.shared.isIdleTimerDisabled = false
+                #endif
             }
             .navigationDestination(isPresented: $summaryPresented) {
                 WorkoutSummaryView(session: vm.session, onDone: { dismiss() })
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         vm.cancel()
                         dismiss()
@@ -73,7 +82,7 @@ struct WorkoutSessionView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .automatic) {
                     HRPill(heartRate: services.heartRate)
                 }
             }
@@ -100,7 +109,12 @@ struct WorkoutSessionView: View {
             set: { presented in
                 if !presented, vm.phase == .logging { vm.phase = .idle }
             }
-        )) {
+        ), onDismiss: {
+            // Present the summary only after the log sheet has fully
+            // dismissed. Pushing it from onChange(of: phase) while the sheet
+            // is still dismissing races two presentations and freezes the UI.
+            if vm.phase == .finished { summaryPresented = true }
+        }) {
             if let skill = vm.currentSkill {
                 SetLogSheet(
                     skill: skill,
@@ -329,10 +343,10 @@ private struct HRConnectSheet: View {
             .onAppear { heartRate.startScan() }
             .onDisappear { heartRate.stopScan() }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .automatic) {
                     Button("Scan") { heartRate.startScan() }
                 }
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { dismiss() }
                 }
             }

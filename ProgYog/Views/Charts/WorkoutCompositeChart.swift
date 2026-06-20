@@ -44,7 +44,7 @@ struct WorkoutCompositeChart: View {
             let romFraction = romMin > 0
                 ? min(1.0, max(0.0, Double(log.rom) / romMin))
                 : 0.0
-            let achieved = max(0.0, depth - 1.0) + romFraction
+            let achieved = depth * romFraction
             let pct = min(100, (achieved / maxDepth) * 100)
             return Point(
                 id: log.objectID,

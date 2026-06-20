@@ -67,10 +67,12 @@ struct WorkoutListView: View {
             }
             //.listStyle(.grouped)
             .navigationTitle("Workouts")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.accentColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            #endif
             .navigationDestination(for: String.self) { code in
                 WorkoutDetailView(workoutCode: code)
             }
@@ -81,14 +83,26 @@ struct WorkoutListView: View {
 
     private func refreshScores() {
         let all = Array(sessions) // already loaded, sorted newest-first
-        let pts = FamilyPercentChart.points(for: all.reversed())
+        // sessionPercent is expensive (sorts + faults logs per family). Compute
+        // it once per session and reuse for the chart, last, and best below,
+        // instead of recomputing ~3× per session on the main thread.
+        var pctBySession: [NSManagedObjectID: Double] = [:]
+        for s in all {
+            if let p = CompletionScorer.sessionPercent(s) { pctBySession[s.objectID] = p }
+        }
+        let pts: [FamilyPercentChart.Point] = all.reversed().compactMap { s in
+            guard let pct = pctBySession[s.objectID] else { return nil }
+            return FamilyPercentChart.Point(percent: pct,
+                                            barColor: WorkoutPalette.color(for: s.workoutCode),
+                                            series: s.workoutCode)
+        }
         histPts = pts
         rocPts = Self.rateOfChange(from: pts)
         let grouped = Dictionary(grouping: all, by: \.workoutCode)
         for code in workoutCodes {
             let codeSessions = grouped[code] ?? []
-            lastPcts[code] = codeSessions.first.flatMap { CompletionScorer.sessionPercent($0) }
-            bestPcts[code] = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
+            lastPcts[code] = codeSessions.first.flatMap { pctBySession[$0.objectID] }
+            bestPcts[code] = codeSessions.compactMap { pctBySession[$0.objectID] }.max()
             sessionCounts[code] = codeSessions.count
             lastDates[code] = codeSessions.first?.startedAt
         }

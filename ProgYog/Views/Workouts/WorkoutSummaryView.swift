@@ -135,7 +135,7 @@ struct WorkoutSummaryView: View {
         .listStyle(.grouped)
         .navigationTitle("Summary")
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 if let onDone {
                     Button("Done") {
                         services.coreData.save()
@@ -194,7 +194,9 @@ struct WorkoutSummaryView: View {
                 session.endedAt = Date()
                 services.coreData.save()
                 WorkoutCalendarBridge.syncSegments(session)
+                #if canImport(HealthKit)
                 WorkoutHealthBridge.syncSegments(session)
+                #endif
                 scheduleNextPresented = true
             }
             Button("Cancel", role: .cancel) { }
@@ -209,10 +211,14 @@ struct WorkoutSummaryView: View {
                     let restored = SessionRecovery.restore(snap, into: coreData.moc)
                     coreData.save()
                     WorkoutCalendarBridge.syncSegments(restored)
+                    #if canImport(HealthKit)
                     WorkoutHealthBridge.syncSegments(restored)
+                    #endif
                 }
                 WorkoutCalendarBridge.removeAll(for: session)
+                #if canImport(HealthKit)
                 WorkoutHealthBridge.removeAll(for: session)
+                #endif
                 services.coreData.moc.delete(session)
                 services.coreData.save()
                 dismiss()
@@ -322,7 +328,11 @@ struct WorkoutSummaryView: View {
     private func openCalendar(at date: Date) {
         let interval = Int(date.timeIntervalSinceReferenceDate)
         if let url = URL(string: "calshow:\(interval)") {
+            #if os(iOS)
             UIApplication.shared.open(url)
+            #else
+            NSWorkspace.shared.open(url)
+            #endif
         }
     }
     #endif

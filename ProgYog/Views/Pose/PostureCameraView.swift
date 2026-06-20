@@ -1,3 +1,4 @@
+#if os(iOS)
 import SwiftUI
 
 struct PostureCameraView: View {
@@ -45,13 +46,13 @@ struct PostureCameraView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button { detector.flip() } label: {
                     Image(systemName: "arrow.triangle.2.circlepath.camera")
                 }
                 .tint(.white)
             }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .automatic) {
                 HStack(spacing: 16) {
                     // Record current reading
                     Button {
@@ -88,3 +89,4 @@ struct PostureCameraView: View {
         .onDisappear { detector.stop() }
     }
 }
+#endif

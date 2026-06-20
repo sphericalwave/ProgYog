@@ -5,7 +5,6 @@
 
 import SwiftUI
 import CoreData
-import UIKit
 
 struct SkillAnimatedPoster: View {
     let skill: CDAbsSkill
@@ -14,7 +13,7 @@ struct SkillAnimatedPoster: View {
 
     @State private var paused = false
     @State private var pausedDate: Date = .now
-    @State private var cachedCustomPhotos: [UIImage] = []
+    @State private var cachedCustomPhotos: [PlatformImage] = []
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
@@ -31,7 +30,7 @@ struct SkillAnimatedPoster: View {
         }
         .task(id: skill.objectID) {
             let photoData = skill.customPhotos
-            cachedCustomPhotos = photoData.compactMap { UIImage(data: $0) }
+            cachedCustomPhotos = photoData.compactMap { PlatformImage.from(data: $0) }
         }
     }
 
@@ -58,17 +57,17 @@ struct SkillAnimatedPoster: View {
     }
 
     @ViewBuilder
-    private func animatedCustomView(images: [UIImage]) -> some View {
+    private func animatedCustomView(images: [PlatformImage]) -> some View {
         Group {
             if paused || images.count == 1 {
                 let idx = Int(pausedDate.timeIntervalSinceReferenceDate) % images.count
-                Image(uiImage: images[idx])
+                Image(platformImage: images[idx])
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity, maxHeight: maxHeight)
             } else {
                 TimelineView(.periodic(from: .now, by: 0.333)) { tl in
                     let idx = Int(tl.date.timeIntervalSinceReferenceDate) % images.count
-                    Image(uiImage: images[idx])
+                    Image(platformImage: images[idx])
                         .resizable().scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: maxHeight)
                 }

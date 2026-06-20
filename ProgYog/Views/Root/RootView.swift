@@ -3,6 +3,7 @@
 //  ProgYog
 //
 
+#if os(iOS)
 import SwiftUI
 import CoreData
 
@@ -141,4 +142,6 @@ private struct UndoToast: View {
     RootView()
         .environmentObject(PreviewSupport.services)
 }
+#endif
+
 #endif

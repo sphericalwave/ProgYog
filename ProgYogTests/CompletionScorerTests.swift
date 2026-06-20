@@ -4,7 +4,8 @@
 //
 //  Unit tests for the % completed metric.
 //  ROM-keyed continuous: familyPercent =
-//      (max(depth - 1, 0) + clamp(rom/romMin, 0...1)) / maxDepth × 100.
+//      (depth × clamp(rom/romMin, 0...1)) / maxDepth × 100.
+//      Banked depth levels are scaled by the current ROM%, not assumed perfect.
 //  RPT / RPE / RPD are advisory — they do not gate the metric.
 //
 
@@ -128,14 +129,14 @@ final class CompletionScorerTests: XCTestCase {
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
-    // ROM under threshold scales partial credit toward the current depth's
-    // slot. depth 3 / 3, rom 94 → ((2 + 94/95) / 3) * 100 ≈ 99.65.
+    // ROM under threshold scales credit across ALL banked levels, not just
+    // the current slot. depth 3 / 3, rom 94 → (3 × 94/95 / 3) * 100 ≈ 98.95.
     func testQualifyingCriteria_OneTickOff_ROMFails() throws {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 6, rpd: 1, rom: 94)
         let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
-        XCTAssertEqual(p, (2.0 + 94.0/95.0) / 3.0 * 100.0, accuracy: 0.0001)
+        XCTAssertEqual(p, (3.0 * (94.0/95.0)) / 3.0 * 100.0, accuracy: 0.0001)
     }
 
     // MARK: - Family percent uses LAST set
@@ -295,6 +296,19 @@ final class CompletionScorerTests: XCTestCase {
         let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
         addLog(session, skill: depth1, rpt: 8, rpe: 6, rpd: 1, rom: 100)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 20)
+    }
+
+    /// Banked levels scale by the current ROM%, not assumed perfect (the
+    /// motivating case for the formula change). depth 3 / 5, rom 80,
+    /// romMin 95 → (3 × 80/95 / 5) * 100 ≈ 50.53, well below the old
+    /// formula's (2 + 80/95)/5*100 ≈ 56.84.
+    func testFamilyPercent_BankedLevelsScaledByCurrentROM() throws {
+        let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
+        let session = makeSession(code: "A")
+        let depth3 = fam.orderedAbsSkills.first { $0.depth == 3 }!
+        addLog(session, skill: depth3, rpt: 8, rpe: 6, rpd: 1, rom: 80)
+        let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
+        XCTAssertEqual(p, (3.0 * (80.0/95.0)) / 5.0 * 100.0, accuracy: 0.0001)
     }
 
     /// Full ROM at top depth — RPT/RPE/RPD failures don't dock the metric.

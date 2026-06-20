@@ -93,7 +93,9 @@ final class WorkoutSessionViewModel: ObservableObject {
             session.endedAt = session.endedAt ?? Date()
             services.coreData.save()
             WorkoutCalendarBridge.syncSegments(session)
+            #if canImport(HealthKit)
             WorkoutHealthBridge.syncSegments(session)
+            #endif
             phase = .finished
         }
     }
@@ -113,10 +115,14 @@ final class WorkoutSessionViewModel: ObservableObject {
             let restored = SessionRecovery.restore(snap, into: coreData.moc)
             coreData.save()
             WorkoutCalendarBridge.syncSegments(restored)
+            #if canImport(HealthKit)
             WorkoutHealthBridge.syncSegments(restored)
+            #endif
         }
         WorkoutCalendarBridge.removeAll(for: session)
+        #if canImport(HealthKit)
         WorkoutHealthBridge.removeAll(for: session)
+        #endif
         moc.delete(session)
         services.coreData.save()
     }
@@ -335,7 +341,9 @@ final class WorkoutSessionViewModel: ObservableObject {
             session.endedAt = Date()
             services.coreData.save()
             WorkoutCalendarBridge.syncSegments(session)
+            #if canImport(HealthKit)
             WorkoutHealthBridge.syncSegments(session)
+            #endif
             phase = .finished
         } else {
             phase = .idle

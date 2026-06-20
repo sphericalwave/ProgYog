@@ -4,20 +4,23 @@
 //
 
 import SwiftUI
+#if os(iOS)
 import UIKit
+#endif
 
 @main
 struct ProgYogApp: App {
     @StateObject private var services = AppServices()
 
     init() {
-        // Make every scroll view in the app dismiss the keyboard
-        // when the user drags it.
+        #if os(iOS)
         UIScrollView.appearance().keyboardDismissMode = .interactive
+        #endif
     }
 
     var body: some Scene {
         WindowGroup {
+            #if os(iOS)
             if isProduction {
                 RootView()
                     .environmentObject(services)
@@ -25,13 +28,17 @@ struct ProgYogApp: App {
             }
             // else: empty WindowGroup — unit tests build no view tree,
             // so the lazy AppServices @StateObject is never constructed.
+            #else
+            MacRootView()
+                .environmentObject(services)
+            #endif
         }
     }
 
-    // qualitycoding.org/bypass-swiftui-app-launch-unit-testing
-    // false under in-process unit tests (XCTestCase linked) → skip launch.
-    // UI tests run out-of-process so XCTestCase is absent → true → real app.
+    #if os(iOS)
+    // false under in-process unit tests → skip launch.
     private var isProduction: Bool {
         NSClassFromString("XCTestCase") == nil
     }
+    #endif
 }

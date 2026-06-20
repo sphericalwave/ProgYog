@@ -81,7 +81,7 @@ struct SetLogSheet: View {
         return min(100, max(0, Double(rom) / target * 100))
     }
 
-    /// Workout score: (depth − 1 + romFraction) / maxDepth × 100.
+    /// Workout score: (depth × romFraction) / maxDepth × 100.
     /// 100% only at highest skill level with full ROM.
     private var workoutScore: Double? {
         guard let family = skill.skillFamily else { return nil }
@@ -90,7 +90,7 @@ struct SetLogSheet: View {
         let depth = Double(skill.depth)
         let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
         let romFraction = min(1.0, max(0.0, Double(rom) / target))
-        let achieved = max(0.0, depth - 1.0) + romFraction
+        let achieved = depth * romFraction
         return min(100, (achieved / maxDepth) * 100)
     }
     
@@ -127,11 +127,11 @@ struct SetLogSheet: View {
                     metricRow(label: "Reps", value: $reps, range: 0...200, info: "1 rep is both sides of a skill once", showInfo: $showRepsInfo)
                     metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%", colorFor: { $0 >= 80 ? .green : .red })
                     HStack(spacing: 0) {
-                        compactMetric(label: "Technique", value: $rpt, range: 1...10, colorFor: { $0 >= 8 ? .green : .red })
+                        compactMetric(label: "Technique", value: $rpt, range: 1...10, colorFor: FalseColor.technique, describe: TEDDescription.technique)
                         Spacer()
-                        compactMetric(label: "Exertion", value: $rpe, range: 1...10, colorFor: { $0 >= 6 ? .green : .red })
+                        compactMetric(label: "Exertion", value: $rpe, range: 1...10, colorFor: FalseColor.exertion, describe: TEDDescription.exertion)
                         Spacer()
-                        compactMetric(label: "Discomfort", value: $rpd, range: 1...10, colorFor: { $0 <= 3 ? .green : .red })
+                        compactMetric(label: "Discomfort", value: $rpd, range: 1...10, colorFor: FalseColor.discomfort, describe: TEDDescription.discomfort)
                     }
                     .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
 
@@ -205,16 +205,18 @@ struct SetLogSheet: View {
 
             }
             .navigationTitle(editing == nil ? "Log Set" : "Edit Set")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .keyboardDoneToolbar()
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         onCancel?()
                         dismiss()
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .automatic) {
                     Button("Save") {
                         onSave(Entry(
                             reps: reps, rom: rom,
@@ -295,7 +297,8 @@ struct SetLogSheet: View {
         label: String,
         value: Binding<Int>,
         range: ClosedRange<Int>,
-        colorFor: ((Int) -> Color)? = nil
+        colorFor: ((Int) -> Color)? = nil,
+        describe: ((Int) -> String)? = nil
     ) -> some View {
         let valueColor = colorFor?(value.wrappedValue) ?? .primary
         VStack(alignment: .center, spacing: 4) {
@@ -310,8 +313,16 @@ struct SetLogSheet: View {
             }
             Stepper(value: value, in: range) { EmptyView() }
                 .labelsHidden()
+            if let describe {
+                Text(describe(value.wrappedValue))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity)
+            }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .top)
         .padding(.vertical, 2)
     }
 

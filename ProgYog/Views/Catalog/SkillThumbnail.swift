@@ -4,7 +4,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct SkillThumbnail: View {
     let assetName: String?
@@ -13,8 +12,8 @@ struct SkillThumbnail: View {
     var photos: [Data] = []
     var size: CGFloat = 48
 
-    @State private var cachedPhotos: [UIImage] = []
-    @State private var cachedPhoto: UIImage? = nil
+    @State private var cachedPhotos: [PlatformImage] = []
+    @State private var cachedPhoto: PlatformImage? = nil
 
     private var bundleNames: [String] {
         assetNames.isEmpty ? (assetName.map { [$0] } ?? []) : assetNames
@@ -32,12 +31,12 @@ struct SkillThumbnail: View {
             } else if cachedPhotos.count > 1 {
                 TimelineView(.periodic(from: .now, by: 0.333)) { tl in
                     let idx = Int(tl.date.timeIntervalSinceReferenceDate) % cachedPhotos.count
-                    Image(uiImage: cachedPhotos[idx]).resizable().scaledToFill()
+                    Image(platformImage: cachedPhotos[idx]).resizable().scaledToFill()
                 }
             } else if let img = cachedPhotos.first {
-                Image(uiImage: img).resizable().scaledToFill()
+                Image(platformImage: img).resizable().scaledToFill()
             } else if let img = cachedPhoto {
-                Image(uiImage: img).resizable().scaledToFill()
+                Image(platformImage: img).resizable().scaledToFill()
             } else {
                 Image(systemName: "figure.yoga")
                     .resizable().scaledToFit()
@@ -46,15 +45,15 @@ struct SkillThumbnail: View {
             }
         }
         .frame(width: size, height: size)
-        .background(Color(.tertiarySystemBackground))
+        .background(Color.gray.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
         .task(id: photos.count) {
             guard bundleNames.isEmpty else { return }
-            cachedPhotos = photos.compactMap { UIImage(data: $0) }
+            cachedPhotos = photos.compactMap { PlatformImage.from(data: $0) }
         }
         .task(id: photoData?.count) {
             guard bundleNames.isEmpty, photos.isEmpty else { return }
-            cachedPhoto = photoData.flatMap { UIImage(data: $0) }
+            cachedPhoto = photoData.flatMap { PlatformImage.from(data: $0) }
         }
     }
 }

@@ -5,7 +5,9 @@
 
 import Foundation
 import CoreData
+#if os(iOS)
 import UIKit
+#endif
 
 @objc(CDAbsSkill)
 public class CDAbsSkill: NSManagedObject { }
@@ -18,7 +20,6 @@ extension CDAbsSkill {
 
     @NSManaged public var bundleDepth: Int16
     @NSManaged public var customPhotoData: Data?
-    @NSManaged public var customPhotosData: NSArray?
     @NSManaged public var depth: Int16
     @NSManaged public var hideBundleImages: Bool
     @NSManaged public var instructions: String
@@ -77,6 +78,7 @@ extension CDAbsSkill {
 
     /// All bundle-resident pose images for this skill, in extraction order.
     var posterAssetNames: [String] {
+        #if os(iOS)
         guard !hideBundleImages else { return [] }
         let stem = posterStem
         if let cached = Self.posterNamesCache[stem] { return cached }
@@ -88,6 +90,9 @@ extension CDAbsSkill {
         }
         Self.posterNamesCache[stem] = names
         return names
+        #else
+        return []
+        #endif
     }
 
     /// The hero image (idx 0) if one exists.
@@ -97,7 +102,7 @@ extension CDAbsSkill {
     var customPhotos: [Data] {
         get {
             let set = (photos as? Set<CDSkillPhoto>) ?? []
-            return set.sorted { $0.order < $1.order }.map { $0.data }
+            return set.sorted { $0.order < $1.order }.compactMap { $0.data }
         }
         set {
             if let existing = photos as? Set<CDSkillPhoto> {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AE0000010000000000000001 /* ProgressionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000002 /* ProgressionEvaluator.swift */; };
 		AE0000010000000000000010 /* Session+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000011 /* Session+.swift */; };
 		AE0000010000000000000020 /* SetLog+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000021 /* SetLog+.swift */; };
@@ -15,6 +16,7 @@
 		AE0000020000000000000011 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000012 /* HeartRateService.swift */; };
 		AE0000020000000000000021 /* AudioCueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000022 /* AudioCueService.swift */; };
 		AE0000020000000000000031 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000032 /* AppServices.swift */; };
+		FA15EC0100000000000002 /* FalseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15EC0100000000000001 /* FalseColor.swift */; };
 		AE0000020000000000000041 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000042 /* PreviewSupport.swift */; };
 		AE0000020000000000000051 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000052 /* ErrorLog.swift */; };
 		AE0000020000000000000061 /* CompletionScorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000062 /* CompletionScorer.swift */; };
@@ -64,6 +66,7 @@
 		AE0000D00000000000000001 /* BodyPose.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000002 /* BodyPose.swift */; };
 		AE0000D00000000000000011 /* PostureReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000012 /* PostureReport.swift */; };
 		AE0000D00000000000000021 /* PostureSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000022 /* PostureSnapshot.swift */; };
+		AE0000D00000000000000031 /* TEDDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000D00000000000000032 /* TEDDescription.swift */; };
 		AF0B756B25E06FDE00A0FF28 /* ProgYogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */; };
 		AF0B756F25E06FE200A0FF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B756E25E06FE200A0FF28 /* Assets.xcassets */; };
 		AF0B757225E06FE200A0FF28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0B757125E06FE200A0FF28 /* Preview Assets.xcassets */; };
@@ -72,12 +75,12 @@
 		AF2B36DF25E4494D009E760F /* CDYogSeries+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D725E4494D009E760F /* CDYogSeries+.swift */; };
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
-		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000082 /* SessionInfoDetailView.swift */; };
 		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
 		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
 		AF8B518C25E56E9700519B9D /* ProgYogData.json in Resources */ = {isa = PBXBuildFile; fileRef = AF8B518B25E56E9700519B9D /* ProgYogData.json */; };
+		AFA7D9702FE168DF007A877F /* PlatformImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7D96F2FE168DF007A877F /* PlatformImage.swift */; };
 		AFC102D02FD45C600022143E /* ScheduleNextWorkoutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */; };
 		AFC102D62FD5B9320022143E /* FamilyPercentChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102D52FD5B9320022143E /* FamilyPercentChart.swift */; };
 		AFC102EA2FD741910022143E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC102E92FD741910022143E /* OnboardingView.swift */; };
@@ -110,6 +113,7 @@
 		AE0000020000000000000012 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000022 /* AudioCueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCueService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000032 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
+		FA15EC0100000000000001 /* FalseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FalseColor.swift; sourceTree = "<group>"; };
 		AE0000020000000000000042 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
 		AE0000020000000000000052 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
 		AE0000020000000000000062 /* CompletionScorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionScorer.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		AE0000D00000000000000002 /* BodyPose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPose.swift; sourceTree = "<group>"; };
 		AE0000D00000000000000012 /* PostureReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureReport.swift; sourceTree = "<group>"; };
 		AE0000D00000000000000022 /* PostureSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureSnapshot.swift; sourceTree = "<group>"; };
+		AE0000D00000000000000032 /* TEDDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEDDescription.swift; sourceTree = "<group>"; };
 		AF0B756725E06FDE00A0FF28 /* ProgYog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgYog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0B756A25E06FDE00A0FF28 /* ProgYogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgYogApp.swift; sourceTree = "<group>"; };
 		AF0B756E25E06FE200A0FF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,12 +175,13 @@
 		AF2B36D725E4494D009E760F /* CDYogSeries+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDYogSeries+.swift"; sourceTree = "<group>"; };
 		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
 		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
-		DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillPhoto+.swift"; sourceTree = "<group>"; };
 		AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
 		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
 		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
 		AF8B518B25E56E9700519B9D /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
+		AFA7D96F2FE168DF007A877F /* PlatformImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformImage.swift; sourceTree = "<group>"; };
+		AFA7D98D2FE16BEF007A877F /* ProgYog.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = ProgYog.xctestplan; sourceTree = "<group>"; };
 		AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNextWorkoutSheet.swift; sourceTree = "<group>"; };
 		AFC102D52FD5B9320022143E /* FamilyPercentChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyPercentChart.swift; sourceTree = "<group>"; };
 		AFC102E92FD741910022143E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -188,6 +194,7 @@
 		AFE924C625E59741005048B2 /* SkillFam.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SkillFam.json; sourceTree = "<group>"; };
 		AFF2055C2FCB2E8000430D49 /* ProgYog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProgYog.entitlements; sourceTree = "<group>"; };
 		AFF2055E2FCB309A00430D49 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillPhoto+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -217,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				AE0000020000000000000032 /* AppServices.swift */,
+				FA15EC0100000000000001 /* FalseColor.swift */,
 				AE0000020000000000000002 /* CoreDataService.swift */,
 				AE0000020000000000000012 /* HeartRateService.swift */,
 				AE00000200000000000000F2 /* WorkoutCalendar.swift */,
@@ -354,6 +362,7 @@
 				AE0000D00000000000000002 /* BodyPose.swift */,
 				AE0000D00000000000000012 /* PostureReport.swift */,
 				AE0000D00000000000000022 /* PostureSnapshot.swift */,
+				AE0000D00000000000000032 /* TEDDescription.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +370,7 @@
 		AF0B755E25E06FDE00A0FF28 = {
 			isa = PBXGroup;
 			children = (
+				AFA7D98D2FE16BEF007A877F /* ProgYog.xctestplan */,
 				AF0B756925E06FDE00A0FF28 /* ProgYog */,
 				AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */,
 				AFF2055D2FCB309900430D49 /* Frameworks */,
@@ -390,6 +400,7 @@
 				AF0B756E25E06FE200A0FF28 /* Assets.xcassets */,
 				AF0B757825E06FE200A0FF28 /* Info.plist */,
 				AF0B757025E06FE200A0FF28 /* Preview Content */,
+				AFA7D96F2FE168DF007A877F /* PlatformImage.swift */,
 			);
 			path = ProgYog;
 			sourceTree = "<group>";
@@ -569,10 +580,12 @@
 				AFD2C8DD272ECD0A006B38BB /* SwFontMods.swift in Sources */,
 				AFD2C8C9272EC569006B38BB /* SwTheme.swift in Sources */,
 				AE0000020000000000000031 /* AppServices.swift in Sources */,
+				FA15EC0100000000000002 /* FalseColor.swift in Sources */,
 				AE0000020000000000000041 /* PreviewSupport.swift in Sources */,
 				AE0000020000000000000051 /* ErrorLog.swift in Sources */,
 				AE0000020000000000000061 /* CompletionScorer.swift in Sources */,
 				AE0000020000000000000071 /* UndoStack.swift in Sources */,
+				AFA7D9702FE168DF007A877F /* PlatformImage.swift in Sources */,
 				AE0000020000000000000081 /* SessionRecovery.swift in Sources */,
 				AE0000020000000000000091 /* SessionEditor.swift in Sources */,
 				AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */,
@@ -639,6 +652,7 @@
 				AE0000020000000000000101 /* PostureAnalyzer.swift in Sources */,
 				AE0000C00000000000000031 /* PostureHUDView.swift in Sources */,
 				AE0000D00000000000000021 /* PostureSnapshot.swift in Sources */,
+				AE0000D00000000000000031 /* TEDDescription.swift in Sources */,
 				AE0000020000000000000111 /* PostureStore.swift in Sources */,
 				AE0000C00000000000000041 /* PostureRecordingsView.swift in Sources */,
 			);
@@ -714,10 +728,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = auto;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -769,9 +784,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = auto;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -794,8 +810,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SWS.ProgYog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -817,8 +835,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SWS.ProgYog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -842,6 +862,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -870,6 +891,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;

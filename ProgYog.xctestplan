@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "D8B270AB-1820-448D-8ADD-E5007EC1BE69",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ProgYog.xcodeproj",
+      "identifier" : "AF0B756625E06FDE00A0FF28",
+      "name" : "ProgYog"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:ProgYog.xcodeproj",
+        "identifier" : "AF3BEA582FBA0E470076FF55",
+        "name" : "ProgYogTests"
+      }
+    }
+  ],
+  "version" : 1
+}

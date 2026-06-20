@@ -47,9 +47,11 @@ struct SkillPickerSheet: View {
             }
             .listStyle(.grouped)
             .navigationTitle("Add Set")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
             }

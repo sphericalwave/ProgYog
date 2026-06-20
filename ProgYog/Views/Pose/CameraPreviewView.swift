@@ -1,3 +1,4 @@
+#if os(iOS)
 import SwiftUI
 import AVFoundation
 
@@ -20,3 +21,4 @@ final class PreviewUIView: UIView {
     override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
     var previewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
 }
+#endif

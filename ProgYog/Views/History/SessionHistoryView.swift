@@ -43,10 +43,12 @@ struct SessionHistoryView: View {
         }
         .listStyle(.grouped)
         .navigationTitle("History")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.accentColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
+        #endif
         .navigationDestination(for: NSManagedObjectID.self) { id in
             if let session = sessions.first(where: { $0.objectID == id }) {
                 WorkoutSummaryView(session: session)
@@ -61,10 +63,14 @@ struct SessionHistoryView: View {
             let restored = SessionRecovery.restore(snap, into: coreData.moc)
             coreData.save()
             WorkoutCalendarBridge.syncSegments(restored)
+            #if canImport(HealthKit)
             WorkoutHealthBridge.syncSegments(restored)
+            #endif
         }
         WorkoutCalendarBridge.removeAll(for: session)
+        #if canImport(HealthKit)
         WorkoutHealthBridge.removeAll(for: session)
+        #endif
         moc.delete(session)
         services.coreData.save()
     }

@@ -29,13 +29,15 @@ struct PostureRecordingsView: View {
                 .onDelete(perform: store.delete)
             }
             .navigationTitle("Posture Recordings")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { dismiss() }
                 }
                 if !store.snapshots.isEmpty {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .automatic) {
                         Button("Clear All", role: .destructive) { confirmClear = true }
                     }
                 }

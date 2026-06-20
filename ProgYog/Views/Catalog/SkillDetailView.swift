@@ -62,9 +62,9 @@ struct SkillDetailView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 8) {
                                 ForEach(photos.indices, id: \.self) { i in
-                                    if let img = UIImage(data: photos[i]) {
+                                    if let img = PlatformImage.from(data: photos[i]) {
                                         ZStack(alignment: .topTrailing) {
-                                            Image(uiImage: img)
+                                            Image(platformImage: img)
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: 72, height: 72)
@@ -185,7 +185,9 @@ struct SkillDetailView: View {
         }
         .listStyle(.grouped)
         .navigationTitle(skill.name)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .sheet(isPresented: $editingInstructions) {
             InstructionsEditSheet(initialText: skill.instructions) { newText in
                 skill.instructions = newText
@@ -221,12 +223,14 @@ struct InstructionsEditSheet: View {
             TextEditor(text: $draft)
                 .padding(.horizontal, 4)
                 .navigationTitle("Instructions")
+                #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+                #endif
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button("Cancel") { dismiss() }
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .automatic) {
                         Button("Done") { onSave(draft); dismiss() }.bold()
                     }
                 }

@@ -70,14 +70,16 @@ struct ScheduleNextWorkoutSheet: View {
                 }
             }
             .navigationTitle("Schedule Next Workout")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Skip") {
                         dismiss()
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .automatic) {
                     Button("Schedule") {
                         scheduleWorkout()
                     }
