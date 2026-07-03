@@ -5,7 +5,7 @@ let package = Package(
     name: "GenerateIcons",
     platforms: [.macOS(.v13)],
     dependencies: [
-        .package(path: "../../../../brand-asset-gen"),
+        .package(path: "../../../../Frameworks/Tools/brand-asset-gen"),
     ],
     targets: [
         .executableTarget(
