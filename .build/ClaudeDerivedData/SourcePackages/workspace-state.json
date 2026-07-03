@@ -21,6 +21,20 @@
       {
         "basedOn" : null,
         "packageRef" : {
+          "identity" : "swkeyboard",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard",
+          "name" : "SwKeyboard"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard"
+        },
+        "subpath" : "swkeyboard"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
           "identity" : "workoutaudiokit",
           "kind" : "fileSystem",
           "location" : "/Users/darkknight/Documents/apps/Frameworks/Audio/WorkoutAudioKit",

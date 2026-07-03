@@ -5,6 +5,7 @@
 
 import SwiftUI
 import WorkoutSyncKit
+import SwKeyboard
 #if os(iOS)
 import UIKit
 #endif
@@ -27,7 +28,7 @@ struct ProgYogApp: App {
             if isProduction {
                 RootView()
                     .environmentObject(services)
-                    .onAppear { KeyboardDismiss.installWindowTapRecognizer() }
+                    .onAppear { KeyboardDismissal.installTapOutsideDismissal() }
             }
             // else: empty WindowGroup — unit tests build no view tree,
             // so the lazy AppServices @StateObject is never constructed.

@@ -34,13 +34,6 @@
     "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillPickerSheet.o",
     "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillPickerSheet.swiftdeps"
   },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Workouts/WorkoutDetailView.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutDetailView.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutDetailView.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutDetailView.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutDetailView.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutDetailView.swiftdeps"
-  },
   "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Workouts/WorkoutFamilyDetailView.swift" : {
     "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyDetailView.swiftconstvalues",
     "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyDetailView.d",

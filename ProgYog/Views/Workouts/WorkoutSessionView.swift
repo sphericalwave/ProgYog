@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwKeyboard
 import WorkoutAudioKit
 
 struct WorkoutSessionView: View {
@@ -298,7 +299,7 @@ private func workoutSessionPreview(_ phase: WorkoutSessionViewModel.Phase) -> so
     NavigationStack {
         WorkoutSessionView(previewPhase: phase, workoutCode: "A", services: PreviewSupport.services)
     }
-    .keyboardDoneToolbar()
+    .doneKeyboardToolbar()
     .environmentObject(PreviewSupport.services)
     .environment(\.managedObjectContext, PreviewSupport.services.coreData.moc)
 }

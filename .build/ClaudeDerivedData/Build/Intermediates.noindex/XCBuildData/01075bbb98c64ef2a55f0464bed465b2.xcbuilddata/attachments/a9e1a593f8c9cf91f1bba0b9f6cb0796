@@ -1,0 +1,29 @@
+{
+  "" : {
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutSyncKit-primary.dia",
+    "emit-module-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutSyncKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutSyncKit-primary-emit-module.dia",
+    "pch" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutSyncKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutSyncKit-primary.swiftdeps"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit/Sources/WorkoutSyncKit/WorkoutCalendar.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.dia",
+    "index-unit-output-path" : "/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutCalendar~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit/Sources/WorkoutSyncKit/WorkoutHealth.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.dia",
+    "index-unit-output-path" : "/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutSyncKit.build/Debug-iphonesimulator/WorkoutSyncKit.build/Objects-normal/arm64/WorkoutHealth~partial.swiftmodule"
+  }
+}

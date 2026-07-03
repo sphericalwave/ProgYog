@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwKeyboard
 import WorkoutSyncKit
 import CoreData
 
@@ -182,7 +183,7 @@ struct WorkoutSummaryView: View {
                     resuming: session
                 )
             }
-            .keyboardDoneToolbar()
+            .doneKeyboardToolbar()
         }
         .sheet(isPresented: $scheduleNextPresented) {
             ScheduleNextWorkoutSheet(

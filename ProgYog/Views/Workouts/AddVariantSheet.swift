@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwKeyboard
 import PhotosUI
 
 struct AddVariantSheet: View {
@@ -94,7 +95,7 @@ struct AddVariantSheet: View {
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
-            .keyboardDoneToolbar()
+            .doneKeyboardToolbar()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }

@@ -1,65 +1,37 @@
 {
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Data/CoreData/CDAbsSkill+.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDAbsSkill+.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDAbsSkill+.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDAbsSkill+.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDAbsSkill+.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDAbsSkill+.swiftdeps"
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Catalog/AbsSkillListView.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/AbsSkillListView.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/AbsSkillListView.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/AbsSkillListView.dia",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/AbsSkillListView.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/AbsSkillListView.swiftdeps"
   },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Data/CoreData/CDYogSeries+.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDYogSeries+.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDYogSeries+.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDYogSeries+.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDYogSeries+.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/CDYogSeries+.swiftdeps"
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Catalog/SkillFamilyListView.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillFamilyListView.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillFamilyListView.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillFamilyListView.dia",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillFamilyListView.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillFamilyListView.swiftdeps"
   },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Catalog/SkillDetailView.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillDetailView.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillDetailView.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillDetailView.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillDetailView.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillDetailView.swiftdeps"
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Workouts/SetLogSheet.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SetLogSheet.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SetLogSheet.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SetLogSheet.dia",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SetLogSheet.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SetLogSheet.swiftdeps"
   },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Charts/HRCurveChart.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/HRCurveChart.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/HRCurveChart.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/HRCurveChart.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/HRCurveChart.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/HRCurveChart.swiftdeps"
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Workouts/WorkoutSessionView.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionView.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionView.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionView.dia",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionView.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionView.swiftdeps"
   },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Charts/SkillTrendChart.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillTrendChart.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillTrendChart.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillTrendChart.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillTrendChart.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SkillTrendChart.swiftdeps"
-  },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Charts/WorkoutCompositeChart.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutCompositeChart.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutCompositeChart.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutCompositeChart.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutCompositeChart.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutCompositeChart.swiftdeps"
-  },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Charts/WorkoutFamilyCompletionChart.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyCompletionChart.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyCompletionChart.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyCompletionChart.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyCompletionChart.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutFamilyCompletionChart.swiftdeps"
-  },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/History/SessionHistoryView.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SessionHistoryView.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SessionHistoryView.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SessionHistoryView.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SessionHistoryView.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/SessionHistoryView.swiftdeps"
-  },
-  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Onboarding/OnboardingSlide.swift" : {
-    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/OnboardingSlide.swiftconstvalues",
-    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/OnboardingSlide.d",
-    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/OnboardingSlide.dia",
-    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/OnboardingSlide.o",
-    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/OnboardingSlide.swiftdeps"
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYog/Views/Workouts/WorkoutSessionViewModel.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionViewModel.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionViewModel.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionViewModel.dia",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionViewModel.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYog.build/Objects-normal/x86_64/WorkoutSessionViewModel.swiftdeps"
   }
 }

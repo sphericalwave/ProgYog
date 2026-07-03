@@ -10,6 +10,7 @@
 		AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000042 /* SetLogKit */; };
 		AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */; };
 		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
+		AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE000000004B /* SwKeyboard */; };
 		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AE0000010000000000000010 /* Session+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000011 /* Session+.swift */; };
 		AE0000010000000000000020 /* SetLog+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000021 /* SetLog+.swift */; };
@@ -55,7 +56,6 @@
 		AE0000070000000000000011 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000070000000000000012 /* ErrorDetailView.swift */; };
 		AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000002 /* SkillPosterGallery.swift */; };
 		AE0000080000000000000011 /* SkillThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000012 /* SkillThumbnail.swift */; };
-		AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000090000000000000002 /* KeyboardDismiss.swift */; };
 		AE00000A0000000000000001 /* WorkoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000A0000000000000002 /* WorkoutPalette.swift */; };
 		AE00000B0000000000000001 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000B0000000000000002 /* DashboardView.swift */; };
 		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
@@ -150,7 +150,6 @@
 		AE0000070000000000000012 /* ErrorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetailView.swift; sourceTree = "<group>"; };
 		AE0000080000000000000002 /* SkillPosterGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPosterGallery.swift; sourceTree = "<group>"; };
 		AE0000080000000000000012 /* SkillThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillThumbnail.swift; sourceTree = "<group>"; };
-		AE0000090000000000000002 /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		AE00000A0000000000000002 /* WorkoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPalette.swift; sourceTree = "<group>"; };
 		AE00000B0000000000000002 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
@@ -207,6 +206,7 @@
 				AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */,
 				AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */,
 				AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */,
+				AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +256,6 @@
 				AE0000070000000000000100 /* Settings */,
 				AE0000050000000000000100 /* Charts */,
 				AE0000C00000000000000100 /* Pose */,
-				AE0000090000000000000002 /* KeyboardDismiss.swift */,
 				AFC102E82FD7415F0022143E /* Onboarding */,
 			);
 			path = Views;
@@ -486,6 +485,7 @@
 				AF51E7C0DEC0DE0000000042 /* SetLogKit */,
 				AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */,
 				AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */,
+				AF51E7C0DEC0DE000000004B /* SwKeyboard */,
 			);
 			productName = ProgressiveYog;
 			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
@@ -545,6 +545,7 @@
 				AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "SetLogKit" */,
 				AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */,
 				AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */,
+				AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -603,7 +604,6 @@
 				AE0000070000000000000011 /* ErrorDetailView.swift in Sources */,
 				AE0000080000000000000001 /* SkillPosterGallery.swift in Sources */,
 				AE0000080000000000000011 /* SkillThumbnail.swift in Sources */,
-				AE0000090000000000000001 /* KeyboardDismiss.swift in Sources */,
 				AE0000020000000000000001 /* CoreDataService.swift in Sources */,
 				AFC102EA2FD741910022143E /* OnboardingView.swift in Sources */,
 				AE0000020000000000000011 /* HeartRateService.swift in Sources */,
@@ -963,6 +963,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Frameworks/Health/WorkoutSyncKit;
 		};
+		AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/UI/SwKeyboard;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -980,6 +984,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */;
 			productName = WorkoutSyncKit;
+		};
+		AF51E7C0DEC0DE000000004B /* SwKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */;
+			productName = SwKeyboard;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

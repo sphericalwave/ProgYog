@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>36B625B6-B037-4420-BE64-59CB40FD0EFB</key>
+		<key>6C4BC5D5-79BB-409B-96F4-3AE2875EB217</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>36B625B6-B037-4420-BE64-59CB40FD0EFB.xcactivitylog</string>
+			<string>6C4BC5D5-79BB-409B-96F4-3AE2875EB217.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -34,15 +34,15 @@
 			<key>signature</key>
 			<string>Resolve Packages</string>
 			<key>timeStartedRecording</key>
-			<real>804802779.08239198</real>
+			<real>804808348.17115295</real>
 			<key>timeStoppedRecording</key>
-			<real>804802779.17252398</real>
+			<real>804808348.94468105</real>
 			<key>title</key>
 			<string>Resolve Packages</string>
 			<key>uniqueIdentifier</key>
-			<string>36B625B6-B037-4420-BE64-59CB40FD0EFB</string>
+			<string>6C4BC5D5-79BB-409B-96F4-3AE2875EB217</string>
 		</dict>
-		<key>E02BFCE2-18BC-49EE-BA02-FE2454A48C40</key>
+		<key>A168B01F-8C65-4229-A019-7D747B4F90EF</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -51,7 +51,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>E02BFCE2-18BC-49EE-BA02-FE2454A48C40.xcactivitylog</string>
+			<string>A168B01F-8C65-4229-A019-7D747B4F90EF.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -70,13 +70,13 @@
 			<key>signature</key>
 			<string>Resolve Packages</string>
 			<key>timeStartedRecording</key>
-			<real>804806908.32532299</real>
+			<real>804808381.19024706</real>
 			<key>timeStoppedRecording</key>
-			<real>804806908.95748496</real>
+			<real>804808381.29537106</real>
 			<key>title</key>
 			<string>Resolve Packages</string>
 			<key>uniqueIdentifier</key>
-			<string>E02BFCE2-18BC-49EE-BA02-FE2454A48C40</string>
+			<string>A168B01F-8C65-4229-A019-7D747B4F90EF</string>
 		</dict>
 	</dict>
 </dict>

@@ -196,6 +196,11 @@
   },
   {
     "isFramework" : false,
+    "moduleName" : "SwKeyboard",
+    "modulePath" : "\/Users\/darkknight\/Documents\/apps\/fitness\/progYog\/.build\/ClaudeDerivedData\/Build\/Products\/Debug-iphonesimulator\/SwKeyboard.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
+  },
+  {
+    "isFramework" : false,
     "moduleName" : "Swift",
     "modulePath" : "\/Applications\/Xcode 26.3.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphonesimulator\/prebuilt-modules\/26.2\/Swift.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
   },
@@ -248,6 +253,11 @@
     "isFramework" : false,
     "moduleName" : "WorkoutAudioKit",
     "modulePath" : "\/Users\/darkknight\/Documents\/apps\/fitness\/progYog\/.build\/ClaudeDerivedData\/Build\/Products\/Debug-iphonesimulator\/WorkoutAudioKit.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "WorkoutSyncKit",
+    "modulePath" : "\/Users\/darkknight\/Documents\/apps\/fitness\/progYog\/.build\/ClaudeDerivedData\/Build\/Products\/Debug-iphonesimulator\/WorkoutSyncKit.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
   },
   {
     "isFramework" : false,
