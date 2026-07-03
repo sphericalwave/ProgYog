@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WorkoutAudioKit
 
 struct WorkoutSessionView: View {
     @StateObject private var vm: WorkoutSessionViewModel

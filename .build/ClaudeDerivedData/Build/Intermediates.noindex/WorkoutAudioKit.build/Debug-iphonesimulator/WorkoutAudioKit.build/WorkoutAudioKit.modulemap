@@ -1,0 +1,4 @@
+module WorkoutAudioKit {
+header "WorkoutAudioKit-Swift.h"
+export *
+}

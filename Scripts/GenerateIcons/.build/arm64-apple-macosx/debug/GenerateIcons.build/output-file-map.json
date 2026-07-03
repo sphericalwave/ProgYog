@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/master.swiftdeps"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Sources/GenerateIcons/main.swift": {
+    "dependencies": "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.d",
+    "object": "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swift.o",
+    "swiftmodule": "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swiftdeps"
+  }
+}

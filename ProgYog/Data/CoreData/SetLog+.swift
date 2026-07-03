@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SetLogKit
 import CoreData
 
 @objc(SetLog)

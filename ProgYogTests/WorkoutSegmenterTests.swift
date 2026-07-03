@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import SetLogKit
 import CoreData
 @testable import ProgYog
 
@@ -66,7 +67,9 @@ final class WorkoutSegmenterTests: XCTestCase {
         let segs = WorkoutSegmenter.segments(of: s)
         XCTAssertEqual(segs.count, 1)
         XCTAssertEqual(segs[0].setLogs.count, 2)
-        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(6 * 60 * 60))
+        // Active duration (sum of set durations), not wall-clock: the segment
+        // starts dur before the first set and spans 2 × dur.
+        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(TimeInterval(dur)))
     }
 
     /// Sets on different local-TZ days → one segment per day.
@@ -91,7 +94,8 @@ final class WorkoutSegmenterTests: XCTestCase {
         XCTAssertEqual(segs.count, 2)
         XCTAssertEqual(segs[0].setLogs.count, 2)
         XCTAssertEqual(segs[1].setLogs.count, 1)
-        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(60 * 60))
+        // Active duration, not wall-clock (see testTwoSetsSameDayHoursApart).
+        XCTAssertEqual(segs[0].endedAt, day0.addingTimeInterval(TimeInterval(dur)))
     }
 
     /// Late-night + early-morning across midnight → two segments.

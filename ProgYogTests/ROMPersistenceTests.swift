@@ -9,6 +9,7 @@
 //
 
 import XCTest
+import SetLogKit
 import CoreData
 @testable import ProgYog
 

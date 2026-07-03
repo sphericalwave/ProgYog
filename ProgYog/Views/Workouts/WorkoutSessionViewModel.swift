@@ -4,6 +4,8 @@
 //
 
 import Foundation
+import WorkoutAudioKit
+import SetLogKit
 import CoreData
 import Combine
 

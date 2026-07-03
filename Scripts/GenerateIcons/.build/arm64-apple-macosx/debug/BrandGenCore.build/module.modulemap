@@ -1,0 +1,4 @@
+module BrandGenCore {
+    header "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/BrandGenCore-Swift.h"
+    requires objc
+}
