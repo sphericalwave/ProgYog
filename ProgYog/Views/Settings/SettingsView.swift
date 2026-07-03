@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WorkoutSyncKit
 
 struct SettingsView: View {
     @EnvironmentObject private var services: AppServices

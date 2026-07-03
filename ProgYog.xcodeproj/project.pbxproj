@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000042 /* SetLogKit */; };
 		AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */; };
+		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
 		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AE0000010000000000000010 /* Session+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000011 /* Session+.swift */; };
 		AE0000010000000000000020 /* SetLog+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000021 /* SetLog+.swift */; };
@@ -205,6 +206,7 @@
 				AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */,
 				AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */,
 				AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */,
+				AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +485,7 @@
 			packageProductDependencies = (
 				AF51E7C0DEC0DE0000000042 /* SetLogKit */,
 				AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */,
+				AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */,
 			);
 			productName = ProgressiveYog;
 			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
@@ -541,6 +544,7 @@
 			packageReferences = (
 				AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "SetLogKit" */,
 				AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */,
+				AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -955,6 +959,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Frameworks/Audio/WorkoutAudioKit;
 		};
+		AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/Health/WorkoutSyncKit;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -967,6 +975,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */;
 			productName = WorkoutAudioKit;
+		};
+		AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */;
+			productName = WorkoutSyncKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

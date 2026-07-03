@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WorkoutSyncKit
 #if os(iOS)
 import UIKit
 #endif
@@ -13,6 +14,8 @@ struct ProgYogApp: App {
     @StateObject private var services = AppServices()
 
     init() {
+        // ProgYog's calendar color predates WorkoutSyncKit's blue default.
+        WorkoutCalendarConfig.defaultColorHex = "#FF9F0A"
         #if os(iOS)
         UIScrollView.appearance().keyboardDismissMode = .interactive
         #endif

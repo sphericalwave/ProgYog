@@ -31,6 +31,20 @@
           "path" : "/Users/darkknight/Documents/apps/Frameworks/Audio/WorkoutAudioKit"
         },
         "subpath" : "workoutaudiokit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "workoutsynckit",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit",
+          "name" : "WorkoutSyncKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit"
+        },
+        "subpath" : "workoutsynckit"
       }
     ],
     "prebuilts" : [

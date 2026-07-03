@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WorkoutSyncKit
 import CoreData
 
 struct WorkoutSummaryView: View {
