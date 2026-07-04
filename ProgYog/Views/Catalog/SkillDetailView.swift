@@ -154,7 +154,7 @@ struct SkillDetailView: View {
                             Text(log.loggedAt.formatted(date: .abbreviated, time: .shortened))
                                 .font(.caption.bold())
                             HStack(spacing: 4) {
-                                Text("reps \(log.reps) · ROM \(log.rom)% · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
+                                Text("reps \(log.reps) · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
                                     .foregroundStyle(.secondary)
                                 Text(log.decisionValue.label)
                                     .foregroundStyle(log.decisionValue.color)

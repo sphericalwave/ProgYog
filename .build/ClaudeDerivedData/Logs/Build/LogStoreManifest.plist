@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>2BFFAFA5-7D63-4FDC-999F-CCAB484EADA3</key>
+		<key>A5345375-25E0-4BF1-96FA-9AE55EE0D92E</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,49 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>2BFFAFA5-7D63-4FDC-999F-CCAB484EADA3.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877770.40727401</real>
-			<key>timeStoppedRecording</key>
-			<real>804877773.14550304</real>
-			<key>title</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>2BFFAFA5-7D63-4FDC-999F-CCAB484EADA3</string>
-		</dict>
-		<key>30214D1A-1378-4893-9B9E-3F4F7C5283CB</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>30214D1A-1378-4893-9B9E-3F4F7C5283CB.xcactivitylog</string>
+			<string>A5345375-25E0-4BF1-96FA-9AE55EE0D92E.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -71,91 +29,49 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>2</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877666.13338995</real>
-			<key>timeStoppedRecording</key>
-			<real>804877678.615996</real>
-			<key>title</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>30214D1A-1378-4893-9B9E-3F4F7C5283CB</string>
-		</dict>
-		<key>4B3B89B2-FC60-44C1-8F02-66507A6D8438</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>4B3B89B2-FC60-44C1-8F02-66507A6D8438.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877813.22491896</real>
-			<key>timeStoppedRecording</key>
-			<real>804877815.910676</real>
-			<key>title</key>
-			<string>Testing project ProgYog with scheme ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>4B3B89B2-FC60-44C1-8F02-66507A6D8438</string>
-		</dict>
-		<key>7929DF87-0A36-4CBF-BAE6-F1791EA7EE40</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>7929DF87-0A36-4CBF-BAE6-F1791EA7EE40.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
 				<integer>4</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>ProgYog project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>ProgYog</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project ProgYog with scheme ProgYog</string>
+			<key>timeStartedRecording</key>
+			<real>804888696.78746796</real>
+			<key>timeStoppedRecording</key>
+			<real>804888709.99227202</real>
+			<key>title</key>
+			<string>Building project ProgYog with scheme ProgYog</string>
+			<key>uniqueIdentifier</key>
+			<string>A5345375-25E0-4BF1-96FA-9AE55EE0D92E</string>
+		</dict>
+		<key>A560E3E1-FF50-4E61-8FB3-871795C79AAC</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>A560E3E1-FF50-4E61-8FB3-871795C79AAC.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
+				<integer>1</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>ProgYog project</string>
@@ -166,13 +82,13 @@
 			<key>signature</key>
 			<string>Testing project ProgYog with scheme ProgYog</string>
 			<key>timeStartedRecording</key>
-			<real>804877753.02949095</real>
+			<real>804888858.47046196</real>
 			<key>timeStoppedRecording</key>
-			<real>804877756.67115402</real>
+			<real>804888872.62140596</real>
 			<key>title</key>
 			<string>Testing project ProgYog with scheme ProgYog</string>
 			<key>uniqueIdentifier</key>
-			<string>7929DF87-0A36-4CBF-BAE6-F1791EA7EE40</string>
+			<string>A560E3E1-FF50-4E61-8FB3-871795C79AAC</string>
 		</dict>
 	</dict>
 </dict>

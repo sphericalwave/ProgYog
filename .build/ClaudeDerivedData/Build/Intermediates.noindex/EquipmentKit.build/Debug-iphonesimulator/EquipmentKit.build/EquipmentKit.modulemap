@@ -1,0 +1,4 @@
+module EquipmentKit {
+header "EquipmentKit-Swift.h"
+export *
+}

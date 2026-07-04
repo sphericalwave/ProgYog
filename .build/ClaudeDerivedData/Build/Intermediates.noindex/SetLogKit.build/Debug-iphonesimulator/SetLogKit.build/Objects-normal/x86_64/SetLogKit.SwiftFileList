@@ -3,4 +3,9 @@
 /Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/ProgressionDecision.swift
 /Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/ProgressionEvaluator.swift
 /Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/SetRecord.swift
+/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/CompletionChip.swift
+/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/HRConfig.swift
+/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/RatedSetForm.swift
+/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/RatedSetWidgets.swift
+/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/TEDDescription.swift
 /Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/WorkoutSegmenter.swift

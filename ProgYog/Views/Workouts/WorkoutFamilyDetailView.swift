@@ -121,7 +121,7 @@ struct WorkoutFamilyDetailView: View {
                     .foregroundStyle(.secondary)
             }
             HStack(spacing: 4) {
-                Text("reps \(log.reps) · ROM \(log.rom)% · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
+                Text("reps \(log.reps) · RPT \(log.rpt) · RPE \(log.rpe) · RPD \(log.rpd) ·")
                     .foregroundStyle(.secondary)
                 Text(log.decisionValue.label)
                     .foregroundStyle(log.decisionValue.color)
@@ -167,7 +167,6 @@ struct WorkoutFamilyDetailView: View {
 
     private func apply(_ entry: SetLogSheet.Entry, to log: SetLog) {
         log.reps = Int16(entry.reps)
-        log.rom = Int16(entry.rom)
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)
@@ -191,7 +190,6 @@ struct WorkoutFamilyDetailView: View {
         log.roundIndex = Int16(lastRound)
         log.orderInRound = Int16(inRound)
         log.reps = Int16(entry.reps)
-        log.rom = Int16(entry.rom)
         log.rpt = Int16(entry.rpt)
         log.rpe = Int16(entry.rpe)
         log.rpd = Int16(entry.rpd)

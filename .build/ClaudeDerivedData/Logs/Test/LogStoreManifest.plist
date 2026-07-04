@@ -6,197 +6,10 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>35FD0398-F8BC-4B7A-9245-6E7D5302B8D5</key>
+		<key>BEFC0F3D-7357-4484-9CAA-5AD6344408E9</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>2BFFAFA5-7D63-4FDC-999F-CCAB484EADA3</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.unit.cocoaUnitTest</string>
-			<key>fileName</key>
-			<string>Test-ProgYog-2026.07.04_14-09-30--0300.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasCoverageData</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalCodeCoverage</key>
-				<real>0.032114624505928856</real>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Test ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877770.40771198</real>
-			<key>timeStoppedRecording</key>
-			<real>804877798.42363501</real>
-			<key>title</key>
-			<string>Test ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>35FD0398-F8BC-4B7A-9245-6E7D5302B8D5</string>
-		</dict>
-		<key>748351F0-8A73-4A41-ABF8-F385BA7DEBEE</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>4B3B89B2-FC60-44C1-8F02-66507A6D8438</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.unit.cocoaUnitTest</string>
-			<key>fileName</key>
-			<string>Test-ProgYog-2026.07.04_14-10-13--0300.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasCoverageData</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalCodeCoverage</key>
-				<real>0.13815294037105497</real>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Test ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877813.22546601</real>
-			<key>timeStoppedRecording</key>
-			<real>804877849.65183496</real>
-			<key>title</key>
-			<string>Test ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>748351F0-8A73-4A41-ABF8-F385BA7DEBEE</string>
-		</dict>
-		<key>CF73830F-7D23-474F-BF86-0A20B2A53480</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>7929DF87-0A36-4CBF-BAE6-F1791EA7EE40</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>4</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.unit.cocoaUnitTest</string>
-			<key>fileName</key>
-			<string>Test-ProgYog-2026.07.04_14-09-13--0300.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasCoverageData</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>3</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>ProgYog project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>ProgYog</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Test ProgYog</string>
-			<key>timeStartedRecording</key>
-			<real>804877753.02991295</real>
-			<key>timeStoppedRecording</key>
-			<real>804877756.67811298</real>
-			<key>title</key>
-			<string>Test ProgYog</string>
-			<key>uniqueIdentifier</key>
-			<string>CF73830F-7D23-474F-BF86-0A20B2A53480</string>
-		</dict>
-		<key>EADE534A-FF64-4ACA-B29C-462115CD065D</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>30214D1A-1378-4893-9B9E-3F4F7C5283CB</string>
+			<string>A560E3E1-FF50-4E61-8FB3-871795C79AAC</string>
 			<key>auxiliaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -208,7 +21,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>2</integer>
+				<integer>1</integer>
 			</dict>
 			<key>className</key>
 			<string>IDESchemeActionsInvocationRecord</string>
@@ -217,7 +30,7 @@
 			<key>domainType</key>
 			<string>com.apple.dt.unit.cocoaUnitTest</string>
 			<key>fileName</key>
-			<string>Test-ProgYog-2026.07.04_14-07-46--0300.xcresult</string>
+			<string>Test-ProgYog-2026.07.04_17-14-18--0300.xcresult</string>
 			<key>hasAuxiliaryLog</key>
 			<true/>
 			<key>hasCoverageData</key>
@@ -229,7 +42,7 @@
 				<key>highLevelStatus</key>
 				<string>W</string>
 				<key>totalCodeCoverage</key>
-				<real>0.13544749823819591</real>
+				<real>0.11126601606585673</real>
 				<key>totalNumberOfAnalyzerIssues</key>
 				<integer>0</integer>
 				<key>totalNumberOfErrors</key>
@@ -237,7 +50,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>2</integer>
+				<integer>1</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>ProgYog project</string>
@@ -248,13 +61,76 @@
 			<key>signature</key>
 			<string>Test ProgYog</string>
 			<key>timeStartedRecording</key>
-			<real>804877666.13378596</real>
+			<real>804888858.47086799</real>
 			<key>timeStoppedRecording</key>
-			<real>804877704.12775302</real>
+			<real>804888909.65238297</real>
 			<key>title</key>
 			<string>Test ProgYog</string>
 			<key>uniqueIdentifier</key>
-			<string>EADE534A-FF64-4ACA-B29C-462115CD065D</string>
+			<string>BEFC0F3D-7357-4484-9CAA-5AD6344408E9</string>
+		</dict>
+		<key>ED34EA94-5BC3-461B-8A20-448B980FD4D3</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>5F956443-469C-4FEF-BC54-0AB853D61456</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>1</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-ProgYog-2026.07.04_15-05-06--0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasCoverageData</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalCodeCoverage</key>
+				<real>0.14220374220374221</real>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>1</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>ProgYog project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>ProgYog</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test ProgYog</string>
+			<key>timeStartedRecording</key>
+			<real>804881106.18745995</real>
+			<key>timeStoppedRecording</key>
+			<real>804881143.328336</real>
+			<key>title</key>
+			<string>Test ProgYog</string>
+			<key>uniqueIdentifier</key>
+			<string>ED34EA94-5BC3-461B-8A20-448B980FD4D3</string>
 		</dict>
 	</dict>
 </dict>

@@ -494,6 +494,10 @@ SWIFT_CLASS_NAMED("SetLog")
 @property (nonatomic) int16_t roundIndex;
 @property (nonatomic) int16_t orderInRound;
 @property (nonatomic) int16_t reps;
+/// Deprecated 2026-07: range-of-motion was retired in favour of technique
+/// (rpt), which carries the same signal. Kept on the entity as inert
+/// storage so existing data is preserved and no CoreData/CloudKit schema
+/// migration is needed; nothing reads it.
 @property (nonatomic) int16_t rom;
 @property (nonatomic) int16_t rpt;
 @property (nonatomic) int16_t rpe;

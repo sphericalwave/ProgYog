@@ -120,6 +120,11 @@
     "modulePath" : "\/Applications\/Xcode 26.3.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphonesimulator\/prebuilt-modules\/26.2\/Distributed.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
   },
   {
+    "isFramework" : false,
+    "moduleName" : "EquipmentKit",
+    "modulePath" : "\/Users\/darkknight\/Documents\/apps\/fitness\/progYog\/.build\/ClaudeDerivedData\/Build\/Products\/Debug-iphonesimulator\/EquipmentKit.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
+  },
+  {
     "isFramework" : true,
     "moduleName" : "EventKit",
     "modulePath" : "\/Applications\/Xcode 26.3.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphonesimulator\/prebuilt-modules\/26.2\/EventKit.swiftmodule\/arm64-apple-ios-simulator.swiftmodule"
