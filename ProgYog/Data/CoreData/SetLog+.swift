@@ -20,6 +20,10 @@ extension SetLog {
     @NSManaged public var roundIndex: Int16
     @NSManaged public var orderInRound: Int16
     @NSManaged public var reps: Int16
+    /// Deprecated 2026-07: range-of-motion was retired in favour of technique
+    /// (rpt), which carries the same signal. Kept on the entity as inert
+    /// storage so existing data is preserved and no CoreData/CloudKit schema
+    /// migration is needed; nothing reads it.
     @NSManaged public var rom: Int16
     @NSManaged public var rpt: Int16
     @NSManaged public var rpe: Int16
@@ -56,12 +60,11 @@ extension SetLog {
     }
 
     /// Set meets the inclusive completion-quality bar
-    /// (RPT ≥ 8, RPE ≤ 6, RPD ≤ 1, ROM ≥ 95).
+    /// (RPT ≥ 8, RPE ≤ 6, RPD ≤ 1).
     var qualifiesForCompletion: Bool {
         rpt >= CompletionScorer.rptMin
             && rpe <= CompletionScorer.rpeMax
             && rpd <= CompletionScorer.rpdMax
-            && rom >= CompletionScorer.romMin
     }
 }
 

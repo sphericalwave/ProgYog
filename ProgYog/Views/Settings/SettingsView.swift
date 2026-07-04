@@ -19,7 +19,6 @@ struct SettingsView: View {
     @AppStorage(CompletionSettings.rptMinKey) private var compRptMin = 0
     @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
     @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
-    @AppStorage(CompletionSettings.romMinKey) private var compRomMin = 0
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
 
     init() {
@@ -95,8 +94,7 @@ struct SettingsView: View {
                         "Qualifying set",
                         value: "RPT≥\(CompletionSettings.rptMin) · "
                              + "RPE≤\(CompletionSettings.rpeMax) · "
-                             + "RPD≤\(CompletionSettings.rpdMax) · "
-                             + "ROM≥\(CompletionSettings.romMin)%"
+                             + "RPD≤\(CompletionSettings.rpdMax)"
                     )
                     .font(.callout)
                 }
@@ -440,26 +438,22 @@ struct CompletionSettingsView: View {
     @AppStorage(CompletionSettings.rptMinKey) private var rptMin: Int = Int(CompletionSettings.defaultRptMin)
     @AppStorage(CompletionSettings.rpeMaxKey) private var rpeMax: Int = Int(CompletionSettings.defaultRpeMax)
     @AppStorage(CompletionSettings.rpdMaxKey) private var rpdMax: Int = Int(CompletionSettings.defaultRpdMax)
-    @AppStorage(CompletionSettings.romMinKey) private var romMin: Int = Int(CompletionSettings.defaultRomMin)
 
     var body: some View {
         List {
             Section {
-                Stepper(value: $romMin, in: 5...100, step: 5) {
-                    LabeledContent("ROM target ≥", value: "\(romMin)%")
+                Stepper(value: $rptMin, in: 1...10) {
+                    LabeledContent("Technique (RPT) target ≥", value: "\(rptMin)")
                 }
             } header: {
                 Text("Scoring")
             } footer: {
                 Text("Two scores, one target:\n\n"
-                   + "Set score — clamp(ROM ÷ target, 0–100%). Depth-independent. Full range at any level = 100%.\n\n"
-                   + "Workout score — (depth − 1 + ROM fraction) ÷ max depth × 100. Reaches 100% only at the highest skill level with full ROM. Tracks how far through the progression you are.")
+                   + "Set score — clamp(technique ÷ target, 0–100%). Depth-independent. Full technique at any level = 100%.\n\n"
+                   + "Workout score — (depth × technique fraction) ÷ max depth × 100. Reaches 100% only at the highest skill level with full technique. Tracks how far through the progression you are.")
             }
 
             Section {
-                Stepper(value: $rptMin, in: 1...10) {
-                    LabeledContent("Technique (RPT) ≥", value: "\(rptMin)")
-                }
                 Stepper(value: $rpeMax, in: 1...10) {
                     LabeledContent("Effort (RPE) ≤", value: "\(rpeMax)")
                 }
@@ -469,11 +463,10 @@ struct CompletionSettingsView: View {
             } header: {
                 Text("Advisory thresholds")
             } footer: {
-                Text("RPT, RPE, and RPD are logged and visible in history but don't change your score. They're reference points to flag sets that felt off.")
+                Text("RPE and RPD are logged and visible in history but don't change your score. They're reference points to flag sets that felt off.")
             }
 
             Section {
-                LabeledContent("ROM target", value: "\(CompletionSettings.defaultRomMin)%")
                 LabeledContent("RPT ≥", value: "\(CompletionSettings.defaultRptMin)")
                 LabeledContent("RPE ≤", value: "\(CompletionSettings.defaultRpeMax)")
                 LabeledContent("RPD ≤", value: "\(CompletionSettings.defaultRpdMax)")
@@ -481,7 +474,6 @@ struct CompletionSettingsView: View {
                     rptMin = Int(CompletionSettings.defaultRptMin)
                     rpeMax = Int(CompletionSettings.defaultRpeMax)
                     rpdMax = Int(CompletionSettings.defaultRpdMax)
-                    romMin = Int(CompletionSettings.defaultRomMin)
                 }
             } header: {
                 Text("Defaults")

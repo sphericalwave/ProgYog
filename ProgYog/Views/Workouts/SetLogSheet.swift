@@ -20,7 +20,6 @@ struct SetLogSheet: View {
     
     struct Entry {
         let reps: Int
-        let rom: Int
         let rpt: Int
         let rpe: Int
         let rpd: Int
@@ -33,7 +32,6 @@ struct SetLogSheet: View {
     @FetchRequest private var logs: FetchedResults<SetLog>
 
     @State private var reps: Int = 1
-    @State private var rom: Int = 100
     @State private var rpt: Int = 7
     @State private var rpe: Int = 6
     @State private var rpd: Int = 3
@@ -47,7 +45,7 @@ struct SetLogSheet: View {
     
     @AppStorage(HRSettings.ageKey) private var hrAge = 30
     @AppStorage(HRSettings.overrideKey) private var hrMaxOverride = 0
-    @AppStorage(CompletionSettings.romMinKey) private var romMin: Int = Int(CompletionSettings.defaultRomMin)
+    @AppStorage(CompletionSettings.rptMinKey) private var rptMin: Int = Int(CompletionSettings.defaultRptMin)
 
     init(
         skill: CDAbsSkill,
@@ -77,22 +75,22 @@ struct SetLogSheet: View {
     
     private var lastLog: SetLog? { logs.last }
 
-    /// Set score: clamp(rom / romTarget, 0–100%). Depth-independent.
+    /// Set score: clamp(rpt / rptTarget, 0–100%). Depth-independent.
     private var setScore: Double? {
-        let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
-        return min(100, max(0, Double(rom) / target * 100))
+        let target = Double(rptMin > 0 ? rptMin : Int(CompletionSettings.defaultRptMin))
+        return min(100, max(0, Double(rpt) / target * 100))
     }
 
-    /// Workout score: (depth × romFraction) / maxDepth × 100.
-    /// 100% only at highest skill level with full ROM.
+    /// Workout score: (depth × techniqueFraction) / maxDepth × 100.
+    /// 100% only at highest skill level with full technique.
     private var workoutScore: Double? {
         guard let family = skill.skillFamily else { return nil }
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return nil }
         let depth = Double(skill.depth)
-        let target = Double(romMin > 0 ? romMin : Int(CompletionSettings.defaultRomMin))
-        let romFraction = min(1.0, max(0.0, Double(rom) / target))
-        let achieved = depth * romFraction
+        let target = Double(rptMin > 0 ? rptMin : Int(CompletionSettings.defaultRptMin))
+        let techniqueFraction = min(1.0, max(0.0, Double(rpt) / target))
+        let achieved = depth * techniqueFraction
         return min(100, (achieved / maxDepth) * 100)
     }
     
@@ -127,7 +125,6 @@ struct SetLogSheet: View {
                     }
 
                     metricRow(label: "Reps", value: $reps, range: 0...200, info: "1 rep is both sides of a skill once", showInfo: $showRepsInfo)
-                    metricRow(label: "ROM",  value: $rom,  range: 0...100, step: 10, suffix: "%", colorFor: { $0 >= 80 ? .green : .red })
                     HStack(spacing: 0) {
                         compactMetric(label: "Technique", value: $rpt, range: 1...10, colorFor: FalseColor.technique, describe: TEDDescription.technique)
                         Spacer()
@@ -221,7 +218,7 @@ struct SetLogSheet: View {
                 ToolbarItem(placement: .automatic) {
                     Button("Save") {
                         onSave(Entry(
-                            reps: reps, rom: rom,
+                            reps: reps,
                             rpt: rpt, rpe: rpe, rpd: rpd,
                             notes: notes, decision: decision,
                             isometric: isometric, sliceCount: sliceCount
@@ -234,7 +231,6 @@ struct SetLogSheet: View {
             .onAppear {
                 if let edit = editing {
                     reps = Int(edit.reps)
-                    rom = Int(edit.rom)
                     rpt = Int(edit.rpt)
                     rpe = Int(edit.rpe)
                     rpd = Int(edit.rpd)
@@ -245,7 +241,6 @@ struct SetLogSheet: View {
                 } else {
                     if let last = lastLog {
                         reps = Int(last.reps)
-                        rom = Int(last.rom)
                         rpt = Int(last.rpt)
                         rpe = Int(last.rpe)
                         rpd = Int(last.rpd)
