@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import SetLogKit
 @testable import ProgYog
 
 @MainActor

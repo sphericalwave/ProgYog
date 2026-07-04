@@ -5,6 +5,7 @@
 
 #if os(iOS)
 import SwiftUI
+import SwKeyboard
 import CoreData
 
 struct RootView: View {
@@ -52,7 +53,7 @@ struct RootView: View {
             .tag(4)
         }
         .environment(\.managedObjectContext, services.coreData.moc)
-        .keyboardDoneToolbar()
+        .doneKeyboardToolbar()
         .onShake {
             _ = services.undo.undoLast()
         }

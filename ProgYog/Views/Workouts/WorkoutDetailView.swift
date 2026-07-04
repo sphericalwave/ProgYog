@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwKeyboard
 import CoreData
 
 struct WorkoutDetailView: View {
@@ -117,7 +118,7 @@ struct WorkoutDetailView: View {
             NavigationStack {
                 WorkoutSessionView(workoutCode: workoutCode, services: services)
             }
-            .keyboardDoneToolbar()
+            .doneKeyboardToolbar()
         }
     }
 

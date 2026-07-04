@@ -4,6 +4,8 @@
 //
 
 import SwiftUI
+import SwKeyboard
+import WorkoutSyncKit
 import CoreData
 
 struct WorkoutSummaryView: View {
@@ -181,7 +183,7 @@ struct WorkoutSummaryView: View {
                     resuming: session
                 )
             }
-            .keyboardDoneToolbar()
+            .doneKeyboardToolbar()
         }
         .sheet(isPresented: $scheduleNextPresented) {
             ScheduleNextWorkoutSheet(
@@ -205,23 +207,32 @@ struct WorkoutSummaryView: View {
         }
         .alert("Discard session?", isPresented: $discardAlert) {
             Button("Discard", role: .destructive) {
+                // Snapshot while the object is still alive, then pop the view
+                // BEFORE deleting. Deleting a session that backs a live
+                // NavigationLink destination (+ our session==%@ FetchRequest)
+                // traps in _PFFaultHandler; dismissing first tears this view
+                // down so nothing references the object when it dies.
                 let snap = SessionRecovery.snapshot(session)
+                let session = self.session
                 let coreData = services.coreData
-                services.undo.push(description: "in-progress session") {
-                    let restored = SessionRecovery.restore(snap, into: coreData.moc)
-                    coreData.save()
-                    WorkoutCalendarBridge.syncSegments(restored)
-                    #if canImport(HealthKit)
-                    WorkoutHealthBridge.syncSegments(restored)
-                    #endif
-                }
-                WorkoutCalendarBridge.removeAll(for: session)
-                #if canImport(HealthKit)
-                WorkoutHealthBridge.removeAll(for: session)
-                #endif
-                services.coreData.moc.delete(session)
-                services.coreData.save()
+                let undo = services.undo
                 dismiss()
+                DispatchQueue.main.async {
+                    undo.push(description: "in-progress session") {
+                        let restored = SessionRecovery.restore(snap, into: coreData.moc)
+                        coreData.save()
+                        WorkoutCalendarBridge.syncSegments(restored)
+                        #if canImport(HealthKit)
+                        WorkoutHealthBridge.syncSegments(restored)
+                        #endif
+                    }
+                    WorkoutCalendarBridge.removeAll(for: session)
+                    #if canImport(HealthKit)
+                    WorkoutHealthBridge.removeAll(for: session)
+                    #endif
+                    coreData.moc.delete(session)
+                    coreData.save()
+                }
             }
             Button("Cancel", role: .cancel) { }
         } message: {
