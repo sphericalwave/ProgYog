@@ -1,0 +1,79 @@
+{
+  "" : {
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ProgYogTests-primary.dia",
+    "emit-module-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ProgYogTests-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ProgYogTests-primary-emit-module.dia",
+    "pch" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ProgYogTests-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ProgYogTests-primary.swiftdeps"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/CompletionScorerTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/CompletionScorerTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/ROMPersistenceTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/ROMPersistenceTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/SessionDuplicateTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionDuplicateTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/SessionEditorTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionEditorTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/SessionRecoveryTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/SessionRecoveryTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/UndoStackTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/UndoStackTests~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/fitness/progYog/ProgYogTests/WorkoutSegmenterTests.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.dia",
+    "index-unit-output-path" : "/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/ProgYog.build/Debug-iphonesimulator/ProgYogTests.build/Objects-normal/arm64/WorkoutSegmenterTests~partial.swiftmodule"
+  }
+}

@@ -10,7 +10,7 @@ import CoreData
 /// When points carry distinct `series` values (one per workout code) separate
 /// coloured lines are drawn. `compact: true` hides axes and shrinks height.
 struct FamilyPercentChart: View {
-    struct Point: Identifiable {
+    struct Point: Identifiable, Sendable {
         let id = UUID()
         let percent: Double
         var barColor: Color? = nil

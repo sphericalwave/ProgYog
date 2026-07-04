@@ -7,35 +7,23 @@ import SwiftUI
 import CoreData
 
 struct WorkoutListView: View {
-    private let workoutCodes = WorkoutPalette.codes
-
-    @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(key: "startedAt", ascending: false)]
-    ) private var sessions: FetchedResults<Session>
+    @EnvironmentObject private var services: AppServices
 
     private enum ChartMode { case history, roc }
-
-    @State private var orderedCodes: [String] = WorkoutPalette.codes
     @State private var chartMode: ChartMode = .history
-    @State private var histPts: [FamilyPercentChart.Point] = []
-    @State private var rocPts: [FamilyPercentChart.Point] = []
-    @State private var lastPcts: [String: Double] = [:]
-    @State private var bestPcts: [String: Double] = [:]
-    @State private var sessionCounts: [String: Int] = [:]
-    @State private var lastDates: [String: Date] = [:]
 
     var body: some View {
+        let snap = services.stats.snapshot.workoutList
         NavigationStack {
             List {
                 Section {
-                    ForEach(orderedCodes, id: \.self) { code in
+                    ForEach(snap.orderedCodes, id: \.self) { code in
                         NavigationLink(value: code) {
-                            workoutRow(for: code)
+                            workoutRow(for: code, snap: snap)
                         }
                     }
                 } header: {
-                    if !histPts.isEmpty {
+                    if !snap.historyPoints.isEmpty {
                         VStack(alignment: .leading, spacing: 4) {
                             HStack {
                                 Text("History")
@@ -52,9 +40,9 @@ struct WorkoutListView: View {
                                 .frame(width: 140)
                             }
                             if chartMode == .history {
-                                FamilyPercentChart(points: histPts)
+                                FamilyPercentChart(points: snap.historyPoints)
                             } else {
-                                FamilyPercentChart(points: rocPts, allowNegativeY: true)
+                                FamilyPercentChart(points: snap.rocPoints, allowNegativeY: true)
                             }
                         }
                         .padding(10)
@@ -76,67 +64,31 @@ struct WorkoutListView: View {
             .navigationDestination(for: String.self) { code in
                 WorkoutDetailView(workoutCode: code)
             }
-            .onAppear { refreshScores() }
-            .onChange(of: sessions.count) { refreshScores() }
-        }
-    }
-
-    private func refreshScores() {
-        let all = Array(sessions) // already loaded, sorted newest-first
-        // sessionPercent is expensive (sorts + faults logs per family). Compute
-        // it once per session and reuse for the chart, last, and best below,
-        // instead of recomputing ~3× per session on the main thread.
-        var pctBySession: [NSManagedObjectID: Double] = [:]
-        for s in all {
-            if let p = CompletionScorer.sessionPercent(s) { pctBySession[s.objectID] = p }
-        }
-        let pts: [FamilyPercentChart.Point] = all.reversed().compactMap { s in
-            guard let pct = pctBySession[s.objectID] else { return nil }
-            return FamilyPercentChart.Point(percent: pct,
-                                            barColor: WorkoutPalette.color(for: s.workoutCode),
-                                            series: s.workoutCode)
-        }
-        histPts = pts
-        rocPts = Self.rateOfChange(from: pts)
-        let grouped = Dictionary(grouping: all, by: \.workoutCode)
-        for code in workoutCodes {
-            let codeSessions = grouped[code] ?? []
-            lastPcts[code] = codeSessions.first.flatMap { pctBySession[$0.objectID] }
-            bestPcts[code] = codeSessions.compactMap { pctBySession[$0.objectID] }.max()
-            sessionCounts[code] = codeSessions.count
-            lastDates[code] = codeSessions.first?.startedAt
-        }
-        let codes = workoutCodes
-        if let last = all.first, let idx = codes.firstIndex(of: last.workoutCode) {
-            let startIdx = last.endedAt == nil ? idx : (idx + 1) % codes.count
-            orderedCodes = Array(codes[startIdx...]) + Array(codes[..<startIdx])
-        } else {
-            orderedCodes = codes
         }
     }
 
     @ViewBuilder
-    private func workoutRow(for code: String) -> some View {
+    private func workoutRow(for code: String, snap: WorkoutListSnapshot) -> some View {
         HStack(spacing: 10) {
             Image(systemName: "circle.fill")
                 .foregroundColor(WorkoutPalette.color(for: code))
             Text(WorkoutLabel.display(forCode: code))
                 .font(.headline)
             Spacer()
-            stats(for: code)
-            CompletionChip(percent: lastPcts[code], caption: "last")
-            CompletionChip(percent: bestPcts[code], caption: "best")
+            stats(for: code, snap: snap)
+            CompletionChip(percent: snap.lastPercentByCode[code], caption: "last")
+            CompletionChip(percent: snap.bestPercentByCode[code], caption: "best")
         }
     }
 
     @ViewBuilder
-    private func stats(for code: String) -> some View {
-        let count = sessionCounts[code, default: 0]
+    private func stats(for code: String, snap: WorkoutListSnapshot) -> some View {
+        let count = snap.sessionCountByCode[code, default: 0]
         VStack(alignment: .trailing, spacing: 2) {
             Text("\(count) \(count == 1 ? "session" : "sessions")")
                 .font(.caption.bold())
                 .monospacedDigit()
-            if let last = lastDates[code] {
+            if let last = snap.lastDateByCode[code] {
                 Text(last.formatted(date: .abbreviated, time: .omitted))
                     .font(.caption2)
                     .foregroundStyle(.secondary)
@@ -146,19 +98,6 @@ struct WorkoutListView: View {
                     .foregroundStyle(.secondary)
             }
         }
-    }
-
-    private static func rateOfChange(from pts: [FamilyPercentChart.Point]) -> [FamilyPercentChart.Point] {
-        var lastPct: [String: Double] = [:]
-        var result: [FamilyPercentChart.Point] = []
-        for p in pts {
-            let key = p.series.isEmpty ? "_" : p.series
-            if let prev = lastPct[key] {
-                result.append(.init(percent: p.percent - prev, barColor: p.barColor, series: p.series))
-            }
-            lastPct[key] = p.percent
-        }
-        return result
     }
 
     private func color(for code: String) -> Color {

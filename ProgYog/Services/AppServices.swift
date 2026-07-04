@@ -12,6 +12,7 @@ final class AppServices: ObservableObject {
     let theme: SwTheme
     let errorLog: ErrorLog
     let undo: UndoStack
+    let stats: WorkoutStatsStore
 
     private(set) lazy var heartRate: HeartRateService = {
         let hr = HeartRateService()
@@ -32,6 +33,7 @@ final class AppServices: ObservableObject {
             cd.migrateSkillPhotosIfNeeded()
         }
         self.coreData = cd
+        self.stats = WorkoutStatsStore(container: cd.container)
         self.theme = SwTheme()
         self.errorLog = log
         self.undo = UndoStack()

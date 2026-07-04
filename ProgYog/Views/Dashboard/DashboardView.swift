@@ -9,22 +9,18 @@ import CoreData
 
 struct DashboardView: View {
     @EnvironmentObject private var services: AppServices
-    @State private var store: DashboardStatsStore?
 
     var body: some View {
         Group {
-            if let store {
-                if !store.snapshot.hasSessions {
-                    ContentUnavailableView(
-                        "No sessions yet",
-                        systemImage: "chart.bar.xaxis",
-                        description: Text("Finish a workout to see stats here.")
-                    )
-                } else {
-                    statsList(store.snapshot)
-                }
+            let snap = services.stats.snapshot.dashboard
+            if !snap.hasSessions {
+                ContentUnavailableView(
+                    "No sessions yet",
+                    systemImage: "chart.bar.xaxis",
+                    description: Text("Finish a workout to see stats here.")
+                )
             } else {
-                ProgressView()
+                statsList(snap)
             }
         }
         .navigationTitle("Dashboard")
@@ -34,11 +30,6 @@ struct DashboardView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
         #endif
-        .task {
-            if store == nil {
-                store = DashboardStatsStore(container: services.coreData.container)
-            }
-        }
     }
 
     private func statsList(_ snap: DashboardSnapshot) -> some View {

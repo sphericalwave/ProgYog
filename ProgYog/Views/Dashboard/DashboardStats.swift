@@ -2,14 +2,15 @@
 //  DashboardStats.swift
 //  ProgYog
 //
-//  The dashboard used to recompute five full-history aggregations inline in
-//  `DashboardView.body` on the main thread, on every render — and every
-//  CloudKit remote-change notification triggered a `refreshAllObjects()`
-//  that invalidated the underlying @FetchRequest, causing a fresh recompute.
-//  During a sync burst that's a feedback loop, and it gets slower as
-//  history grows. `DashboardStatsStore` moves the aggregation to a
-//  background context, rebuilt only when data actually changes (debounced),
-//  and hands the view a plain Sendable snapshot.
+//  Shared stats infra for the Dashboard AND Workouts tabs — both scan the
+//  full session history and both call the expensive `CompletionScorer
+//  .sessionPercent` (sorts + faults every family's logs) per session.
+//  Computing it twice, once per tab, on the main thread, on every appear/
+//  data-change, was the second half of the dashboard-hang bug (see
+//  WorkoutStatsStore's doc comment). One background pass now computes the
+//  per-session percent map once and derives both tabs' snapshots from it;
+//  the result is cached and shared via `AppServices.stats` so switching
+//  tabs never re-triggers the scan.
 //
 
 import Foundation
@@ -53,30 +54,63 @@ struct DashboardSnapshot: Sendable {
     static let empty = DashboardSnapshot()
 }
 
+/// Everything the Workouts (first) tab needs per workout code, plus the
+/// history/rate-of-change chart series across all codes.
+struct WorkoutListSnapshot: Sendable {
+    var historyPoints: [FamilyPercentChart.Point] = []
+    var rocPoints: [FamilyPercentChart.Point] = []
+    var lastPercentByCode: [String: Double] = [:]
+    var bestPercentByCode: [String: Double] = [:]
+    var sessionCountByCode: [String: Int] = [:]
+    var lastDateByCode: [String: Date] = [:]
+    var orderedCodes: [String] = WorkoutPalette.codes
+
+    static let empty = WorkoutListSnapshot()
+}
+
+struct WorkoutStatsSnapshot: Sendable {
+    var dashboard: DashboardSnapshot = .empty
+    var workoutList: WorkoutListSnapshot = .empty
+
+    static let empty = WorkoutStatsSnapshot()
+}
+
 /// Pure aggregation over a background-context session fetch. Runs entirely
 /// inside the fetching context's `perform` block, so it's safe to call from
-/// any queue; only the plain-value `DashboardSnapshot` it returns crosses
-/// back to the caller.
-enum DashboardAggregator {
-    static func snapshot(from sessions: [Session], now: Date = Date()) -> DashboardSnapshot {
-        DashboardSnapshot(
-            completion: completionPoints(sessions),
-            weekly: bucketed(sessions, unit: .weekOfYear, now: now, count: 12),
-            monthly: bucketed(sessions, unit: .month, now: now, count: 12),
-            total: totalTimePoints(sessions),
-            avg: avgTimePoints(sessions),
-            hasSessions: !sessions.isEmpty
+/// any queue; only the plain-value snapshot it returns crosses back out.
+enum WorkoutStatsAggregator {
+    static func snapshot(from sessions: [Session], now: Date = Date()) -> WorkoutStatsSnapshot {
+        // The one expensive pass: sessionPercent sorts + faults each
+        // family's logs. Both tabs need it per-session — compute once.
+        var pctBySession: [NSManagedObjectID: Double] = [:]
+        for s in sessions {
+            if let p = CompletionScorer.sessionPercent(s) { pctBySession[s.objectID] = p }
+        }
+
+        return WorkoutStatsSnapshot(
+            dashboard: DashboardSnapshot(
+                completion: completionPoints(sessions, pctBySession: pctBySession),
+                weekly: bucketed(sessions, unit: .weekOfYear, now: now, count: 12),
+                monthly: bucketed(sessions, unit: .month, now: now, count: 12),
+                total: totalTimePoints(sessions),
+                avg: avgTimePoints(sessions),
+                hasSessions: !sessions.isEmpty
+            ),
+            workoutList: workoutListSnapshot(sessions, pctBySession: pctBySession)
         )
     }
 
-    private static func completionPoints(_ sessions: [Session]) -> [CompletionPoint] {
+    // MARK: - Dashboard tab
+
+    private static func completionPoints(_ sessions: [Session],
+                                         pctBySession: [NSManagedObjectID: Double]) -> [CompletionPoint] {
         let grouped = Dictionary(grouping: sessions, by: \.workoutCode)
         return WorkoutPalette.codes.compactMap { code in
             let codeSessions = grouped[code] ?? []
-            guard let last = codeSessions.first.flatMap({ CompletionScorer.sessionPercent($0) }) else {
+            guard let last = codeSessions.first.flatMap({ pctBySession[$0.objectID] }) else {
                 return nil
             }
-            let best = codeSessions.compactMap { CompletionScorer.sessionPercent($0) }.max()
+            let best = codeSessions.compactMap { pctBySession[$0.objectID] }.max()
             return CompletionPoint(id: code, code: code, last: last, best: best)
         }
     }
@@ -121,12 +155,71 @@ enum DashboardAggregator {
             .flatMap { $0.orderedSetLogs }
             .reduce(0) { $0 + Int($1.durationSec) }
     }
+
+    // MARK: - Workouts tab
+
+    private static func workoutListSnapshot(_ sessions: [Session],
+                                            pctBySession: [NSManagedObjectID: Double]) -> WorkoutListSnapshot {
+        // `sessions` is sorted newest-first (see WorkoutStatsStore's fetch).
+        let codes = WorkoutPalette.codes
+        let historyPoints: [FamilyPercentChart.Point] = sessions.reversed().compactMap { s in
+            guard let pct = pctBySession[s.objectID] else { return nil }
+            return FamilyPercentChart.Point(percent: pct,
+                                            barColor: WorkoutPalette.color(for: s.workoutCode),
+                                            series: s.workoutCode)
+        }
+        let rocPoints = rateOfChange(from: historyPoints)
+
+        let grouped = Dictionary(grouping: sessions, by: \.workoutCode)
+        var lastPercentByCode: [String: Double] = [:]
+        var bestPercentByCode: [String: Double] = [:]
+        var sessionCountByCode: [String: Int] = [:]
+        var lastDateByCode: [String: Date] = [:]
+        for code in codes {
+            let codeSessions = grouped[code] ?? []
+            lastPercentByCode[code] = codeSessions.first.flatMap { pctBySession[$0.objectID] }
+            bestPercentByCode[code] = codeSessions.compactMap { pctBySession[$0.objectID] }.max()
+            sessionCountByCode[code] = codeSessions.count
+            lastDateByCode[code] = codeSessions.first?.startedAt
+        }
+
+        var orderedCodes = codes
+        if let last = sessions.first, let idx = codes.firstIndex(of: last.workoutCode) {
+            let startIdx = last.endedAt == nil ? idx : (idx + 1) % codes.count
+            orderedCodes = Array(codes[startIdx...]) + Array(codes[..<startIdx])
+        }
+
+        return WorkoutListSnapshot(
+            historyPoints: historyPoints,
+            rocPoints: rocPoints,
+            lastPercentByCode: lastPercentByCode,
+            bestPercentByCode: bestPercentByCode,
+            sessionCountByCode: sessionCountByCode,
+            lastDateByCode: lastDateByCode,
+            orderedCodes: orderedCodes
+        )
+    }
+
+    private static func rateOfChange(from pts: [FamilyPercentChart.Point]) -> [FamilyPercentChart.Point] {
+        var lastPct: [String: Double] = [:]
+        var result: [FamilyPercentChart.Point] = []
+        for p in pts {
+            let key = p.series.isEmpty ? "_" : p.series
+            if let prev = lastPct[key] {
+                result.append(.init(percent: p.percent - prev, barColor: p.barColor, series: p.series))
+            }
+            lastPct[key] = p.percent
+        }
+        return result
+    }
 }
 
+/// Owned once by `AppServices` so the Dashboard and Workouts tabs share one
+/// background scan instead of each running (and re-running) their own.
 @MainActor
 @Observable
-final class DashboardStatsStore {
-    private(set) var snapshot: DashboardSnapshot = .empty
+final class WorkoutStatsStore {
+    private(set) var snapshot: WorkoutStatsSnapshot = .empty
 
     private let container: NSPersistentContainer
     private var rebuildTask: Task<Void, Never>?
@@ -161,12 +254,12 @@ final class DashboardStatsStore {
 
     private func rebuild() async {
         let container = self.container
-        let snap = await withCheckedContinuation { (continuation: CheckedContinuation<DashboardSnapshot, Never>) in
+        let snap = await withCheckedContinuation { (continuation: CheckedContinuation<WorkoutStatsSnapshot, Never>) in
             container.performBackgroundTask { ctx in
                 let request = NSFetchRequest<Session>(entityName: "Session")
                 request.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
                 let sessions = (try? ctx.fetch(request)) ?? []
-                continuation.resume(returning: DashboardAggregator.snapshot(from: sessions))
+                continuation.resume(returning: WorkoutStatsAggregator.snapshot(from: sessions))
             }
         }
         guard !Task.isCancelled else { return }
