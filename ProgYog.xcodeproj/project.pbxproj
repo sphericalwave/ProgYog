@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000042 /* SetLogKit */; };
-		AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */; };
-		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
-		AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE000000004B /* SwKeyboard */; };
 		2A5252D5F5B24D54B93042F9 /* CDSkillPhoto+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95AF29905E432D81180076 /* CDSkillPhoto+.swift */; };
 		AE0000010000000000000010 /* Session+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000011 /* Session+.swift */; };
 		AE0000010000000000000020 /* SetLog+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000021 /* SetLog+.swift */; };
+		AE00000C0000000000000001 /* CDAbsSkill+RatedSetSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000C0000000000000002 /* CDAbsSkill+RatedSetSkill.swift */; };
 		AE0000010000000000000030 /* HRSample+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000010000000000000031 /* HRSample+.swift */; };
 		AE0000020000000000000001 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000002 /* CoreDataService.swift */; };
 		AE0000020000000000000011 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000020000000000000012 /* HeartRateService.swift */; };
@@ -77,6 +74,10 @@
 		AF2B36E125E4494D009E760F /* CDAbsSkill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */; };
 		AF2B36E325E4494D009E760F /* CDSkillFamily+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */; };
 		AF3FB4522FC330D000B2ED94 /* SessionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000040000000000000082 /* SessionInfoDetailView.swift */; };
+		AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000042 /* SetLogKit */; };
+		AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */; };
+		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
+		AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE000000004B /* SwKeyboard */; };
 		AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF745D2025E80272003B2B1C /* ImportedJSON.swift */; };
 		AF8B517525E56C0800519B9D /* JsonYogSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517425E56C0800519B9D /* JsonYogSeries.swift */; };
 		AF8B517A25E56C2600519B9D /* JsonSkillFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */; };
@@ -108,6 +109,7 @@
 /* Begin PBXFileReference section */
 		AE0000010000000000000011 /* Session+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+.swift"; sourceTree = "<group>"; };
 		AE0000010000000000000021 /* SetLog+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetLog+.swift"; sourceTree = "<group>"; };
+		AE00000C0000000000000002 /* CDAbsSkill+RatedSetSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+RatedSetSkill.swift"; sourceTree = "<group>"; };
 		AE0000010000000000000031 /* HRSample+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRSample+.swift"; sourceTree = "<group>"; };
 		AE0000020000000000000002 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		AE0000020000000000000012 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
@@ -179,7 +181,7 @@
 		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
 		AF8B518B25E56E9700519B9D /* ProgYogData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgYogData.json; sourceTree = "<group>"; };
 		AFA7D96F2FE168DF007A877F /* PlatformImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformImage.swift; sourceTree = "<group>"; };
-		AFA7D98D2FE16BEF007A877F /* ProgYog.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = ProgYog.xctestplan; sourceTree = "<group>"; };
+		AFA7D98D2FE16BEF007A877F /* ProgYog.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProgYog.xctestplan; sourceTree = "<group>"; };
 		AFC102CF2FD45C600022143E /* ScheduleNextWorkoutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNextWorkoutSheet.swift; sourceTree = "<group>"; };
 		AFC102D52FD5B9320022143E /* FamilyPercentChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyPercentChart.swift; sourceTree = "<group>"; };
 		AFC102E92FD741910022143E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				AF2B36D725E4494D009E760F /* CDYogSeries+.swift */,
 				AE0000010000000000000011 /* Session+.swift */,
 				AE0000010000000000000021 /* SetLog+.swift */,
+				AE00000C0000000000000002 /* CDAbsSkill+RatedSetSkill.swift */,
 				AE0000010000000000000031 /* HRSample+.swift */,
 			);
 			path = CoreData;
@@ -545,10 +548,10 @@
 			);
 			mainGroup = AF0B755E25E06FDE00A0FF28;
 			packageReferences = (
-				AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "SetLogKit" */,
-				AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */,
-				AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */,
-				AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */,
+				AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */,
+				AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */,
+				AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */,
+				AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -644,6 +647,7 @@
 				AFC102EE2FD741930022143E /* EmailOptInService.swift in Sources */,
 				AE0000010000000000000010 /* Session+.swift in Sources */,
 				AE0000010000000000000020 /* SetLog+.swift in Sources */,
+				AE00000C0000000000000001 /* CDAbsSkill+RatedSetSkill.swift in Sources */,
 				AE0000010000000000000030 /* HRSample+.swift in Sources */,
 				AF0B757725E06FE200A0FF28 /* ProgYog.xcdatamodeld in Sources */,
 				AF745D2125E80272003B2B1C /* ImportedJSON.swift in Sources */,
@@ -941,6 +945,48 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/Logging/SetLogKit;
+		};
+		AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/Audio/WorkoutAudioKit;
+		};
+		AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/Health/WorkoutSyncKit;
+		};
+		AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Frameworks/UI/SwKeyboard;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF51E7C0DEC0DE0000000042 /* SetLogKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */;
+			productName = SetLogKit;
+		};
+		AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */;
+			productName = WorkoutAudioKit;
+		};
+		AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */;
+			productName = WorkoutSyncKit;
+		};
+		AF51E7C0DEC0DE000000004B /* SwKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */;
+			productName = SwKeyboard;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
 		AF0B757525E06FE200A0FF28 /* ProgYog.xcdatamodeld */ = {
 			isa = XCVersionGroup;
@@ -953,48 +999,6 @@
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "SetLogKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Logging/SetLogKit;
-		};
-		AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Audio/WorkoutAudioKit;
-		};
-		AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Health/WorkoutSyncKit;
-		};
-		AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/UI/SwKeyboard;
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AF51E7C0DEC0DE0000000042 /* SetLogKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "SetLogKit" */;
-			productName = SetLogKit;
-		};
-		AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "WorkoutAudioKit" */;
-			productName = WorkoutAudioKit;
-		};
-		AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "WorkoutSyncKit" */;
-			productName = WorkoutSyncKit;
-		};
-		AF51E7C0DEC0DE000000004B /* SwKeyboard */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "SwKeyboard" */;
-			productName = SwKeyboard;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF0B755F25E06FDE00A0FF28 /* Project object */;
 }
