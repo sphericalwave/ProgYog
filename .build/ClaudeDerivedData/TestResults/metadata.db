@@ -13,27 +13,27 @@
 				<key>testAllTimeBestFamilyPercent_NilWhenNeverLogged</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.029767036437988281</real>
+					<real>0.028306961059570312</real>
 				</dict>
 				<key>testAllTimeBestFamilyPercent_PicksMaxAcrossSessions</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.03741908073425293</real>
+					<real>0.036696076393127441</real>
 				</dict>
 				<key>testAllTimeBestSessionPercent_NilWhenNoSessions</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0054800510406494141</real>
+					<real>0.0071380138397216797</real>
 				</dict>
 				<key>testAllTimeBestSessionPercent_TakesMaxAcrossSessions</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0093489885330200195</real>
+					<real>0.0076769590377807617</real>
 				</dict>
 				<key>testEmptyFamilyMaxDepthZeroReturnsZero</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012541055679321289</real>
+					<real>0.0079330205917358398</real>
 				</dict>
 				<key>testFamilyPercent_BankedLevelsScaledByCurrentROM</key>
 				<dict>
@@ -43,17 +43,17 @@
 				<key>testFamilyPercent_BankedLevelsScaledByCurrentTechnique</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011223077774047852</real>
+					<real>0.012002944946289062</real>
 				</dict>
 				<key>testFamilyPercent_DepthOverMaxDepth</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0078179836273193359</real>
+					<real>0.0088660717010498047</real>
 				</dict>
 				<key>testFamilyPercent_NilWhenFamilyNotLogged</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0086240768432617188</real>
+					<real>0.0049920082092285156</real>
 				</dict>
 				<key>testFamilyPercent_ROMAboveThresholdClamps</key>
 				<dict>
@@ -73,7 +73,7 @@
 				<key>testFamilyPercent_StuckAtL1_PartialTechnique</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0097490549087524414</real>
+					<real>0.0055190324783325195</real>
 				</dict>
 				<key>testFamilyPercent_StuckAtL1_ZeroROM</key>
 				<dict>
@@ -83,27 +83,27 @@
 				<key>testFamilyPercent_StuckAtL1_ZeroTechnique</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0082190036773681641</real>
+					<real>0.0085799694061279297</real>
 				</dict>
 				<key>testFamilyPercent_TechniqueAboveThresholdClamps</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0084919929504394531</real>
+					<real>0.0054950714111328125</real>
 				</dict>
 				<key>testFamilyPercent_UsesLastSetByRoundOrder</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0084919929504394531</real>
+					<real>0.013352036476135254</real>
 				</dict>
 				<key>testFullTechniqueAtTopDepthIsFull</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0085979700088500977</real>
+					<real>0.0086929798126220703</real>
 				</dict>
 				<key>testLastSessionPercent_UsesMostRecent</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0073210000991821289</real>
+					<real>0.0062979459762573242</real>
 				</dict>
 				<key>testQualifyingCriteria_BoundaryPasses</key>
 				<dict>
@@ -133,27 +133,27 @@
 				<key>testRPDFailWithFullTechniqueStillFull</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013661980628967285</real>
+					<real>0.011169910430908203</real>
 				</dict>
 				<key>testRPEFailWithFullTechniqueStillFull</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0095350742340087891</real>
+					<real>0.0084909200668334961</real>
 				</dict>
 				<key>testSessionPercent_EmptySessionIsNil</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010879039764404297</real>
+					<real>0.0073070526123046875</real>
 				</dict>
 				<key>testSessionPercent_MeanAcrossFamilies</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0057979822158813477</real>
+					<real>0.0052939653396606445</real>
 				</dict>
 				<key>testTechniqueBelowTargetDocksCredit</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012727022171020508</real>
+					<real>0.013136982917785645</real>
 				</dict>
 			</dict>
 			<key>ROMPersistenceTests</key>
@@ -169,37 +169,37 @@
 				<key>test_duplicateSession_copiesHRSamples</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011433959007263184</real>
+					<real>0.011813998222351074</real>
 				</dict>
 				<key>test_duplicateSession_newUUIDs</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011366009712219238</real>
+					<real>0.015472054481506348</real>
 				</dict>
 				<key>test_duplicateSession_preservesFieldValues</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011990904808044434</real>
+					<real>0.011888027191162109</real>
 				</dict>
 				<key>test_duplicateSession_preservesInProgressFlavor</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.014464974403381348</real>
+					<real>0.011137962341308594</real>
 				</dict>
 				<key>test_duplicateSession_relinksSameAbsSkill</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012419939041137695</real>
+					<real>0.010398983955383301</real>
 				</dict>
 				<key>test_duplicateSession_setCountMatches</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010674953460693359</real>
+					<real>0.011353969573974609</real>
 				</dict>
 				<key>test_duplicateSession_startedAtIsNewerThanSource</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010248899459838867</real>
+					<real>0.014119982719421387</real>
 				</dict>
 			</dict>
 			<key>SessionEditorTests</key>
@@ -207,37 +207,37 @@
 				<key>test_setCompleted_offClearsEndedAt</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0048410892486572266</real>
+					<real>0.0057590007781982422</real>
 				</dict>
 				<key>test_setCompleted_onSetsEndedAtToAtLeastStarted</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0077350139617919922</real>
+					<real>0.0044410228729248047</real>
 				</dict>
 				<key>test_setCompleted_onWithPastStartUsesNow</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0074030160903930664</real>
+					<real>0.0049519538879394531</real>
 				</dict>
 				<key>test_setEnd_acceptsLaterValue</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0076330900192260742</real>
+					<real>0.0093719959259033203</real>
 				</dict>
 				<key>test_setEnd_clampsToStartedAt</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0076849460601806641</real>
+					<real>0.0088829994201660156</real>
 				</dict>
 				<key>test_shiftStart_endedNilStaysNil</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.006981968879699707</real>
+					<real>0.0075930356979370117</real>
 				</dict>
 				<key>test_shiftStart_preservesDurationWhenEndSet</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0068559646606445312</real>
+					<real>0.0045669078826904297</real>
 				</dict>
 			</dict>
 			<key>SessionRecoveryTests</key>
@@ -245,7 +245,7 @@
 				<key>test_snapshotDeleteRestore_roundTrip</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013957023620605469</real>
+					<real>0.014739990234375</real>
 				</dict>
 			</dict>
 			<key>UndoStackTests</key>
@@ -253,37 +253,37 @@
 				<key>test_clear_emptiesStackAndCanUndoIsFalse</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0012259483337402344</real>
+					<real>0.0013929605484008789</real>
 				</dict>
 				<key>test_maxDepth_dropsOldest</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00063800811767578125</real>
+					<real>0.00058901309967041016</real>
 				</dict>
 				<key>test_pushThenUndo_invokesRestore</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00041997432708740234</real>
+					<real>0.00046801567077636719</real>
 				</dict>
 				<key>test_push_setsCanUndo_undoLastClearsWhenEmpty</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0004940032958984375</real>
+					<real>0.00045597553253173828</real>
 				</dict>
 				<key>test_undoLast_LIFOOrder</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00045895576477050781</real>
+					<real>0.000370025634765625</real>
 				</dict>
 				<key>test_undoLast_emptyStack_returnsFalse</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00048899650573730469</real>
+					<real>0.00039792060852050781</real>
 				</dict>
 				<key>test_undoLast_setsLastRestoredDescription</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00037992000579833984</real>
+					<real>0.00040304660797119141</real>
 				</dict>
 			</dict>
 			<key>WorkoutSegmenterTests</key>
@@ -291,32 +291,32 @@
 				<key>testEmptySession</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0081000328063964844</real>
+					<real>0.013898015022277832</real>
 				</dict>
 				<key>testMidnightCrossingSplits</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010921955108642578</real>
+					<real>0.010866045951843262</real>
 				</dict>
 				<key>testSingleSet</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0083649158477783203</real>
+					<real>0.0055170059204101562</real>
 				</dict>
 				<key>testThreeSetsAcrossTwoDays</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0086879730224609375</real>
+					<real>0.010216951370239258</real>
 				</dict>
 				<key>testTwoSetsDifferentDays</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0085270404815673828</real>
+					<real>0.0050679445266723633</real>
 				</dict>
 				<key>testTwoSetsSameDayHoursApart</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0086640119552612305</real>
+					<real>0.0097349882125854492</real>
 				</dict>
 			</dict>
 			<key>WorkoutStatsCacheTests</key>
@@ -324,17 +324,17 @@
 				<key>testEmptySnapshotRoundTrips</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00059390068054199219</real>
+					<real>0.00053000450134277344</real>
 				</dict>
 				<key>testPointBarColorIsRecomputedFromSeriesNotSerialized</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0031310319900512695</real>
+					<real>0.0031290054321289062</real>
 				</dict>
 				<key>testSnapshotRoundTripsThroughJSON</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0042979717254638672</real>
+					<real>0.0040700435638427734</real>
 				</dict>
 			</dict>
 		</dict>

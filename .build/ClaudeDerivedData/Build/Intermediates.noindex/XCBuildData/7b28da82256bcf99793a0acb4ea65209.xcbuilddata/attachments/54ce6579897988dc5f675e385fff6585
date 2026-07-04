@@ -1,0 +1,119 @@
+{
+  "" : {
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetLogKit-primary.dia",
+    "emit-module-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetLogKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetLogKit-primary-emit-module.dia",
+    "pch" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetLogKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetLogKit-primary.swiftdeps"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/CompletionScorer.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionScorer~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/FalseColor.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/FalseColor~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/ProgressionDecision.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionDecision~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/ProgressionEvaluator.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/ProgressionEvaluator~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/SetRecord.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/SetRecord~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/CompletionChip.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/CompletionChip~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/HRConfig.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/HRConfig~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/RatedSetForm.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetForm~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/RatedSetWidgets.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/RatedSetWidgets~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/UI/TEDDescription.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/TEDDescription~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit/Sources/SetLogKit/WorkoutSegmenter.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.dia",
+    "index-unit-output-path" : "/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SetLogKit.build/Debug-iphonesimulator/SetLogKit.build/Objects-normal/x86_64/WorkoutSegmenter~partial.swiftmodule"
+  }
+}
