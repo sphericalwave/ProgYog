@@ -23,11 +23,9 @@ final class CoreDataService: ObservableObject {
     var moc: NSManagedObjectContext { container.viewContext }
 
     private var resignObserver: NSObjectProtocol?
-    private var remoteChangeObserver: NSObjectProtocol?
 
     deinit {
         if let token = resignObserver { NotificationCenter.default.removeObserver(token) }
-        if let token = remoteChangeObserver { NotificationCenter.default.removeObserver(token) }
     }
 
     init(inMemory: Bool = false) {
@@ -57,6 +55,9 @@ final class CoreDataService: ObservableObject {
             }
         }
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        // Targeted merge of only the objects/keys that actually changed,
+        // instead of the remoteChangeObserver below refreshing everything.
+        container.viewContext.automaticallyMergesChangesFromParent = true
 
         self.container = container
 
@@ -92,14 +93,6 @@ final class CoreDataService: ObservableObject {
             forName: resignName, object: nil, queue: nil
         ) { [weak self] _ in
             Task { @MainActor in self?.save() }
-        }
-
-        remoteChangeObserver = NotificationCenter.default.addObserver(
-            forName: .NSPersistentStoreRemoteChange,
-            object: container.persistentStoreCoordinator,
-            queue: nil
-        ) { [weak self] _ in
-            Task { @MainActor in self?.container.viewContext.refreshAllObjects() }
         }
     }
 

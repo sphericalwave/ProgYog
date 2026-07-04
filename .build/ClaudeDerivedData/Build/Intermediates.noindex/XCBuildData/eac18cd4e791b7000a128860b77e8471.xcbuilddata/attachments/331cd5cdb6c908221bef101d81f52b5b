@@ -1,0 +1,4 @@
+module SwKeyboard {
+header "SwKeyboard-Swift.h"
+export *
+}

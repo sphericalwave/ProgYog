@@ -69,6 +69,69 @@
 			<key>uniqueIdentifier</key>
 			<string>4EF3E398-15C0-4174-A37D-804129AA1C70</string>
 		</dict>
+		<key>A1535264-0E25-412F-9066-F7C99F078255</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>3FEFA46D-FEAD-4A0B-9604-78F037E01B79</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>1</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-ProgYog-2026.07.04_13-20-58--0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasCoverageData</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalCodeCoverage</key>
+				<real>0.12078089244851259</real>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>1</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>ProgYog project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>ProgYog</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test ProgYog</string>
+			<key>timeStartedRecording</key>
+			<real>804874858.63980901</real>
+			<key>timeStoppedRecording</key>
+			<real>804874895.39349604</real>
+			<key>title</key>
+			<string>Test ProgYog</string>
+			<key>uniqueIdentifier</key>
+			<string>A1535264-0E25-412F-9066-F7C99F078255</string>
+		</dict>
 	</dict>
 </dict>
 </plist>
