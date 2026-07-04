@@ -17,7 +17,7 @@ import Foundation
 import CoreData
 import Observation
 
-struct CompletionPoint: Identifiable, Sendable {
+struct CompletionPoint: Identifiable, Sendable, Codable {
     let id: String
     let code: String
     let last: Double
@@ -25,7 +25,7 @@ struct CompletionPoint: Identifiable, Sendable {
     var label: String { code }
 }
 
-struct VolumePoint: Identifiable, Sendable {
+struct VolumePoint: Identifiable, Sendable, Codable {
     let id: Date
     let bucketStart: Date
     let count: Int
@@ -37,13 +37,13 @@ struct VolumePoint: Identifiable, Sendable {
     }
 }
 
-struct TimePoint: Identifiable, Sendable {
+struct TimePoint: Identifiable, Sendable, Codable {
     let id: String
     let code: String
     let minutes: Int
 }
 
-struct DashboardSnapshot: Sendable {
+struct DashboardSnapshot: Sendable, Codable {
     var completion: [CompletionPoint] = []
     var weekly: [VolumePoint] = []
     var monthly: [VolumePoint] = []
@@ -56,7 +56,7 @@ struct DashboardSnapshot: Sendable {
 
 /// Everything the Workouts (first) tab needs per workout code, plus the
 /// history/rate-of-change chart series across all codes.
-struct WorkoutListSnapshot: Sendable {
+struct WorkoutListSnapshot: Sendable, Codable {
     var historyPoints: [FamilyPercentChart.Point] = []
     var rocPoints: [FamilyPercentChart.Point] = []
     var lastPercentByCode: [String: Double] = [:]
@@ -68,7 +68,7 @@ struct WorkoutListSnapshot: Sendable {
     static let empty = WorkoutListSnapshot()
 }
 
-struct WorkoutStatsSnapshot: Sendable {
+struct WorkoutStatsSnapshot: Sendable, Codable {
     var dashboard: DashboardSnapshot = .empty
     var workoutList: WorkoutListSnapshot = .empty
 
@@ -229,6 +229,9 @@ final class WorkoutStatsStore {
 
     init(container: NSPersistentContainer) {
         self.container = container
+        // Show last-known-accurate data instantly instead of an empty/zero
+        // state while the first background rebuild is still running.
+        if let cached = Self.loadCached() { snapshot = cached }
         saveObserver = NotificationCenter.default.addObserver(
             forName: .NSManagedObjectContextDidSave, object: nil, queue: nil
         ) { [weak self] _ in
@@ -264,5 +267,29 @@ final class WorkoutStatsStore {
         }
         guard !Task.isCancelled else { return }
         snapshot = snap
+        Task.detached(priority: .utility) { Self.persist(snap) }
+    }
+
+    // MARK: - Disk cache (last-known-good snapshot, shown instantly at launch)
+
+    private nonisolated static let cacheURL: URL = {
+        let dir = (try? FileManager.default.url(
+            for: .applicationSupportDirectory, in: .userDomainMask,
+            appropriateFor: nil, create: true
+        )) ?? URL.applicationSupportDirectory
+        return dir.appendingPathComponent("WorkoutStatsCache.json")
+    }()
+
+    private nonisolated static func loadCached() -> WorkoutStatsSnapshot? {
+        guard let data = try? Data(contentsOf: cacheURL) else { return nil }
+        return try? JSONDecoder().decode(WorkoutStatsSnapshot.self, from: data)
+    }
+
+    /// Best-effort — a failed write just means the next launch falls back
+    /// to the empty/loading state instead of the cache, nothing user-facing
+    /// depends on this succeeding.
+    private nonisolated static func persist(_ snapshot: WorkoutStatsSnapshot) {
+        guard let data = try? JSONEncoder().encode(snapshot) else { return }
+        try? data.write(to: cacheURL, options: .atomic)
     }
 }
