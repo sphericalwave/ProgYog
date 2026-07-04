@@ -19,6 +19,9 @@ final class CoreDataService: ObservableObject {
     @Published var lastSaveError: String?
     @Published private(set) var didBackupOnLaunch: Bool = false
     @Published private(set) var backupURL: URL?
+    /// One-time defensive snapshot of the store taken before the planned
+    /// technique/ROM metric change. Non-destructive (copy, not move).
+    @Published private(set) var preMetricSwapBackupURL: URL?
 
     var moc: NSManagedObjectContext { container.viewContext }
 
@@ -60,6 +63,16 @@ final class CoreDataService: ObservableObject {
         container.viewContext.automaticallyMergesChangesFromParent = true
 
         self.container = container
+
+        // Defensive one-time snapshot BEFORE any store load / lightweight
+        // migration, so a full copy of the current data exists ahead of the
+        // planned technique/ROM metric change. Copy (not move) — the live
+        // store is untouched. No-ops on a fresh install or after it has run.
+        if !inMemory {
+            self.preMetricSwapBackupURL = Self.backupStoreOnce(
+                container: container, flagKey: Self.preMetricSwapBackupFlagKey
+            )
+        }
 
         var loadErrorCaptured: NSError?
         var backupURLCaptured: URL?
@@ -274,6 +287,44 @@ final class CoreDataService: ObservableObject {
             _ = try? container.persistentStoreCoordinator.execute(delete, with: moc)
         }
         moc.reset()
+    }
+
+    private static let preMetricSwapBackupFlagKey = "didBackupBeforeMetricSwapV1"
+
+    /// Copy the store (and its -wal/-shm sidecars) to a timestamped snapshot
+    /// exactly once, guarded by `flagKey`. Runs before the store is loaded so
+    /// the snapshot predates any migration. Non-destructive: the original is
+    /// copied, not moved. Returns the snapshot URL (nil if nothing to back up
+    /// or it already ran).
+    private static func backupStoreOnce(container: NSPersistentCloudKitContainer,
+                                        flagKey: String) -> URL? {
+        guard !UserDefaults.standard.bool(forKey: flagKey) else { return nil }
+        guard let url = container.persistentStoreDescriptions.first?.url,
+              FileManager.default.fileExists(atPath: url.path) else {
+            // Fresh install — nothing to snapshot. Mark done so we don't
+            // keep re-checking, and so a later real store isn't retro-snapshotted.
+            UserDefaults.standard.set(true, forKey: flagKey)
+            return nil
+        }
+        let stamp = ISO8601DateFormatter().string(from: Date())
+            .replacingOccurrences(of: ":", with: "-")
+        let parent = url.deletingLastPathComponent()
+        let stem = url.deletingPathExtension().lastPathComponent
+        let backup = parent.appendingPathComponent("\(stem)-presnapshot-\(stamp).sqlite")
+        let fm = FileManager.default
+        // Copy the main store first; only mark done if that succeeds, so a
+        // failed snapshot is retried on the next launch rather than skipped.
+        do {
+            try fm.copyItem(at: url, to: backup)
+        } catch {
+            return nil
+        }
+        try? fm.copyItem(at: url.appendingPathExtension("-shm"),
+                         to: backup.appendingPathExtension("-shm"))
+        try? fm.copyItem(at: url.appendingPathExtension("-wal"),
+                         to: backup.appendingPathExtension("-wal"))
+        UserDefaults.standard.set(true, forKey: flagKey)
+        return backup
     }
 
     /// Rename existing SQLite to a timestamped .broken file (preserves data),
