@@ -28,9 +28,14 @@ jobs:
         with:
           repository: sphericalwave/SwKeyboard
           path: Frameworks/UI/SwKeyboard
+      - name: Pick an available iPhone simulator
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
+          echo "SIM_NAME=$DEVICE" >> "$GITHUB_ENV"
+          echo "Using simulator: $DEVICE"
       - name: Build and run unit tests
         run: >
           xcodebuild -project fitness/progYog/ProgYog.xcodeproj -scheme ProgYog
-          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -destination 'platform=iOS Simulator,name=${{ env.SIM_NAME }}'
           -derivedDataPath .build/dd
           -only-testing:ProgYogTests test
