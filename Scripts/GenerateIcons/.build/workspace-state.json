@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "brand-asset-gen",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen",
+          "name" : "brand-asset-gen"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen"
+        },
+        "subpath" : "brand-asset-gen"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

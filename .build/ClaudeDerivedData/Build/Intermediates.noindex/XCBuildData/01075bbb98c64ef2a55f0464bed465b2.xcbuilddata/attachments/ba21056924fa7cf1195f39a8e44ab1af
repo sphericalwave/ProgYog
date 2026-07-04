@@ -1,0 +1,4 @@
+module SetLogKit {
+header "SetLogKit-Swift.h"
+export *
+}

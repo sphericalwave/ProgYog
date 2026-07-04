@@ -1,0 +1,153 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "BrandGenCore-arm64-apple-macosx16.0-debug.module": ["<BrandGenCore-arm64-apple-macosx16.0-debug.module>"]
+  "GenerateIcons-arm64-apple-macosx16.0-debug.exe": ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe>"]
+  "GenerateIcons-arm64-apple-macosx16.0-debug.module": ["<GenerateIcons-arm64-apple-macosx16.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "brand-gen-arm64-apple-macosx16.0-debug.exe": ["<brand-gen-arm64-apple-macosx16.0-debug.exe>"]
+  "brand-gen-arm64-apple-macosx16.0-debug.module": ["<brand-gen-arm64-apple-macosx16.0-debug.module>"]
+  "main": ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe>","<GenerateIcons-arm64-apple-macosx16.0-debug.module>"]
+  "test": ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe>","<GenerateIcons-arm64-apple-macosx16.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Sources/GenerateIcons/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons":
+    is-mutated: true
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen":
+    is-mutated: true
+commands:
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/BrandGenCore/AssetJSON.swift","/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/BrandGenCore/Renderer.swift"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/sources"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/sources"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons-entitlement.plist"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons-entitlement.plist"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Sources/GenerateIcons/main.swift"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/sources"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/sources"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swift.o"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.product/Objects.LinkFileList"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen-entitlement.plist"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen-entitlement.plist"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/main.swift.o"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen.product/Objects.LinkFileList"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/brand-gen/main.swift"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/sources"]
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/sources"
+
+  "/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<BrandGenCore-arm64-apple-macosx16.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule"]
+    outputs: ["<BrandGenCore-arm64-apple-macosx16.0-debug.module>"]
+
+  "<GenerateIcons-arm64-apple-macosx16.0-debug.exe>":
+    tool: phony
+    inputs: ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe-CodeSigning>"]
+    outputs: ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe>"]
+
+  "<GenerateIcons-arm64-apple-macosx16.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/GenerateIcons.swiftmodule"]
+    outputs: ["<GenerateIcons-arm64-apple-macosx16.0-debug.module>"]
+
+  "<brand-gen-arm64-apple-macosx16.0-debug.exe>":
+    tool: phony
+    inputs: ["<brand-gen-arm64-apple-macosx16.0-debug.exe-CodeSigning>"]
+    outputs: ["<brand-gen-arm64-apple-macosx16.0-debug.exe>"]
+
+  "<brand-gen-arm64-apple-macosx16.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/brand_gen.swiftmodule"]
+    outputs: ["<brand-gen-arm64-apple-macosx16.0-debug.module>"]
+
+  "C.BrandGenCore-arm64-apple-macosx16.0-debug.module":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/BrandGenCore/AssetJSON.swift","/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/BrandGenCore/Renderer.swift","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/sources"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule"]
+    description: "Compiling Swift Module 'BrandGenCore' (2 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BrandGenCore","-emit-dependencies","-emit-module","-emit-module-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule","-output-file-map","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/sources","-I","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-enable-batch-mode","-index-store-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/BrandGenCore-Swift.h","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","brand_asset_gen"]
+
+  "C.GenerateIcons-arm64-apple-macosx16.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.product/Objects.LinkFileList"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/GenerateIcons"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug","-o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons","-module-name","GenerateIcons","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_GenerateIcons_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.product/Objects.LinkFileList","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/GenerateIcons.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.GenerateIcons-arm64-apple-macosx16.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons-entitlement.plist"]
+    outputs: ["<GenerateIcons-arm64-apple-macosx16.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/GenerateIcons"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons-entitlement.plist","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons"]
+
+  "C.GenerateIcons-arm64-apple-macosx16.0-debug.module":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Sources/GenerateIcons/main.swift","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/sources"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/GenerateIcons.swiftmodule"]
+    description: "Compiling Swift Module 'GenerateIcons' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","GenerateIcons","-emit-dependencies","-emit-module","-emit-module-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/GenerateIcons.swiftmodule","-output-file-map","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/output-file-map.json","-incremental","-c","@/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/GenerateIcons.build/sources","-I","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-enable-batch-mode","-index-store-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","GenerateIcons_main","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","generateicons"]
+
+  "C.brand-gen-arm64-apple-macosx16.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/AssetJSON.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/BrandGenCore.build/Renderer.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen.product/Objects.LinkFileList"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/brand-gen"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug","-o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen","-module-name","brand_gen","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_brand_gen_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen.product/Objects.LinkFileList","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/brand_gen.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.brand-gen-arm64-apple-macosx16.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen-entitlement.plist"]
+    outputs: ["<brand-gen-arm64-apple-macosx16.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/brand-gen"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen-entitlement.plist","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand-gen"]
+
+  "C.brand-gen-arm64-apple-macosx16.0-debug.module":
+    tool: shell
+    inputs: ["/Users/darkknight/Documents/apps/Frameworks/Tools/brand-asset-gen/Sources/brand-gen/main.swift","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/BrandGenCore.swiftmodule","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/sources"]
+    outputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/main.swift.o","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/brand_gen.swiftmodule"]
+    description: "Compiling Swift Module 'brand_gen' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","brand_gen","-emit-dependencies","-emit-module","-emit-module-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules/brand_gen.swiftmodule","-output-file-map","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/output-file-map.json","-incremental","-c","@/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/brand_gen.build/sources","-I","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-enable-batch-mode","-index-store-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","brand_gen_main","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","brand_asset_gen"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Sources/GenerateIcons/","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Package.swift","/Users/darkknight/Documents/apps/fitness/progYog/Scripts/GenerateIcons/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

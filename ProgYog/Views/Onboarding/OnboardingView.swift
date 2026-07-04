@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwKeyboard
 
 struct OnboardingView: View {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
@@ -28,7 +29,7 @@ struct OnboardingView: View {
         .indexViewStyle(.page(backgroundDisplayMode: .always))
         .background(Color(.systemBackground))
         .ignoresSafeArea(edges: .bottom)
-        .keyboardDoneToolbar()
+        .doneKeyboardToolbar()
         #if DEBUG
         .overlay(alignment: .topTrailing) {
             Button {

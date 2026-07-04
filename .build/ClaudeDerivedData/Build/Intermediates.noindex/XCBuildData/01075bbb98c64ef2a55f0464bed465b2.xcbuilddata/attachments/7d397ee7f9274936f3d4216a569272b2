@@ -1,0 +1,4 @@
+module WorkoutSyncKit {
+header "WorkoutSyncKit-Swift.h"
+export *
+}

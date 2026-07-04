@@ -4,6 +4,8 @@
 //
 
 import SwiftUI
+import SwKeyboard
+import SetLogKit
 import CoreData
 
 struct SetLogSheet: View {
@@ -208,7 +210,7 @@ struct SetLogSheet: View {
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
-            .keyboardDoneToolbar()
+            .doneKeyboardToolbar()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {

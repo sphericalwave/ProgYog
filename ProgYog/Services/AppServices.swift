@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import WorkoutAudioKit
 
 @MainActor
 final class AppServices: ObservableObject {

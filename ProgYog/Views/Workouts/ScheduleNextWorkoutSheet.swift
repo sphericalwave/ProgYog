@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import WorkoutSyncKit
 
 #if canImport(EventKit)
 import EventKit

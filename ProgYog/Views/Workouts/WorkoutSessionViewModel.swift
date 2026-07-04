@@ -4,6 +4,8 @@
 //
 
 import Foundation
+import WorkoutAudioKit
+import SetLogKit
 import CoreData
 import Combine
 
@@ -106,25 +108,6 @@ final class WorkoutSessionViewModel: ObservableObject {
         fr.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
         fr.fetchLimit = 1
         return (try? moc.fetch(fr))?.first
-    }
-
-    func discardSession() {
-        let snap = SessionRecovery.snapshot(session)
-        let coreData = services.coreData
-        services.undo.push(description: "session") {
-            let restored = SessionRecovery.restore(snap, into: coreData.moc)
-            coreData.save()
-            WorkoutCalendarBridge.syncSegments(restored)
-            #if canImport(HealthKit)
-            WorkoutHealthBridge.syncSegments(restored)
-            #endif
-        }
-        WorkoutCalendarBridge.removeAll(for: session)
-        #if canImport(HealthKit)
-        WorkoutHealthBridge.removeAll(for: session)
-        #endif
-        moc.delete(session)
-        services.coreData.save()
     }
 
     var currentFamily: CDSkillFamily? {

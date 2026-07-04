@@ -1,0 +1,19 @@
+{
+  "" : {
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/WorkoutAudioKit-primary.dia",
+    "emit-module-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/WorkoutAudioKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/WorkoutAudioKit-primary-emit-module.dia",
+    "pch" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/WorkoutAudioKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/WorkoutAudioKit-primary.swiftdeps"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/Audio/WorkoutAudioKit/Sources/WorkoutAudioKit/AudioCueService.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.dia",
+    "index-unit-output-path" : "/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/WorkoutAudioKit.build/Debug-iphonesimulator/WorkoutAudioKit.build/Objects-normal/x86_64/AudioCueService~partial.swiftmodule"
+  }
+}

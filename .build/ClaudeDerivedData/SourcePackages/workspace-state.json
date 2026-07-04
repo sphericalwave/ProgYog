@@ -1,0 +1,69 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "setlogkit",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit",
+          "name" : "SetLogKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit"
+        },
+        "subpath" : "setlogkit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "swkeyboard",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard",
+          "name" : "SwKeyboard"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard"
+        },
+        "subpath" : "swkeyboard"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "workoutaudiokit",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Audio/WorkoutAudioKit",
+          "name" : "WorkoutAudioKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Audio/WorkoutAudioKit"
+        },
+        "subpath" : "workoutaudiokit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "workoutsynckit",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit",
+          "name" : "WorkoutSyncKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Health/WorkoutSyncKit"
+        },
+        "subpath" : "workoutsynckit"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}
