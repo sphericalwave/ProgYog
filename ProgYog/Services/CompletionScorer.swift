@@ -5,20 +5,23 @@
 //  Two distinct scores:
 //
 //  SET SCORE (per-set, shown in SetLogSheet):
-//      clamp(rom / romMin, 0...1) × 100
-//      Depth-independent — full range at any level = 100%.
+//      clamp(rpt / rptMin, 0...1) × 100
+//      Depth-independent — full technique at any level = 100%.
 //
 //  WORKOUT SCORE (per-session/family, shown in lists and summaries):
-//      romFraction  = clamp(last.rom / romMin, 0...1)
-//      familyPercent = (depth × romFraction) / maxDepth × 100
-//      Banked depth levels are scaled by this session's ROM%, not assumed
-//      perfect — the only ROM data point available is the last logged set.
-//      100% requires the highest-depth skill AND full ROM.
+//      techniqueFraction = clamp(last.rpt / rptMin, 0...1)
+//      familyPercent = (depth × techniqueFraction) / maxDepth × 100
+//      Banked depth levels are scaled by this session's technique, not
+//      assumed perfect — the only quality data point available is the last
+//      logged set. 100% requires the highest-depth skill AND full technique.
 //      Uses the LAST set logged for that family in the session.
 //
-//  RPT / RPE / RPD are advisory (used in qualifiesForCompletion on SetLog)
-//  but don't affect either score. Families with no logs return nil and are
+//  RPE / RPD are advisory (used in qualifiesForCompletion on SetLog) but
+//  don't affect either score. Families with no logs return nil and are
 //  excluded from the session mean.
+//
+//  (ROM was retired 2026-07 — technique carries the same signal. The `rom`
+//  attribute is kept as inert storage; no code reads it.)
 //
 
 import Foundation
@@ -31,12 +34,10 @@ enum CompletionSettings {
     static let rptMinKey = "completion.rptMin"
     static let rpeMaxKey = "completion.rpeMax"
     static let rpdMaxKey = "completion.rpdMax"
-    static let romMinKey = "completion.romMin"
 
     static let defaultRptMin: Int16 = 8
     static let defaultRpeMax: Int16 = 6
     static let defaultRpdMax: Int16 = 1
-    static let defaultRomMin: Int16 = 95
 
     private static func read(_ key: String, fallback: Int16) -> Int16 {
         let stored = UserDefaults.standard.integer(forKey: key)
@@ -46,13 +47,11 @@ enum CompletionSettings {
     static var rptMin: Int16 { read(rptMinKey, fallback: defaultRptMin) }
     static var rpeMax: Int16 { read(rpeMaxKey, fallback: defaultRpeMax) }
     static var rpdMax: Int16 { read(rpdMaxKey, fallback: defaultRpdMax) }
-    static var romMin: Int16 { read(romMinKey, fallback: defaultRomMin) }
 
     static func resetToDefaults() {
         UserDefaults.standard.removeObject(forKey: rptMinKey)
         UserDefaults.standard.removeObject(forKey: rpeMaxKey)
         UserDefaults.standard.removeObject(forKey: rpdMaxKey)
-        UserDefaults.standard.removeObject(forKey: romMinKey)
     }
 }
 
@@ -62,14 +61,13 @@ enum CompletionScorer {
     static var rptMin: Int16 { CompletionSettings.rptMin }
     static var rpeMax: Int16 { CompletionSettings.rpeMax }
     static var rpdMax: Int16 { CompletionSettings.rpdMax }
-    static var romMin: Int16 { CompletionSettings.romMin }
 
     // MARK: - Per-family per-session
 
     /// Returns 0...100 for the family's contribution to this session.
     /// `nil` when the family has no logs in the session — caller excludes it
     /// from the session mean so early sessions aren't crushed by untouched
-    /// families. Lower depths are banked; ROM short of `romMin` yields
+    /// families. Lower depths are banked; technique short of `rptMin` yields
     /// partial credit toward the current depth's slot.
     static func familyPercent(in session: Session,
                               family: CDSkillFamily) -> Double? {
@@ -80,11 +78,11 @@ enum CompletionScorer {
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return 0 }
         let depth = Double(last.absSkill?.depth ?? 0)
-        let romMin = Double(CompletionScorer.romMin)
-        let romFraction = romMin > 0
-            ? min(1.0, max(0.0, Double(last.rom) / romMin))
+        let rptMin = Double(CompletionScorer.rptMin)
+        let techniqueFraction = rptMin > 0
+            ? min(1.0, max(0.0, Double(last.rpt) / rptMin))
             : 0.0
-        let achieved = depth * romFraction
+        let achieved = depth * techniqueFraction
         return min(100, (achieved / maxDepth) * 100)
     }
 
@@ -101,11 +99,11 @@ enum CompletionScorer {
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return 0 }
         let depth = Double(last.absSkill?.depth ?? 0)
-        let romMin = Double(CompletionScorer.romMin)
-        let romFraction = romMin > 0
-            ? min(1.0, max(0.0, Double(last.rom) / romMin))
+        let rptMin = Double(CompletionScorer.rptMin)
+        let techniqueFraction = rptMin > 0
+            ? min(1.0, max(0.0, Double(last.rpt) / rptMin))
             : 0.0
-        let achieved = depth * romFraction
+        let achieved = depth * techniqueFraction
         return min(100, (achieved / maxDepth) * 100)
     }
 

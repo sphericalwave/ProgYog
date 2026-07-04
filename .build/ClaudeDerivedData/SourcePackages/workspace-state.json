@@ -7,6 +7,20 @@
       {
         "basedOn" : null,
         "packageRef" : {
+          "identity" : "equipmentkit",
+          "kind" : "fileSystem",
+          "location" : "/Users/darkknight/Documents/apps/Frameworks/Logging/EquipmentKit",
+          "name" : "EquipmentKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/darkknight/Documents/apps/Frameworks/Logging/EquipmentKit"
+        },
+        "subpath" : "equipmentkit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
           "identity" : "setlogkit",
           "kind" : "fileSystem",
           "location" : "/Users/darkknight/Documents/apps/Frameworks/Logging/SetLogKit",

@@ -41,9 +41,9 @@ struct OnboardingSlide {
         ),
         OnboardingSlide(
             index: 4,
-            systemImage: "ruler",
-            title: "Range of Motion",
-            body: "ROM is logged 0–100% for every set. The app uses your range score to track progress and decide when you're ready to advance to the next skill level.",
+            systemImage: "hand.thumbsup",
+            title: "Technique",
+            body: "Technique is rated 1–10 for every set. The app uses your technique score to track progress and decide when you're ready to advance to the next skill level.",
             isEmailSlide: false
         ),
         OnboardingSlide(
