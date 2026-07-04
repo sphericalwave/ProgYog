@@ -58,6 +58,7 @@
 		AE0000080000000000000011 /* SkillThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000080000000000000012 /* SkillThumbnail.swift */; };
 		AE00000A0000000000000001 /* WorkoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000A0000000000000002 /* WorkoutPalette.swift */; };
 		AE00000B0000000000000001 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000B0000000000000002 /* DashboardView.swift */; };
+		AE00000B0000000000000003 /* DashboardStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE00000B0000000000000004 /* DashboardStats.swift */; };
 		AE0000C00000000000000001 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000002 /* CameraPreviewView.swift */; };
 		AE0000C00000000000000011 /* PoseOverlayCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000012 /* PoseOverlayCanvas.swift */; };
 		AE0000C00000000000000021 /* PostureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000C00000000000000022 /* PostureCameraView.swift */; };
@@ -152,6 +153,7 @@
 		AE0000080000000000000012 /* SkillThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillThumbnail.swift; sourceTree = "<group>"; };
 		AE00000A0000000000000002 /* WorkoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPalette.swift; sourceTree = "<group>"; };
 		AE00000B0000000000000002 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AE00000B0000000000000004 /* DashboardStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStats.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000002 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000012 /* PoseOverlayCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayCanvas.swift; sourceTree = "<group>"; };
 		AE0000C00000000000000022 /* PostureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureCameraView.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				AE00000B0000000000000002 /* DashboardView.swift */,
+				AE00000B0000000000000004 /* DashboardStats.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				AE00000200000000000000A1 /* WorkoutLabel.swift in Sources */,
 				AE00000A0000000000000001 /* WorkoutPalette.swift in Sources */,
 				AE00000B0000000000000001 /* DashboardView.swift in Sources */,
+				AE00000B0000000000000003 /* DashboardStats.swift in Sources */,
 				AE0000030000000000000051 /* ShakeListener.swift in Sources */,
 				AE0000040000000000000061 /* CompletionChip.swift in Sources */,
 				AE0000070000000000000001 /* SettingsView.swift in Sources */,
