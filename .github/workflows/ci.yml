@@ -1,0 +1,36 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  unit-tests:
+    name: unit-tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: fitness/progYog
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/SetLogKit
+          path: Frameworks/Logging/SetLogKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/WorkoutAudioKit
+          path: Frameworks/Audio/WorkoutAudioKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/WorkoutSyncKit
+          path: Frameworks/Health/WorkoutSyncKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/SwKeyboard
+          path: Frameworks/UI/SwKeyboard
+      - name: Build and run unit tests
+        run: >
+          xcodebuild -project fitness/progYog/ProgYog.xcodeproj -scheme ProgYog
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -derivedDataPath .build/dd
+          -only-testing:ProgYogTests test
