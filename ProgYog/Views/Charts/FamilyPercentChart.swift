@@ -10,11 +10,35 @@ import CoreData
 /// When points carry distinct `series` values (one per workout code) separate
 /// coloured lines are drawn. `compact: true` hides axes and shrinks height.
 struct FamilyPercentChart: View {
-    struct Point: Identifiable {
+    struct Point: Identifiable, Sendable, Codable {
         let id = UUID()
         let percent: Double
         var barColor: Color? = nil
         var series: String = ""
+
+        // `barColor` is a pure function of `series` (see WorkoutPalette) —
+        // excluded from the persisted cache and recomputed on decode
+        // instead of serializing a Color (which isn't Codable).
+        private enum CodingKeys: String, CodingKey { case percent, series }
+
+        init(percent: Double, barColor: Color? = nil, series: String = "") {
+            self.percent = percent
+            self.barColor = barColor
+            self.series = series
+        }
+
+        init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            percent = try c.decode(Double.self, forKey: .percent)
+            series = try c.decode(String.self, forKey: .series)
+            barColor = WorkoutPalette.color(for: series)
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var c = encoder.container(keyedBy: CodingKeys.self)
+            try c.encode(percent, forKey: .percent)
+            try c.encode(series, forKey: .series)
+        }
     }
 
     let points: [Point]

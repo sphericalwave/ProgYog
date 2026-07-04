@@ -35,5 +35,25 @@
     "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/KeyboardDismissal.o",
     "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/KeyboardDismissal.swiftdeps",
     "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/KeyboardDismissal~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard/Sources/SwKeyboard/PlainKeyboard.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.dia",
+    "index-unit-output-path" : "/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/PlainKeyboard~partial.swiftmodule"
+  },
+  "/Users/darkknight/Documents/apps/Frameworks/UI/SwKeyboard/Sources/SwKeyboard/StandardKeyboardBehavior.swift" : {
+    "const-values" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.swiftconstvalues",
+    "dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.d",
+    "diagnostics" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.dia",
+    "index-unit-output-path" : "/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.o",
+    "llvm-bc" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.bc",
+    "object" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.o",
+    "swift-dependencies" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior.swiftdeps",
+    "swiftmodule" : "/Users/darkknight/Documents/apps/fitness/progYog/.build/ClaudeDerivedData/Build/Intermediates.noindex/SwKeyboard.build/Debug-iphonesimulator/SwKeyboard.build/Objects-normal/x86_64/StandardKeyboardBehavior~partial.swiftmodule"
   }
 }
