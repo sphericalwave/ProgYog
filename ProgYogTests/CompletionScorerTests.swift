@@ -4,9 +4,11 @@
 //
 //  Unit tests for the % completed metric.
 //  Technique-keyed continuous: familyPercent =
-//      (depth × clamp(rpt/rptMin, 0...1)) / maxDepth × 100.
-//      Banked depth levels are scaled by the current technique, not assumed
-//      perfect. RPE / RPD are advisory — they do not gate the metric.
+//      (depth × (rpt / 10)) / maxDepth × 100.
+//      The technique rating (1...10) IS the quality fraction — independent
+//      of the rptMin qualifying threshold. Banked depth levels are scaled by
+//      the current technique, not assumed perfect. RPE / RPD are advisory —
+//      they do not gate the metric.
 //      (ROM was retired 2026-07; technique carries the same signal.)
 //
 
@@ -73,8 +75,8 @@ final class CompletionScorerTests: XCTestCase {
     }
 
     /// Append a SetLog to `session` for `skill` at the next orderInRound.
-    /// `rpt` (technique, 1–10) drives the score; rptMin defaults to 8, so
-    /// rpt ≥ 8 is full credit.
+    /// `rpt` (technique, 1–10) drives the score directly: rpt/10 is the
+    /// quality fraction, so only rpt = 10 is full credit.
     @discardableResult
     private func addLog(
         _ session: Session,
@@ -104,19 +106,19 @@ final class CompletionScorerTests: XCTestCase {
     func testFullTechniqueAtTopDepthIsFull() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
-        // rpt 8 exactly meets rptMin → full technique fraction.
-        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 6, rpd: 1)
+        // rpt 10 → fraction 1.0 → full technique fraction.
+        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 10, rpe: 6, rpd: 1)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
-    // Technique below target docks credit proportionally (rpt now DRIVES the
-    // score — it is no longer advisory). depth 3/3, rpt 7 → 7/8 × 100 = 87.5.
+    // Technique below max docks credit proportionally (rpt now DRIVES the
+    // score — it is no longer advisory). depth 3/3, rpt 7 → 7/10 × 100 = 70.
     func testTechniqueBelowTargetDocksCredit() throws {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
         addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 7, rpe: 6, rpd: 1)
         let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
-        XCTAssertEqual(p, (3.0 * (7.0/8.0)) / 3.0 * 100.0, accuracy: 0.0001)
+        XCTAssertEqual(p, (3.0 * (7.0/10.0)) / 3.0 * 100.0, accuracy: 0.0001)
     }
 
     // RPE and RPD remain advisory: a fail on either with full technique still
@@ -124,14 +126,14 @@ final class CompletionScorerTests: XCTestCase {
     func testRPEFailWithFullTechniqueStillFull() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
-        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 7, rpd: 1)
+        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 10, rpe: 7, rpd: 1)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
     func testRPDFailWithFullTechniqueStillFull() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3])
         let session = makeSession(code: "A")
-        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 8, rpe: 6, rpd: 2)
+        addLog(session, skill: fam.orderedAbsSkills.last!, rpt: 10, rpe: 6, rpd: 2)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 100)
     }
 
@@ -145,16 +147,16 @@ final class CompletionScorerTests: XCTestCase {
                rpt: 10, rpe: 5, rpd: 1, round: 0)
         // Latest round: depth-2 with full technique — IS used. 2/5 = 40.
         let depth2 = fam.orderedAbsSkills.first { $0.depth == 2 }!
-        addLog(session, skill: depth2, rpt: 8, rpe: 6, rpd: 1, round: 1)
+        addLog(session, skill: depth2, rpt: 10, rpe: 6, rpd: 1, round: 1)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 40)
     }
 
     func testFamilyPercent_DepthOverMaxDepth() {
-        // depth 2 / maxDepth 5 == 40%
+        // depth 2 / maxDepth 5, full technique == 40%
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
         let depth2 = fam.orderedAbsSkills.first { $0.depth == 2 }!
-        addLog(session, skill: depth2, rpt: 9, rpe: 6, rpd: 1)
+        addLog(session, skill: depth2, rpt: 10, rpe: 6, rpd: 1)
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam) ?? -1, 40, accuracy: 0.0001)
     }
 
@@ -171,14 +173,14 @@ final class CompletionScorerTests: XCTestCase {
         let famB = makeFamily(code: "A", name: "B1", depths: [1, 2, 3, 4, 5])
         let famC = makeFamily(code: "A", name: "C1", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
-        // All full-technique. famA d5 → 100, famB d3 → 60, famC d5 → 100.
+        // All full-technique (rpt 10). famA d5 → 100, famB d3 → 60, famC d5 → 100.
         // Mean = 86.6667.
         addLog(session, skill: famA.orderedAbsSkills.last!,
                rpt: 10, rpe: 6, rpd: 1, round: 0)
         addLog(session, skill: famB.orderedAbsSkills.first { $0.depth == 3 }!,
-               rpt: 9, rpe: 6, rpd: 1, round: 0)
+               rpt: 10, rpe: 6, rpd: 1, round: 0)
         addLog(session, skill: famC.orderedAbsSkills.last!,
-               rpt: 8, rpe: 6, rpd: 1, round: 0)
+               rpt: 10, rpe: 6, rpd: 1, round: 0)
         let p = try XCTUnwrap(CompletionScorer.sessionPercent(session))
         XCTAssertEqual(p, (100.0 + 60.0 + 100.0) / 3.0, accuracy: 0.0001)
     }
@@ -197,11 +199,11 @@ final class CompletionScorerTests: XCTestCase {
         let depth3 = fam.orderedAbsSkills.first { $0.depth == 3 }!
 
         let s1 = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -3000))
-        addLog(s1, skill: depth2, rpt: 8, rpe: 6, rpd: 1)   // 40
+        addLog(s1, skill: depth2, rpt: 10, rpe: 6, rpd: 1)   // 40
         let s2 = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -2000))
-        addLog(s2, skill: depth4, rpt: 8, rpe: 6, rpd: 1)   // 80
+        addLog(s2, skill: depth4, rpt: 10, rpe: 6, rpd: 1)   // 80
         let s3 = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -1000))
-        addLog(s3, skill: depth3, rpt: 8, rpe: 6, rpd: 1)   // 60
+        addLog(s3, skill: depth3, rpt: 10, rpe: 6, rpd: 1)   // 60
 
         let best = try XCTUnwrap(CompletionScorer.allTimeBestFamilyPercent(fam))
         XCTAssertEqual(best, 80, accuracy: 0.0001)
@@ -220,9 +222,9 @@ final class CompletionScorerTests: XCTestCase {
         let depth5 = fam.orderedAbsSkills.last!
 
         let older = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -1000))
-        addLog(older, skill: depth5, rpt: 8, rpe: 6, rpd: 1) // 100
+        addLog(older, skill: depth5, rpt: 10, rpe: 6, rpd: 1) // 100
         let newer = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -100))
-        addLog(newer, skill: depth2, rpt: 8, rpe: 6, rpd: 1) // 40
+        addLog(newer, skill: depth2, rpt: 10, rpe: 6, rpd: 1) // 40
 
         try services.coreData.moc.save()
 
@@ -236,9 +238,9 @@ final class CompletionScorerTests: XCTestCase {
         let depth5 = fam.orderedAbsSkills.last!
 
         let s1 = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -2000))
-        addLog(s1, skill: depth2, rpt: 8, rpe: 6, rpd: 1)   // 40
+        addLog(s1, skill: depth2, rpt: 10, rpe: 6, rpd: 1)   // 40
         let s2 = makeSession(code: "A", startedAt: Date(timeIntervalSinceNow: -1000))
-        addLog(s2, skill: depth5, rpt: 8, rpe: 6, rpd: 1)   // 100
+        addLog(s2, skill: depth5, rpt: 10, rpe: 6, rpd: 1)   // 100
 
         try services.coreData.moc.save()
 
@@ -264,14 +266,14 @@ final class CompletionScorerTests: XCTestCase {
     // MARK: - Technique-keyed partial credit
 
     /// Stuck at L1 with partial technique — non-zero credit.
-    /// depth 1 / 5, rpt 4 → (1 × 4/8) / 5 × 100 = 10.
+    /// depth 1 / 5, rpt 4 → (1 × 4/10) / 5 × 100 = 8.
     func testFamilyPercent_StuckAtL1_PartialTechnique() throws {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
         let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
         addLog(session, skill: depth1, rpt: 4, rpe: 8, rpd: 3)
         let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
-        XCTAssertEqual(p, (4.0 / 8.0) / 5.0 * 100.0, accuracy: 0.0001)
+        XCTAssertEqual(p, (4.0 / 10.0) / 5.0 * 100.0, accuracy: 0.0001)
     }
 
     /// The ONE case that should read 0: depth 1, rpt 0.
@@ -283,9 +285,9 @@ final class CompletionScorerTests: XCTestCase {
         XCTAssertEqual(CompletionScorer.familyPercent(in: session, family: fam), 0)
     }
 
-    /// rpt = 10, rptMin = 8: raw fraction 1.25 must clamp to 1 so L1's slot
-    /// can't overflow into the next depth's slot. depth 1 / 5 → 20.
-    func testFamilyPercent_TechniqueAboveThresholdClamps() {
+    /// rpt = 10 (max) → fraction exactly 1.0, no overflow into the next
+    /// depth's slot. depth 1 / 5 → 20.
+    func testFamilyPercent_MaxTechniqueIsFullFraction() {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
         let depth1 = fam.orderedAbsSkills.first { $0.depth == 1 }!
@@ -294,13 +296,13 @@ final class CompletionScorerTests: XCTestCase {
     }
 
     /// Banked levels scale by the current technique, not assumed perfect.
-    /// depth 3 / 5, rpt 6, rptMin 8 → (3 × 6/8) / 5 × 100 = 45.
+    /// depth 3 / 5, rpt 6 → (3 × 6/10) / 5 × 100 = 36.
     func testFamilyPercent_BankedLevelsScaledByCurrentTechnique() throws {
         let fam = makeFamily(code: "A", name: "Fam", depths: [1, 2, 3, 4, 5])
         let session = makeSession(code: "A")
         let depth3 = fam.orderedAbsSkills.first { $0.depth == 3 }!
         addLog(session, skill: depth3, rpt: 6, rpe: 6, rpd: 1)
         let p = try XCTUnwrap(CompletionScorer.familyPercent(in: session, family: fam))
-        XCTAssertEqual(p, (3.0 * (6.0/8.0)) / 5.0 * 100.0, accuracy: 0.0001)
+        XCTAssertEqual(p, (3.0 * (6.0/10.0)) / 5.0 * 100.0, accuracy: 0.0001)
     }
 }

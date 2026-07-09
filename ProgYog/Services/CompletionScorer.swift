@@ -5,11 +5,12 @@
 //  Two distinct scores:
 //
 //  SET SCORE (per-set, shown in SetLogSheet):
-//      clamp(rpt / rptMin, 0...1) × 100
-//      Depth-independent — full technique at any level = 100%.
+//      (rpt / 10) × 100
+//      The technique rating (1...10) is the percentage directly —
+//      depth-independent, independent of the rptMin qualifying threshold.
 //
 //  WORKOUT SCORE (per-session/family, shown in lists and summaries):
-//      techniqueFraction = clamp(last.rpt / rptMin, 0...1)
+//      techniqueFraction = last.rpt / 10
 //      familyPercent = (depth × techniqueFraction) / maxDepth × 100
 //      Banked depth levels are scaled by this session's technique, not
 //      assumed perfect — the only quality data point available is the last
@@ -27,9 +28,11 @@
 import Foundation
 import CoreData
 
-/// Thresholds backing the % completed metric. Editable in Settings.
-/// Reads from `UserDefaults.standard`; falls back to the defaults below
-/// when the key is absent or zero (the initial @AppStorage value).
+/// Thresholds for the "qualifying set" gate (`qualifiesForCompletion`), not
+/// the % completed metric — that's driven directly by the rpt rating.
+/// Editable in Settings. Reads from `UserDefaults.standard`; falls back to
+/// the defaults below when the key is absent or zero (the initial
+/// @AppStorage value).
 enum CompletionSettings {
     static let rptMinKey = "completion.rptMin"
     static let rpeMaxKey = "completion.rpeMax"
@@ -78,10 +81,7 @@ enum CompletionScorer {
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return 0 }
         let depth = Double(last.absSkill?.depth ?? 0)
-        let rptMin = Double(CompletionScorer.rptMin)
-        let techniqueFraction = rptMin > 0
-            ? min(1.0, max(0.0, Double(last.rpt) / rptMin))
-            : 0.0
+        let techniqueFraction = min(1.0, max(0.0, Double(last.rpt) / 10.0))
         let achieved = depth * techniqueFraction
         return min(100, (achieved / maxDepth) * 100)
     }
@@ -99,10 +99,7 @@ enum CompletionScorer {
         let maxDepth = Double(family.maxDepth)
         guard maxDepth > 0 else { return 0 }
         let depth = Double(last.absSkill?.depth ?? 0)
-        let rptMin = Double(CompletionScorer.rptMin)
-        let techniqueFraction = rptMin > 0
-            ? min(1.0, max(0.0, Double(last.rpt) / rptMin))
-            : 0.0
+        let techniqueFraction = min(1.0, max(0.0, Double(last.rpt) / 10.0))
         let achieved = depth * techniqueFraction
         return min(100, (achieved / maxDepth) * 100)
     }

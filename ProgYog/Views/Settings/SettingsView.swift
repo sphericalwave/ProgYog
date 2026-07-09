@@ -442,18 +442,18 @@ struct CompletionSettingsView: View {
     var body: some View {
         List {
             Section {
-                Stepper(value: $rptMin, in: 1...10) {
-                    LabeledContent("Technique (RPT) target ≥", value: "\(rptMin)")
-                }
             } header: {
                 Text("Scoring")
             } footer: {
-                Text("Two scores, one target:\n\n"
-                   + "Set score — clamp(technique ÷ target, 0–100%). Depth-independent. Full technique at any level = 100%.\n\n"
-                   + "Workout score — (depth × technique fraction) ÷ max depth × 100. Reaches 100% only at the highest skill level with full technique. Tracks how far through the progression you are.")
+                Text("Two scores, both driven by your Technique (RPT) rating (1–10) — the rating itself is the percentage:\n\n"
+                   + "Set score — (technique ÷ 10) × 100. Depth-independent. Full technique (10) at any level = 100%.\n\n"
+                   + "Workout score — (depth × technique ÷ 10) ÷ max depth × 100. Reaches 100% only at the highest skill level with full technique. Tracks how far through the progression you are.")
             }
 
             Section {
+                Stepper(value: $rptMin, in: 1...10) {
+                    LabeledContent("Technique (RPT) qualifying ≥", value: "\(rptMin)")
+                }
                 Stepper(value: $rpeMax, in: 1...10) {
                     LabeledContent("Effort (RPE) ≤", value: "\(rpeMax)")
                 }
@@ -461,9 +461,9 @@ struct CompletionSettingsView: View {
                     LabeledContent("Discomfort (RPD) ≤", value: "\(rpdMax)")
                 }
             } header: {
-                Text("Advisory thresholds")
+                Text("Qualifying set")
             } footer: {
-                Text("RPE and RPD are logged and visible in history but don't change your score. They're reference points to flag sets that felt off.")
+                Text("These thresholds decide whether a set counts as a completed rep for progression — they don't change your score.")
             }
 
             Section {

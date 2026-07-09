@@ -36,14 +36,11 @@ struct WorkoutCompositeChart: View {
     }
 
     private var points: [Point] {
-        let rptMin = Double(CompletionScorer.rptMin)
         let maxDepth = Double(logs.first?.absSkill?.skillFamily?.maxDepth ?? 0)
         guard maxDepth > 0 else { return [] }
         return logs.map { log in
             let depth = Double(log.absSkill?.depth ?? 0)
-            let techniqueFraction = rptMin > 0
-                ? min(1.0, max(0.0, Double(log.rpt) / rptMin))
-                : 0.0
+            let techniqueFraction = min(1.0, max(0.0, Double(log.rpt) / 10.0))
             let achieved = depth * techniqueFraction
             let pct = min(100, (achieved / maxDepth) * 100)
             return Point(
