@@ -18,6 +18,10 @@ jobs:
           path: Frameworks/Logging/SetLogKit
       - uses: actions/checkout@v4
         with:
+          repository: sphericalwave/EquipmentKit
+          path: Frameworks/Logging/EquipmentKit
+      - uses: actions/checkout@v4
+        with:
           repository: sphericalwave/WorkoutAudioKit
           path: Frameworks/Audio/WorkoutAudioKit
       - uses: actions/checkout@v4
