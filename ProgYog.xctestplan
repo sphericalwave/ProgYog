@@ -24,6 +24,13 @@
         "identifier" : "AF3BEA582FBA0E470076FF55",
         "name" : "ProgYogTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:ProgYog.xcodeproj",
+        "identifier" : "5D7F356A2C6A54E0278904FE",
+        "name" : "ProgYogUITests"
+      }
     }
   ],
   "version" : 1

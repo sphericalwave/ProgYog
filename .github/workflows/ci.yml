@@ -43,3 +43,41 @@ jobs:
           -destination 'platform=iOS Simulator,name=${{ env.SIM_NAME }}'
           -derivedDataPath .build/dd
           -only-testing:ProgYogTests test
+  ui-tests:
+    name: ui-tests
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: fitness/progYog
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/SetLogKit
+          path: Frameworks/Logging/SetLogKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/EquipmentKit
+          path: Frameworks/Logging/EquipmentKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/WorkoutAudioKit
+          path: Frameworks/Audio/WorkoutAudioKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/WorkoutSyncKit
+          path: Frameworks/Health/WorkoutSyncKit
+      - uses: actions/checkout@v4
+        with:
+          repository: sphericalwave/SwKeyboard
+          path: Frameworks/UI/SwKeyboard
+      - name: Pick an available iPhone simulator
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
+          echo "SIM_NAME=$DEVICE" >> "$GITHUB_ENV"
+          echo "Using simulator: $DEVICE"
+      - name: Build and run UI tests
+        run: >
+          xcodebuild -project fitness/progYog/ProgYog.xcodeproj -scheme ProgYog
+          -destination 'platform=iOS Simulator,name=${{ env.SIM_NAME }}'
+          -derivedDataPath .build/dd
+          -only-testing:ProgYogUITests test

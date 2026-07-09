@@ -216,6 +216,16 @@ final class CoreDataService: ObservableObject {
         UserDefaults.standard.set(Self.currentSeedVersion, forKey: Self.seedVersionKey)
     }
 
+    /// For in-memory/UI-test containers: always seed, ignoring the
+    /// UserDefaults version gate. That flag lives on the simulator/device
+    /// and is untouched by swapping to an in-memory store, so
+    /// `seedIfNeeded` would silently no-op on any simulator where the app
+    /// has run before, leaving the fresh in-memory container empty.
+    func forceSeed() {
+        _ = ImportedJSON(moc: moc)
+        save()
+    }
+
     private static let decisionRenameFlagKey = "didRenameHoldToRepeat"
 
     func renameHoldToRepeatIfNeeded() {

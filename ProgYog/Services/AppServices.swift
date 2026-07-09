@@ -26,7 +26,12 @@ final class AppServices: ObservableObject {
         let log = ErrorLog()
         let cd = CoreDataService(inMemory: inMemory)
         cd.attach(errorLog: log)
-        if !inMemory {
+        if inMemory {
+            // UI tests need the catalog to navigate; the UserDefaults seed
+            // gate persists across launches regardless of store, so a
+            // fresh in-memory container must force-seed instead.
+            cd.forceSeed()
+        } else {
             cd.seedIfNeeded()
             cd.mergeLegacyNotesIfNeeded()
             cd.renameHoldToRepeatIfNeeded()

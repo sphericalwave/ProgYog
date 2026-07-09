@@ -104,6 +104,13 @@
 			remoteGlobalIDString = AF0B756625E06FDE00A0FF28;
 			remoteInfo = ProgYog;
 		};
+		46337B3247ACBE302C18B607 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF0B755F25E06FDE00A0FF28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF0B756625E06FDE00A0FF28;
+			remoteInfo = ProgYog;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +183,7 @@
 		AF2B36D925E4494D009E760F /* CDAbsSkill+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAbsSkill+.swift"; sourceTree = "<group>"; };
 		AF2B36DB25E4494D009E760F /* CDSkillFamily+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSkillFamily+.swift"; sourceTree = "<group>"; };
 		AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A297A23B34D125E69D506CA4 /* ProgYogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgYogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF745D2025E80272003B2B1C /* ImportedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportedJSON.swift; path = Json/ImportedJSON.swift; sourceTree = "<group>"; };
 		AF8B517425E56C0800519B9D /* JsonYogSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonYogSeries.swift; sourceTree = "<group>"; };
 		AF8B517925E56C2600519B9D /* JsonSkillFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSkillFamily.swift; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ProgYogTests; sourceTree = "<group>"; };
+		8FC36C6FBE2645FA2C0F924F /* ProgYogUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ProgYogUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +224,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AF3BEA562FBA0E470076FF55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4635D156523EB59D94B63B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -374,6 +390,7 @@
 				AFA7D98D2FE16BEF007A877F /* ProgYog.xctestplan */,
 				AF0B756925E06FDE00A0FF28 /* ProgYog */,
 				AF3BEA5A2FBA0E470076FF55 /* ProgYogTests */,
+				8FC36C6FBE2645FA2C0F924F /* ProgYogUITests */,
 				AFF2055D2FCB309900430D49 /* Frameworks */,
 				AF0B756825E06FDE00A0FF28 /* Products */,
 			);
@@ -384,6 +401,7 @@
 			children = (
 				AF0B756725E06FDE00A0FF28 /* ProgYog.app */,
 				AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */,
+				A297A23B34D125E69D506CA4 /* ProgYogUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -520,6 +538,29 @@
 			productReference = AF3BEA592FBA0E470076FF55 /* ProgYogTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5D7F356A2C6A54E0278904FE /* ProgYogUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5D3EA9E77DFC46191E887F8 /* Build configuration list for PBXNativeTarget "ProgYogUITests" */;
+			buildPhases = (
+				9A2C3A0DCF58190A72D26D32 /* Sources */,
+				B4635D156523EB59D94B63B5 /* Frameworks */,
+				C6938AA4F4A3D976E3088592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E25395543DAA8BFE1EFF099 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8FC36C6FBE2645FA2C0F924F /* ProgYogUITests */,
+			);
+			name = ProgYogUITests;
+			packageProductDependencies = (
+			);
+			productName = ProgYogUITests;
+			productReference = A297A23B34D125E69D506CA4 /* ProgYogUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -533,6 +574,10 @@
 						CreatedOnToolsVersion = 12.4;
 					};
 					AF3BEA582FBA0E470076FF55 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = AF0B756625E06FDE00A0FF28;
+					};
+					5D7F356A2C6A54E0278904FE = {
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = AF0B756625E06FDE00A0FF28;
 					};
@@ -559,6 +604,7 @@
 			targets = (
 				AF0B756625E06FDE00A0FF28 /* ProgYog */,
 				AF3BEA582FBA0E470076FF55 /* ProgYogTests */,
+				5D7F356A2C6A54E0278904FE /* ProgYogUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -577,6 +623,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AF3BEA572FBA0E470076FF55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6938AA4F4A3D976E3088592 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -677,6 +730,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A2C3A0DCF58190A72D26D32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -684,6 +744,11 @@
 			isa = PBXTargetDependency;
 			target = AF0B756625E06FDE00A0FF28 /* ProgYog */;
 			targetProxy = AF3BEA5D2FBA0E470076FF55 /* PBXContainerItemProxy */;
+		};
+		4E25395543DAA8BFE1EFF099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF0B756625E06FDE00A0FF28 /* ProgYog */;
+			targetProxy = 46337B3247ACBE302C18B607 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -913,6 +978,61 @@
 			};
 			name = Release;
 		};
+		777367BD5A0362B3C9B66734 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ProgYog;
+			};
+			name = Debug;
+		};
+		488673743D8E5C3E916A6E56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ProgYog;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -939,6 +1059,15 @@
 			buildConfigurations = (
 				AF3BEA5F2FBA0E470076FF55 /* Debug */,
 				AF3BEA602FBA0E470076FF55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5D3EA9E77DFC46191E887F8 /* Build configuration list for PBXNativeTarget "ProgYogUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				777367BD5A0362B3C9B66734 /* Debug */,
+				488673743D8E5C3E916A6E56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
