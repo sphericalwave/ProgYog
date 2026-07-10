@@ -6,6 +6,7 @@
 import SwiftUI
 import SwKeyboard
 import WorkoutSyncKit
+import WorkoutSessionKit
 import CoreData
 
 struct WorkoutSummaryView: View {
@@ -15,8 +16,6 @@ struct WorkoutSummaryView: View {
     @State private var notesDraft: String = ""
     @State private var savedFlash: Bool = false
     @State private var resumePresented = false
-    @State private var completeAlert = false
-    @State private var discardAlert = false
     @State private var scheduleNextPresented = false
     #if canImport(EventKit)
     @AppStorage(WorkoutCalendar.enabledKey) private var calendarEnabled = false
@@ -59,23 +58,13 @@ struct WorkoutSummaryView: View {
     private var sessionBody: some View {
         List {
             if session.endedAt == nil {
-                Section("In Progress") {
-                    Button {
-                        resumePresented = true
-                    } label: {
-                        Label("Resume", systemImage: "play.circle.fill")
-                    }
-                    Button {
-                        completeAlert = true
-                    } label: {
-                        Label("Complete", systemImage: "checkmark.circle.fill")
-                    }
-                    Button(role: .destructive) {
-                        discardAlert = true
-                    } label: {
-                        Label("Discard", systemImage: "trash")
-                    }
-                }
+                InProgressSessionControls(
+                    onResume: { resumePresented = true },
+                    onComplete: completeSession,
+                    onDiscard: discardSession,
+                    completeMessage: "Marks this session as finished with the rounds already logged.",
+                    discardMessage: "This will permanently remove the in-progress session and all logged sets. Shake to undo."
+                )
             }
 
             if let err = services.coreData.lastSaveError {
@@ -191,52 +180,46 @@ struct WorkoutSummaryView: View {
                 workoutCode: session.workoutCode
             )
         }
-        .alert("Complete session?", isPresented: $completeAlert) {
-            Button("Complete") {
-                session.endedAt = Date()
-                services.coreData.save()
-                WorkoutCalendarBridge.syncSegments(session)
+    }
+
+    // MARK: - In-progress actions
+
+    private func completeSession() {
+        session.endedAt = Date()
+        services.coreData.save()
+        WorkoutCalendarBridge.syncSegments(session)
+        #if canImport(HealthKit)
+        WorkoutHealthBridge.syncSegments(session)
+        #endif
+        scheduleNextPresented = true
+    }
+
+    private func discardSession() {
+        // Snapshot while the object is still alive, then pop the view BEFORE
+        // deleting. Deleting a session that backs a live NavigationLink
+        // destination (+ our session==%@ FetchRequest) traps in
+        // _PFFaultHandler; dismissing first tears this view down so nothing
+        // references the object when it dies.
+        let snap = SessionRecovery.snapshot(session)
+        let session = self.session
+        let coreData = services.coreData
+        let undo = services.undo
+        dismiss()
+        DispatchQueue.main.async {
+            undo.push(description: "in-progress session") {
+                let restored = SessionRecovery.restore(snap, into: coreData.moc)
+                coreData.save()
+                WorkoutCalendarBridge.syncSegments(restored)
                 #if canImport(HealthKit)
-                WorkoutHealthBridge.syncSegments(session)
+                WorkoutHealthBridge.syncSegments(restored)
                 #endif
-                scheduleNextPresented = true
             }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Marks this session as finished with the rounds already logged.")
-        }
-        .alert("Discard session?", isPresented: $discardAlert) {
-            Button("Discard", role: .destructive) {
-                // Snapshot while the object is still alive, then pop the view
-                // BEFORE deleting. Deleting a session that backs a live
-                // NavigationLink destination (+ our session==%@ FetchRequest)
-                // traps in _PFFaultHandler; dismissing first tears this view
-                // down so nothing references the object when it dies.
-                let snap = SessionRecovery.snapshot(session)
-                let session = self.session
-                let coreData = services.coreData
-                let undo = services.undo
-                dismiss()
-                DispatchQueue.main.async {
-                    undo.push(description: "in-progress session") {
-                        let restored = SessionRecovery.restore(snap, into: coreData.moc)
-                        coreData.save()
-                        WorkoutCalendarBridge.syncSegments(restored)
-                        #if canImport(HealthKit)
-                        WorkoutHealthBridge.syncSegments(restored)
-                        #endif
-                    }
-                    WorkoutCalendarBridge.removeAll(for: session)
-                    #if canImport(HealthKit)
-                    WorkoutHealthBridge.removeAll(for: session)
-                    #endif
-                    coreData.moc.delete(session)
-                    coreData.save()
-                }
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("This will permanently remove the in-progress session and all logged sets. Shake to undo.")
+            WorkoutCalendarBridge.removeAll(for: session)
+            #if canImport(HealthKit)
+            WorkoutHealthBridge.removeAll(for: session)
+            #endif
+            coreData.moc.delete(session)
+            coreData.save()
         }
     }
 
