@@ -104,6 +104,7 @@ struct WorkoutSessionView: View {
                 .shadow(radius: 4, y: 2)
             }
             .padding()
+            .accessibilityIdentifier("workoutSession.play")
         }
         } // ZStack
         .sheet(isPresented: Binding(
@@ -257,6 +258,7 @@ struct WorkoutSessionView: View {
             }
             .buttonStyle(.bordered)
             .padding(.top)
+            .accessibilityIdentifier("workoutSession.skip")
         }
     }
 

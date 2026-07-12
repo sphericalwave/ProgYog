@@ -226,6 +226,43 @@ final class CoreDataService: ObservableObject {
         save()
     }
 
+    /// UI-test-only fixture: one workout ("A") with exactly one skill
+    /// family/skill, instead of the full real catalog — keeps a full
+    /// workout-completion UI test (idle→running→logging × totalRounds ×
+    /// families) fast. totalRounds is a hardcoded constant
+    /// (WorkoutSessionViewModel.totalRounds = 5) so 5 sets (1 family × 5
+    /// rounds) is the minimum reachable to hit Summary. Only reachable via
+    /// the in-memory store gated by -UI-TESTING-MOCK-WORKOUT.
+    ///
+    /// Code must be one of WorkoutPalette.codes ("A".."E") — the Workouts
+    /// list renders rows off that fixed set, not off whatever series exist
+    /// in the store, so an arbitrary code (e.g. "Z") never appears. The
+    /// in-memory store is otherwise empty here, so reusing "A" is safe.
+    func seedMockWorkout() {
+        let series = CDYogSeries(context: moc)
+        series.name = "A"
+        series.url = URL(string: "about:blank")!
+
+        let family = CDSkillFamily(context: moc)
+        family.name = "Mock Exercise"
+        family.order = 1
+        family.series = series.name!
+        family.yogSeries = series
+
+        let skill = CDAbsSkill(context: moc)
+        skill.name = "Mock Skill"
+        skill.depth = 1
+        skill.family = family.name
+        skill.series = series.name!
+        skill.instructions = ""
+        skill.timeCode = 0
+        skill.symetrical = false
+        skill.url = URL(string: "about:blank")!
+        skill.skillFamily = family
+
+        save()
+    }
+
     private static let decisionRenameFlagKey = "didRenameHoldToRepeat"
 
     func renameHoldToRepeatIfNeeded() {

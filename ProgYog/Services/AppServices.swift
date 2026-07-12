@@ -30,7 +30,11 @@ final class AppServices: ObservableObject {
             // UI tests need the catalog to navigate; the UserDefaults seed
             // gate persists across launches regardless of store, so a
             // fresh in-memory container must force-seed instead.
-            cd.forceSeed()
+            if ProcessInfo.processInfo.arguments.contains("-UI-TESTING-MOCK-WORKOUT") {
+                cd.seedMockWorkout()
+            } else {
+                cd.forceSeed()
+            }
         } else {
             cd.seedIfNeeded()
             cd.mergeLegacyNotesIfNeeded()

@@ -256,14 +256,17 @@ final class WorkoutStatsStore {
     }
 
     private func rebuild() async {
-        let container = self.container
-        let snap = await withCheckedContinuation { (continuation: CheckedContinuation<WorkoutStatsSnapshot, Never>) in
-            container.performBackgroundTask { ctx in
-                let request = NSFetchRequest<Session>(entityName: "Session")
-                request.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
-                let sessions = (try? ctx.fetch(request)) ?? []
-                continuation.resume(returning: WorkoutStatsAggregator.snapshot(from: sessions))
-            }
+        // Uses NSManagedObjectContext's async perform (not
+        // performBackgroundTask + a manual continuation) so this inherits
+        // this Task's priority instead of running on Core Data's private
+        // queue at its own default QoS — the mismatch otherwise trips a
+        // priority-inversion warning when a higher-QoS caller awaits it.
+        let ctx = container.newBackgroundContext()
+        let snap = await ctx.perform {
+            let request = NSFetchRequest<Session>(entityName: "Session")
+            request.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
+            let sessions = (try? ctx.fetch(request)) ?? []
+            return WorkoutStatsAggregator.snapshot(from: sessions)
         }
         guard !Task.isCancelled else { return }
         snapshot = snap
