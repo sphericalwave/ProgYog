@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if os(macOS)
 struct MacRootView: View {
     @AppStorage("macSelectedSidebar") private var selection: String = "workouts"
     @EnvironmentObject var services: AppServices
@@ -27,3 +28,4 @@ struct MacRootView: View {
         }
     }
 }
+#endif
