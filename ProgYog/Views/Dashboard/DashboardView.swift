@@ -51,8 +51,33 @@ struct DashboardView: View {
             Section("Average time per session") {
                 TimeChart(points: snap.avg)
             }
+            Section {
+                trendCard(title: "Reps per workout", points: snap.repsTrend)
+            }
+            Section {
+                trendCard(title: "Discomfort per workout", points: snap.discomfortTrend)
+            }
+            Section {
+                trendCard(title: "Effort per workout", points: snap.effortTrend)
+            }
         }
         .listStyle(.grouped)
+    }
+
+    @ViewBuilder
+    private func trendCard(title: String, points: [MetricTrendChart.Point]) -> some View {
+        if !points.isEmpty {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 4)
+                MetricTrendChart(points: points)
+            }
+            .padding(10)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+            .listRowInsets(EdgeInsets())
+        }
     }
 }
 

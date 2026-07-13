@@ -49,6 +49,9 @@ struct DashboardSnapshot: Sendable, Codable {
     var monthly: [VolumePoint] = []
     var total: [TimePoint] = []
     var avg: [TimePoint] = []
+    var repsTrend: [MetricTrendChart.Point] = []
+    var discomfortTrend: [MetricTrendChart.Point] = []
+    var effortTrend: [MetricTrendChart.Point] = []
     var hasSessions: Bool = false
 
     static let empty = DashboardSnapshot()
@@ -94,6 +97,9 @@ enum WorkoutStatsAggregator {
                 monthly: bucketed(sessions, unit: .month, now: now, count: 12),
                 total: totalTimePoints(sessions),
                 avg: avgTimePoints(sessions),
+                repsTrend: repsTrendPoints(sessions),
+                discomfortTrend: ratingTrendPoints(sessions, rating: \.rpd),
+                effortTrend: ratingTrendPoints(sessions, rating: \.rpe),
                 hasSessions: !sessions.isEmpty
             ),
             workoutList: workoutListSnapshot(sessions, pctBySession: pctBySession)
@@ -154,6 +160,29 @@ enum WorkoutStatsAggregator {
             .filter { $0.workoutCode == code }
             .flatMap { $0.orderedSetLogs }
             .reduce(0) { $0 + Int($1.durationSec) }
+    }
+
+    /// Per-session total reps, oldest first — mirrors `historyPoints` in
+    /// `workoutListSnapshot` so the dashboard trend matches the Workouts tab style.
+    private static func repsTrendPoints(_ sessions: [Session]) -> [MetricTrendChart.Point] {
+        sessions.reversed().map { s in
+            let reps = s.orderedSetLogs.reduce(0) { $0 + Int($1.reps) }
+            return MetricTrendChart.Point(value: Double(reps),
+                                          barColor: WorkoutPalette.color(for: s.workoutCode),
+                                          series: s.workoutCode)
+        }
+    }
+
+    /// Per-session average rating (RPD/RPE), oldest first.
+    private static func ratingTrendPoints(_ sessions: [Session], rating: KeyPath<SetLog, Int16>) -> [MetricTrendChart.Point] {
+        sessions.reversed().compactMap { s in
+            let logs = s.orderedSetLogs
+            guard !logs.isEmpty else { return nil }
+            let avg = Double(logs.reduce(0) { $0 + Int($1[keyPath: rating]) }) / Double(logs.count)
+            return MetricTrendChart.Point(value: avg,
+                                          barColor: WorkoutPalette.color(for: s.workoutCode),
+                                          series: s.workoutCode)
+        }
     }
 
     // MARK: - Workouts tab
