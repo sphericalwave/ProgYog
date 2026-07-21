@@ -12,26 +12,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: fitness/progYog
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/SetLogKit
-          path: Frameworks/Logging/SetLogKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/EquipmentKit
-          path: Frameworks/Logging/EquipmentKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/WorkoutAudioKit
-          path: Frameworks/Audio/WorkoutAudioKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/WorkoutSyncKit
-          path: Frameworks/Health/WorkoutSyncKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/SwKeyboard
-          path: Frameworks/UI/SwKeyboard
       - name: Pick an available iPhone simulator
         run: |
           DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
@@ -50,26 +30,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: fitness/progYog
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/SetLogKit
-          path: Frameworks/Logging/SetLogKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/EquipmentKit
-          path: Frameworks/Logging/EquipmentKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/WorkoutAudioKit
-          path: Frameworks/Audio/WorkoutAudioKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/WorkoutSyncKit
-          path: Frameworks/Health/WorkoutSyncKit
-      - uses: actions/checkout@v4
-        with:
-          repository: sphericalwave/SwKeyboard
-          path: Frameworks/UI/SwKeyboard
       - name: Pick an available iPhone simulator
         run: |
           DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
