@@ -18,7 +18,8 @@ platform :ios do
 
     next_build_number = latest_testflight_build_number(
       app_identifier: "SWS.ProgYog",
-      api_key: key
+      api_key: key,
+      initial_build_number: 0
     ) + 1
     increment_build_number(build_number: next_build_number)
 
@@ -26,7 +27,16 @@ platform :ios do
       scheme: "ProgYog",
       export_method: "app-store",
       output_directory: "./build",
-      clean: true
+      clean: true,
+      export_options: {
+        signingStyle: "automatic"
+      },
+      # Let Xcode create/download the distribution cert + App Store profile
+      # on the fly using the ASC API key (first-time managed signing).
+      export_xcargs: "-allowProvisioningUpdates " \
+        "-authenticationKeyID #{ENV['ASC_KEY_ID']} " \
+        "-authenticationKeyIssuerID #{ENV['ASC_ISSUER_ID']} " \
+        "-authenticationKeyPath #{File.expand_path(ENV['ASC_KEY_PATH'])}"
     )
 
     upload_to_testflight(

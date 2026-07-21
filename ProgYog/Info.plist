@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>groundWerk</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -28,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
@@ -39,6 +41,8 @@
 	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Used to mirror your completed workouts into a "Workout" calendar so you can see and open them from Apple Calendar.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Used to read your heart rate and workout data from Apple Health to show alongside your yoga sessions.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Used to log your completed workouts into Apple Health as Yoga sessions.</string>
 	<key>UIApplicationSceneManifest</key>
