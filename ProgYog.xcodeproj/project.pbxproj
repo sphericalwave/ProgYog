@@ -225,11 +225,11 @@
 			);
 			mainGroup = AF0B755E25E06FDE00A0FF28;
 			packageReferences = (
-				AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */,
-				AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */,
-				AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */,
-				AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */,
-				AF51E7C0DEC0DE0000000053 /* XCLocalSwiftPackageReference "../../Frameworks/Workout/WorkoutSessionKit" */,
+				AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */,
+				AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */,
+				AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */,
+				AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */,
+				AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -625,53 +625,73 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Logging/SetLogKit;
+/* Begin XCRemoteSwiftPackageReference section */
+		AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SetLogKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-		AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Audio/WorkoutAudioKit;
+		AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutAudioKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-		AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Health/WorkoutSyncKit;
+		AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutSyncKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-		AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/UI/SwKeyboard;
+		AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SwKeyboard.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-		AF51E7C0DEC0DE0000000053 /* XCLocalSwiftPackageReference "../../Frameworks/Workout/WorkoutSessionKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Frameworks/Workout/WorkoutSessionKit;
+		AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutSessionKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		AF51E7C0DEC0DE0000000042 /* SetLogKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000045 /* XCLocalSwiftPackageReference "../../Frameworks/Logging/SetLogKit" */;
+			package = AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */;
 			productName = SetLogKit;
 		};
 		AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000046 /* XCLocalSwiftPackageReference "../../Frameworks/Audio/WorkoutAudioKit" */;
+			package = AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */;
 			productName = WorkoutAudioKit;
 		};
 		AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000049 /* XCLocalSwiftPackageReference "../../Frameworks/Health/WorkoutSyncKit" */;
+			package = AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */;
 			productName = WorkoutSyncKit;
 		};
 		AF51E7C0DEC0DE000000004B /* SwKeyboard */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE000000004C /* XCLocalSwiftPackageReference "../../Frameworks/UI/SwKeyboard" */;
+			package = AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */;
 			productName = SwKeyboard;
 		};
 		AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF51E7C0DEC0DE0000000053 /* XCLocalSwiftPackageReference "../../Frameworks/Workout/WorkoutSessionKit" */;
+			package = AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */;
 			productName = WorkoutSessionKit;
 		};
 /* End XCSwiftPackageProductDependency section */
