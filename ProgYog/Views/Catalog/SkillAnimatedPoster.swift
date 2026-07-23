@@ -30,7 +30,10 @@ struct SkillAnimatedPoster: View {
         }
         .task(id: skill.objectID) {
             let photoData = skill.customPhotos
-            cachedCustomPhotos = photoData.compactMap { PlatformImage.from(data: $0) }
+            let maxPixel = maxHeight * 3   // retina cap for the display size
+            cachedCustomPhotos = await Task.detached(priority: .userInitiated) {
+                photoData.compactMap { PlatformImage.downsampled(data: $0, maxPixel: maxPixel) }
+            }.value
         }
     }
 

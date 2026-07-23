@@ -117,7 +117,9 @@ struct AddVariantSheet: View {
                             loaded.append(data)
                         }
                     }
-                    photos = loaded
+                    photos = await Task.detached(priority: .userInitiated) {
+                        loaded.map { PlatformImage.reencodedForStorage(data: $0) }
+                    }.value
                 }
             }
             .onAppear {

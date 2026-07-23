@@ -203,7 +203,10 @@ struct SkillDetailView: View {
                     }
                 }
                 if !loaded.isEmpty {
-                    skill.customPhotos = skill.customPhotos + loaded
+                    let compressed = await Task.detached(priority: .userInitiated) {
+                        loaded.map { PlatformImage.reencodedForStorage(data: $0) }
+                    }.value
+                    skill.customPhotos = skill.customPhotos + compressed
                     try? moc.save()
                     selectedItems = []
                 }
