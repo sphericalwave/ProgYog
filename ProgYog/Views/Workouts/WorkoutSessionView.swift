@@ -6,6 +6,7 @@
 import SwiftUI
 import SwKeyboard
 import WorkoutAudioKit
+import AudioClipKit
 
 struct WorkoutSessionView: View {
     @StateObject private var vm: WorkoutSessionViewModel
@@ -56,6 +57,7 @@ struct WorkoutSessionView: View {
                 #if os(iOS)
                 UIApplication.shared.isIdleTimerDisabled = true
                 #endif
+                AudioSessionConfigurator.verifyAndCorrect()
                 if vm.phase == .finished { summaryPresented = true }
             }
             .onDisappear {

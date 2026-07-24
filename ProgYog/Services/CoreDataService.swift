@@ -4,6 +4,7 @@
 //
 
 import CoreData
+import DiagnosticsKit
 #if os(iOS)
 import UIKit
 #else

@@ -5,6 +5,7 @@
 
 import SwiftUI
 import WorkoutSyncKit
+import DiagnosticsKit
 
 struct SettingsView: View {
     @EnvironmentObject private var services: AppServices
@@ -101,26 +102,10 @@ struct SettingsView: View {
             }
 
             Section {
-                if log.entries.isEmpty {
-                    Text("No errors or events recorded.")
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(log.entries) { entry in
-                        NavigationLink {
-                            ErrorDetailView(entry: entry)
-                        } label: {
-                            row(for: entry)
-                        }
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("Log")
-                    Spacer()
-                    if !log.entries.isEmpty {
-                        Button("Clear") { log.clear() }
-                            .font(.caption)
-                    }
+                NavigationLink {
+                    DiagnosticsView(log: log)
+                } label: {
+                    LabeledContent("Error log", value: log.entries.count.formatted())
                 }
             } footer: {
                 Text("All recoverable errors are recorded here. Tap an entry for details. Nothing is sent off-device.")
@@ -148,32 +133,6 @@ struct SettingsView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
         #endif
-        .onAppear { log.markRead() }
-    }
-
-    @ViewBuilder
-    private func row(for entry: ErrorLog.Entry) -> some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: entry.level.symbolName)
-                .foregroundStyle(color(for: entry.level))
-                .frame(width: 22)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(entry.message).font(.callout)
-                HStack(spacing: 6) {
-                    Text(entry.source).font(.caption.monospaced()).foregroundStyle(.secondary)
-                    Text("·").foregroundStyle(.secondary)
-                    Text(format(entry.timestamp)).font(.caption).foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    private func color(for level: ErrorLog.Entry.Level) -> Color {
-        switch level {
-        case .info: return .blue
-        case .warning: return .orange
-        case .error: return .red
-        }
     }
 
     private func format(_ date: Date) -> String {
