@@ -6,6 +6,8 @@
 import SwiftUI
 import SwKeyboard
 import CoreData
+import SwMediaKit
+import Charts
 
 struct WorkoutDetailView: View {
     let workoutCode: String
@@ -18,7 +20,14 @@ struct WorkoutDetailView: View {
     @FetchRequest private var setLogs: FetchedResults<SetLog>
     @FetchRequest private var sessions: FetchedResults<Session>
 
-    @State private var sessionPts: [FamilyPercentChart.Point] = []
+    @State private var trendMode: TrendMode = .progress
+    @State private var selectedMetric: SkillTrendChart.Metric? = .rpt
+
+    @State private var techniqueTrend: [MetricTrendChart.Point] = []
+    @State private var discomfortTrend: [MetricTrendChart.Point] = []
+    @State private var effortTrend: [MetricTrendChart.Point] = []
+
+    private enum TrendMode { case progress, rate }
 
     init(workoutCode: String) {
         self.workoutCode = workoutCode
@@ -39,10 +48,45 @@ struct WorkoutDetailView: View {
 
     var body: some View {
         List {
-            if !sessionPts.isEmpty {
-                Section("History") {
-                    FamilyPercentChart(points: sessionPts)
+            if !carouselSkills.isEmpty {
+                Section {
+                    heroCarousel
                         .padding(.vertical, 4)
+                    WorkoutStatBadge(
+                        title: WorkoutLabel.display(forCode: workoutCode),
+                        percent: latestSession.flatMap(CompletionScorer.sessionPercent),
+                        dynamicRounds: dynamicRoundCount,
+                        isometricRounds: isometricRoundCount
+                    )
+                }
+            }
+
+            if !sessions.isEmpty {
+                Section("History") {
+                    Group {
+                        if let selectedMetric {
+                            MetricTrendChart(points: displayTrend(for: selectedMetric))
+                        } else {
+                            overlayTrendChart
+                        }
+                    }
+                    .padding(.vertical, 4)
+                    .overlay(alignment: .topTrailing) {
+                        Picker("", selection: $trendMode) {
+                            Text("Progress").tag(TrendMode.progress)
+                            Text("Rate").tag(TrendMode.rate)
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 140)
+                        .padding(6)
+                    }
+                    Picker("", selection: $selectedMetric) {
+                        Text("Technique").tag(SkillTrendChart.Metric?.some(.rpt))
+                        Text("Discomfort").tag(SkillTrendChart.Metric?.some(.rpd))
+                        Text("Effort").tag(SkillTrendChart.Metric?.some(.rpe))
+                        Text("Overlay").tag(SkillTrendChart.Metric?.none)
+                    }
+                    .pickerStyle(.segmented)
                 }
             }
 
@@ -54,8 +98,9 @@ struct WorkoutDetailView: View {
                         HStack {
                             let hero = (family.absSkills as? Set<CDAbsSkill>)?.min { $0.depth < $1.depth }
                             let heroNames = hero?.posterAssetNames ?? []
-                            SkillThumbnail(assetName: heroNames.first, assetNames: heroNames,
-                                           photos: hero?.customPhotos ?? [], size: 48)
+                            PosterThumbnail(assetName: heroNames.first, assetNames: heroNames,
+                                           photos: hero?.customPhotos ?? [], size: 48,
+                                           borderColor: seriesColor)
                             Text("\(family.order).")
                                 .foregroundStyle(.secondary)
                             Text(family.name)
@@ -157,7 +202,99 @@ struct WorkoutDetailView: View {
     }
 
     private func refreshChart() {
-        sessionPts = FamilyPercentChart.points(for: Array(sessions.reversed()))
+        techniqueTrend = ratingTrend(\.rpt, color: SkillTrendChart.Metric.rpt.color)
+        discomfortTrend = ratingTrend(\.rpd, color: SkillTrendChart.Metric.rpd.color)
+        effortTrend = ratingTrend(\.rpe, color: SkillTrendChart.Metric.rpe.color)
+    }
+
+    /// Per-session average rating, oldest first. Skips sessions with no
+    /// logs — the same guard for every metric, so the three trend arrays
+    /// stay index-aligned with each other.
+    private func ratingTrend(_ rating: KeyPath<SetLog, Int16>, color: Color) -> [MetricTrendChart.Point] {
+        sessions.reversed().compactMap { session in
+            let logs = session.orderedSetLogs
+            guard !logs.isEmpty else { return nil }
+            let avg = Double(logs.reduce(0) { $0 + Int($1[keyPath: rating]) }) / Double(logs.count)
+            return MetricTrendChart.Point(value: avg, barColor: color)
+        }
+    }
+
+    /// Session-over-session delta of a trend array. Single-series — this
+    /// view only ever covers one workout code, so no per-series keying is
+    /// needed (unlike `WorkoutListView`'s multi-code rate-of-change).
+    private func rateOfChange(_ points: [MetricTrendChart.Point]) -> [MetricTrendChart.Point] {
+        guard points.count > 1 else { return [] }
+        return zip(points, points.dropFirst()).map { prev, cur in
+            MetricTrendChart.Point(value: cur.value - prev.value, barColor: cur.barColor)
+        }
+    }
+
+    private func displayTrend(for metric: SkillTrendChart.Metric) -> [MetricTrendChart.Point] {
+        let raw: [MetricTrendChart.Point]
+        switch metric {
+        case .rpt: raw = techniqueTrend
+        case .rpd: raw = discomfortTrend
+        case .rpe: raw = effortTrend
+        }
+        return trendMode == .progress ? raw : rateOfChange(raw)
+    }
+
+    /// All three metrics overlaid, colored the same as `SkillTrendChart`.
+    @ViewBuilder
+    private var overlayTrendChart: some View {
+        let technique = displayTrend(for: .rpt)
+        let discomfort = displayTrend(for: .rpd)
+        let effort = displayTrend(for: .rpe)
+        Chart {
+            ForEach(Array(technique.enumerated()), id: \.offset) { idx, p in
+                LineMark(x: .value("n", idx), y: .value("Technique", p.value))
+                    .interpolationMethod(.catmullRom)
+                    .foregroundStyle(by: .value("Metric", SkillTrendChart.Metric.rpt.rawValue))
+            }
+            ForEach(Array(discomfort.enumerated()), id: \.offset) { idx, p in
+                LineMark(x: .value("n", idx), y: .value("Discomfort", p.value))
+                    .interpolationMethod(.catmullRom)
+                    .foregroundStyle(by: .value("Metric", SkillTrendChart.Metric.rpd.rawValue))
+            }
+            ForEach(Array(effort.enumerated()), id: \.offset) { idx, p in
+                LineMark(x: .value("n", idx), y: .value("Effort", p.value))
+                    .interpolationMethod(.catmullRom)
+                    .foregroundStyle(by: .value("Metric", SkillTrendChart.Metric.rpe.rawValue))
+            }
+        }
+        .chartForegroundStyleScale([
+            SkillTrendChart.Metric.rpt.rawValue: SkillTrendChart.Metric.rpt.color,
+            SkillTrendChart.Metric.rpe.rawValue: SkillTrendChart.Metric.rpe.color,
+            SkillTrendChart.Metric.rpd.rawValue: SkillTrendChart.Metric.rpd.color,
+        ])
+        .chartLegend(position: .bottom)
+        .chartXAxis(.hidden)
+        .padding(.horizontal, 8)
+        .frame(height: 234)
+    }
+
+    private var carouselSkills: [CDAbsSkill] { families.carouselSkills }
+
+    private var seriesColor: Color { WorkoutPalette.color(for: workoutCode) }
+
+    /// Most recently started session — `sessions` is sorted newest first.
+    private var latestSession: Session? { sessions.first }
+
+    private var dynamicRoundCount: Int {
+        latestSession?.orderedSetLogs.filter { !$0.isometric }.count ?? 0
+    }
+
+    private var isometricRoundCount: Int {
+        latestSession?.orderedSetLogs.filter(\.isometric).count ?? 0
+    }
+
+    private var heroCarousel: some View {
+        HeroGif(
+            items: carouselSkills.map {
+                HeroGif.Item(assetNames: $0.posterAssetNames, photos: $0.customPhotos)
+            },
+            borderColor: seriesColor
+        )
     }
 
     @ViewBuilder

@@ -5,6 +5,7 @@
 
 import SwiftUI
 import CoreData
+import SwMediaKit
 
 struct WorkoutListView: View {
     @EnvironmentObject private var services: AppServices
@@ -70,8 +71,7 @@ struct WorkoutListView: View {
     @ViewBuilder
     private func workoutRow(for code: String, snap: WorkoutListSnapshot) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: "circle.fill")
-                .foregroundColor(WorkoutPalette.color(for: code))
+            SeriesThumbnail(code: code)
             Text(WorkoutLabel.display(forCode: code))
                 .font(.headline)
             Spacer()
@@ -109,6 +109,35 @@ struct WorkoutListView: View {
         case "E": return .orange
         default:  return .gray
         }
+    }
+}
+
+/// Small cycling thumbnail for a workout row: flips through the series'
+/// skills the same way `WorkoutDetailView`'s hero carousel does, bordered
+/// in that series' color.
+private struct SeriesThumbnail: View {
+    let code: String
+
+    @FetchRequest private var families: FetchedResults<CDSkillFamily>
+
+    init(code: String) {
+        self.code = code
+        let req = NSFetchRequest<CDSkillFamily>(entityName: "CDSkillFamily")
+        req.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        req.predicate = NSPredicate(format: "series == %@", code)
+        req.relationshipKeyPathsForPrefetching = ["absSkills"]
+        _families = FetchRequest(fetchRequest: req)
+    }
+
+    var body: some View {
+        HeroGif(
+            items: families.carouselSkills.map {
+                HeroGif.Item(assetNames: $0.posterAssetNames, photos: $0.customPhotos)
+            },
+            borderColor: WorkoutPalette.color(for: code),
+            showPauseButton: false
+        )
+        .frame(width: 48, height: 48)
     }
 }
 
