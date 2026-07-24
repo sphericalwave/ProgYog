@@ -14,6 +14,7 @@
 		AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */; };
 		AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000071 /* AudioClipKit */; };
 		AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */; };
+		AF51E7C0DEC0DE0000000080 /* SwMediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000081 /* SwMediaKit */; };
 		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 				AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */,
 				AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */,
 				AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */,
+				AF51E7C0DEC0DE0000000080 /* SwMediaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +173,7 @@
 				AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */,
 				AF51E7C0DEC0DE0000000071 /* AudioClipKit */,
 				AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */,
+				AF51E7C0DEC0DE0000000081 /* SwMediaKit */,
 			);
 			productName = ProgressiveYog;
 			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
@@ -238,6 +241,7 @@
 				AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */,
 				AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */,
 				AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */,
+				AF51E7C0DEC0DE0000000082 /* XCRemoteSwiftPackageReference "SwMediaKit" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -696,6 +700,14 @@
 				branch = main;
 			};
 		};
+		AF51E7C0DEC0DE0000000082 /* XCRemoteSwiftPackageReference "SwMediaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SwMediaKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -733,6 +745,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */;
 			productName = DiagnosticsKit;
+		};
+		AF51E7C0DEC0DE0000000081 /* SwMediaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000082 /* XCRemoteSwiftPackageReference "SwMediaKit" */;
+			productName = SwMediaKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
