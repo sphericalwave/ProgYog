@@ -5,6 +5,8 @@
 
 import Foundation
 import WorkoutAudioKit
+import AudioClipKit
+import DiagnosticsKit
 
 @MainActor
 final class AppServices: ObservableObject {
@@ -46,6 +48,8 @@ final class AppServices: ObservableObject {
         self.theme = SwTheme()
         self.errorLog = log
         self.undo = UndoStack()
+        AudioSessionConfigurator.log = { [weak log] in log?.info("AudioSession", $0) }
+        AudioSessionHealthMonitor.shared.start()
         log.info("App", "Launched")
     }
 }

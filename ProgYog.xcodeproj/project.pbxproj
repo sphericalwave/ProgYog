@@ -12,6 +12,8 @@
 		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
 		AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE000000004B /* SwKeyboard */; };
 		AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */; };
+		AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000071 /* AudioClipKit */; };
+		AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */; };
 		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 				AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */,
 				AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */,
 				AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */,
+				AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */,
+				AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +169,8 @@
 				AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */,
 				AF51E7C0DEC0DE000000004B /* SwKeyboard */,
 				AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */,
+				AF51E7C0DEC0DE0000000071 /* AudioClipKit */,
+				AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */,
 			);
 			productName = ProgressiveYog;
 			productReference = AF0B756725E06FDE00A0FF28 /* ProgYog.app */;
@@ -230,6 +236,8 @@
 				AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */,
 				AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */,
 				AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */,
+				AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */,
+				AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */,
 			);
 			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
 			projectDirPath = "";
@@ -672,6 +680,22 @@
 				branch = main;
 			};
 		};
+		AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/AudioClipKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
+		};
+		AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/DiagnosticsKit.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -699,6 +723,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */;
 			productName = WorkoutSessionKit;
+		};
+		AF51E7C0DEC0DE0000000071 /* AudioClipKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */;
+			productName = AudioClipKit;
+		};
+		AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */;
+			productName = DiagnosticsKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

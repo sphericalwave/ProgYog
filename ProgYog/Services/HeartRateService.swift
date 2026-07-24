@@ -8,6 +8,7 @@
 import Foundation
 import CoreBluetooth
 import Combine
+import DiagnosticsKit
 
 /// User max-heart-rate setting, persisted via `@AppStorage`. The default is
 /// the `220 − age` estimate; a non-zero manual override replaces it.
