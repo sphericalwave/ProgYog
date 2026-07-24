@@ -21,6 +21,9 @@ struct SettingsView: View {
     @AppStorage(CompletionSettings.rpeMaxKey) private var compRpeMax = 0
     @AppStorage(CompletionSettings.rpdMaxKey) private var compRpdMax = 0
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    #if DEBUG
+    @State private var badgePreviewPercent: Double = 50
+    #endif
 
     init() {
         // Placeholder; environmentObject swaps in real instances.
@@ -37,6 +40,23 @@ struct SettingsView: View {
         let coreData = services.coreData
         let log = services.errorLog
         return List {
+            #if DEBUG
+            Section("Badge Preview") {
+                WorkoutStatBadge(
+                    title: "progYog A",
+                    percent: badgePreviewPercent,
+                    dynamicRounds: 4,
+                    isometricRounds: 1
+                )
+                Stepper(
+                    "Percent: \(Int(badgePreviewPercent))%",
+                    value: $badgePreviewPercent,
+                    in: 0...100,
+                    step: 5
+                )
+            }
+            #endif
+
             Section("Storage") {
                 LabeledContent("Last saved", value: coreData.lastSavedAt.map(format) ?? "—")
                 if let err = coreData.lastSaveError {

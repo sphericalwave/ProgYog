@@ -78,3 +78,17 @@ extension CDSkillFamily {
         return set.map { $0.depth }.max() ?? 0
     }
 }
+
+extension Collection where Element == CDSkillFamily {
+    /// Column-major flatten of every family's skills: first skill of every
+    /// family, then each family's second skill, etc. Used to drive a
+    /// carousel that cycles through a set of families' skills evenly.
+    var carouselSkills: [CDAbsSkill] {
+        let perFamily = sorted { $0.order < $1.order }.map(\.orderedAbsSkills)
+        let maxCount = perFamily.map(\.count).max() ?? 0
+        guard maxCount > 0 else { return [] }
+        return (0..<maxCount).flatMap { depth in
+            perFamily.compactMap { depth < $0.count ? $0[depth] : nil }
+        }
+    }
+}
