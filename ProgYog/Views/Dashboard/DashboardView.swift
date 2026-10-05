@@ -26,7 +26,7 @@ struct DashboardView: View {
         .navigationTitle("Dashboard")
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color.accentColor, for: .navigationBar)
+        .toolbarBackground(Color("NavBarColor"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
         #endif
