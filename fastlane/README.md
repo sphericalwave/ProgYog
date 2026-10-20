@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Build and upload a new build to TestFlight
 
+### ios deliver_metadata
+
+```sh
+[bundle exec] fastlane ios deliver_metadata
+```
+
+Push App Store metadata (description/keywords/promo text) and screenshots — no binary, no submit
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

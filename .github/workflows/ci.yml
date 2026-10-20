@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          path: fitness/progYog
+          path: fitness/Groundwerk
+      - name: Check asset image sizes
+        run: python3 fitness/Groundwerk/Scripts/check_asset_sizes.py
       - name: Pick an available iPhone simulator
         run: |
           DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
@@ -19,17 +21,17 @@ jobs:
           echo "Using simulator: $DEVICE"
       - name: Build and run unit tests
         run: >
-          xcodebuild -project fitness/progYog/ProgYog.xcodeproj -scheme ProgYog
+          xcodebuild -project fitness/Groundwerk/Groundwerk.xcodeproj -scheme Groundwerk
           -destination 'platform=iOS Simulator,name=${{ env.SIM_NAME }}'
           -derivedDataPath .build/dd
-          -only-testing:ProgYogTests test
+          -only-testing:GroundwerkTests test
   ui-tests:
     name: ui-tests
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
         with:
-          path: fitness/progYog
+          path: fitness/Groundwerk
       - name: Pick an available iPhone simulator
         run: |
           DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
@@ -37,7 +39,35 @@ jobs:
           echo "Using simulator: $DEVICE"
       - name: Build and run UI tests
         run: >
-          xcodebuild -project fitness/progYog/ProgYog.xcodeproj -scheme ProgYog
+          xcodebuild -project fitness/Groundwerk/Groundwerk.xcodeproj -scheme Groundwerk
           -destination 'platform=iOS Simulator,name=${{ env.SIM_NAME }}'
           -derivedDataPath .build/dd
-          -only-testing:ProgYogUITests test
+          -only-testing:GroundwerkUITests test
+  beta:
+    name: beta (TestFlight)
+    needs: [unit-tests, ui-tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: fitness/Groundwerk
+      - name: Install fastlane
+        working-directory: fitness/Groundwerk
+        run: bundle install
+      - name: Write ASC API key
+        working-directory: fitness/Groundwerk
+        run: echo "$ASC_KEY_P8_BASE64" | base64 --decode > asc_key.p8
+        env:
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+      - name: Build and upload to TestFlight
+        working-directory: fitness/Groundwerk
+        run: bundle exec fastlane beta
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_PATH: asc_key.p8
+      - name: Clean up ASC API key
+        if: always()
+        working-directory: fitness/Groundwerk
+        run: rm -f asc_key.p8

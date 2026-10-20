@@ -1,0 +1,105 @@
+{
+  "originHash" : "c1c6d0e674384e2f16d123b451e354ec5765db5370c140f35af9a3da4a524bb8",
+  "pins" : [
+    {
+      "identity" : "audioclipkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/AudioClipKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "00853ce00d28a9c302feea56973e5aeb55fb3621"
+      }
+    },
+    {
+      "identity" : "diagnosticskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/DiagnosticsKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d6b3939b57db4609d8e02fad5f41735345d4b6f5"
+      }
+    },
+    {
+      "identity" : "equipmentkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/EquipmentKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d89b4bfcca98e74d496cf74c55765ee42185e06e"
+      }
+    },
+    {
+      "identity" : "heartratekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/HeartRateKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "35535f2bc99c53d65e90266e966dcb57873fc6e4"
+      }
+    },
+    {
+      "identity" : "setlogkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/SetLogKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "db5f4741668d03d5ade9532b0847c56493218963"
+      }
+    },
+    {
+      "identity" : "swkeyboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/SwKeyboard.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cffdeff37527331f3a9c927d03c1026b594b43eb"
+      }
+    },
+    {
+      "identity" : "swmediakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/SwMediaKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3ea391f9b41907f92d60321e199fd0531453d3e1"
+      }
+    },
+    {
+      "identity" : "swvisionkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/SwVisionKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2f65819e76aa9ba5f0ad8c5f74977e8455e2b132"
+      }
+    },
+    {
+      "identity" : "workoutaudiokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/WorkoutAudioKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "90065241c657d05e304d35b008267db7745fad1b"
+      }
+    },
+    {
+      "identity" : "workoutsessionkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/WorkoutSessionKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1cbcbba4de0b6835d4496aaeaefa043a4fb19931"
+      }
+    },
+    {
+      "identity" : "workoutsynckit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sphericalwave/WorkoutSyncKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cbd27b24739bc3216fe9d0d673dc6ba7a017fffb"
+      }
+    }
+  ],
+  "version" : 3
+}

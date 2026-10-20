@@ -12,7 +12,7 @@ import json
 import subprocess
 from pathlib import Path
 
-POSES = Path("/Users/darkknight/Documents/apps/fitness/ProgressiveYoga/ProgYog/Assets.xcassets/Poses")
+POSES = Path("/Users/darkknight/Documents/apps/fitness/groundwork/Groundwerk/Assets.xcassets/Poses")
 MAX_SIDE = 1024
 QUALITY = 78  # 0-100; 78 is plenty for these reference photos
 

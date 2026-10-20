@@ -17,7 +17,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-POSES = Path("/Users/darkknight/Documents/apps/fitness/ProgressiveYoga/ProgYog/Assets.xcassets/Poses")
+POSES = Path("/Users/darkknight/Documents/apps/fitness/groundwork/Groundwerk/Assets.xcassets/Poses")
 THRESHOLD = 4  # appears in this many or more imagesets → branding
 
 

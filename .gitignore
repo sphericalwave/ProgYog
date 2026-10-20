@@ -1,5 +1,6 @@
 manuals/
 xcuserdata/
+screenshots/
 
 # fastlane
 build/
@@ -9,3 +10,6 @@ fastlane/screenshots/
 fastlane/test_output/
 *.p8
 .env
+
+# SwiftPM build output
+.build/
