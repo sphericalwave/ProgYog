@@ -1,4 +1,4 @@
-# Video Chapter Names — ProgYog Workouts A–E
+# Video Chapter Names — groundWerk Workouts A–E
 #
 # Use this as the template when adding chapter timestamps to each
 # YouTube video description. Paste the block for that workout, fill

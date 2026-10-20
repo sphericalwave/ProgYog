@@ -5,8 +5,12 @@ groundWerk helps you work through a structured catalog of poses and skills, log 
 watch your form with a live on-device skeleton overlay, and track progress over time — with
 your history synced across devices via iCloud.
 
-> The Xcode target, scheme, and bundle identifier remain `ProgYog` / `SWS.ProgYog` for
-> continuity; **groundWerk** is the user-facing display name.
+> The Xcode target and scheme are `Groundwerk`; the bundle identifier remains `SWS.ProgYog`
+> (and CloudKit container `iCloud.SWS.ProgYog`) for continuity. **groundWerk** is the
+> user-facing display name.
+
+App Store listing copy (promotional text, description, keywords) lives in
+[`appStore.md`](appStore.md).
 
 ## Features
 
@@ -44,8 +48,8 @@ your history synced across devices via iCloud.
 ## Project structure
 
 ```
-ProgYog/
-├── ProgYogApp.swift        App entry point; builds AppServices
+Groundwerk/
+├── GroundwerkApp.swift     App entry point; builds AppServices
 ├── Models/                 Domain models (e.g. TEDDescription)
 ├── Data/
 │   ├── CoreData/           NSManagedObject subclasses + .xcdatamodeld
@@ -75,10 +79,10 @@ the Core Data stack and the feature services; SwiftUI views receive it via the e
 
 ## Building & running
 
-Open `ProgYog.xcodeproj` in Xcode, select the `ProgYog` scheme, and run on a device or
+Open `Groundwerk.xcodeproj` in Xcode, select the `Groundwerk` scheme, and run on a device or
 simulator. Swift package dependencies resolve automatically from GitHub.
 
-Tests run via the `ProgYog` scheme (`ProgYogTests` unit tests, `ProgYogUITests` UI tests).
+Tests run via the `Groundwerk` scheme (`GroundwerkTests` unit tests, `GroundwerkUITests` UI tests).
 UI tests launch with `-UI-TESTING`, which routes the app to an **in-memory** store so tests
 never touch real logged workouts.
 

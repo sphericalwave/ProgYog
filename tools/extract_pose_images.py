@@ -13,7 +13,7 @@ Each pose page contains a strip like:
 That gives us series + family + depth without depending on fuzzy
 matching against the JSON catalog.
 
-Output: ProgYog/Assets.xcassets/Poses/<series>-<famOrder>-<depth>-<idx>.imageset/
+Output: Groundwerk/Assets.xcassets/Poses/<series>-<famOrder>-<depth>-<idx>.imageset/
 """
 
 from __future__ import annotations
@@ -30,9 +30,9 @@ import fitz  # PyMuPDF
 
 ROOT = Path("/Users/darkknight/Documents/apps/fitness/ProgressiveYoga")
 MANUAL_DIR = ROOT / "manuals"
-SKILL_JSON = ROOT / "ProgYog/Data/Json/ProgYogData.json"
-FAM_JSON   = ROOT / "ProgYog/Data/Json/SkillFam.json"
-ASSETS_OUT = ROOT / "ProgYog/Assets.xcassets/Poses"
+SKILL_JSON = ROOT / "Groundwerk/Data/Json/GroundwerkData.json"
+FAM_JSON   = ROOT / "Groundwerk/Data/Json/SkillFam.json"
+ASSETS_OUT = ROOT / "Groundwerk/Assets.xcassets/Poses"
 
 MIN_AREA = 350 * 350
 

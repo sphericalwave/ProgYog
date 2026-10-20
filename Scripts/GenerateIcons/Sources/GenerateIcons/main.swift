@@ -7,10 +7,10 @@ let brandHex    = "193BE8"   // royal blue (light mode icon bg + launch bg)
 let darkHex     = "7B9EF5"   // lighter blue (dark mode accent)
 let brandColor  = NSColor(srgbRed: 0x19/255, green: 0x3B/255, blue: 0xE8/255, alpha: 1)
 
-// MARK: - Paths (run from project root: progYog/)
+// MARK: - Paths (run from project root: Groundwerk/)
 
 let cwd     = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-let assets  = cwd.appendingPathComponent("ProgYog/Assets.xcassets")
+let assets  = cwd.appendingPathComponent("Groundwerk/Assets.xcassets")
 let iconDir = assets.appendingPathComponent("AppIcon.appiconset")
 let logoDir = assets.appendingPathComponent("LaunchLogo.imageset")
 let accentDir  = assets.appendingPathComponent("AccentColor.colorset")
@@ -65,11 +65,11 @@ write(render(size: 1024, background: brandColor, glyphDrawer: yogaGlyph()),
       to: iconDir, name: "icon-1024.png")
 
 // LaunchLogo @1x/2x/3x (transparent bg)
-write(renderLaunchLogo(circleSize: 170, appName: "ProgYog", glyphDrawer: yogaGlyph()),
+write(renderLaunchLogo(circleSize: 170, appName: "groundWerk", glyphDrawer: yogaGlyph()),
       to: logoDir, name: "LaunchLogo.png")
-write(renderLaunchLogo(circleSize: 340, appName: "ProgYog", glyphDrawer: yogaGlyph()),
+write(renderLaunchLogo(circleSize: 340, appName: "groundWerk", glyphDrawer: yogaGlyph()),
       to: logoDir, name: "LaunchLogo@2x.png")
-write(renderLaunchLogo(circleSize: 512, appName: "ProgYog", glyphDrawer: yogaGlyph()),
+write(renderLaunchLogo(circleSize: 512, appName: "groundWerk", glyphDrawer: yogaGlyph()),
       to: logoDir, name: "LaunchLogo@3x.png")
 
 writeJSON(appIconContentsJSON,                        to: iconDir)

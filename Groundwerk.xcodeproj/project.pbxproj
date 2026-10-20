@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000042 /* SetLogKit */; };
+		AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */; };
+		AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */; };
+		AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE000000004B /* SwKeyboard */; };
+		AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */; };
+		AF51E7C0DEC0DE0000000054 /* HeartRateKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000055 /* HeartRateKit */; };
+		AF51E7C0DEC0DE0000000060 /* SwMediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000061 /* SwMediaKit */; };
+		AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000071 /* AudioClipKit */; };
+		AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */; };
+		AF51E7C0DEC0DE0000000076 /* SwVisionKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF51E7C0DEC0DE0000000077 /* SwVisionKit */; };
+		AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF2055E2FCB309A00430D49 /* HealthKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		46337B3247ACBE302C18B607 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF0B755F25E06FDE00A0FF28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF0B756625E06FDE00A0FF28;
+			remoteInfo = Groundwerk;
+		};
+		AF3BEA5D2FBA0E470076FF55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF0B755F25E06FDE00A0FF28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF0B756625E06FDE00A0FF28;
+			remoteInfo = Groundwerk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A297A23B34D125E69D506CA4 /* GroundwerkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroundwerkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0B756725E06FDE00A0FF28 /* Groundwerk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Groundwerk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF3BEA592FBA0E470076FF55 /* GroundwerkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroundwerkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFA7D98D2FE16BEF007A877F /* Groundwerk.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Groundwerk.xctestplan; sourceTree = "<group>"; };
+		AFF2055E2FCB309A00430D49 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AFED3EDA3004311B00B8FAD1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AF0B756625E06FDE00A0FF28 /* Groundwerk */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8FC36C6FBE2645FA2C0F924F /* GroundwerkUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GroundwerkUITests; sourceTree = "<group>"; };
+		AF3BEA5A2FBA0E470076FF55 /* GroundwerkTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GroundwerkTests; sourceTree = "<group>"; };
+		AFED3E7C3004311B00B8FAD1 /* Groundwerk */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (AFED3EDA3004311B00B8FAD1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Groundwerk; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AF0B756425E06FDE00A0FF28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFF2055F2FCB309A00430D49 /* HealthKit.framework in Frameworks */,
+				AF51E7C0DEC0DE0000000041 /* SetLogKit in Frameworks */,
+				AF51E7C0DEC0DE0000000043 /* WorkoutAudioKit in Frameworks */,
+				AF51E7C0DEC0DE0000000047 /* WorkoutSyncKit in Frameworks */,
+				AF51E7C0DEC0DE000000004A /* SwKeyboard in Frameworks */,
+				AF51E7C0DEC0DE0000000051 /* WorkoutSessionKit in Frameworks */,
+				AF51E7C0DEC0DE0000000054 /* HeartRateKit in Frameworks */,
+				AF51E7C0DEC0DE0000000060 /* SwMediaKit in Frameworks */,
+				AF51E7C0DEC0DE0000000070 /* AudioClipKit in Frameworks */,
+				AF51E7C0DEC0DE0000000073 /* DiagnosticsKit in Frameworks */,
+				AF51E7C0DEC0DE0000000076 /* SwVisionKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF3BEA562FBA0E470076FF55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4635D156523EB59D94B63B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AF0B755E25E06FDE00A0FF28 = {
+			isa = PBXGroup;
+			children = (
+				AFA7D98D2FE16BEF007A877F /* Groundwerk.xctestplan */,
+				AFED3E7C3004311B00B8FAD1 /* Groundwerk */,
+				AF3BEA5A2FBA0E470076FF55 /* GroundwerkTests */,
+				8FC36C6FBE2645FA2C0F924F /* GroundwerkUITests */,
+				AFF2055D2FCB309900430D49 /* Frameworks */,
+				AF0B756825E06FDE00A0FF28 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF0B756825E06FDE00A0FF28 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AF0B756725E06FDE00A0FF28 /* Groundwerk.app */,
+				AF3BEA592FBA0E470076FF55 /* GroundwerkTests.xctest */,
+				A297A23B34D125E69D506CA4 /* GroundwerkUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AFF2055D2FCB309900430D49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFF2055E2FCB309A00430D49 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D7F356A2C6A54E0278904FE /* GroundwerkUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5D3EA9E77DFC46191E887F8 /* Build configuration list for PBXNativeTarget "GroundwerkUITests" */;
+			buildPhases = (
+				9A2C3A0DCF58190A72D26D32 /* Sources */,
+				B4635D156523EB59D94B63B5 /* Frameworks */,
+				C6938AA4F4A3D976E3088592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E25395543DAA8BFE1EFF099 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8FC36C6FBE2645FA2C0F924F /* GroundwerkUITests */,
+			);
+			name = GroundwerkUITests;
+			packageProductDependencies = (
+			);
+			productName = GroundwerkUITests;
+			productReference = A297A23B34D125E69D506CA4 /* GroundwerkUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		AF0B756625E06FDE00A0FF28 /* Groundwerk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "Groundwerk" */;
+			buildPhases = (
+				AF0B756325E06FDE00A0FF28 /* Sources */,
+				AF0B756425E06FDE00A0FF28 /* Frameworks */,
+				AF0B756525E06FDE00A0FF28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AFED3E7C3004311B00B8FAD1 /* Groundwerk */,
+			);
+			name = Groundwerk;
+			packageProductDependencies = (
+				AF51E7C0DEC0DE0000000042 /* SetLogKit */,
+				AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */,
+				AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */,
+				AF51E7C0DEC0DE000000004B /* SwKeyboard */,
+				AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */,
+				AF51E7C0DEC0DE0000000055 /* HeartRateKit */,
+				AF51E7C0DEC0DE0000000061 /* SwMediaKit */,
+				AF51E7C0DEC0DE0000000071 /* AudioClipKit */,
+				AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */,
+				AF51E7C0DEC0DE0000000077 /* SwVisionKit */,
+			);
+			productName = ProgressiveYog;
+			productReference = AF0B756725E06FDE00A0FF28 /* Groundwerk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AF3BEA582FBA0E470076FF55 /* GroundwerkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF3BEA612FBA0E470076FF55 /* Build configuration list for PBXNativeTarget "GroundwerkTests" */;
+			buildPhases = (
+				AF3BEA552FBA0E470076FF55 /* Sources */,
+				AF3BEA562FBA0E470076FF55 /* Frameworks */,
+				AF3BEA572FBA0E470076FF55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF3BEA5E2FBA0E470076FF55 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AF3BEA5A2FBA0E470076FF55 /* GroundwerkTests */,
+			);
+			name = GroundwerkTests;
+			packageProductDependencies = (
+			);
+			productName = GroundwerkTests;
+			productReference = AF3BEA592FBA0E470076FF55 /* GroundwerkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF0B755F25E06FDE00A0FF28 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					5D7F356A2C6A54E0278904FE = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = AF0B756625E06FDE00A0FF28;
+					};
+					AF0B756625E06FDE00A0FF28 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					AF3BEA582FBA0E470076FF55 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = AF0B756625E06FDE00A0FF28;
+					};
+				};
+			};
+			buildConfigurationList = AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "Groundwerk" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AF0B755E25E06FDE00A0FF28;
+			packageReferences = (
+				AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */,
+				AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */,
+				AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */,
+				AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */,
+				AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */,
+				AF51E7C0DEC0DE0000000056 /* XCRemoteSwiftPackageReference "HeartRateKit" */,
+				AF51E7C0DEC0DE0000000062 /* XCRemoteSwiftPackageReference "SwMediaKit" */,
+				AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */,
+				AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */,
+				AF51E7C0DEC0DE0000000078 /* XCRemoteSwiftPackageReference "SwVisionKit" */,
+			);
+			productRefGroup = AF0B756825E06FDE00A0FF28 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AF0B756625E06FDE00A0FF28 /* Groundwerk */,
+				AF3BEA582FBA0E470076FF55 /* GroundwerkTests */,
+				5D7F356A2C6A54E0278904FE /* GroundwerkUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AF0B756525E06FDE00A0FF28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF3BEA572FBA0E470076FF55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6938AA4F4A3D976E3088592 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A2C3A0DCF58190A72D26D32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF0B756325E06FDE00A0FF28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF3BEA552FBA0E470076FF55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E25395543DAA8BFE1EFF099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF0B756625E06FDE00A0FF28 /* Groundwerk */;
+			targetProxy = 46337B3247ACBE302C18B607 /* PBXContainerItemProxy */;
+		};
+		AF3BEA5E2FBA0E470076FF55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF0B756625E06FDE00A0FF28 /* Groundwerk */;
+			targetProxy = AF3BEA5D2FBA0E470076FF55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		488673743D8E5C3E916A6E56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Groundwerk;
+			};
+			name = Release;
+		};
+		777367BD5A0362B3C9B66734 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Groundwerk;
+			};
+			name = Debug;
+		};
+		AF0B758F25E06FE300A0FF28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = auto;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AF0B759025E06FE300A0FF28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = auto;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AF0B759225E06FE300A0FF28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Groundwerk/Groundwerk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Groundwerk/Preview Content\"";
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Groundwerk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SWS.ProgYog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		AF0B759325E06FE300A0FF28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Groundwerk/Groundwerk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Groundwerk/Preview Content\"";
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Groundwerk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SWS.ProgYog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		AF3BEA5F2FBA0E470076FF55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Groundwerk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Groundwerk";
+			};
+			name = Debug;
+		};
+		AF3BEA602FBA0E470076FF55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TPR24Z5M9G;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sphericalwave.ProgYogTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Groundwerk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Groundwerk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF0B756225E06FDE00A0FF28 /* Build configuration list for PBXProject "Groundwerk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF0B758F25E06FE300A0FF28 /* Debug */,
+				AF0B759025E06FE300A0FF28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF0B759125E06FE300A0FF28 /* Build configuration list for PBXNativeTarget "Groundwerk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF0B759225E06FE300A0FF28 /* Debug */,
+				AF0B759325E06FE300A0FF28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF3BEA612FBA0E470076FF55 /* Build configuration list for PBXNativeTarget "GroundwerkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF3BEA5F2FBA0E470076FF55 /* Debug */,
+				AF3BEA602FBA0E470076FF55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5D3EA9E77DFC46191E887F8 /* Build configuration list for PBXNativeTarget "GroundwerkUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				777367BD5A0362B3C9B66734 /* Debug */,
+				488673743D8E5C3E916A6E56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SetLogKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutAudioKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutSyncKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SwKeyboard.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/WorkoutSessionKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000056 /* XCRemoteSwiftPackageReference "HeartRateKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/HeartRateKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000062 /* XCRemoteSwiftPackageReference "SwMediaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SwMediaKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/AudioClipKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/DiagnosticsKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AF51E7C0DEC0DE0000000078 /* XCRemoteSwiftPackageReference "SwVisionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sphericalwave/SwVisionKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF51E7C0DEC0DE0000000042 /* SetLogKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000045 /* XCRemoteSwiftPackageReference "SetLogKit" */;
+			productName = SetLogKit;
+		};
+		AF51E7C0DEC0DE0000000044 /* WorkoutAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000046 /* XCRemoteSwiftPackageReference "WorkoutAudioKit" */;
+			productName = WorkoutAudioKit;
+		};
+		AF51E7C0DEC0DE0000000048 /* WorkoutSyncKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000049 /* XCRemoteSwiftPackageReference "WorkoutSyncKit" */;
+			productName = WorkoutSyncKit;
+		};
+		AF51E7C0DEC0DE000000004B /* SwKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE000000004C /* XCRemoteSwiftPackageReference "SwKeyboard" */;
+			productName = SwKeyboard;
+		};
+		AF51E7C0DEC0DE0000000052 /* WorkoutSessionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000053 /* XCRemoteSwiftPackageReference "WorkoutSessionKit" */;
+			productName = WorkoutSessionKit;
+		};
+		AF51E7C0DEC0DE0000000055 /* HeartRateKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000056 /* XCRemoteSwiftPackageReference "HeartRateKit" */;
+			productName = HeartRateKit;
+		};
+		AF51E7C0DEC0DE0000000061 /* SwMediaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000062 /* XCRemoteSwiftPackageReference "SwMediaKit" */;
+			productName = SwMediaKit;
+		};
+		AF51E7C0DEC0DE0000000071 /* AudioClipKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000072 /* XCRemoteSwiftPackageReference "AudioClipKit" */;
+			productName = AudioClipKit;
+		};
+		AF51E7C0DEC0DE0000000074 /* DiagnosticsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000075 /* XCRemoteSwiftPackageReference "DiagnosticsKit" */;
+			productName = DiagnosticsKit;
+		};
+		AF51E7C0DEC0DE0000000077 /* SwVisionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF51E7C0DEC0DE0000000078 /* XCRemoteSwiftPackageReference "SwVisionKit" */;
+			productName = SwVisionKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AF0B755F25E06FDE00A0FF28 /* Project object */;
+}
