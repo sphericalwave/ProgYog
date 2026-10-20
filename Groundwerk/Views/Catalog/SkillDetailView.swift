@@ -5,7 +5,6 @@
 
 import SwiftUI
 import CoreData
-import PhotosUI
 import SwMediaKit
 
 struct SkillDetailView: View {
@@ -16,7 +15,6 @@ struct SkillDetailView: View {
     @State private var editingInstructions = false
     @State private var editingName = false
     @State private var nameDraft = ""
-    @State private var selectedItems: [PhotosPickerItem] = []
 
     init(skill: CDAbsSkill) {
         self.skill = skill
@@ -37,7 +35,7 @@ struct SkillDetailView: View {
                     SkillPoster(skill: skill)
                         .listRowInsets(EdgeInsets())
                 } else {
-                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
+                    MediaSourceButton(selectionLimit: 0, onImage: addPhoto) {
                         VStack(spacing: 8) {
                             Image(systemName: "photo.badge.plus")
                                 .font(.largeTitle)
@@ -55,7 +53,7 @@ struct SkillDetailView: View {
 
             if hasAnyImage && skill.hideBundleImages {
                 Section {
-                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
+                    MediaSourceButton(selectionLimit: 0, onImage: addPhoto) {
                         Label("Add / Replace Photos", systemImage: "photo.on.rectangle.angled")
                     }
                     let photos = skill.customPhotos
@@ -195,24 +193,12 @@ struct SkillDetailView: View {
                 try? moc.save()
             }
         }
-        .onChange(of: selectedItems) { _, items in
-            Task {
-                var loaded: [Data] = []
-                for item in items {
-                    if let data = try? await item.loadTransferable(type: Data.self) {
-                        loaded.append(data)
-                    }
-                }
-                if !loaded.isEmpty {
-                    let compressed = await Task.detached(priority: .userInitiated) {
-                        loaded.map { PlatformImage.reencodedForStorage(data: $0) }
-                    }.value
-                    skill.customPhotos = skill.customPhotos + compressed
-                    try? moc.save()
-                    selectedItems = []
-                }
-            }
-        }
+    }
+
+    /// Arrives already downsized for storage (MediaSourceButton re-encodes).
+    private func addPhoto(_ data: Data) {
+        skill.customPhotos = skill.customPhotos + [data]
+        try? moc.save()
     }
 }
 

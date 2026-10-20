@@ -5,7 +5,6 @@
 
 import SwiftUI
 import SwKeyboard
-import PhotosUI
 import SwMediaKit
 
 struct AddVariantSheet: View {
@@ -16,7 +15,6 @@ struct AddVariantSheet: View {
 
     @State private var name = ""
     @State private var instructions = ""
-    @State private var selectedItems: [PhotosPickerItem] = []
     @State private var photos: [Data] = []
     @State private var insertion: Insertion = .atEnd
     @State private var tracksWeight = false
@@ -83,8 +81,9 @@ struct AddVariantSheet: View {
                 }
 
                 Section("Photos") {
-                    PhotosPicker(selection: $selectedItems, maxSelectionCount: 0, matching: .images) {
-                        Label(photos.isEmpty ? "Choose Photos" : "Change Photos (\(photos.count))",
+                    // 0 = no limit; each pick is appended, the x on a thumbnail removes it.
+                    MediaSourceButton(selectionLimit: 0, onImage: { photos.append($0) }) {
+                        Label(photos.isEmpty ? "Add Photos" : "Add Photos (\(photos.count))",
                               systemImage: "photo.on.rectangle.angled")
                     }
                     if !photos.isEmpty {
@@ -140,19 +139,6 @@ struct AddVariantSheet: View {
                     }
                     .bold()
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
-            }
-            .onChange(of: selectedItems) { _, items in
-                Task {
-                    var loaded: [Data] = []
-                    for item in items {
-                        if let data = try? await item.loadTransferable(type: Data.self) {
-                            loaded.append(data)
-                        }
-                    }
-                    photos = await Task.detached(priority: .userInitiated) {
-                        loaded.map { PlatformImage.reencodedForStorage(data: $0) }
-                    }.value
                 }
             }
             .onAppear {
