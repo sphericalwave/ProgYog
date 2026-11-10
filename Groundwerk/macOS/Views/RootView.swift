@@ -64,6 +64,7 @@ struct RootView: View {
                 NavigationStack { SettingsView() }
             }
         }
+        .environment(\.managedObjectContext, services.coreData.moc)
         .overlay(alignment: .top) {
             UndoToast()
                 .environmentObject(services)
