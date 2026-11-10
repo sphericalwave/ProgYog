@@ -71,22 +71,16 @@ struct SessionHistoryView: View {
 }
 
 private struct SessionRow: View {
+    // Logs come from the relationship, not a per-row @FetchRequest: on Mac
+    // a `session == %@` fetch threw NSInvalidArgumentException during
+    // List layout while CloudKit was importing (crash 2026-11-10).
     @ObservedObject var session: Session
-
-    @FetchRequest private var logs: FetchedResults<SetLog>
-
-    init(session: Session) {
-        self.session = session
-        _logs = FetchRequest<SetLog>(
-            sortDescriptors: [NSSortDescriptor(key: "roundIndex", ascending: true)],
-            predicate: NSPredicate(format: "session == %@", session)
-        )
-    }
 
     var body: some View {
         if session.isDeleted || session.managedObjectContext == nil {
             EmptyView()
         } else {
+            let logs = (session.setLogs as? Set<SetLog>) ?? []
             let setCount = logs.count
             let roundCount = Set(logs.map { $0.roundIndex }).count
             VStack(alignment: .leading, spacing: 4) {
