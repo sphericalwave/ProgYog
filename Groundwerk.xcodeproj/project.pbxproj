@@ -51,6 +51,131 @@
 			membershipExceptions = (
 				Info.plist,
 			);
+			platformFiltersByRelativePath = {
+				"iOS/GroundwerkApp.swift" = (
+					ios,
+				);
+				"iOS/Views/Catalog/AbsSkillListView.swift" = (
+					ios,
+				);
+				"iOS/Views/Catalog/SkillDetailView.swift" = (
+					ios,
+				);
+				"iOS/Views/Catalog/SkillFamilyListView.swift" = (
+					ios,
+				);
+				"iOS/Views/Dashboard/DashboardView.swift" = (
+					ios,
+				);
+				"iOS/Views/History/SessionHistoryView.swift" = (
+					ios,
+				);
+				"iOS/Views/Onboarding/OnboardingView.swift" = (
+					ios,
+				);
+				"iOS/Views/Pose/PostureCameraView.swift" = (
+					ios,
+				);
+				"iOS/Views/Root/RootView.swift" = (
+					ios,
+				);
+				"iOS/Views/Root/ShakeListener.swift" = (
+					ios,
+				);
+				"iOS/Views/Settings/SettingsView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/AddVariantSheet.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/ScheduleNextWorkoutSheet.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/SessionInfoDetailView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/SetLogSheet.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/SkillFamilyDetailView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/SkillPickerSheet.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/WorkoutDetailView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/WorkoutFamilyDetailView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/WorkoutListView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/WorkoutSessionView.swift" = (
+					ios,
+				);
+				"iOS/Views/Workouts/WorkoutSummaryView.swift" = (
+					ios,
+				);
+				"macOS/GroundwerkApp.swift" = (
+					macos,
+				);
+				"macOS/Views/Catalog/AbsSkillListView.swift" = (
+					macos,
+				);
+				"macOS/Views/Catalog/SkillDetailView.swift" = (
+					macos,
+				);
+				"macOS/Views/Catalog/SkillFamilyListView.swift" = (
+					macos,
+				);
+				"macOS/Views/Dashboard/DashboardView.swift" = (
+					macos,
+				);
+				"macOS/Views/History/SessionHistoryView.swift" = (
+					macos,
+				);
+				"macOS/Views/RootView.swift" = (
+					macos,
+				);
+				"macOS/Views/Settings/SettingsView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/AddVariantSheet.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/ScheduleNextWorkoutSheet.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/SessionInfoDetailView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/SetLogSheet.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/SkillFamilyDetailView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/SkillPickerSheet.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/WorkoutDetailView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/WorkoutFamilyDetailView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/WorkoutListView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/WorkoutSessionView.swift" = (
+					macos,
+				);
+				"macOS/Views/Workouts/WorkoutSummaryView.swift" = (
+					macos,
+				);
+			};
 			target = AF0B756625E06FDE00A0FF28 /* Groundwerk */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -506,6 +631,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Groundwerk/Groundwerk.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Groundwerk/Groundwerk-macOS.entitlements";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = LaunchScreen.storyboard;
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Groundwerk/Preview Content\"";
@@ -537,6 +664,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Groundwerk/Groundwerk.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Groundwerk/Groundwerk-macOS.entitlements";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = LaunchScreen.storyboard;
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Groundwerk/Preview Content\"";
